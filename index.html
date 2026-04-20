@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nova 財經資訊站</title>
+<style>
+.nova-timestamp{position:fixed;top:12px;right:16px;background:#1a73e8;color:white;padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600;z-index:9999;box-shadow:0 2px 8px rgba(0,0,0,.2);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;}
+
+
+
+
+
+
+
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: "Microsoft JhengHei", "PingFang TC", Arial, sans-serif;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  min-height: 100vh;
+  color: #ffffff;
+  padding: 20px;
+}
+.container { max-width: 900px; margin: 0 auto; }
+.header {
+  text-align: center;
+  padding: 40px 20px;
+  margin-bottom: 20px;
+}
+.header h1 {
+  font-size: 2.5em;
+  font-weight: bold;
+  color: #e94560;
+  text-shadow: 0 0 20px rgba(233,69,96,0.5);
+  margin-bottom: 8px;
+}
+.header p { color: #a0a0a0; font-size: 1.1em; }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  padding: 0 10px;
+}
+.card {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 16px;
+  padding: 28px;
+  text-decoration: none;
+  color: #ffffff;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #e94560, #0f3460);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(233,69,96,0.4);
+  box-shadow: 0 10px 40px rgba(233,69,96,0.2);
+}
+.card:hover::before { opacity: 1; }
+.card-icon { font-size: 3em; margin-bottom: 16px; display: block; }
+.card-title { font-size: 1.4em; font-weight: bold; margin-bottom: 8px; color: #ffffff; }
+.card-desc { font-size: 0.9em; color: #a0a0a0; line-height: 1.5; }
+.card-meta { margin-top: 14px; font-size: 0.8em; color: #666; }
+.footer {
+  text-align: center;
+  padding: 40px 20px;
+  color: #555;
+  font-size: 0.85em;
+}
+@media (max-width: 600px) {
+  .header h1 { font-size: 1.8em; }
+  .card { padding: 20px; }
+  .card-icon { font-size: 2.5em; }
+}
+</style>
+</head>
+<body>
+<div class="nova-timestamp">📅 Updated: Apr 20, 2026 10:32 AM</div>
+
+<div class="container">
+  <div class="header">
+    <h1>📊 Nova 財經資訊站</h1>
+    <p>即時新聞 · 技術分析 · 晨報總覽</p>
+  </div>
+
+  <div class="grid">
+    <a href="lastnews.html" class="card">
+      <span class="card-icon">📰</span>
+      <div class="card-title">新聞儀表板</div>
+      <div class="card-desc">最新財經新聞總覽，即時更新</div>
+      <div class="card-meta">來源：Google · Yahoo · MoneyDJ · cnyes</div>
+    </a>
+
+    <a href="news_heatmap_interactive.html" class="card">
+      <span class="card-icon">🗺️</span>
+      <div class="card-title">公司提及熱度圖</div>
+      <div class="card-desc">紫色系 Treemap，視覺化呈現今日新聞中被提及次數最多的公司</div>
+      <div class="card-meta">互動式 HTML · 點擊查看明細</div>
+    </a>
+
+    <a href="20260419美股.html" class="card">
+      <span class="card-icon">🇺🇸</span>
+      <div class="card-title">美股晨報</div>
+      <div class="card-desc">三大指數、費城半導體、VIX，原物料、匯率</div>
+      <div class="card-meta">每日 06:00 更新</div>
+    </a>
+
+    <a href="20260420亞股.html" class="card">
+      <span class="card-icon">🌏</span>
+      <div class="card-title">亞股晨報</div>
+      <div class="card-desc">日經 · 韓國 · 香港 · 上海 · 深圳 · 新加坡</div>
+      <div class="card-meta">每日 08:03 更新</div>
+    </a>
+  </div>
+
+  <div class="footer">
+    Nova AI 助理 · 自動更新 · 2026-04-20
+  </div>
+</div>
+</body>
+</html>

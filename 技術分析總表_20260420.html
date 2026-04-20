@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>技術分析總表 2026/04/20</title>
+<style>
+.nova-timestamp{position:fixed;top:12px;right:16px;background:#1a73e8;color:white;padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600;z-index:9999;box-shadow:0 2px 8px rgba(0,0,0,.2);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;}
+
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap');
+
+  :root {
+    --bg: #eef3fa;
+    --surface: #ffffff;
+    --surface2: #ddeaf8;
+    --border: #b8d0ed;
+    --header-bg: #0d47a1;
+    --header-text: #ffffff;
+    --accent: #1565c0;
+    --accent2: #0d47a1;
+    --accent-light: #1976d2;
+    --grp-bg: #e8f0fe;
+    --grp-text: #1a3a8f;
+    --grp-hold-bg: #fff3e0;
+    --grp-hold-text: #b45309;
+    --up: #c62828;
+    --dn: #1a7a52;
+    --neutral: #4a6a8a;
+    --warn: #b45309;
+    --bull: #1a7a52;
+    --bear: #c62828;
+    --text: #0a1628;
+    --text-dim: #1e3a5f;
+    --text-muted: #4a6a8a;
+    --shadow: 0 2px 12px rgba(21,101,192,0.10);
+    --shadow-lg: 0 6px 28px rgba(21,101,192,0.16);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Noto Sans TC', Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    padding: clamp(12px, 3vw, 28px);
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  .page-header {
+    background: linear-gradient(135deg, #0d47a1 0%, #1565c0 55%, #1976d2 100%);
+    border-radius: 16px;
+    padding: clamp(16px,3vw,28px) clamp(18px,4vw,32px);
+    margin-bottom: 18px;
+    box-shadow: var(--shadow-lg);
+    position: relative;
+    overflow: hidden;
+  }
+  .page-header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 20% 50%, rgba(255,255,255,0.10) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .page-header h2 {
+    font-size: clamp(16px, 3.5vw, 24px);
+    font-weight: 900;
+    color: #fff;
+    margin-bottom: 6px;
+    position: relative;
+  }
+  .page-header p {
+    font-size: clamp(11px, 1.8vw, 13px);
+    color: rgba(255,255,255,0.80);
+    position: relative;
+  }
+  .header-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+    position: relative;
+  }
+  .badge {
+    background: rgba(255,255,255,0.18);
+    border: 1px solid rgba(255,255,255,0.35);
+    color: #fff;
+    font-size: 11px;
+    padding: 3px 11px;
+    border-radius: 20px;
+    font-weight: 600;
+    letter-spacing: 0.4px;
+  }
+
+  /* ── SORT HINT ── */
+  .sort-hint {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 8px;
+    padding: 7px 12px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    flex-wrap: wrap;
+  }
+  .sort-hint .hint-icon { font-size: 14px; }
+
+  /* ── SCROLL HINT (mobile) ── */
+  .scroll-hint {
+    display: none;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 8px;
+    padding: 7px 12px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+  }
+  @media(max-width: 768px) { .scroll-hint { display: flex; } }
+
+  /* ── TABLE WRAPPER ── */
+  .table-wrap {
+    background: var(--surface);
+    border-radius: 16px;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .scroll-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent) var(--surface2);
+  }
+  .scroll-wrap::-webkit-scrollbar { height: 6px; }
+  .scroll-wrap::-webkit-scrollbar-track { background: var(--surface2); }
+  .scroll-wrap::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+
+  /* ── TABLE ── */
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    min-width: 1100px;
+  }
+
+  /* Header row */
+  thead tr th {
+    background: var(--header-bg);
+    color: var(--header-text);
+    font-size: clamp(11px, 1.5vw, 13px);
+    font-weight: 700;
+    padding: clamp(10px,1.5vw,14px) clamp(8px,1.2vw,12px);
+    text-align: center;
+    border-bottom: 2px solid rgba(255,255,255,0.15);
+    border-right: 1px solid rgba(255,255,255,0.10);
+    white-space: nowrap;
+    letter-spacing: 0.3px;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    user-select: none;
+  }
+  thead tr th.sortable {
+    cursor: pointer;
+    transition: background 0.18s;
+  }
+  thead tr th.sortable:hover {
+    background: #1a5fcc;
+  }
+  thead tr th.sort-asc,
+  thead tr th.sort-desc {
+    background: #0a3a8f;
+  }
+  .sort-icon {
+    display: inline-block;
+    margin-left: 5px;
+    font-size: 10px;
+    opacity: 0.55;
+    vertical-align: middle;
+    transition: opacity 0.15s;
+  }
+  th.sortable:hover .sort-icon { opacity: 0.9; }
+  th.sort-asc .sort-icon,
+  th.sort-desc .sort-icon { opacity: 1; color: #64b5f6; }
+
+  thead tr th:last-child { border-right: none; }
+
+  /* Body cells */
+  tbody td {
+    border-bottom: 1px solid var(--border);
+    border-right: 1px solid #e2ecf8;
+    padding: clamp(9px,1.4vw,13px) clamp(7px,1.1vw,11px);
+    text-align: center;
+    font-size: clamp(13px, 1.8vw, 15px);
+    color: var(--text-dim);
+    vertical-align: middle;
+    transition: background 0.15s;
+  }
+  tbody td:last-child { border-right: none; }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:hover td { background: #f0f6ff; }
+
+  /* Sticky first two columns */
+  tbody td:nth-child(1),
+  tbody td:nth-child(2),
+  thead th:nth-child(1),
+  thead th:nth-child(2) {
+    position: sticky;
+    z-index: 1;
+  }
+  tbody td:nth-child(1), thead th:nth-child(1) { left: 0; min-width: 54px; }
+  tbody td:nth-child(2), thead th:nth-child(2) { left: 54px; min-width: 92px; }
+  tbody td:nth-child(1), tbody td:nth-child(2) { background: #f7faff; }
+  tbody tr:hover td:nth-child(1),
+  tbody tr:hover td:nth-child(2) { background: #e8f0fe; }
+  thead th:nth-child(1), thead th:nth-child(2) { z-index: 3; }
+
+  /* Number font */
+  .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: clamp(13px, 1.9vw, 15px);
+  }
+
+  /* Color classes */
+  .up      { color: var(--up);   font-weight: 700; }
+  .dn      { color: var(--dn);   font-weight: 700; }
+  .neutral { color: var(--neutral); }
+  .warn    { color: var(--warn); font-weight: 600; }
+  .bull    { color: var(--bull); font-weight: 700; }
+  .bear    { color: var(--bear); font-weight: 700; }
+
+  /* Group rows */
+  .grp td {
+    background: var(--grp-bg) !important;
+    color: var(--grp-text);
+    font-weight: 800;
+    text-align: left;
+    padding: 10px 16px;
+    font-size: clamp(12px, 1.8vw, 14px);
+    border-bottom: 2px solid #b8c8f0;
+    letter-spacing: 0.5px;
+  }
+  .grp-hold td {
+    background: var(--grp-hold-bg) !important;
+    color: var(--grp-hold-text);
+    font-weight: 800;
+    text-align: left;
+    padding: 10px 16px;
+    font-size: clamp(12px, 1.8vw, 14px);
+    border-bottom: 2px solid #f0d0a0;
+    letter-spacing: 0.5px;
+  }
+
+  /* Hold tag */
+  .hold-tag {
+    background: #dbeafe;
+    color: #1d4ed8;
+    border-radius: 5px;
+    padding: 1px 6px;
+    font-size: 11px;
+    font-weight: 700;
+    margin-right: 3px;
+  }
+
+  /* Score badges */
+  .score-best { background: #1a7a52; color: #fff; padding: 3px 9px; border-radius: 12px; font-weight: 800; font-size: clamp(12px,1.8vw,14px); font-family: 'JetBrains Mono', monospace; }
+  .score-good { background: #2ecc71; color: #fff; padding: 3px 9px; border-radius: 12px; font-weight: 800; font-size: clamp(12px,1.8vw,14px); font-family: 'JetBrains Mono', monospace; }
+  .score-avg  { background: #b45309; color: #fff; padding: 3px 9px; border-radius: 12px; font-weight: 800; font-size: clamp(12px,1.8vw,14px); font-family: 'JetBrains Mono', monospace; }
+  .score-bad  { background: #c62828; color: #fff; padding: 3px 9px; border-radius: 12px; font-weight: 800; font-size: clamp(12px,1.8vw,14px); font-family: 'JetBrains Mono', monospace; }
+
+  /* Trend pill */
+  .trend-pill {
+    display: inline-block;
+    padding: 2px 9px;
+    border-radius: 20px;
+    font-size: clamp(11px,1.5vw,12px);
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .trend-bull    { background: #e3f4ec; color: #1a7a52; border: 1px solid #a7d9bc; }
+  .trend-bear    { background: #fdecea; color: #c62828; border: 1px solid #f5b8b8; }
+  .trend-neutral { background: #eef3fa; color: #4a6a8a; border: 1px solid #b8d0ed; }
+
+  /* Result icon */
+  .result-up, .result-dn, .result-flat { font-size: clamp(16px,2.5vw,20px); }
+
+  /* Error row */
+  .err-row td { color: #c62828; font-size: 12px; font-style: italic; }
+
+  /* Active sort column highlight */
+  tbody tr:not(.grp):not(.grp-hold):not(.err-row) td.sort-col {
+    background: #f0f6ff;
+  }
+
+  /* Footer */
+  .page-footer {
+    margin-top: 14px;
+    font-size: 12px;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .page-footer span { color: var(--accent); font-weight: 600; }
+
+  /* Legend */
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 14px;
+    margin-bottom: 10px;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    color: var(--text-muted);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 3px 9px;
+  }
+  .legend-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+  /* Reset sort button */
+  .reset-sort-btn {
+    display: none;
+    align-items: center;
+    gap: 5px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 5px 13px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.18s;
+    margin-left: auto;
+  }
+  .reset-sort-btn:hover { background: var(--accent2); }
+  .reset-sort-btn.visible { display: flex; }
+</style>
+</head>
+<body>
+<div class="nova-timestamp">📅 Updated: Apr 20, 2026 05:29 AM</div>
+
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <h2>📊 技術分析總表 2026/04/20</h2>
+  <p>15檔個股 · 代碼 / 名稱 / 收盤 / 漲跌% / 主力成本 / MA5 / MA排列 / 趨勢 / KD / RSI / MACD / 量比 / 60日高 · 分析：Nova AI</p>
+  <div class="header-badges">
+    <span class="badge">📅 2026/04/17</span>
+    <span class="badge">📈 選股池 3檔</span>
+    <span class="badge">👁️ 觀察池 12檔</span>
+    <span class="badge">⏰ 2026/04/20 06:00</span>
+  </div>
+</div>
+
+<!-- LEGEND -->
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:#1a7a52"></div>多頭 / 上漲</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#c62828"></div>空頭 / 下跌</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#b45309"></div>中性 / 警示</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#1a7a52"></div>評分 4.5 最佳</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#c62828"></div>評分 ≤ 2.0 偏弱</div>
+  <div class="legend-item"><span>🏠 = 庫存股</span></div>
+</div>
+
+<!-- HINTS ROW -->
+<div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:10px; align-items:center;">
+  <div class="sort-hint">
+    <span class="hint-icon">↕️</span>
+    點擊欄位標題可排序，再次點擊切換升冪／降冪
+  </div>
+  <div class="scroll-hint">← 左右滑動查看完整欄位 →</div>
+  <button class="reset-sort-btn" id="resetBtn" onclick="resetSort()">✕ 重設排序</button>
+</div>
+
+<!-- TABLE -->
+<div class="table-wrap">
+  <div class="scroll-wrap">
+    <table id="mainTable">
+      <thead>
+        <tr>
+          <th class="sortable" data-col="0" data-type="num">代碼 <span class="sort-icon">⇅</span></th>
+          <th class="sortable" data-col="1" data-type="str">名稱 <span class="sort-icon">⇅</span></th>
+          <th class="sortable" data-col="2" data-type="num">收盤價 <span class="sort-icon">⇅</span></th>
+          <th class="sortable" data-col="3" data-type="num">漲跌% <span class="sort-icon">⇅</span></th>
+          <th class="sortable" data-col="4" data-type="num">主力成本 <span class="sort-icon">⇅</span></th>
+          <th class="sortable" data-col="5" data-type="num">MA5 <span class="sort-icon">⇅</span></th>
+          <th class="sortable" data-col="6" data-type="str">MA排列 <span class="sort-icon">⇅</span></th>
+          <th class="sortable" data-col="7" data-type="str">趨勢 <span class="sort-icon">⇅</span></th>
+          <th class="sortable" data-col="8" data-type="num">K <span class="sort-icon">⇅</span></th>
+          <th class="sortable" data-col="9" data-type="num">D <span class="sort-icon">⇅</span></th>
+          <th class="sortable" data-col="10" data-type="num">RSI <span class="sort-icon">⇅</span></th>
+          <th class="sortable" data-col="11" data-type="str">MACD <span class="sort-icon">⇅</span></th>
+          <th class="sortable" data-col="12" data-type="num">量比 <span class="sort-icon">⇅</span></th>
+          <th class="sortable" data-col="13" data-type="num">60日高 <span class="sort-icon">⇅</span></th>
+          <th>評估</th>
+          <th class="sortable" data-col="15" data-type="num">評分 <span class="sort-icon">⇅</span></th>
+          <th class="sortable" data-col="16" data-type="str">結論 <span class="sort-icon">⇅</span></th>
+        </tr>
+      </thead>
+      <tbody id="tableBody">
+                <tr class="grp-hold"><td colspan="17">🏠 持股分析</td></tr>
+        <tr data-2="19.85" data-5="19.63" data-8="77.85" data-9="79.28" data-10="65.72" data-15="3.5">
+          <td>2409</td>
+          <td><span class="hold-tag">🏠</span>友達</td>
+          <td class="num">19.85</td>
+          <td class="neutral">—</td>
+          <td class="neutral">—</td>
+          <td class="num"><span class="bull">19.63</span></td>
+          <td class="bear">多頭</td>
+          <td><span class="trend-pill trend-neutral">中性</span></td>
+          <td class="num bear">77.85</td>
+          <td class="num bear">79.28</td>
+          <td class="num neutral">65.72</td>
+          <td class="neutral">—</td>
+          <td class="neutral">—</td>
+          <td class="neutral">—</td>
+          <td class="result-up">🟡觀望</td>
+          <td><span class="score-good">3.5</span></td>
+          <td>KD高档/观望</td>
+        </tr>
+        <tr data-2="53.4" data-5="53.15" data-8="74.65" data-9="68.68" data-10="61.67" data-15="4.0">
+          <td>1301</td>
+          <td><span class="hold-tag">🏠</span>台塑</td>
+          <td class="num">53.4</td>
+          <td class="neutral">—</td>
+          <td class="neutral">—</td>
+          <td class="num"><span class="bull">53.15</span></td>
+          <td class="bull">多頭</td>
+          <td><span class="trend-pill trend-bull">上漲</span></td>
+          <td class="num bull">74.65</td>
+          <td class="num bull">68.68</td>
+          <td class="num neutral">61.67</td>
+          <td class="neutral">—</td>
+          <td class="neutral">—</td>
+          <td class="neutral">—</td>
+          <td class="result-up">🟢佳</td>
+          <td><span class="score-good">4.0</span></td>
+          <td>KD多头/可续抱</td>
+        </tr>
+        <tr data-2="50.7" data-5="52.27" data-8="21.68" data-9="18.34" data-10="36.88" data-15="1.5">
+          <td>2609</td>
+          <td><span class="hold-tag">🏠</span>陽明</td>
+          <td class="num">50.7</td>
+          <td class="neutral">—</td>
+          <td class="neutral">—</td>
+          <td class="num"><span class="bear">52.27</span></td>
+          <td class="bull">空頭</td>
+          <td><span class="trend-pill trend-bear">下跌</span></td>
+          <td class="num bull">21.68</td>
+          <td class="num bull">18.34</td>
+          <td class="num neutral">36.88</td>
+          <td class="neutral">—</td>
+          <td class="neutral">—</td>
+          <td class="neutral">—</td>
+          <td class="result-up">🔴離場</td>
+          <td><span class="score-bad">1.5</span></td>
+          <td>KD死亡交叉/離場</td>
+        </tr>
+        <tr data-2="18.75" data-5="18.55" data-8="80.0" data-9="70.48" data-10="64.83" data-15="3.5">
+          <td>6153</td>
+          <td><span class="hold-tag">🏠</span>嘉聯益</td>
+          <td class="num">18.75</td>
+          <td class="neutral">—</td>
+          <td class="neutral">—</td>
+          <td class="num"><span class="bull">18.55</span></td>
+          <td class="bull">多頭</td>
+          <td><span class="trend-pill trend-neutral">中性</span></td>
+          <td class="num bull">80.0</td>
+          <td class="num bull">70.48</td>
+          <td class="num neutral">64.83</td>
+          <td class="neutral">—</td>
+          <td class="neutral">—</td>
+          <td class="neutral">—</td>
+          <td class="result-up">🟡觀望</td>
+          <td><span class="score-good">3.5</span></td>
+          <td>KD偏高档/观望</td>
+        </tr>
+        <tr data-2="13.75" data-5="13.81" data-8="64.65" data-9="57.69" data-10="51.98" data-15="3.0">
+          <td>2349</td>
+          <td><span class="hold-tag">🏠</span>錸德</td>
+          <td class="num">13.75</td>
+          <td class="neutral">—</td>
+          <td class="neutral">—</td>
+          <td class="num">13.81</td>
+          <td class="bull">多頭</td>
+          <td><span class="trend-pill trend-neutral">中性</span></td>
+          <td class="num bull">64.65</td>
+          <td class="num bull">57.69</td>
+          <td class="num neutral">51.98</td>
+          <td class="neutral">—</td>
+          <td class="neutral">—</td>
+          <td class="neutral">—</td>
+          <td class="result-up">🟡觀望</td>
+          <td><span class="score-avg">3.0</span></td>
+          <td>KD中性/觀望</td>
+        </tr>
+        <tr class="grp"><td colspan="17">👁️ 觀察名單</td></tr>
+        <tr data-2="88.0" data-5="88.18" data-8="51.1" data-9="51.64" data-10="47.49" data-15="3.0">
+          <td>2881</td>
+          <td>富邦金</td>
+          <td class="num">88.0</td>
+          <td class="neutral">—</td>
+          <td class="neutral">—</td>
+          <td class="num">88.18</td>
+          <td class="bear">多頭</td>
+          <td><span class="trend-pill trend-neutral">中性</span></td>
+          <td class="num bear">51.1</td>
+          <td class="num bear">51.64</td>
+          <td class="num neutral">47.49</td>
+          <td class="neutral">—</td>
+          <td class="neutral">—</td>
+          <td class="neutral">—</td>
+          <td class="result-up">⚠️不追</td>
+          <td><span class="score-avg">3.0</span></td>
+          <td>KD中性/不追高</td>
+        </tr>
+        <tr data-2="24.3" data-5="24.27" data-8="64.57" data-9="71.51" data-10="49.71" data-15="3.0">
+          <td>2887</td>
+          <td>台新新光金</td>
+          <td class="num">24.3</td>
+          <td class="neutral">—</td>
+          <td class="neutral">—</td>
+          <td class="num">24.27</td>
+          <td class="bear">糾結</td>
+          <td><span class="trend-pill trend-neutral">中性</span></td>
+          <td class="num bear">64.57</td>
+          <td class="num bear">71.51</td>
+          <td class="num neutral">49.71</td>
+          <td class="neutral">—</td>
+          <td class="neutral">—</td>
+          <td class="neutral">—</td>
+          <td class="result-up">🟡觀望</td>
+          <td><span class="score-avg">3.0</span></td>
+          <td>KD中性/觀望</td>
+        </tr>
+        <tr data-2="30.05" data-5="29.62" data-8="41.95" data-9="51.45" data-10="56.23" data-15="4.0">
+          <td>3062</td>
+          <td>建漢</td>
+          <td class="num">30.05</td>
+          <td class="neutral">—</td>
+          <td class="neutral">—</td>
+          <td class="num">29.62</td>
+          <td class="bear">糾結</td>
+          <td><span class="trend-pill trend-bull">上漲</span></td>
+          <td class="num bear">41.95</td>
+          <td class="num bear">51.45</td>
+          <td class="num neutral">56.23</td>
+          <td class="neutral">—</td>
+          <td class="neutral">—</td>
+          <td class="neutral">—</td>
+          <td class="result-up">🟢佳</td>
+          <td><span class="score-good">4.0</span></td>
+          <td>股價突破MA/佳</td>
+        </tr>
+        <tr data-2="25.9" data-5="25.99" data-8="59.3" data-9="61.46" data-10="49.03" data-15="3.0">
+          <td>3481</td>
+          <td>群創</td>
+          <td class="num">25.9</td>
+          <td class="neutral">—</td>
+          <td class="neutral">—</td>
+          <td class="num">25.99</td>
+          <td class="bear">多頭</td>
+          <td><span class="trend-pill trend-neutral">中性</span></td>
+          <td class="num bear">59.3</td>
+          <td class="num bear">61.46</td>
+          <td class="num neutral">49.03</td>
+          <td class="neutral">—</td>
+          <td class="neutral">—</td>
+          <td class="neutral">—</td>
+          <td class="result-up">🟡觀望</td>
+          <td><span class="score-avg">3.0</span></td>
+          <td>KD中性/觀望</td>
+        </tr>
+        <tr data-2="51.9" data-5="51.28" data-8="71.86" data-9="73.34" data-10="62.9" data-15="3.5">
+          <td>3545</td>
+          <td>敦泰</td>
+          <td class="num">51.9</td>
+          <td class="neutral">—</td>
+          <td class="neutral">—</td>
+          <td class="num"><span class="bull">51.28</span></td>
+          <td class="bear">多頭</td>
+          <td><span class="trend-pill trend-neutral">中性</span></td>
+          <td class="num bear">71.86</td>
+          <td class="num bear">73.34</td>
+          <td class="num neutral">62.9</td>
+          <td class="neutral">—</td>
+          <td class="neutral">—</td>
+          <td class="neutral">—</td>
+          <td class="result-up">🟡觀望</td>
+          <td><span class="score-good">3.5</span></td>
+          <td>KD偏高档/观望</td>
+        </tr>
+        <tr data-2="104.5" data-5="103.55" data-8="84.8" data-9="75.42" data-10="76.88" data-15="3.5">
+          <td>3645</td>
+          <td>達邁</td>
+          <td class="num">104.5</td>
+          <td class="neutral">—</td>
+          <td class="neutral">—</td>
+          <td class="num"><span class="bull">103.55</span></td>
+          <td class="bull">糾結</td>
+          <td><span class="trend-pill trend-neutral">中性</span></td>
+          <td class="num bull">84.8</td>
+          <td class="num bull">75.42</td>
+          <td class="num neutral">76.88</td>
+          <td class="neutral">—</td>
+          <td class="neutral">—</td>
+          <td class="neutral">—</td>
+          <td class="result-up">⚠️不追</td>
+          <td><span class="score-good">3.5</span></td>
+          <td>RSI高档/不追</td>
+        </tr>
+        <tr data-2="N/A" data-5="—" data-8="—" data-9="—" data-10="—" data-15="0">
+          <td>5315</td>
+          <td>光聯</td>
+          <td class="num">—</td>
+          <td class="neutral">—</td>
+          <td class="neutral">—</td>
+          <td class="num">—</td>
+          <td class="neutral">—</td>
+          <td><span class="trend-pill trend-neutral">中性</span></td>
+          <td class="num neutral">—</td>
+          <td class="num neutral">—</td>
+          <td class="num neutral">—</td>
+          <td class="neutral">—</td>
+          <td class="neutral">—</td>
+          <td class="neutral">—</td>
+          <td class="result-up">⚠️不追</td>
+          <td><span class="score-bad">0</span></td>
+          <td>無數據</td>
+        </tr>
+        <tr data-2="207.5" data-5="208.17" data-8="49.6" data-9="57.74" data-10="47.88" data-15="3.0">
+          <td>6239</td>
+          <td>力成</td>
+          <td class="num">207.5</td>
+          <td class="neutral">—</td>
+          <td class="neutral">—</td>
+          <td class="num">208.17</td>
+          <td class="bear">多頭</td>
+          <td><span class="trend-pill trend-neutral">中性</span></td>
+          <td class="num bear">49.6</td>
+          <td class="num bear">57.74</td>
+          <td class="num neutral">47.88</td>
+          <td class="neutral">—</td>
+          <td class="neutral">—</td>
+          <td class="neutral">—</td>
+          <td class="result-up">🟡觀望</td>
+          <td><span class="score-avg">3.0</span></td>
+          <td>KD中性/觀望</td>
+        </tr>
+        <tr data-2="52.6" data-5="56.38" data-8="17.44" data-9="21.15" data-10="38.91" data-15="1.5">
+          <td>6770</td>
+          <td>力積電</td>
+          <td class="num">52.6</td>
+          <td class="neutral">—</td>
+          <td class="neutral">—</td>
+          <td class="num"><span class="bear">56.38</span></td>
+          <td class="bear">空頭</td>
+          <td><span class="trend-pill trend-bear">下跌</span></td>
+          <td class="num bear">17.44</td>
+          <td class="num bear">21.15</td>
+          <td class="num neutral">38.91</td>
+          <td class="neutral">—</td>
+          <td class="neutral">—</td>
+          <td class="neutral">—</td>
+          <td class="result-up">🔴離場</td>
+          <td><span class="score-bad">1.5</span></td>
+          <td>KD空頭/離場</td>
+        </tr>
+        <tr data-2="N/A" data-5="—" data-8="—" data-9="—" data-10="—" data-15="0">
+          <td>7866</td>
+          <td>丹立</td>
+          <td class="num">—</td>
+          <td class="neutral">—</td>
+          <td class="neutral">—</td>
+          <td class="num">—</td>
+          <td class="neutral">—</td>
+          <td><span class="trend-pill trend-neutral">中性</span></td>
+          <td class="num neutral">—</td>
+          <td class="num neutral">—</td>
+          <td class="num neutral">—</td>
+          <td class="neutral">—</td>
+          <td class="neutral">—</td>
+          <td class="neutral">—</td>
+          <td class="result-up">⚠️不追</td>
+          <td><span class="score-bad">0</span></td>
+          <td>無數據</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="page-footer">
+  📝 資料來源：<span>FinMind API / Nova AI 技術分析</span> ｜ 分析：<span>Nova AI</span> ｜ 更新：<span>2026-04-17 05:10</span>
+</div>
+
+<script>
+var sortState = { col: null, dir: 0 };
+var originalOrder = [];
+
+window.addEventListener('DOMContentLoaded', function() {
+  var tbody = document.getElementById('tableBody');
+  if (!tbody) return;
+  var rows = tbody.rows;
+  for (var i = 0; i < rows.length; i++) {
+    originalOrder.push(rows[i]);
+  }
+  var ths = document.querySelectorAll('th.sortable');
+  for (var j = 0; j < ths.length; j++) {
+    (function(th) {
+      th.addEventListener('click', function() {
+        var col = parseInt(th.getAttribute('data-col'));
+        var type = th.getAttribute('data-type');
+        if (sortState.col === col) {
+          if (sortState.dir === 1) sortState.dir = -1;
+          else if (sortState.dir === -1) sortState.dir = 0;
+          else sortState.dir = 1;
+        } else {
+          sortState.col = col;
+          sortState.dir = 1;
+        }
+        doSort(col, type, sortState.dir, th);
+      });
+    })(ths[j]);
+  }
+});
+
+function doSort(col, type, dir, activeTh) {
+  var tbody = document.getElementById('tableBody');
+
+  // 重設所有 header icon
+  var allTh = document.querySelectorAll('th.sortable');
+  for (var i = 0; i < allTh.length; i++) {
+    allTh[i].classList.remove('sort-asc', 'sort-desc');
+    var icon = allTh[i].querySelector('.sort-icon');
+    if (icon) icon.textContent = '⇅';
+  }
+  var highlighted = document.querySelectorAll('td.sort-col');
+  for (var i = 0; i < highlighted.length; i++) {
+    highlighted[i].classList.remove('sort-col');
+  }
+
+  var resetBtn = document.getElementById('resetBtn');
+
+  // dir=0 → 恢復原始順序
+  if (dir === 0) {
+    for (var i = 0; i < originalOrder.length; i++) {
+      tbody.appendChild(originalOrder[i]);
+    }
+    if (resetBtn) resetBtn.classList.remove('visible');
+    sortState = { col: null, dir: 0 };
+    return;
+  }
+
+  // 更新 header 箭頭
+  activeTh.classList.add(dir === 1 ? 'sort-asc' : 'sort-desc');
+  var icon = activeTh.querySelector('.sort-icon');
+  if (icon) icon.textContent = (dir === 1 ? '↑' : '↓');
+  if (resetBtn) resetBtn.classList.add('visible');
+
+  // ══ 核心修正：用「陣列」建立分組，不再用物件 key ══
+  var segments = [];
+  var currentSeg = null;
+
+  for (var i = 0; i < originalOrder.length; i++) {
+    var row = originalOrder[i];
+    var isHeader = row.classList.contains('grp') || row.classList.contains('grp-hold');
+    if (isHeader) {
+      currentSeg = { header: row, dataRows: [] };
+      segments.push(currentSeg);
+    } else if (currentSeg) {
+      currentSeg.dataRows.push(row);
+    }
+  }
+
+  // 對每個分組內的資料列獨立排序
+  for (var s = 0; s < segments.length; s++) {
+    segments[s].dataRows.sort(function(a, b) {
+      var aVal = a.getAttribute('data-' + col);
+      var bVal = b.getAttribute('data-' + col);
+
+      if (aVal === null && bVal === null) return 0;
+      if (aVal === null) return 1;
+      if (bVal === null) return -1;
+      if ((aVal === '' || aVal === '—') && (bVal === '' || bVal === '—')) return 0;
+      if (aVal === '' || aVal === '—') return 1;
+      if (bVal === '' || bVal === '—') return -1;
+
+      var cmp = 0;
+      if (type === 'num') {
+        var aNum = parseFloat(aVal);
+        var bNum = parseFloat(bVal);
+        if (isNaN(aNum) && isNaN(bNum)) cmp = 0;
+        else if (isNaN(aNum)) cmp = 1;
+        else if (isNaN(bNum)) cmp = -1;
+        else cmp = aNum - bNum;
+      } else {
+        cmp = aVal.localeCompare(bVal, 'zh-TW');
+      }
+      return dir === 1 ? cmp : -cmp;
+    });
+  }
+
+  // 重新渲染：header → 排序後的資料列
+  for (var s = 0; s < segments.length; s++) {
+    tbody.appendChild(segments[s].header);
+    for (var r = 0; r < segments[s].dataRows.length; r++) {
+      tbody.appendChild(segments[s].dataRows[r]);
+    }
+  }
+
+  // 高亮排序欄位
+  var colIdx = col + 1;
+  var cells = tbody.querySelectorAll('tr:not(.grp):not(.grp-hold):not(.err-row) td:nth-child(' + colIdx + ')');
+  for (var i = 0; i < cells.length; i++) {
+    cells[i].classList.add('sort-col');
+  }
+}
+
+function resetSort() {
+  sortState = { col: null, dir: 0 };
+  var tbody = document.getElementById('tableBody');
+  for (var i = 0; i < originalOrder.length; i++) {
+    tbody.appendChild(originalOrder[i]);
+  }
+  var allTh = document.querySelectorAll('th.sortable');
+  for (var i = 0; i < allTh.length; i++) {
+    allTh[i].classList.remove('sort-asc', 'sort-desc');
+    var icon = allTh[i].querySelector('.sort-icon');
+    if (icon) icon.textContent = '⇅';
+  }
+  var highlighted = document.querySelectorAll('td.sort-col');
+  for (var i = 0; i < highlighted.length; i++) {
+    highlighted[i].classList.remove('sort-col');
+  }
+  var resetBtn = document.getElementById('resetBtn');
+  if (resetBtn) resetBtn.classList.remove('visible');
+}
+</script>
+
+
+</body>
+</html>
