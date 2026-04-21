@@ -90,7 +90,7 @@ function getTag(bias5, bias20) {
   return {cls: '', label: '➡️ 中性', tagCls: 'tag-neutral'};
 }
 
-function getReason(code, bias5 bias20, price) {
+function getReason(code, bias5, bias20, price) {
   var reasons = [];
   if (bias5 > BIAS_THRESHOLDS.OVERHEAT)
     reasons.push('BIAS5=' + bias5 + '% 偏高，股價偏離短期均線過遠');
@@ -157,9 +157,9 @@ function render() {
     var d = entry[1];
     var b5 = parseFloat(d.bias5);
       var b20 = parseFloat(d.bias20);
-    var tag = getTag(b5 b20);
+    var tag = getTag(b5, b20);
     var hold = d.is_holding ? '🏠 ' : '';
-    var reason = getReason(code, b5 b20, d.price);
+    var reason = getReason(code, b5, b20, d.price);
 
     return '<div class="card ' + tag.cls + '">' +
       '<div class="card-header">' +
