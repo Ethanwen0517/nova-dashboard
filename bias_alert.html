@@ -7,6 +7,8 @@
 <style>
 .nova-timestamp{position:fixed;top:12px;right:16px;background:#1a73e8;color:white;padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600;z-index:9999;box-shadow:0 2px 8px rgba(0,0,0,.2);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;}
 
+
+
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:"Noto Sans CJK TC",Arial,sans-serif;background:#1a1a2e;color:#fff;
   min-height:100vh;padding:20px}
@@ -33,7 +35,7 @@ button:hover{background:#7b2cbf}
 .tag-green{background:#44ff8822;color:#66ffaa}
 .tag-yellow{background:#ffdd4422;color:#ffdd66}
 .tag-neutral{background:#9d4edd22;color:#c77dff}
-.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}
+.metrics{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:10px}
 .metric{text-align:center;padding:8px;background:#2a2a5a;border-radius:8px}
 .metric-val{font-size:18px;font-weight:bold}
 .metric-lbl{font-size:11px;color:#888;margin-top:2px}
@@ -49,7 +51,7 @@ button:hover{background:#7b2cbf}
 </style>
 </head>
 <body>
-<div class="nova-timestamp">📅 Updated: Apr 21, 2026 10:13 AM</div>
+<div class="nova-timestamp">📅 Updated: Apr 21, 2026 10:59 AM</div>
 
 <h1>📊 BIAS 乖離率警示板</h1>
 <div class="sub" id="subText">—</div>
@@ -60,8 +62,7 @@ button:hover{background:#7b2cbf}
     <option value="oversold">❄️ 超跌（BIAS5 < -8%）</option>
     <option value="warm">⚠️ 偏熱（5%~8%）</option>
     <option value="cold">💧 偏冷（-8%~-5%）</option>
-    <option value="hot10">⭐ 短線熱（BIAS10 > 10%）</option>
-    <option value="bias20_high">📈 強多（BIAS20 > 15%）</option>
+        <option value="bias20_high">📈 強多（BIAS20 > 15%）</option>
   </select>
 </div>
 <div class="grid" id="grid"></div>
@@ -69,20 +70,19 @@ button:hover{background:#7b2cbf}
 
 <script>
 // ====== 從技術分析總表 HTML 讀取 BIAS 資料 ======
-// 格式：{代碼: {name, price, bias5, bias10, bias20, score, is_holding}}
+// 格式：{代碼: {name, price, bias5 bias20, score, is_holding}}
 
-var STOCKS_DATA = {"2409": {"name": "友達", "price": 19.2, "chg_pct": -0.26, "bias5": -3.08, "bias10": 0.63, "bias20": 12.17, "score": 90, "is_holding": true}, "1301": {"name": "台塑", "price": 52.2, "chg_pct": -0.76, "bias5": -1.51, "bias10": 1.9, "bias20": 6.94, "score": 90, "is_holding": true}, "2609": {"name": "陽明", "price": 50.5, "chg_pct": 0.8, "bias5": -0.51, "bias10": -0.81, "bias20": -2.37, "score": 28, "is_holding": true}, "6153": {"name": "嘉聯益", "price": 20.65, "chg_pct": 9.84, "bias5": 10.66, "bias10": 14.66, "bias20": 20.11, "score": 100, "is_holding": true}, "2349": {"name": "錸德", "price": 13.6, "chg_pct": 0.37, "bias5": -0.95, "bias10": 0.55, "bias20": 1.06, "score": 53, "is_holding": true}, "2881": {"name": "富邦金", "price": 87.3, "chg_pct": 0.11, "bias5": -0.32, "bias10": -0.51, "bias20": -0.35, "score": 38, "is_holding": false}, "2887": {"name": "台新新光金", "price": 24.1, "chg_pct": -0.62, "bias5": -1.39, "bias10": -1.51, "bias20": -0.63, "score": 83, "is_holding": false}, "3062": {"name": "建漢", "price": 30.1, "chg_pct": -0.5, "bias5": -0.89, "bias10": -1.92, "bias20": 2.85, "score": 90, "is_holding": false}, "3481": {"name": "群創", "price": 26.2, "chg_pct": 0.19, "bias5": -1.58, "bias10": -1.43, "bias20": 2.15, "score": 83, "is_holding": false}, "3545": {"name": "敦泰", "price": 51.5, "chg_pct": 2.59, "bias5": 2.37, "bias10": 3.66, "bias20": 7.78, "score": 70, "is_holding": false}, "3645": {"name": "達邁", "price": 111.5, "chg_pct": -2.62, "bias5": 6.29, "bias10": 18.97, "bias20": 32.65, "score": 82, "is_holding": false}, "5315": {"name": "光聯", "price": 23.15, "chg_pct": 0.0, "bias5": 0.35, "bias10": 0.85, "bias20": 1.31, "score": 60, "is_holding": false}, "6239": {"name": "力成", "price": 212.0, "chg_pct": 1.92, "bias5": 0.95, "bias10": -0.05, "bias20": 4.07, "score": 70, "is_holding": false}, "6770": {"name": "力積電", "price": 53.4, "chg_pct": 3.89, "bias5": 0.91, "bias10": -1.24, "bias20": -5.75, "score": 17, "is_holding": false}, "7866": {"name": "丹立", "price": 202.5, "chg_pct": 0.0, "bias5": 5.91, "bias10": 11.82, "bias20": 28.71, "score": 90, "is_holding": false}};
+var STOCKS_DATA = {"2409": {"name": "友達", "price": 19.2, "chg_pct": -0.26, "bias5": -3.08, "bias20": 12.17, "score": 90, "is_holding": true}, "1301": {"name": "台塑", "price": 52.2, "chg_pct": -0.76, "bias5": -1.51, "bias20": 6.94, "score": 90, "is_holding": true}, "2609": {"name": "陽明", "price": 50.5, "chg_pct": 0.8, "bias5": -0.51, "bias20": -2.37, "score": 28, "is_holding": true}, "6153": {"name": "嘉聯益", "price": 20.65, "chg_pct": 9.84, "bias5": 10.66, "bias20": 20.11, "score": 100, "is_holding": true}, "2349": {"name": "錸德", "price": 13.6, "chg_pct": 0.37, "bias5": -0.95, "bias20": 1.06, "score": 53, "is_holding": true}, "2881": {"name": "富邦金", "price": 87.3, "chg_pct": 0.11, "bias5": -0.32, "bias20": -0.35, "score": 38, "is_holding": false}, "2887": {"name": "台新新光金", "price": 24.1, "chg_pct": -0.62, "bias5": -1.39, "bias20": -0.63, "score": 83, "is_holding": false}, "3062": {"name": "建漢", "price": 30.1, "chg_pct": -0.5, "bias5": -0.89, "bias20": 2.85, "score": 90, "is_holding": false}, "3481": {"name": "群創", "price": 26.2, "chg_pct": 0.19, "bias5": -1.58, "bias20": 2.15, "score": 83, "is_holding": false}, "3545": {"name": "敦泰", "price": 51.5, "chg_pct": 2.59, "bias5": 2.37, "bias20": 7.78, "score": 70, "is_holding": false}, "3645": {"name": "達邁", "price": 111.5, "chg_pct": -2.62, "bias5": 6.29, "bias20": 32.65, "score": 82, "is_holding": false}, "5315": {"name": "光聯", "price": 23.15, "chg_pct": 0.0, "bias5": 0.35, "bias20": 1.31, "score": 60, "is_holding": false}, "6239": {"name": "力成", "price": 212.0, "chg_pct": 1.92, "bias5": 0.95, "bias20": 4.07, "score": 70, "is_holding": false}, "6770": {"name": "力積電", "price": 53.4, "chg_pct": 3.89, "bias5": 0.91, "bias20": -5.75, "score": 17, "is_holding": false}, "7866": {"name": "丹立", "price": 202.5, "chg_pct": 0.0, "bias5": 5.91, "bias20": 28.71, "score": 90, "is_holding": false}};
 
 var BIAS_THRESHOLDS = {
   OVERHEAT: 8,      // BIAS5 > 8%
   WARM: 5,          // BIAS5 5~8%
   COLD: -5,          // BIAS5 -5%~-8%
   OVERSOLD: -8,     // BIAS5 < -8%
-  HOT10: 10,         // BIAS10 > 10%
-  BIAS20_HIGH: 15    // BIAS20 > 15%
+   BIAS20_HIGH: 15    // BIAS20 > 15%
 };
 
-function getTag(bias5, bias10, bias20) {
+function getTag(bias5, bias20) {
   if (bias5 > BIAS_THRESHOLDS.OVERHEAT) return {cls: 'red', label: '🔥 過熱', tagCls: 'tag-red'};
   if (bias5 > BIAS_THRESHOLDS.WARM) return {cls: 'yellow', label: '⚠️ 偏熱', tagCls: 'tag-yellow'};
   if (bias5 < BIAS_THRESHOLDS.OVERSOLD) return {cls: 'green', label: '❄️ 超跌', tagCls: 'tag-green'};
@@ -90,7 +90,7 @@ function getTag(bias5, bias10, bias20) {
   return {cls: '', label: '➡️ 中性', tagCls: 'tag-neutral'};
 }
 
-function getReason(code, bias5, bias10, bias20, price) {
+function getReason(code, bias5 bias20, price) {
   var reasons = [];
   if (bias5 > BIAS_THRESHOLDS.OVERHEAT)
     reasons.push('BIAS5=' + bias5 + '% 偏高，股價偏離短期均線過遠');
@@ -100,8 +100,7 @@ function getReason(code, bias5, bias10, bias20, price) {
     reasons.push('BIAS5=' + bias5 + '% 偏低，隨時可能反彈');
   if (bias5 < BIAS_THRESHOLDS.COLD)
     reasons.push('BIAS5=' + bias5 + '% 偏冷');
-  if (bias10 > BIAS_THRESHOLDS.HOT10)
-    reasons.push('BIAS10=' + bias10 + '% 短線資金積極');
+
   if (bias20 > BIAS_THRESHOLDS.BIAS20_HIGH)
     reasons.push('BIAS20=' + bias20 + '% 處中期強勢格局');
   return reasons.length > 0 ? reasons.join('；') : '乖離率在正常範圍內';
@@ -128,14 +127,12 @@ function render() {
     var code = entry[0];
     var d = entry[1];
     var b5 = parseFloat(d.bias5);
-    var b10 = parseFloat(d.bias10);
-    var b20 = parseFloat(d.bias20);
+      var b20 = parseFloat(d.bias20);
     switch(filter) {
       case 'overheat': return b5 > BIAS_THRESHOLDS.OVERHEAT;
       case 'oversold': return b5 < BIAS_THRESHOLDS.OVERSOLD;
       case 'warm': return b5 > BIAS_THRESHOLDS.WARM && b5 <= BIAS_THRESHOLDS.OVERHEAT;
       case 'cold': return b5 < BIAS_THRESHOLDS.COLD && b5 >= BIAS_THRESHOLDS.OVERSOLD;
-      case 'hot10': return b10 > BIAS_THRESHOLDS.HOT10;
       case 'bias20_high': return b20 > BIAS_THRESHOLDS.BIAS20_HIGH;
       default: return true;
     }
@@ -159,11 +156,10 @@ function render() {
     var code = entry[0];
     var d = entry[1];
     var b5 = parseFloat(d.bias5);
-    var b10 = parseFloat(d.bias10);
-    var b20 = parseFloat(d.bias20);
-    var tag = getTag(b5, b10, b20);
+      var b20 = parseFloat(d.bias20);
+    var tag = getTag(b5 b20);
     var hold = d.is_holding ? '🏠 ' : '';
-    var reason = getReason(code, b5, b10, b20, d.price);
+    var reason = getReason(code, b5 b20, d.price);
 
     return '<div class="card ' + tag.cls + '">' +
       '<div class="card-header">' +
@@ -175,10 +171,6 @@ function render() {
         '<div class="metric">' +
           '<div class="metric-val" style="color:' + biasColor(b5) + '">' + fmt(b5) + '%</div>' +
           '<div class="metric-lbl">BIAS5</div>' +
-        '</div>' +
-        '<div class="metric">' +
-          '<div class="metric-val" style="color:' + biasColor(b10) + '">' + fmt(b10) + '%</div>' +
-          '<div class="metric-lbl">BIAS10</div>' +
         '</div>' +
         '<div class="metric">' +
           '<div class="metric-val" style="color:' + biasColor(b20) + '">' + fmt(b20) + '%</div>' +
