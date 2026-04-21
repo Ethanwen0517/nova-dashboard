@@ -55,9 +55,15 @@ body {
 .header p { color: #a0a0a0; font-size: 1.1em; }
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 20px;
   padding: 0 10px;
+}
+@media (max-width: 700px) {
+  .grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+  .grid { grid-template-columns: 1fr; }
 }
 .card {
   background: rgba(255,255,255,0.08);
@@ -141,17 +147,18 @@ body {
       <div class="card-desc">日經 · 韓國 · 香港 · 上海 · 深圳 · 新加坡</div>
       <div class="card-meta">每日 08:03 更新</div>
     </a>
+    <a href="bias_alert.html" class="card">
+      <span class="card-icon">📐</span>
+      <div class="card-title">BIAS 乖離率</div>
+      <div class="card-desc">過熱/超跌警示，篩選功能</div>
+      <div class="card-meta">自動更新</div>
+    </a>
   </div>
 
   <div class="footer">
     Nova AI 助理 · 自動更新 · 2026-04-20
   </div>
 </div>
-<a href="bias_alert.html" class="card">
-      <span class="card-icon">📐</span>
-      <div class="card-title">BIAS 乖離率</div>
-      <div class="card-desc">過熱/超跌警示，篩選功能</div>
-      <div class="card-meta">自動更新</div>
-    </a>
+
 </body>
 </html>
