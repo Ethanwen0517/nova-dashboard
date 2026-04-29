@@ -5,8 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>新聞儀表板</title>
 <style>
-.nova-timestamp{position:fixed;top:12px;right:16px;background:#1a73e8;color:white;padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600;z-index:9999;box-shadow:0 2px 8px rgba(0,0,0,.2);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;}
-
 *{margin:0;padding:0;box-sizing:border-box;}
 :root{
     --theme:#34495e;
@@ -181,13 +179,19 @@ body.filter-new .news-card[data-is-new="false"]{display:none !important;}
     z-index:999;text-decoration:none;opacity:0.85;
 }
 /* ── 右上角時間戳 ── */
-
+.nova-timestamp{
+    position:fixed;top:12px;right:16px;
+    background:var(--theme);color:#fff;
+    padding:6px 14px;border-radius:20px;
+    font-size:0.8em;font-weight:600;
+    z-index:9999;box-shadow:0 2px 8px rgba(0,0,0,0.25);
+    letter-spacing:0.5px;
+}
 #backToTop:hover{background:var(--hover);opacity:1;}
 </style>
 </head>
 <body>
-<div class="nova-timestamp">📅 Updated: Apr 29, 2026 02:03 PM</div>
-
+<div class="nova-timestamp">📅 更新：2026-04-29 14:03</div>
 <div class="container">
   <div class="header">📁 lasttime.txt | 保留全部+標記NEW</div>
   <div class="summary-bar">
