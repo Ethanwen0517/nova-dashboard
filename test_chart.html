@@ -1,0 +1,24 @@
+<!DOCTYPE html><html><head><meta charset="utf-8">
+<title>Test Chart</title>
+<script src="https://unpkg.com/lightweight-charts@5.0.0/dist/lightweight-charts.standalone.production.js"></script>
+</head><body>
+<div id="chart" style="width:800px;height:300px"></div>
+<script>
+var el = document.getElementById("chart");
+var chart = LightweightCharts.createChart(el, {width:800,height:300});
+var series = chart.addSeries(LightweightCharts.LineSeries, {color:"blue"});
+series.setData([
+  {time:'2026-04-17', value:19.85},
+  {time:'2026-04-20', value:19.25},
+  {time:'2026-04-21', value:18.9},
+  {time:'2026-04-22', value:18.55},
+  {time:'2026-04-23', value:17.75},
+  {time:'2026-04-24', value:17.2},
+  {time:'2026-04-27', value:17.35},
+  {time:'2026-04-28', value:17.2},
+  {time:'2026-04-29', value:17.3},
+  {time:'2026-04-30', value:17.2}
+]);
+console.log("Chart created, canvas:", el.querySelector('canvas') !== null);
+</script>
+</body></html>
