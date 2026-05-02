@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><title>Single Line Test</title></head>
+<body style="background:#f9fafb;padding:20px">
+<div id="chart" style="width:860px;height:320px;background:#fff;border:1px solid #e5e7eb"></div>
+<script src="https://unpkg.com/lightweight-charts@5.0.0/dist/lightweight-charts.standalone.production.js"></script>
+<script>
+var el=document.getElementById("chart");
+var chart=LightweightCharts.createChart(el,{width:el.clientWidth,height:320,layout:{background:{color:"#fff"},textColor:"#374151"}});
+var line=chart.addSeries(LightweightCharts.LineSeries,{color:"#635bff",lineWidth:2});
+line.setData([{time:"2026-04-17",value:19.85},{time:"2026-04-20",value:19.25},{time:"2026-04-21",value:18.9},{time:"2026-04-22",value:18.55},{time:"2026-04-23",value:17.75},{time:"2026-04-24",value:17.2},{time:"2026-04-27",value:17.35},{time:"2026-04-28",value:17.2},{time:"2026-04-29",value:17.3},{time:"2026-04-30",value:17.2}]);
+chart.timeScale().fitContent();
+console.log("Chart done, elements:", document.querySelectorAll("canvas").length);
+</script>
+</body></html>

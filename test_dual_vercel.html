@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><title>Dual Axis Test</title></head>
+<body>
+<div id="chart" style="height:300px;width:860px;"></div>
+<script src="https://unpkg.com/lightweight-charts@5.0.0/dist/lightweight-charts.standalone.production.js"></script>
+<script>
+(function(){
+var chart = LightweightCharts.createChart(document.getElementById("chart"), {
+    layout:{background:{color:"#fff"}}, width:860, height:300
+});
+var left = chart.addSeries(LightweightCharts.LineSeries, {
+    color:"#10b981", priceScaleId:"left"
+});
+left.setData([
+    {time:"2026-04-17",value:0},
+    {time:"2026-04-20",value:-39865},
+    {time:"2026-04-21",value:-32102}
+]);
+chart.priceScale("left").applyOptions({scaleMargins:{top:0.1,bottom:0.1}});
+
+var right = chart.addSeries(LightweightCharts.LineSeries, {
+    color:"#635bff", lineWidth:2, priceScaleId:"right"
+});
+right.setData([
+    {time:"2026-04-17",value:19.85},
+    {time:"2026-04-20",value:19.25},
+    {time:"2026-04-21",value:18.9}
+]);
+chart.priceScale("right").applyOptions({scaleMargins:{top:0.2,bottom:0.2}});
+chart.timeScale().fitContent();
+})();
+</script></body></html>
