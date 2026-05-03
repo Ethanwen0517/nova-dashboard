@@ -5,96 +5,334 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>友達光電 2409 籌碼分析</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap');
-* { box-sizing:border-box; margin:0; padding:0; }
-body { background:#f9fafb; color:#111827; font-family:'Inter','Noto Sans TC',sans-serif; font-size:13px; padding:20px 16px; -webkit-font-smoothing:antialiased; }
-.header {
-  display:flex; align-items:center; gap:20px; background:#fff;
-  border:1px solid #e5e7eb; border-radius:10px; padding:16px 20px;
-  flex-wrap:wrap; box-shadow:0 1px 3px rgba(0,0,0,0.06);
-}
-.header-title { font-size:20px; font-weight:700; color:#111827; letter-spacing:-0.3px; }
-.header-code  { font-size:20px; font-weight:700; color:#635bff; margin-left:4px; letter-spacing:-0.3px; }
-.header-sub   { font-size:14px; font-weight:400; color:#6b7280; margin-left:6px; }
-.header-spacer { flex:1; }
-.hitem { display:flex; flex-direction:column; align-items:center; gap:2px; }
-.hitem .label { font-size:11px; color:#9ca3af; letter-spacing:0.3px; text-transform:uppercase; }
-.hitem .val   { font-size:15px; font-weight:600; }
-.price-now { color:#ef4444; }
-.time-val  { color:#6b7280; }
-.pos { color:#10b981; font-weight:600; }
-.neg { color:#ef4444; font-weight:600; }
-.neu { color:#6b7280; }
-.main-grid { display:grid; grid-template-columns:minmax(0,1fr); gap:16px; padding:0; max-width:960px; margin:16px auto 0; }
-.panel {
-  background:#fff; border:1px solid #e5e7eb; border-radius:10px;
-  padding:20px; box-shadow:0 1px 3px rgba(0,0,0,0.04);
-}
-.panel-title {
-  font-size:13px; font-weight:600; color:#111827;
-  padding:0 0 12px 0; border-bottom:1.5px solid #f3f4f6;
-  margin-bottom:14px; letter-spacing:-0.1px;
-  display:flex; align-items:center; gap:8px;
-}
-.panel-title::before {
-  content:''; display:inline-block; width:3px; height:14px;
-  background:#635bff; border-radius:2px; flex-shrink:0;
-}
-.indicator-label {
-  font-size:11px; color:#9ca3af; padding:4px 8px; background:#f9fafb;
-  border-radius:4px; display:flex; gap:14px; align-items:center;
-  flex-wrap:wrap; margin-bottom:4px;
-}
-.chart-container { width:100%; margin-bottom:6px; position:relative; }
-.data-table { width:100%; border-collapse:collapse; font-size:12px; }
-.data-table th {
-  background:#f9fafb; color:#6b7280; font-weight:600;
-  padding:8px 12px; text-align:right; border-bottom:2px solid #e5e7eb;
-}
-.data-table td { padding:7px 12px; text-align:right; border-bottom:1px solid #f3f4f6; color:#374151; }
-.data-table tbody tr:hover { background:#fafafa; }
-.data-table tfoot td { background:#f9fafb; font-weight:700; border-top:2px solid #e5e7eb; color:#111827; }
-.legend { display:flex; gap:16px; flex-wrap:wrap; margin-bottom:8px; font-size:11px; color:#6b7280; }
-.legend-item { display:flex; align-items:center; gap:5px; }
-.legend-dot { width:10px; height:10px; border-radius:50%; }
-.chip-conclusion {
-  background:#f9fafb; border-radius:8px; padding:14px 16px;
-  font-size:13px; color:#374151; border-left:3px solid #635bff;
-  display:flex; align-items:flex-start; gap:10px; margin-top:4px; line-height:1.7;
-}
-.chip-conclusion .icon { font-size:16px; flex-shrink:0; margin-top:1px; }
-.footer { text-align:center; font-size:11px; color:#9ca3af; padding:16px; margin-top:8px; }
-/* TradingView logo: 30% size, 50% opacity */
-a[href*="tradingview"] { transform:scale(0.3); opacity:0.5; transform-origin:left bottom; display:inline-block; }
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#f9fafb;color:#111827;font-family:'Inter','Noto Sans TC',sans-serif;font-size:13px;padding:16px;-webkit-font-smoothing:antialiased}
+.header{display:flex;align-items:center;gap:16px;background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:14px 18px;flex-wrap:wrap;box-shadow:0 1px 3px rgba(0,0,0,0.06);margin-bottom:14px}
+.ht{font-size:18px;font-weight:700;color:#111827}
+.hc{font-size:18px;font-weight:700;color:#635bff;margin-left:4px}
+.hs{font-size:13px;color:#6b7280;margin-left:6px}
+.hsp{flex:1}
+.hi{display:flex;flex-direction:column;align-items:center;gap:2px}
+.hi .lb{font-size:10px;color:#9ca3af;text-transform:uppercase}
+.hi .vl{font-size:14px;font-weight:600}
+.neg{color:#ef4444}.pos{color:#10b981}
+.panel{background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:18px;box-shadow:0 1px 3px rgba(0,0,0,0.04);margin-bottom:14px}
+.ptitle{font-size:13px;font-weight:600;color:#111827;padding-bottom:12px;border-bottom:1.5px solid #f3f4f6;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.ptitle::before{content:'';display:inline-block;width:3px;height:14px;background:#635bff;border-radius:2px;flex-shrink:0}
+.legend{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:10px;font-size:11px;color:#374151;align-items:center}
+.li{display:flex;align-items:center;gap:5px}
+.ld{width:13px;height:13px;border-radius:3px}
+.ll{width:22px;height:2.5px;border-radius:2px}
+canvas{display:block;cursor:crosshair}
+.indicator-label{font-size:11px;color:#9ca3af;padding:4px 8px;background:#f9fafb;border-radius:4px;display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-bottom:4px}
+.data-table{width:100%;border-collapse:collapse;font-size:12px}
+.data-table th{background:#f9fafb;color:#6b7280;font-weight:600;padding:8px 12px;text-align:right;border-bottom:2px solid #e5e7eb}
+.data-table td{padding:7px 12px;text-align:right;border-bottom:1px solid #f3f4f6;color:#374151}
+.data-table tbody tr:hover{background:#fafafa}
+.data-table tfoot td{background:#f9fafb;font-weight:700;border-top:2px solid #e5e7eb;color:#111827}
+.chip-conclusion{background:#f9fafb;border-radius:8px;padding:14px 16px;font-size:13px;color:#374151;border-left:3px solid #635bff;display:flex;align-items:flex-start;gap:10px;margin-top:4px;line-height:1.7}
+.chip-conclusion .icon{font-size:16px;flex-shrink:0;margin-top:1px}
+.footer{text-align:center;font-size:11px;color:#9ca3af;padding:16px;margin-top:8px}
 </style>
 </head>
 <body>
-<div class="header"><span class="header-title">友達光電</span><span class="header-code">2409</span><span class="header-sub">籌碼分析</span><div class="header-spacer"></div><div class="hitem"><span class="label">收盤價</span><span class="val price-now">17.2</span></div><div class="hitem"><span class="label">漲跌</span><span class="val neg">-0.10</span></div><div class="hitem"><span class="label">漲跌幅</span><span class="val neg">-0.58%</span></div><div class="hitem"><span class="label">成交量</span><span class="val">107,005 張</span></div><div class="hitem"><span class="label">更新</span><span class="val time-val">2026-04-30</span></div></div>
-<div class="main-grid">
-<div class="panel"><div class="panel-title">一、籌碼面分析｜三大法人近10日籌碼動向（雙軸圖）</div><div class="indicator-label"><span>Lightweight Charts 互動式圖表（可拖曳/縮放）</span><span style="margin-left:auto;color:#9ca3af;font-size:10px;">均放左軸，純看趨勢</span></div><div class="legend"><div class="legend-item"><div class="legend-dot" style="background:#635bff"></div>股價收盤價</div><div class="legend-item"><div class="legend-dot" style="background:#10b981"></div>外資淨買超</div><div class="legend-item"><div class="legend-dot" style="background:#f59e0b"></div>投信淨買超</div><div class="legend-item"><div class="legend-dot" style="background:#ef4444"></div>自營商淨買超</div><div class="legend-item"><div class="legend-dot" style="background:#8b5cf6"></div>法人合計</div></div><div id="chip-chart" class="chart-container" style="height:320px;"></div></div><div class="panel"><div class="panel-title">二、法人買賣超（單位：張）｜近10日三大法人</div><div class="indicator-label"><span class="pos">綠色＝買超</span><span class="neg">紅色＝賣超</span><span style="margin-left:auto;color:#9ca3af;font-size:10px;">資料來源：證交所 FinMind v3</span></div><table class='data-table'><thead><tr><th>日期</th><th>外資</th><th>投信</th><th>自營商</th><th>合計</th></tr></thead><tbody><tr><td>2026-04-17</td><td class="neu">—</td><td class="neu">—</td><td class="neu">—</td><td class="neu">—</td></tr>
-<tr><td>2026-04-20</td><td class="neg">-39,865</td><td class="pos">+1</td><td class="neg">-1,987</td><td class="neg">-41,851</td></tr>
-<tr><td>2026-04-21</td><td class="neg">-32,102</td><td class="pos">+27</td><td class="neg">-42</td><td class="neg">-32,117</td></tr>
-<tr><td>2026-04-22</td><td class="pos">+10,117</td><td class="neg">-30</td><td class="neg">-2,158</td><td class="pos">+7,929</td></tr>
-<tr><td>2026-04-23</td><td class="neg">-29,434</td><td class="neg">-10</td><td class="neg">-3,135</td><td class="neg">-32,579</td></tr>
-<tr><td>2026-04-24</td><td class="neg">-17,789</td><td class="neg">-33</td><td class="neg">-1,886</td><td class="neg">-19,708</td></tr>
-<tr><td>2026-04-27</td><td class="neg">-37,483</td><td class="neg">-12</td><td class="pos">+453</td><td class="neg">-37,042</td></tr>
-<tr><td>2026-04-28</td><td class="neg">-21,454</td><td class="pos">+20</td><td class="neg">-732</td><td class="neg">-22,166</td></tr>
-<tr><td>2026-04-29</td><td class="neg">-27,889</td><td class="pos">+1</td><td class="neg">-779</td><td class="neg">-28,667</td></tr>
-<tr><td>2026-04-30</td><td class="neg">-19,190</td><td class="neg">-12</td><td class="neg">-975</td><td class="neg">-20,177</td></tr>
-</tbody><tfoot><tr><td>10日合計</td><td class="neg">-215,089</td><td class="neg">-48</td><td class="neg">-11,241</td><td class="neg">-226,378</td></tr></tfoot></table></div><div class="panel"><div class="panel-title">三、主力進出（單位：張）｜近10日主力大戶動向</div><div class="indicator-label"><span>主力定義：外資 + 投信（純機構投資人）</span><span style="margin-left:auto;color:#9ca3af;font-size:10px;">資料來源： FinMind v3</span></div><table class='data-table'><thead><tr><th>日期</th><th>主力淨買超</th><th>累計主力</th></tr></thead><tbody><tr><td>2026-04-17</td><td class="neu">—</td><td class="neu">+0</td></tr>
-<tr><td>2026-04-20</td><td class="neg">-39,864</td><td class="neg">-39,864</td></tr>
-<tr><td>2026-04-21</td><td class="neg">-32,075</td><td class="neg">-71,939</td></tr>
-<tr><td>2026-04-22</td><td class="pos">+10,087</td><td class="pos">-61,852</td></tr>
-<tr><td>2026-04-23</td><td class="neg">-29,444</td><td class="neg">-91,296</td></tr>
-<tr><td>2026-04-24</td><td class="neg">-17,822</td><td class="neg">-109,118</td></tr>
-<tr><td>2026-04-27</td><td class="neg">-37,495</td><td class="neg">-146,613</td></tr>
-<tr><td>2026-04-28</td><td class="neg">-21,434</td><td class="neg">-168,047</td></tr>
-<tr><td>2026-04-29</td><td class="neg">-27,888</td><td class="neg">-195,935</td></tr>
-<tr><td>2026-04-30</td><td class="neg">-19,202</td><td class="neg">-215,137</td></tr>
-</tbody><tfoot><tr><td>10日合計</td><td class="neg">-215,137</td><td class="neg">-215,137</td></tr></tfoot></table></div><div class="panel"><div class="panel-title">四、籌碼結論</div><div class="chip-conclusion"><span class="icon">📊</span><span>近10日：持續賣超 -215,089 張。投信方面：連續賣超 -48 張。自營商（含避險）：無明顯方向（中性）。法人合計 -226,378 張，主力成本估計約 18.33 元，整體籌碼格局「偏空（法人合計大幅賣超）」。需觀望，上方壓力 18.06～18.92</span></div></div>
+
+<div class="header">
+  <span class="ht">友達光電</span><span class="hc">2409</span><span class="hs">籌碼分析</span>
+  <div class="hsp"></div>
+  <div class="hi"><span class="lb">收盤價</span><span class="vl neg">17.2</span></div>
+  <div class="hi"><span class="lb">漲跌</span><span class="vl neg">-0.10</span></div>
+  <div class="hi"><span class="lb">漲跌幅</span><span class="vl neg">-0.58%</span></div>
+  <div class="hi"><span class="lb">成交量</span><span class="vl">107,005 張</span></div>
+  <div class="hi"><span class="lb">更新</span><span class="vl" style="color:#6b7280">2026-04-30</span></div>
 </div>
+
+<div class="panel">
+  <div class="ptitle">一、籌碼面分析｜三大法人近10日籌碼動向（堆疊柱狀圖）</div>
+  <div class="legend">
+    <div class="li"><div class="ld" style="background:#10b981"></div>外援</div>
+    <div class="li"><div class="ld" style="background:#8b5cf6"></div>投信</div>
+    <div class="li"><div class="ld" style="background:#f59e0b"></div>自營商</div>
+    <div class="li"><div class="ll" style="background:#635bff"></div>股價（右軸）</div>
+  </div>
+  <div id="wrap" style="width:100%;height:340px;">
+    <canvas id="cv"></canvas>
+  </div>
+</div>
+
+<div class="panel">
+  <div class="ptitle">二、法人買賣超（單位：張）｜近10日三大法人</div>
+  <div class="indicator-label">
+    <span class="pos">綠色＝買超</span>
+    <span class="neg">紅色＝賣超</span>
+    <span style="margin-left:auto;color:#9ca3af;font-size:10px;">資料來源：證交所 FinMind v3</span>
+  </div>
+  <table class='data-table'>
+    <thead><tr><th>日期</th><th>外援</th><th>投信</th><th>自營商</th><th>合計</th></tr></thead>
+    <tbody>
+      <tr><td>2026-04-17</td><td class="neu" style="color:#9ca3af">—</td><td class="neu" style="color:#9ca3af">—</td><td class="neu" style="color:#9ca3af">—</td><td class="neu" style="color:#9ca3af">—</td></tr>
+      <tr><td>2026-04-20</td><td class="neg">-39,865</td><td class="pos">+1</td><td class="neg">-1,987</td><td class="neg">-41,851</td></tr>
+      <tr><td>2026-04-21</td><td class="neg">-32,102</td><td class="pos">+27</td><td class="neg">-42</td><td class="neg">-32,117</td></tr>
+      <tr><td>2026-04-22</td><td class="pos">+10,117</td><td class="neg">-30</td><td class="neg">-2,158</td><td class="pos">+7,929</td></tr>
+      <tr><td>2026-04-23</td><td class="neg">-29,434</td><td class="neg">-10</td><td class="neg">-3,135</td><td class="neg">-32,579</td></tr>
+      <tr><td>2026-04-24</td><td class="neg">-17,789</td><td class="neg">-33</td><td class="neg">-1,886</td><td class="neg">-19,708</td></tr>
+      <tr><td>2026-04-27</td><td class="neg">-37,483</td><td class="neg">-12</td><td class="pos">+453</td><td class="neg">-37,042</td></tr>
+      <tr><td>2026-04-28</td><td class="neg">-21,454</td><td class="pos">+20</td><td class="neg">-732</td><td class="neg">-22,166</td></tr>
+      <tr><td>2026-04-29</td><td class="neg">-27,889</td><td class="pos">+1</td><td class="neg">-779</td><td class="neg">-28,667</td></tr>
+      <tr><td>2026-04-30</td><td class="neg">-19,190</td><td class="neg">-12</td><td class="neg">-975</td><td class="neg">-20,177</td></tr>
+    </tbody>
+    <tfoot><tr><td>10日合計</td><td class="neg">-215,089</td><td class="neg">-48</td><td class="neg">-11,241</td><td class="neg">-226,378</td></tr></tfoot>
+  </table>
+</div>
+
+<div class="panel">
+  <div class="ptitle">三、主力進出（單位：張）｜近10日主力大戶動向</div>
+  <div class="indicator-label">
+    <span>主力定義：外援 + 投信（純機構投資人）</span>
+    <span style="margin-left:auto;color:#9ca3af;font-size:10px;">資料來源： FinMind v3</span>
+  </div>
+  <table class='data-table'>
+    <thead><tr><th>日期</th><th>主力淨買超</th><th>累計主力</th></tr></thead>
+    <tbody>
+      <tr><td>2026-04-17</td><td style="color:#9ca3af">—</td><td class="pos">+0</td></tr>
+      <tr><td>2026-04-20</td><td class="neg">-39,864</td><td class="neg">-39,864</td></tr>
+      <tr><td>2026-04-21</td><td class="neg">-32,075</td><td class="neg">-71,939</td></tr>
+      <tr><td>2026-04-22</td><td class="pos">+10,087</td><td class="neg">-61,852</td></tr>
+      <tr><td>2026-04-23</td><td class="neg">-29,444</td><td class="neg">-91,296</td></tr>
+      <tr><td>2026-04-24</td><td class="neg">-17,822</td><td class="neg">-109,118</td></tr>
+      <tr><td>2026-04-27</td><td class="neg">-37,495</td><td class="neg">-146,613</td></tr>
+      <tr><td>2026-04-28</td><td class="neg">-21,434</td><td class="neg">-168,047</td></tr>
+      <tr><td>2026-04-29</td><td class="neg">-27,888</td><td class="neg">-195,935</td></tr>
+      <tr><td>2026-04-30</td><td class="neg">-19,202</td><td class="neg">-215,137</td></tr>
+    </tbody>
+    <tfoot><tr><td>10日合計</td><td class="neg">-215,137</td><td class="neg">-215,137</td></tr></tfoot>
+  </table>
+</div>
+
+<div class="panel">
+  <div class="ptitle">四、籌碼結論</div>
+  <div class="chip-conclusion">
+    <span class="icon">📊</span>
+    <span>近10日：持續賣超 -215,089 張。投信方面：連續賣超 -48 張。自營商（含避險）：無明顯方向（中性）。法人合計 -226,378 張，主力成本估計約 18.33 元，整體籌碼格局「偏空（法人合計大幅賣超）」。需觀望，上方壓力 18.06～18.92</span>
+  </div>
+</div>
+
 <div class="footer">Nova 籌碼分析 | 友達光電 (2409) | FinMind v3 | 2026-04-17 ~ 2026-04-30 | 僅供參考，不構成投資建議</div>
-<script src="https://unpkg.com/lightweight-charts@5.0.0/dist/lightweight-charts.standalone.production.js"></script>
-<script>(function(){var L=LightweightCharts;var dates=['2026-04-17', '2026-04-20', '2026-04-21', '2026-04-22', '2026-04-23', '2026-04-24', '2026-04-27', '2026-04-28', '2026-04-29', '2026-04-30'];var closes=[19.85, 19.25, 18.9, 18.55, 17.75, 17.2, 17.35, 17.2, 17.3, 17.2];var foreign=[0, -39865, -32102, 10117, -29434, -17789, -37483, -21454, -27889, -19190];var trust=[0, 1, 27, -30, -10, -33, -12, 20, 1, -12];var dealer=[0, -1987, -42, -2158, -3135, -1886, 453, -732, -779, -975];var total=[0, -41851, -32117, 7929, -32579, -19708, -37042, -22166, -28667, -20177];var vols=[364122, 308693, 251426, 190398, 314949, 202479, 189697, 102912, 124548, 107005];var priceData=[];for(var i=0;i<dates.length;i++)priceData.push({time:dates[i],value:closes[i]});var foreignData=[];for(var i=0;i<dates.length;i++)foreignData.push({time:dates[i],value:foreign[i]});var trustData=[];for(var i=0;i<dates.length;i++)trustData.push({time:dates[i],value:trust[i]});var dealerData=[];for(var i=0;i<dates.length;i++)dealerData.push({time:dates[i],value:dealer[i]});var totalData=[];for(var i=0;i<dates.length;i++)totalData.push({time:dates[i],value:total[i]});var el=document.getElementById("chip-chart");if(!el)return;var LCHART={layout:{background:{color:"#fff"},textColor:"#374151"},grid:{vertLines:{color:"#f3f4f6"},horzLines:{color:"#f3f4f6"}},crosshair:{mode:0},timeScale:{borderColor:"#e5e7eb",timeVisible:false,rightOffset:5},rightPriceScale:{borderColor:"#e5e7eb"},handleScroll:{mouseWheel:true,pressedMouseMove:true},handleScale:{axisPressedMouseMove:true}};var chart=L.createChart(el,Object.assign({},LCHART,{width:el.clientWidth||860,height:320}));// All series on default price scale (single axis)var priceLine=chart.addSeries(L.LineSeries,{color:"#635bff",lineWidth:2,priceLineVisible:false,axisLabelVisible:true});priceLine.setData(priceData);var foreignLine=chart.addSeries(L.LineSeries,{color:"#10b981",lineWidth:1,priceLineVisible:false,axisLabelVisible:false});foreignLine.setData(foreignData);var trustLine=chart.addSeries(L.LineSeries,{color:"#f59e0b",lineWidth:1,priceLineVisible:false,axisLabelVisible:false});trustLine.setData(trustData);var dealerLine=chart.addSeries(L.LineSeries,{color:"#ef4444",lineWidth:1,priceLineVisible:false,axisLabelVisible:false});dealerLine.setData(dealerData);var totalLine=chart.addSeries(L.LineSeries,{color:"#8b5cf6",lineWidth:1,priceLineVisible:false,axisLabelVisible:false});totalLine.setData(totalData);chart.timeScale().fitContent();window.addEventListener("resize",function(){var w=Math.min(860,window.innerWidth-32);chart.resize(w,320);});})();<\/script>
+
+<script>
+(function(){
+  var dates   = ['04/17','04/20','04/21','04/22','04/23','04/24','04/27','04/28','04/29','04/30'];
+  var closes  = [19.85, 19.25, 18.9, 18.55, 17.75, 17.2, 17.35, 17.2, 17.3, 17.2];
+  var foreign = [0, -39865, -32102, 10117, -29434, -17789, -37483, -21454, -27889, -19190];
+  var trust   = [0, 1, 27, -30, -10, -33, -12, 20, 1, -12];
+  var dealer  = [0, -1987, -42, -2158, -3135, -1886, 453, -732, -779, -975];
+
+  var COLOR = {
+    foreign: 'rgba(16,185,129,0.88)',
+    trust:   'rgba(139,92,246,0.88)',
+    dealer:  'rgba(245,158,11,0.88)',
+  };
+  var C_P = '#635bff';
+
+  var wrap   = document.getElementById('wrap');
+  var canvas = document.getElementById('cv');
+  var hov    = -1;
+
+  function fmt(v){ return v===0?'—':(v>0?'+':'')+v.toLocaleString(); }
+
+  function getSegments(idx){
+    var items=[
+      {key:'foreign', v:foreign[idx], c:COLOR.foreign},
+      {key:'trust',   v:trust[idx],   c:COLOR.trust},
+      {key:'dealer',  v:dealer[idx],  c:COLOR.dealer},
+    ];
+    var pos=[], neg=[];
+    items.forEach(function(it){
+      if(it.v>0) pos.push(it);
+      else if(it.v<0) neg.push(it);
+    });
+    pos.sort(function(a,b){ return a.v-b.v; });
+    neg.sort(function(a,b){ return b.v-a.v; });
+    return {pos:pos, neg:neg};
+  }
+
+  function draw(hi){
+    var dpr=window.devicePixelRatio||1;
+    var W=wrap.clientWidth||820, H=340;
+    canvas.width=W*dpr; canvas.height=H*dpr;
+    canvas.style.width=W+'px'; canvas.style.height=H+'px';
+    var ctx=canvas.getContext('2d');
+    ctx.scale(dpr,dpr);
+
+    var PL=68, PR=58, PT=28, PB=42;
+    var cW=W-PL-PR, cH=H-PT-PB;
+    var n=dates.length;
+
+    ctx.fillStyle='#fff'; ctx.fillRect(0,0,W,H);
+
+    var yMax=0, yMin=0;
+    for(var i=0;i<n;i++){
+      var ps=0, ns=0;
+      [foreign[i],trust[i],dealer[i]].forEach(function(v){
+        if(v>0) ps+=v; else ns+=v;
+      });
+      if(ps>yMax) yMax=ps;
+      if(ns<yMin) yMin=ns;
+    }
+    var rng=Math.max(yMax-yMin,5000);
+    yMax+=rng*0.2; yMin-=rng*0.1;
+
+    var pMin=Math.min.apply(null,closes)-0.5;
+    var pMax=Math.max.apply(null,closes)+0.5;
+
+    function cY(v){ return PT+cH*(1-(v-yMin)/(yMax-yMin)); }
+    function pY(v){ return PT+cH*(1-(v-pMin)/(pMax-pMin)); }
+
+    var slotW=cW/n;
+    var barW=slotW*0.68;
+    function xAt(i){ return PL+i*slotW+slotW/2; }
+
+    var valPerPx=(yMax-yMin)/cH;
+    var MIN_VAL=valPerPx*3;
+
+    /* grid */
+    for(var gi=0;gi<=6;gi++){
+      var gy=PT+cH/6*gi;
+      ctx.strokeStyle='#f0f0f0'; ctx.lineWidth=1; ctx.setLineDash([]);
+      ctx.beginPath(); ctx.moveTo(PL,gy); ctx.lineTo(PL+cW,gy); ctx.stroke();
+      var lv=yMax-(yMax-yMin)/6*gi;
+      var lab=Math.abs(lv)>=1000?(lv/1000).toFixed(0)+'K':lv.toFixed(0);
+      ctx.fillStyle='#6b7280'; ctx.font='10px Inter,sans-serif';
+      ctx.textAlign='right'; ctx.fillText(lab,PL-6,gy+3.5);
+    }
+    ctx.save(); ctx.translate(12,PT+cH/2); ctx.rotate(-Math.PI/2);
+    ctx.textAlign='center'; ctx.fillStyle='#9ca3af'; ctx.font='10px Inter,sans-serif';
+    ctx.fillText('（張）',0,0); ctx.restore();
+
+    /* right price axis */
+    for(var pi=0;pi<=5;pi++){
+      var pv=pMin+(pMax-pMin)/5*pi;
+      ctx.textAlign='left'; ctx.fillStyle=C_P; ctx.font='10px Inter,sans-serif';
+      ctx.fillText(pv.toFixed(1),PL+cW+5,pY(pv)+3.5);
+    }
+    ctx.textAlign='center'; ctx.fillStyle='#6b7280'; ctx.font='10px Inter,sans-serif';
+    for(var xi=0;xi<n;xi++) ctx.fillText(dates[xi],xAt(xi),PT+cH+16);
+
+    /* zero line */
+    var z0=cY(0);
+    ctx.strokeStyle='#9ca3af'; ctx.lineWidth=1.2; ctx.setLineDash([5,4]);
+    ctx.beginPath(); ctx.moveTo(PL,z0); ctx.lineTo(PL+cW,z0); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.textAlign='right'; ctx.fillStyle='#9ca3af'; ctx.font='9px Inter,sans-serif';
+    ctx.fillText('0',PL-6,z0+3.5);
+
+    /* stacked bars */
+    for(var i=0;i<n;i++){
+      var dim=(hi>=0&&i!==hi);
+      var alpha=dim?0.18:0.9;
+      var bx=xAt(i)-barW/2;
+      var segs=getSegments(i);
+
+      var curPos=0;
+      segs.pos.forEach(function(s){
+        var drawV=Math.max(s.v, MIN_VAL);
+        var top=cY(curPos+drawV);
+        var bh=Math.max(cY(curPos)-top, 2);
+        ctx.globalAlpha=alpha; ctx.fillStyle=s.c;
+        ctx.fillRect(bx,top,barW,bh);
+        if(!dim){ ctx.globalAlpha=0.4; ctx.strokeStyle='#fff'; ctx.lineWidth=0.8; ctx.strokeRect(bx,top,barW,bh); }
+        curPos+=s.v;
+      });
+
+      var curNeg=0;
+      segs.neg.forEach(function(s){
+        var drawV=Math.min(s.v, -MIN_VAL);
+        var segTop=Math.min(cY(curNeg), cY(curNeg+drawV));
+        var segBot=Math.max(cY(curNeg), cY(curNeg+drawV));
+        var bh=Math.max(segBot-segTop, 2);
+        ctx.globalAlpha=alpha; ctx.fillStyle=s.c;
+        ctx.fillRect(bx,segTop,barW,bh);
+        if(!dim){ ctx.globalAlpha=0.4; ctx.strokeStyle='#fff'; ctx.lineWidth=0.8; ctx.strokeRect(bx,segTop,barW,bh); }
+        curNeg+=s.v;
+      });
+
+      ctx.globalAlpha=1;
+    }
+
+    /* price line */
+    ctx.setLineDash([]);
+    ctx.beginPath(); ctx.strokeStyle=C_P; ctx.lineWidth=2;
+    for(var ci=0;ci<closes.length;ci++)
+      ci===0?ctx.moveTo(xAt(ci),pY(closes[ci])):ctx.lineTo(xAt(ci),pY(closes[ci]));
+    ctx.stroke();
+    for(var di=0;di<closes.length;di++){
+      var isH=(hi>=0&&di===hi);
+      ctx.beginPath(); ctx.arc(xAt(di),pY(closes[di]),isH?5:3.5,0,Math.PI*2);
+      ctx.fillStyle=isH?'#fff':C_P; ctx.fill();
+      ctx.strokeStyle=isH?C_P:'#fff'; ctx.lineWidth=1.8; ctx.stroke();
+    }
+
+    ctx.strokeStyle='#e5e7eb'; ctx.lineWidth=1; ctx.setLineDash([]);
+    ctx.strokeRect(PL,PT,cW,cH);
+
+    /* tooltip */
+    if(hi>=0&&hi<n){
+      var hx=xAt(hi);
+      ctx.strokeStyle='#9ca3af'; ctx.lineWidth=1; ctx.setLineDash([4,4]);
+      ctx.beginPath(); ctx.moveTo(hx,PT); ctx.lineTo(hx,PT+cH); ctx.stroke();
+      ctx.setLineDash([]);
+      var hy=pY(closes[hi]);
+      ctx.strokeStyle=C_P; ctx.lineWidth=0.8; ctx.setLineDash([3,3]);
+      ctx.beginPath(); ctx.moveTo(PL,hy); ctx.lineTo(PL+cW,hy); ctx.stroke();
+      ctx.setLineDash([]);
+
+      var tot=foreign[hi]+trust[hi]+dealer[hi];
+      var rows=[
+        {lb:'日期',   v:'2026-'+dates[hi],           c:'#e5e7eb'},
+        {lb:'股價',   v:closes[hi].toFixed(2)+' 元', c:'#a5b4fc'},
+        {lb:'外援',   v:fmt(foreign[hi]),             c:'#6ee7b7'},
+        {lb:'投信',   v:fmt(trust[hi]),               c:'#c4b5fd'},
+        {lb:'自營商', v:fmt(dealer[hi]),              c:'#fde68a'},
+        {lb:'合計',   v:fmt(tot),                     c:tot>=0?'#6ee7b7':'#fca5a5'},
+      ];
+      var TW=175, TH=14+rows.length*18+10;
+      var TX=hx+14, TY=PT+4;
+      if(TX+TW>W-PR+10) TX=hx-TW-14;
+
+      ctx.shadowColor='rgba(0,0,0,0.2)'; ctx.shadowBlur=10;
+      ctx.fillStyle='rgba(17,24,39,0.95)';
+      ctx.beginPath();
+      ctx.roundRect?ctx.roundRect(TX,TY,TW,TH,7):ctx.rect(TX,TY,TW,TH);
+      ctx.fill(); ctx.shadowBlur=0;
+
+      rows.forEach(function(r,ri){
+        var ry=TY+14+ri*18;
+        ctx.font='11px Inter,Noto Sans TC,sans-serif';
+        ctx.textAlign='left';  ctx.fillStyle='#9ca3af'; ctx.fillText(r.lb,TX+10,ry);
+        ctx.textAlign='right'; ctx.fillStyle=r.c;       ctx.fillText(r.v,TX+TW-10,ry);
+      });
+    }
+  }
+
+  function onMove(e){
+    var rect=canvas.getBoundingClientRect();
+    var mx=e.clientX-rect.left;
+    var cW=wrap.clientWidth-68-58;
+    var idx=Math.floor((mx-68)/(cW/dates.length));
+    idx=Math.max(0,Math.min(dates.length-1,idx));
+    hov=idx; draw(idx);
+  }
+
+  function setup(){
+    canvas.addEventListener('mousemove',onMove);
+    canvas.addEventListener('mouseleave',function(){ hov=-1; draw(-1); });
+    draw(-1);
+    window.addEventListener('resize',function(){ draw(hov); });
+  }
+
+  document.readyState==='loading'?document.addEventListener('DOMContentLoaded',setup):setup();
+})();
+</script>
 </body>
 </html>
