@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>友達光電 2409 操作建議</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#f9fafb;color:#111827;font-family:'Inter','Noto Sans TC',sans-serif;font-size:13px;padding:16px;-webkit-font-smoothing:antialiased}
+.header{display:flex;align-items:center;gap:16px;background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:14px 18px;flex-wrap:wrap;box-shadow:0 1px 3px rgba(0,0,0,0.06);margin-bottom:14px}
+.ht{font-size:18px;font-weight:700;color:#111827}
+.hc{font-size:18px;font-weight:700;color:#635bff;margin-left:4px}
+.hs{font-size:13px;color:#6b7280;margin-left:6px}
+.hsp{flex:1}
+.hi{display:flex;flex-direction:column;align-items:center;gap:2px}
+.hi .lb{font-size:10px;color:#9ca3af;text-transform:uppercase}
+.hi .vl{font-size:14px;font-weight:600}
+.neg{color:#ef4444}.pos{color:#10b981}.warn{color:#f59e0b}.mid{color:#635bff}
+.panel{background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:18px;box-shadow:0 1px 3px rgba(0,0,0,0.04);margin-bottom:14px}
+.ptitle{font-size:13px;font-weight:600;color:#111827;padding-bottom:12px;border-bottom:1.5px solid #f3f4f6;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.ptitle::before{content:'';display:inline-block;width:3px;height:14px;background:#635bff;border-radius:2px;flex-shrink:0}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+.zone-card{background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;padding:14px 16px}
+.zone-card h3{font-size:11px;font-weight:600;color:#6b7280;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.zone-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid #f3f4f6}
+.zone-row:last-child{border-bottom:none}
+.zl{font-size:12px;color:#374151;font-weight:500}
+.zv{font-size:13px;font-weight:600}
+.path-item{background:#f9fafb;border-radius:8px;padding:12px 14px;margin-bottom:10px;border-left:3px solid #635bff}
+.path-item h4{font-size:12px;font-weight:600;color:#111827;margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.path-item p{font-size:12px;color:#374151;line-height:1.6;margin:0}
+.path-item p em{font-style:normal;font-weight:600}
+.path-item.up{border-left-color:#10b981}
+.path-item.down{border-left-color:#ef4444}
+.path-item.neutral{border-left-color:#f59e0b}
+.summary-table{width:100%;border-collapse:collapse;font-size:12px}
+.summary-table th{background:#f9fafb;color:#6b7280;font-weight:600;padding:8px 12px;text-align:center;border-bottom:2px solid #e5e7eb}
+.summary-table td{padding:8px 12px;text-align:center;border-bottom:1px solid #f3f4f6;color:#374151}
+.summary-table tfoot td{background:#f9fafb;font-weight:700;border-top:2px solid #e5e7eb;color:#111827}
+.summary-table .total-label{text-align:right}
+.merge-row td{background:#fff!important;font-weight:700;font-size:13px;color:#111827;border-top:2px solid #635bff!important}
+.star{font-size:15px;letter-spacing:2px}
+.avg-bar{display:inline-flex;align-items:center;gap:4px;font-size:11px;color:#6b7280}
+.footer{text-align:center;font-size:11px;color:#9ca3af;padding:16px;margin-top:8px}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <span class="ht">友達光電</span><span class="hc">2409</span><span class="hs">操作建議</span>
+  <div class="hsp"></div>
+  <div class="hi"><span class="lb">收盤價</span><span class="vl neg">17.2</span></div>
+  <div class="hi"><span class="lb">MA5</span><span class="vl">17.25</span></div>
+  <div class="hi"><span class="lb">MA20</span><span class="vl">18.10</span></div>
+  <div class="hi"><span class="lb">MA60</span><span class="vl warn">16.24</span></div>
+  <div class="hi"><span class="lb">RSI</span><span class="vl mid">43.1</span></div>
+  <div class="hi"><span class="lb">更新</span><span class="vl" style="color:#6b7280">2026-04-30</span></div>
+</div>
+
+<!-- 一、操作建議（2欄） -->
+<div class="panel">
+  <div class="ptitle">一、操作建議</div>
+  <div class="grid-2">
+    <!-- 左欄：短線操作建議 -->
+    <div class="zone-card">
+      <h3>📈 短線操作建議</h3>
+      <div class="zone-row">
+        <span class="zl">建議方向</span>
+        <span class="zv warn">觀望 / 區間操作</span>
+      </div>
+      <div class="zone-row">
+        <span class="zl">現價位置</span>
+        <span class="zv neg">低於 MA5，偏弱</span>
+      </div>
+      <div class="zone-row">
+        <span class="zl">進場策略</span>
+        <span class="zv mid">分批布局，勿追價</span>
+      </div>
+      <div class="zone-row">
+        <span class="zl">停損參考</span>
+        <span class="zv neg">16.5 元（-4.1%）</span>
+      </div>
+      <div class="zone-row">
+        <span class="zl">樂觀目標</span>
+        <span class="zv pos">18.5～19.0 元</span>
+      </div>
+      <div class="zone-row">
+        <span class="zl">操作週期</span>
+        <span class="zv">5～10 個交易日</span>
+      </div>
+      <div class="zone-row">
+        <span class="zl">適合策略</span>
+        <span class="zv mid">區間高拋低吸</span>
+      </div>
+    </div>
+    <!-- 右欄：關鍵價位區 -->
+    <div class="zone-card">
+      <h3>⚡ 關鍵價位區</h3>
+      <div class="zone-row">
+        <span class="zl">💪 強壓力</span>
+        <span class="zv neg">18.92（近期高）</span>
+      </div>
+      <div class="zone-row">
+        <span class="zl">🔴 短壓（R1）</span>
+        <span class="zv neg">18.06（MA20）</span>
+      </div>
+      <div class="zone-row">
+        <span class="zl">⚠️ 短撐（S1）</span>
+        <span class="zv pos">17.25（MA5）</span>
+      </div>
+      <div class="zone-row">
+        <span class="zl">🟡 中撐（S2）</span>
+        <span class="zv warn">16.24（MA60）</span>
+      </div>
+      <div class="zone-row">
+        <span class="zl">🔵 強撐（S3）</span>
+        <span class="zv pos">14.8～15.0（前期低）</span>
+      </div>
+      <div class="zone-row">
+        <span class="zl">⛔ 停損價</span>
+        <span class="zv neg">16.5 元</span>
+      </div>
+      <div class="zone-row">
+        <span class="zl">📐 合理區間</span>
+        <span class="zv">16.5～18.5 元</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 二、可能路徑（1欄） -->
+<div class="panel">
+  <div class="ptitle">二、可能路徑分析</div>
+  <div class="path-item up">
+    <h4>🟢 情境A｜上漲路徑（發生機率 25%）</h4>
+    <p>前提：法人賣壓減緩 + 成交量放大突破 <em>18.06 元（MA20）</em> → 目標 <em>18.5～18.92 元</em>（前期高點），建議<em>少量試多</em>，突破 MA20 後加碼。</p>
+  </div>
+  <div class="path-item neutral">
+    <h4>🟡 情境B｜區間整理（發生機率 45%）</h4>
+    <p>前提：股價在 <em>16.24～18.06 元</em> 來回震盪，KD 低檔黃金交叉，RSI 維持 40～55 區間 → 建議<em>高點測試MA20（18.1）時先退出</em>，撐區域（16.24）布局搶反彈。</p>
+  </div>
+  <div class="path-item down">
+    <h4>🔴 情境C｜回檔路徑（發生機率 30%）</h4>
+    <p>前提：<em>跌破 MA60（16.24）</em> 且法人持續賣超 → 目標 <em>15.0～15.5 元（March 低點）</em>，此時應<em>果斷離場觀望</em>，勿攤平或加碼攤提成本。</p>
+  </div>
+</div>
+
+<!-- 三、中長線看法（2欄） -->
+<div class="panel">
+  <div class="ptitle">三、中長線看法</div>
+  <div class="grid-2">
+    <div class="zone-card">
+      <h3>🔭 中長線操作建議</h3>
+      <div class="zone-row">
+        <span class="zl">趨勢方向</span>
+        <span class="zv warn">中期整理（尚未扭轉）</span>
+      </div>
+      <div class="zone-row">
+        <span class="zl">操作策略</span>
+        <span class="zv mid">分批買進，耐心等待</span>
+      </div>
+      <div class="zone-row">
+        <span class="zl">布局參考價</span>
+        <span class="zv pos">16.0～16.5 元區間</span>
+      </div>
+      <div class="zone-row">
+        <span class="zl">理想加碼點</span>
+        <span class="zv">15.0～15.5 元（March 低）</span>
+      </div>
+      <div class="zone-row">
+        <span class="zl">預期回升幅度</span>
+        <span class="zv pos">15→18.5（+23%）</span>
+      </div>
+      <div class="zone-row">
+        <span class="zl">時間軸</span>
+        <span class="zv">4～8 週觀察</span>
+      </div>
+    </div>
+    <div class="zone-card">
+      <h3>⚠️ 風險提醒</h3>
+      <div class="zone-row">
+        <span class="zl">📉 法人賣壓</span>
+        <span class="zv neg">10日賣超 -226,378 張</span>
+      </div>
+      <div class="zone-row">
+        <span class="zl">💀 技術破壞</span>
+        <span class="zv neg">MA5 死亡交叉 MA20</span>
+      </div>
+      <div class="zone-row">
+        <span class="zl">📊 RSI 偏低</span>
+        <span class="zv warn">43.1 接近偏弱區</span>
+      </div>
+      <div class="zone-row">
+        <span class="zl">🔴 MACD 偏弱</span>
+        <span class="zv neg">柱線仍在零軸以下</span>
+      </div>
+      <div class="zone-row">
+        <span class="zl">📉 高檔套牢區</span>
+        <span class="zv">18.5～20.7 元（4月大量）</span>
+      </div>
+      <div class="zone-row">
+        <span class="zl">⚠️ 最大風險</span>
+        <span class="zv neg">跌破 15.0 元</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 四、重點總結（綜合評分） -->
+<div class="panel">
+  <div class="ptitle">四、綜合評估</div>
+  <table class="summary-table">
+    <thead>
+      <tr>
+        <th>評估項目</th>
+        <th>星級</th>
+        <th>評價</th>
+        <th>Nova 綜合評估</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>股價趨勢</strong></td>
+        <td><span class="star">⭐⭐</span></td>
+        <td>偏弱整理</td>
+        <td>MA5 死亡交叉 MA20，股價低於 5 日線，短線偏空</td>
+      </tr>
+      <tr>
+        <td><strong>技術面</strong></td>
+        <td><span class="star">⭐⭐</span></td>
+        <td>短線過熱/整理中</td>
+        <td>KD 低檔黃金交叉但方向未明，RSI 中性偏弱（43），MACD 零軸下整理</td>
+      </tr>
+      <tr>
+        <td><strong>籌碼面</strong></td>
+        <td><span class="star">⭐</span></td>
+        <td>法人大幅賣超</td>
+        <td>外援 10日賣超 -215,089 張，主力成本估 18.33 元，機構態度偏空</td>
+      </tr>
+      <tr>
+        <td><strong>操作難度</strong></td>
+        <td><span class="star">⭐⭐⭐</span></td>
+        <td>偏高（區間震盪）</td>
+        <td>法人持續賣超、套牢區沉重，操作需嚴守停損紀律</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr class="merge-row">
+        <td colspan="4">
+          <strong>平均評分：⭐⭐（偏弱）</strong>
+          &nbsp;&nbsp;|&nbsp;&nbsp;
+          綜合建議：<strong>觀望 / 區間操作</strong>
+          &nbsp;&nbsp;|&nbsp;&nbsp;
+          進場參考價：<strong>16.0～17.25 元</strong>
+          &nbsp;&nbsp;|&nbsp;&nbsp;
+          停損價：<strong>16.5 元</strong>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+
+<div class="footer">Nova 操作建議 | 友達光電 (2409) | 技術分析 + 籌碼分析 | 2026-04-30 | 僅供參考，不構成投資建議</div>
+
+</body>
+</html>
