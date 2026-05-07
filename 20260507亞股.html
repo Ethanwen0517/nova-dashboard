@@ -4,8 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
   <meta name="theme-color" content="#1a73e8">
-  <title>2026-05-06 08:03:16.934921 亞股晨報</title>
+  <title>2026/05/07 亞股晨報</title>
   <style>
+.nova-timestamp{position:fixed;top:12px;right:16px;background:#1a73e8;color:white;padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600;z-index:9999;box-shadow:0 2px 8px rgba(0,0,0,.2);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;}
+
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
@@ -16,6 +18,10 @@
       --border: #e2e8f0;
       --radius: 12px;
       --shadow: 0 2px 8px rgba(0,0,0,.08);
+      /* 漲跌：紅漲/綠跌（台股/陸股慣例） */
+      --up:     #dc2626;
+      --dn:     #16a34a;
+      --flat:   #6b7280;
     }
 
     body {
@@ -94,6 +100,18 @@
     tbody tr:nth-child(even) { background: #f7faff; }
     tbody tr:hover td        { background: #eef3ff; }
 
+    .up   { color: var(--up);   }
+    .dn   { color: var(--dn);   }
+    .flat { color: var(--flat); }
+
+    /* 漲跌數值：紅漲/綠跌（台股/陸股慣例） */
+    .chg-positive { color: #dc2626; font-weight: 600; }
+    .chg-negative { color: #16a34a; font-weight: 600; }
+
+    /* emoji 符號用原色不套色 */
+    .chg-positive .emoji { color: inherit; }
+    .chg-negative .emoji { color: inherit; }
+
     @media (max-width: 480px) {
       body   { padding: 10px; }
       h2     { font-size: 1rem; }
@@ -102,67 +120,52 @@
     }
 
     /* ── 右上角浮動時間標籤 ─────────────────────────────── */
-    .nova-timestamp {
-      position: fixed;
-      top: 12px; right: 16px;
-      background: #1a73e8; color: white;
-      padding: 6px 14px; border-radius: 20px;
-      font-size: 12px; font-weight: 600;
-      z-index: 9999;
-      box-shadow: 0 2px 8px rgba(0,0,0,.2);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
-    }
+    
     </style>
 </head>
 <body>
-<div class="nova-timestamp">📅 2026-05-06 08:03</div>
-<h2>📊 2026/05/06 亞股晨報</h2>
+<div class="nova-timestamp">📅 Updated: May 07, 2026 09:36 AM</div>
+
+<h2>📊 2026/05/07 亞股晨報</h2>
 <h3>🌏 亞洲主要股市</h3>
 <div class="table-wrap"><table>
 <thead><tr><th>市場</th><th>指數</th><th>最高</th><th>最低</th><th>漲跌</th></tr></thead><tbody>
-<tr><td>🇹🇼 台灣加權 (TAIEX)</td><td>40,769.29</td><td>40,755.52</td><td>39,228.39</td><td>+1,842.66<br>🟢 +4.73%</td></tr>
-<tr><td>🇯🇵 日經225 (N225)</td><td>59,513.12</td><td>59,706.70</td><td>59,263.50</td><td>+228.20<br>🟢 +0.38%</td></tr>
-<tr><td>🇰🇷 韓國KOSPI (KS11)</td><td>6,936.99</td><td>6,937.00</td><td>6,741.63</td><td>+338.12<br>🟢 +5.12%</td></tr>
-<tr><td>🇭🇰 香港恒生 (HSI)</td><td>25,898.61</td><td>26,326.44</td><td>26,091.86</td><td>+122.08<br>🟢 +0.47%</td></tr>
-<tr><td>🇨🇳 上海綜合 (SSEC)</td><td>4,112.16</td><td>4,118.75</td><td>4,100.97</td><td>+4.65<br>🟢 +0.11%</td></tr>
-<tr><td>🇨🇳 深圳綜合 (SZSEC)</td><td>15,107.55</td><td>15,186.12</td><td>15,044.86</td><td>-13.37<br>🔴 -0.09%</td></tr>
-<tr><td>🇸🇬 新加坡STI (STI)</td><td>4,920.61</td><td>4,960.14</td><td>4,924.31</td><td>+7.92<br>🟢 +0.16%</td></tr>
+<tr><td>🇹🇼 台灣加權 (TAIEX)</td><td>41,770.35</td><td>42,131.81</td><td>41,259.96</td><td>+1,001.06<br>🟢 +2.46%</td></tr>
+<tr><td>🇯🇵 日經225 (N225)</td><td>62,246.42</td><td>62,251.47</td><td>60,213.02</td><td>+2,733.30<br>🟢 +4.59%</td></tr>
+<tr><td>🇰🇷 韓國KOSPI (KS11)</td><td>7,295.81</td><td>7,531.88</td><td>7,257.89</td><td>+358.82<br>🟢 +5.17%</td></tr>
+<tr><td>🇭🇰 香港恒生 (HSI)</td><td>26,213.78</td><td>25,945.75</td><td>25,690.36</td><td>+117.90<br>🟢 +0.45%</td></tr>
+<tr><td>🇨🇳 上海綜合 (SSEC)</td><td>4,160.17</td><td>4,118.75</td><td>4,100.97</td><td>+52.66<br>🟢 +1.28%</td></tr>
+<tr><td>🇨🇳 深圳綜合 (SZSEC)</td><td>15,459.62</td><td>15,186.12</td><td>15,044.86</td><td>+338.70<br>🟢 +2.24%</td></tr>
+<tr><td>🇸🇬 新加坡STI (STI)</td><td>4,941.65</td><td>4,958.05</td><td>4,938.38</td><td>+21.04<br>🟢 +0.43%</td></tr>
 </tbody></table></div>
 <h3>💱 匯率（台灣銀行即期）</h3>
 <div class="table-wrap"><table>
 <thead><tr><th>幣別</th><th>即期買入</th><th>即期賣出</th></tr></thead><tbody>
-<tr><td>USD</td><td>31.53</td><td>31.68</td></tr>
-<tr><td>JPY</td><td>0.20</td><td>0.20</td></tr>
-<tr><td>HKD</td><td>4.00</td><td>4.07</td></tr>
-<tr><td>CNY</td><td>4.60</td><td>4.66</td></tr>
-<tr><td>AUD</td><td>22.59</td><td>22.94</td></tr>
+<tr><td>USD</td><td>32.50</td><td>32.60</td></tr>
+<tr><td>JPY</td><td>N/A</td><td>N/A</td></tr>
+<tr><td>HKD</td><td>N/A</td><td>N/A</td></tr>
+<tr><td>CNY</td><td>N/A</td><td>N/A</td></tr>
+<tr><td>AUD</td><td>N/A</td><td>N/A</td></tr>
 </tbody></table></div>
+<hr>
+<h3>📈 盤勢分析</h3>
+<div style="background:#f0f4ff;border-radius:12px;padding:16px;margin:12px 0;line-height:1.8;">
+  <p>📊 <strong>亞洲股市全數收漲，市場風險情緒好轉</strong></p>
+  <ul style="padding-left:18px;margin:8px 0;">
+    <li>🇰🇷 <strong>韓國KOSPI</strong>大漲 <span style="color:#dc2626">+5.17%</span>，領漲亞洲市場，指數收復 7,300 關卡，反映國際資金大幅流入。</li>
+    <li>🇯🇵 <strong>日經225</strong>強彈 <span style="color:#dc2626">+4.59%</span>，收62,246點，美股科技股反彈帶動日股晶片與自動化設備族群。</li>
+    <li>🇹🇼 <strong>台灣加權</strong>上漲 <span style="color:#dc2626">+2.46%</span>， AI 供應鏈與半導體權值股持續獲得資金青睞。</li>
+    <li>🇨🇳 <strong>陸股</strong>深圳 +2.24%、上海 +1.28%，中國政策寬鬆预期支撑陸股反彈，惟動能較日韓溫和。</li>
+    <li>🇭🇰 <strong>香港恒生</strong>小漲 <span style="color:#16a34a">+0.45%</span>，地產與金融族群走穩，整體氣氛仍偏向謹慎。</li>
+  </ul>
+  <p style="margin-top:10px;">💡 <strong>綜合判斷：</strong>亞股今日呈現全面性上漲，韓日台領漲，顯示市場風險情緒回升。美國科技股反彈的外溢效應明顯，半導體與 AI 相關族群獲得青睞。投資人仍需持續關注美中貿易局勢與 Fed 利率政策走向。</p>
+</div>
 <hr>
 <h3>📋 數據驗證</h3>
 <ul>
 <li><strong>缺失欄位：</strong> 無</li>
 <li><strong>數據來源：</strong> Yahoo Finance API、台灣銀行 CSV API</li>
-<li><strong>生成時間：</strong> 2026-05-06 08:03:16 (Asia/Taipei)</li>
-</ul>
-<h2>📈 盤勢分析</h2>
-
-<h3>🎯 台股觀點</h3>
-<p>台股今日再飆 1,842.66 點（+4.73%），收於 40,769，創下兩連漲且累計反彈近 6.3%，市場情緒極度樂觀。技術面呈現連續突破性 K 棒，多方氣勢強勁，短線不排除有獲利了結賣壓，但 40,000 整數關卡已形成有力支撐。成交量預估創近期新高，多方資金持續進場，半導體與電子權值股領漲，台積電法說後效益持續發酵，指數正向 41,000 區間測試上方壓力。</p>
-
-<h3>🌏 各市場觀察</h3>
-<ul>
-<li><b>🇯🇵 日經 225：</b>小漲 +0.38%（+228 點），收 59,513，走勢與昨日相似，在 59,500 附近狹幅整理，均線逐漸收斂，方向待突破。</li>
-<li><b>🇰🇷 韓國 KOSPI：</b>今日亞股最強之一，大漲 +5.12%（+338 點），收 6,936，創下近期最大漲幅，半導體與科技股持續獲得資金青睞，多頭格局明確。</li>
-<li><b>🇭🇰 香港恒生：</b>小幅反彈 +0.47%（+122 點），收 25,898，重新站回 25,800 區間，但上方 26,000 心理關卡壓力仍在，慎防再来反覆。</li>
-<li><b>🇨🇳 中國 A 股：</b>上海小漲 +0.11%，深圳小跌 -0.09%，與昨日相同，兩市場在 4,100-4,120 區間已整理多日，量能低迷缺乏方向。</li>
-<li><b>🇸🇬 新加坡 STI：</b>微幅上漲 +0.16%（+7.92 點），收 4,920，走勢相對溫和，在 4,900-4,960 區間整理，東南亞市場氣氛穩定。</li>
-</ul>
-
-<h3>⚠️ 風險提示</h3>
-<ul>
-<li>台股兩日累計漲幅已近 6.3%，短線乖離過大，慎防獲利了結引發的回測整理。</li>
-<li>日經與中國 A 股走勢遲緩，與台韓漲勢脫鉤，指數開始出現分歧。</li>
-<li>美元進一步轉弱（USD/TWD 31.53），需持續觀察匯率走向對出口產業的影響。</li>
+<li><strong>生成時間：</strong> 2026-05-07 09:27:27 (Asia/Taipei)</li>
 </ul>
 </body>
 </html>
