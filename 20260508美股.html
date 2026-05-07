@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>美股晨報 2026/05/08</title>
+<style>
+.nova-timestamp{position:fixed;top:12px;right:16px;background:#1a73e8;color:white;padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600;z-index:9999;box-shadow:0 2px 8px rgba(0,0,0,.2);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;}
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: "Microsoft JhengHei", "Segoe UI", sans-serif; background: #0d1117; color: #e6edf3; padding: 20px; }
+  .container { max-width: 900px; margin: 0 auto; }
+  .header { text-align: center; margin-bottom: 24px; padding: 20px; background: linear-gradient(135deg, #161b22, #1f6feb22); border-radius: 12px; border: 1px solid #30363d; }
+  .header h1 { font-size: 1.8em; color: #58a6ff; margin-bottom: 6px; }
+  .header p { color: #8b949e; font-size: 0.9em; }
+  .badge { display: inline-block; background: #238636; color: #fff; padding: 2px 10px; border-radius: 20px; font-size: 0.8em; margin-left: 8px; }
+  .badge-red { background: #da3633; }
+  .badge-yellow { background: #d29922; }
+  .badge-orange { background: #db6d28; }
+  .section { background: #161b22; border-radius: 12px; padding: 18px; margin-bottom: 16px; border: 1px solid #30363d; }
+  .section-title { font-size: 1.1em; font-weight: 700; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid #30363d; color: #58a6ff; }
+  .index-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+  .index-card { background: #0d1117; border-radius: 10px; padding: 14px; border: 1px solid #30363d; text-align: center; }
+  .index-card h3 { font-size: 0.85em; color: #8b949e; margin-bottom: 6px; }
+  .index-card .price { font-size: 1.4em; font-weight: 700; color: #e6edf3; }
+  .index-card .change { font-size: 0.95em; margin-top: 4px; font-weight: 600; }
+  .up { color: #3fb950; }
+  .down { color: #f85149; }
+  .flat { color: #8b949e; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.9em; }
+  th { background: #21262d; color: #8b949e; padding: 8px 10px; text-align: left; border-bottom: 1px solid #30363d; }
+  td { padding: 8px 10px; border-bottom: 1px solid #21262d; }
+  tr:hover { background: #1c2128; }
+  .analysis { background: #161b22; border-radius: 12px; padding: 18px; border: 1px solid #30363d; }
+  .analysis h2 { color: #58a6ff; font-size: 1em; margin-bottom: 12px; }
+  .analysis p { color: #c9d1d9; line-height: 1.7; font-size: 0.9em; margin-bottom: 10px; }
+  .tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; margin: 2px; }
+  .tag-up { background: #3fb95033; color: #3fb950; border: 1px solid #3fb95066; }
+  .tag-down { background: #f8514933; color: #f85149; border: 1px solid #f8514966; }
+  .tag-neutral { background: #8b949e33; color: #8b949e; border: 1px solid #8b949e66; }
+  .tag-info { background: #58a6ff33; color: #58a6ff; border: 1px solid #58a6ff66; }
+  .tag-warning { background: #d2992233; color: #d29922; border: 1px solid #d2992266; }
+  .tag-danger { background: #f8514933; color: #f85149; border: 1px solid #f8514966; }
+  .timestamp { text-align: right; color: #484f58; font-size: 0.8em; margin-top: 20px; }
+  .fx-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; }
+  .fx-card { background: #0d1117; border-radius: 8px; padding: 12px; border: 1px solid #30363d; text-align: center; }
+  .fx-card h4 { font-size: 0.8em; color: #8b949e; margin-bottom: 4px; }
+  .fx-card .rate { font-size: 1.2em; font-weight: 700; color: #e6edf3; }
+  .alert-box { background: #f8514915; border-left: 3px solid #f85149; padding: 12px; border-radius: 0 8px 8px 0; margin: 12px 0; }
+  .alert-box.orange { background: #db6d2815; border-left-color: #db6d28; }
+  .alert-box h3 { font-size: 0.95em; color: #f85149; margin-bottom: 6px; }
+  .alert-box.orange h3 { color: #db6d28; }
+  .alert-box p { color: #c9d1d9; font-size: 0.88em; line-height: 1.6; }
+</style>
+</head>
+<body>
+<div class="nova-timestamp">📅 Updated: May 08, 2026 07:00 AM</div>
+
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <h1>🇺🇸 美股盤後晨報</h1>
+    <p>2026 年 5 月 7 日（美股收盤）<span class="badge">⚠️ 補救版</span></p>
+    <p style="margin-top:4px;font-size:0.82em;">資料來源：TradingView　｜　台銀匯率更新：2026/05/08 06:51</p>
+  </div>
+
+  <!-- 1. 三大指數 -->
+  <div class="section">
+    <div class="section-title">📈 1. 美股三大指數 + 費半</div>
+    <table>
+      <thead>
+        <tr>
+          <th>指數</th>
+          <th>收盤價</th>
+          <th>漲跌</th>
+          <th>漲跌幅</th>
+          <th>昨收</th>
+          <th>開盤</th>
+          <th>日內區間</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>道瓊 DJI</strong></td>
+          <td class="down">49,596.98</td>
+          <td class="down">−313.62</td>
+          <td class="down">−0.63% 🔽</td>
+          <td>49,910.60</td>
+          <td>50,002.39</td>
+          <td>49,487.97 – 50,130.20</td>
+        </tr>
+        <tr>
+          <td><strong>S&P 500 SPX</strong></td>
+          <td class="down">7,337.10</td>
+          <td class="down">−28.01</td>
+          <td class="down">−0.38% 🔽</td>
+          <td>7,365.11</td>
+          <td>7,376.78</td>
+          <td>7,321.25 – 7,385.02</td>
+        </tr>
+        <tr>
+          <td><strong>那斯達克 IXIC</strong></td>
+          <td class="down">25,806.20</td>
+          <td class="down">−32.75</td>
+          <td class="down">−0.13% 🔽</td>
+          <td>25,838.94</td>
+          <td>25,881.30</td>
+          <td>25,713.65 – 26,036.38</td>
+        </tr>
+        <tr>
+          <td><strong>費城半導體 SOX</strong></td>
+          <td class="down">11,160.99</td>
+          <td class="down">−311.76</td>
+          <td class="down" style="font-size:1.1em;">−2.72% 🔽🔽</td>
+          <td>11,472.75</td>
+          <td>11,332.19</td>
+          <td>11,075.13 – 11,404.37</td>
+        </tr>
+      </tbody>
+    </table>
+    <div style="margin-top:12px;padding:10px;background:#21262d;border-radius:8px;">
+      <p style="font-size:0.85em;color:#8b949e;margin-bottom:6px;">📊 技術面信號（DJI）</p>
+      <span class="tag tag-neutral"> Oscillators: 中性 </span>
+      <span class="tag tag-neutral"> Moving Averages: 賣出 </span>
+      <span class="tag tag-neutral"> Summary: 中性 </span>
+    </div>
+  </div>
+
+  <!-- 2. VIX & DXY -->
+  <div class="section">
+    <div class="section-title">😱 2. VIX 恐慌指數 & 美元指數 DXY</div>
+    <div class="index-grid">
+      <div class="index-card">
+        <h3>VIX 恐慌指數</h3>
+        <div class="price">17.07</div>
+        <div class="change down">−1.90% 🔽</div>
+        <div style="font-size:0.8em;color:#484f58;margin-top:6px;">昨收 17.40｜開盤 17.53</div>
+        <div style="font-size:0.8em;color:#484f58;">區間：16.85 – 17.60</div>
+      </div>
+      <div class="index-card">
+        <h3>DXY 美元指數</h3>
+        <div class="price">98.257</div>
+        <div class="change up">+0.25% 🔼</div>
+        <div style="font-size:0.8em;color:#484f58;margin-top:6px;">市場closed</div>
+        <div style="font-size:0.8em;color:#8b949e;">評估：美元小幅走強</div>
+      </div>
+    </div>
+    <p style="margin-top:10px;font-size:0.85em;color:#8b949e;">VIX 持續回落，市場風險情緒相對穩定，但仍處於 17 以上，顯示短期波動風險尚未完全消退。</p>
+  </div>
+
+  <!-- 3. 原物料期貨 -->
+  <div class="section">
+    <div class="section-title">🥇 3. 原物料期貨</div>
+    <table>
+      <thead>
+        <tr>
+          <th>商品</th>
+          <th>報價</th>
+          <th>漲跌</th>
+          <th>漲跌幅</th>
+          <th>昨收</th>
+          <th>日內區間</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>黃金 XAUUSD</strong></td>
+          <td class="flat">$4,686.1</td>
+          <td class="flat">−1.08</td>
+          <td class="flat">−0.02% —</td>
+          <td>4,687.18</td>
+          <td>4,682.04 – 4,699.60</td>
+        </tr>
+        <tr>
+          <td><strong>白銀 XAGUSD</strong></td>
+          <td class="up">$78.532</td>
+          <td class="up">+0.004</td>
+          <td class="up">+0.01% 🔼</td>
+          <td>78.528</td>
+          <td>78.32 – 78.90</td>
+        </tr>
+        <tr>
+          <td><strong>布倫特原油 UKOIL</strong></td>
+          <td class="up" style="font-size:1.1em;">$103.38</td>
+          <td class="up">+1.41</td>
+          <td class="up" style="font-size:1.05em;">+1.38% 🔼🔼</td>
+          <td>101.97</td>
+          <td>96.03 – 103.88</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="alert-box orange">
+      <h3>⚠️ 原油大漲：美伊局勢再升溫</h3>
+      <p>布倫特原油大漲 1.38%，重返 $103 美元上方。根據最新 News：美國與伊朗談判陷入僵局，中東緊張局勢升溫，油價獲得支撐。Reuters 19 分鐘前快報：「Oil prices jump on renewed US-Iran hostilities」，顯示最新突發事件影響。</p>
+    </div>
+  </div>
+
+  <!-- 4. 台銀匯率 -->
+  <div class="section">
+    <div class="section-title">💱 4. 匯率（台灣銀行 2026/05/08 06:51）</div>
+    <div class="fx-grid">
+      <div class="fx-card">
+        <h4>💵 USD</h4>
+        <div class="rate">31.33</div>
+        <div style="font-size:0.75em;color:#8b949e;">即期賣出 31.48</div>
+      </div>
+      <div class="fx-card">
+        <h4>💴 JPY</h4>
+        <div class="rate">0.1978</div>
+        <div style="font-size:0.75em;color:#8b949e;">即期賣出 0.2028</div>
+      </div>
+      <div class="fx-card">
+        <h4>💶 EUR</h4>
+        <div class="rate">36.545</div>
+        <div style="font-size:0.75em;color:#8b949e;">即期賣出 37.145</div>
+      </div>
+      <div class="fx-card">
+        <h4>💴 CNY</h4>
+        <div class="rate">4.585</div>
+        <div style="font-size:0.75em;color:#8b949e;">即期賣出 4.645</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. 盤勢分析 -->
+  <div class="analysis">
+    <h2>📊 整體盤勢分析（美股 05/07 收盤）</h2>
+
+    <p><strong>🔴 主要利空因素：</strong></p>
+    <p>• <strong>費半暴跌 2.72%</strong>：晶片股全線回落，Reuters 快報「S&P 500 ends down as chip stocks give up gains」，顯示半導體漲多後出現明顯賣壓。個股方面：NVIDIA +1.77%、Broadcom −3.03%、AMD −3.07%、ASML −1.82%、Intel −3.00%、Lam Research −3.58%、Applied Materials −4.19%、ARM −10.11%。</p>
+    <p>• <strong>美伊和平談判陷入僵局</strong>：Trump 對伊朗發出最新威脅，市場對中東達成和平協議的期望降溫， geopolitical risk 重新升溫。</p>
+    <p>• <strong>AI 助攻通膨議題</strong>：Reuters 報導「AI boosting inflation in US, with trend likely to continue」，市場擔憂 AI 基礎建設將持續推升通膨壓力。</p>
+    <p>• <strong>Fed 官員談話中性偏鷹</strong>：Fed 官員表示傾向結束寬鬆傾向，但利率維持不變。克利夫蘭 Fed Hammack：經濟不確定性高、失業與通膨之間保持「奇怪的平衡」。</p>
+
+    <p><strong>🟢 主要利多因素：</strong></p>
+    <p>• <strong>VIX 下跌至 17.07（−1.90%）</strong>：恐慌指數持續回落，市場情緒並未過度恐慌，暗示回檔而非系統性崩跌。</p>
+    <p>• <strong>就業數據公佈前整理</strong>：本週五（5/9）將公佈 4 月非農就業數據，市場在此之前觀望情緒濃厚的「pit stop」，屬正常技術性休息。</p>
+    <p>• <strong>那斯達克相對抗跌（−0.13%）</strong>：NASDAQ 只微幅下滑，顯示科技股漲勢尚未完全破壞，NVDA +1.77%、Microsoft +1.65% 逆勢收紅。</p>
+
+    <p><strong>📋 重要事件日曆：</strong></p>
+    <p>• <span class="tag tag-warning">本週五 5/9</span> 美國 4 月非農就業報告（NFP）發布 — 重要宏觀觀察點</p>
+    <p>• <span class="tag tag-info">美伊談判</span> 持續進行中 — 若有突破性消息將大幅影響原油與股市</p>
+
+    <div class="alert-box">
+      <h3>📝 Nova 觀點</h3>
+      <p>美股本週在 AI 概念股領漲後進入短線整理，費半出現較大回調屬技術性休息，整體多頭格局未破壞。市場主軸仍在「Fed 降息預期 vs. AI 通膨」之間拉扯。短線操作：避免追高半導體，可關注回測關鍵均線後的进场機會。原油因地緣政治突破 $100 大關，需持續關注伊朗局勢。</p>
+    </div>
+  </div>
+
+  <div class="timestamp">Nova AI 晨報 | 補救版 | 2026/05/08 07:10 AM</div>
+</div>
+</body>
+</html>
