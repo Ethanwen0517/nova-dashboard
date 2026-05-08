@@ -7,46 +7,242 @@
 <style>
 .nova-timestamp{position:fixed;top:12px;right:16px;background:#1a73e8;color:white;padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600;z-index:9999;box-shadow:0 2px 8px rgba(0,0,0,.2);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;}
 
+  /* ===== 基設定義 ===== */
+  :root {
+    --bg:        #0d1117;
+    --card-bg:   #161b22;
+    --border:    #30363d;
+    --text:      #e6edf3;
+    --subtext:   #8b949e;
+    --up:        #f85149;   /* 台股習慣：紅漲 */
+    --dn:        #3fb950;   /* 台股習慣：綠跌 */
+    --neutral:   #8b949e;
+    --yellow:    #d29922;
+    --blue:      #58a6ff;
+    --font-base: "Microsoft JhengHei", "Segoe UI", sans-serif;
+  }
+
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: "Microsoft JhengHei", "Segoe UI", sans-serif; background: #0d1117; color: #e6edf3; padding: 20px; }
+
+  body {
+    font-family: var(--font-base);
+    background: var(--bg);
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.6;
+    padding: 12px;
+  }
+
   .container { max-width: 900px; margin: 0 auto; }
-  .header { text-align: center; margin-bottom: 24px; padding: 20px; background: linear-gradient(135deg, #161b22, #23863622); border-radius: 12px; border: 1px solid #30363d; }
-  .header h1 { font-size: 1.8em; color: #3fb950; margin-bottom: 6px; }
-  .header p { color: #8b949e; font-size: 0.9em; }
-  .badge { display: inline-block; background: #238636; color: #fff; padding: 2px 10px; border-radius: 20px; font-size: 0.8em; margin-left: 8px; }
-  .badge-red { background: #da3633; }
-  .badge-yellow { background: #d29922; }
-  .section { background: #161b22; border-radius: 12px; padding: 18px; margin-bottom: 16px; border: 1px solid #30363d; }
-  .section-title { font-size: 1.1em; font-weight: 700; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid #30363d; color: #3fb950; }
-  table { width: 100%; border-collapse: collapse; font-size: 0.9em; }
-  th { background: #21262d; color: #8b949e; padding: 10px 12px; text-align: left; border-bottom: 1px solid #30363d; }
-  td { padding: 10px 12px; border-bottom: 1px solid #21262d; }
+
+  /* ===== Header ===== */
+  .header {
+    text-align: center;
+    margin-bottom: 16px;
+    padding: 16px 14px;
+    background: linear-gradient(135deg, #161b22, #23863622);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+  }
+  .header h1 { font-size: 1.6em; color: #3fb950; margin-bottom: 6px; }
+  .header p { color: var(--subtext); font-size: 0.85em; }
+  .badge {
+    display: inline-block;
+    background: #238636;
+    color: #fff;
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-size: 0.8em;
+    margin-left: 8px;
+  }
+
+  /* ===== Section Cards ===== */
+  .section {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 14px;
+    margin-bottom: 14px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .section-title {
+    font-size: 1em;
+    font-weight: 700;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+    color: #3fb950;
+  }
+
+  /* ===== Table ===== */
+  .table-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88em;
+    min-width: 500px;
+  }
+  th {
+    background: #21262d;
+    color: var(--subtext);
+    padding: 9px 10px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+  }
+
+  /* ── Sticky 第1欄（市場）固定 ── */
+  thead th:nth-child(1),
+  tbody td:nth-child(1) {
+    position: sticky;
+    left: 0;
+    z-index: 2;
+    background: var(--card-bg);   /* 預設背景 */
+    min-width: 100px;
+  }
+  thead th:nth-child(1) { z-index: 4; }
+
+  tbody tr:hover td:nth-child(1) {
+    background: #1c2128;
+  }
+
+  td {
+    padding: 9px 10px;
+    border-bottom: 1px solid #21262d;
+    white-space: nowrap;
+  }
   tr:hover { background: #1c2128; }
-  .up { color: #3fb950; font-weight: 600; }
-  .down { color: #f85149; font-weight: 600; }
-  .flat { color: #8b949e; }
-  .fx-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; }
-  .fx-card { background: #0d1117; border-radius: 8px; padding: 12px; border: 1px solid #30363d; text-align: center; }
-  .fx-card h4 { font-size: 0.8em; color: #8b949e; margin-bottom: 4px; }
-  .fx-card .rate { font-size: 1.2em; font-weight: 700; color: #e6edf3; }
-  .analysis { background: #161b22; border-radius: 12px; padding: 18px; border: 1px solid #30363d; }
-  .analysis h2 { color: #3fb950; font-size: 1em; margin-bottom: 12px; }
-  .analysis p { color: #c9d1d9; line-height: 1.7; font-size: 0.9em; margin-bottom: 10px; }
-  .tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; margin: 2px; }
-  .tag-up { background: #3fb95033; color: #3fb950; border: 1px solid #3fb95066; }
-  .tag-down { background: #f8514933; color: #f85149; border: 1px solid #f8514966; }
-  .tag-neutral { background: #8b949e33; color: #8b949e; border: 1px solid #8b949e66; }
-  .tag-info { background: #58a6ff33; color: #58a6ff; border: 1px solid #58a6ff66; }
-  .tag-warning { background: #d2992233; color: #d29922; border: 1px solid #d2992266; }
-  .tag-danger { background: #f8514933; color: #f85149; border: 1px solid #f8514966; }
-  .timestamp { text-align: right; color: #484f58; font-size: 0.8em; margin-top: 20px; }
-  .highlight-box { background: #23863622; border-left: 3px solid #3fb950; padding: 12px; border-radius: 0 8px 8px 0; margin: 12px 0; }
-  .highlight-box h3 { font-size: 0.95em; color: #3fb950; margin-bottom: 6px; }
-  .highlight-box p { color: #c9d1d9; font-size: 0.88em; line-height: 1.6; }
+
+  /* 台股習慣：紅漲綠跌 */
+  .up    { color: #f85149; font-weight: 600; }   /* 紅色 = 漲 */
+  .down  { color: #3fb950; font-weight: 600; }   /* 綠色 = 跌 */
+  .flat  { color: var(--subtext); }
+
+  /* ===== Market Tags ===== */
+  .tag {
+    display: inline-block;
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-size: 0.8em;
+    margin: 2px;
+    white-space: nowrap;
+  }
+  .tag-up      { background: #f8514933; color: #f85149; border: 1px solid #f8514966; }
+  .tag-down    { background: #3fb95033; color: #3fb950; border: 1px solid #3fb95066; }
+  .tag-neutral { background: #8b949e33; color: var(--subtext); border: 1px solid #8b949e66; }
+  .tag-info    { background: #58a6ff33; color: var(--blue); border: 1px solid #58a6ff66; }
+  .tag-warning { background: #d2992233; color: var(--yellow); border: 1px solid #d2992266; }
+  .tag-danger  { background: #f8514933; color: #f85149; border: 1px solid #f8514966; }
+
+  /* ===== FX Cards Grid ===== */
+  .fx-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+  .fx-card {
+    background: #0d1117;
+    border-radius: 8px;
+    padding: 10px 6px;
+    border: 1px solid var(--border);
+    text-align: center;
+    min-height: 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .fx-card h4 { font-size: 0.75em; color: var(--subtext); margin-bottom: 3px; }
+  .fx-card .rate { font-size: 1.1em; font-weight: 700; color: var(--text); }
+  .fx-card .rate-sub { font-size: 0.7em; color: var(--subtext); margin-top: 2px; }
+
+  /* ===== Highlight Box ===== */
+  .highlight-box {
+    background: #23863622;
+    border-left: 3px solid #3fb950;
+    padding: 12px;
+    border-radius: 0 8px 8px 0;
+    margin: 12px 0;
+  }
+  .highlight-box h3 { font-size: 0.92em; color: #3fb950; margin-bottom: 5px; }
+  .highlight-box p  { color: #c9d1d9; font-size: 0.88em; line-height: 1.6; }
+
+  /* ===== Analysis Section ===== */
+  .analysis {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 14px;
+    border: 1px solid var(--border);
+    margin-bottom: 14px;
+  }
+  .analysis h2 { color: #3fb950; font-size: 1em; margin-bottom: 10px; }
+  .analysis p   { color: #c9d1d9; line-height: 1.7; font-size: 0.88em; margin-bottom: 8px; }
+  .analysis strong { color: var(--text); }
+
+  /* ===== Timestamp ===== */
+  .timestamp {
+    text-align: right;
+    color: #484f58;
+    font-size: 0.75em;
+    margin-top: 16px;
+    padding-bottom: 8px;
+  }
+
+  /* ===== Legend ===== */
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 10px;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.78em;
+    color: var(--subtext);
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 3px 9px;
+  }
+  .legend-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* ===== PC (min 768px) ===== */
+  @media (min-width: 768px) {
+    body { font-size: 17px; padding: 20px; }
+    .header { padding: 20px; margin-bottom: 24px; }
+    .header h1 { font-size: 1.8em; }
+    .section { padding: 18px; margin-bottom: 16px; }
+    .section-title { font-size: 1.1em; margin-bottom: 14px; }
+    table { font-size: 0.9em; }
+    th, td { padding: 10px 12px; }
+    .fx-grid {
+      grid-template-columns: repeat(6, 1fr);
+      gap: 10px;
+    }
+    .fx-card { padding: 12px; min-height: 80px; }
+    .fx-card h4 { font-size: 0.8em; }
+    .fx-card .rate { font-size: 1.2em; }
+    .fx-card .rate-sub { font-size: 0.75em; }
+    .analysis { padding: 18px; }
+    .analysis h2 { font-size: 1.1em; }
+    .highlight-box { margin: 12px 0; }
+    .timestamp { margin-top: 20px; }
+    .legend { margin-top: 14px; gap: 8px; }
+    .legend-item { font-size: 0.82em; padding: 4px 10px; }
+  }
 </style>
 </head>
 <body>
-<div class="nova-timestamp">📅 Updated: May 08, 2026 07:02 AM</div>
+<div class="nova-timestamp">📅 Updated: May 08, 2026 07:35 AM</div>
 
 <div class="container">
 
@@ -54,84 +250,87 @@
   <div class="header">
     <h1>🌏 亞股晨報</h1>
     <p>2026 年 5 月 8 日（週五）<span class="badge">⚠️ 補救版</span></p>
-    <p style="margin-top:4px;font-size:0.82em;">資料來源：Yahoo Finance　｜　台銀匯率更新：2026/05/08 06:51</p>
+    <p style="margin-top:4px;font-size:0.82em;">📊 資料來源：Yahoo Finance　｜　💱 台銀匯率更新：2026/05/08 06:51</p>
   </div>
 
   <!-- 1. 亞洲主要指數 -->
   <div class="section">
     <div class="section-title">📊 1. 亞洲主要指數</div>
-    <table>
-      <thead>
-        <tr>
-          <th>市場</th>
-          <th>現價/昨收</th>
-          <th>開盤</th>
-          <th>漲跌</th>
-          <th>漲跌幅</th>
-          <th>日內區間</th>
-          <th>狀態</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><strong>🇯🇵 日經 225</strong></td>
-          <td class="up">62,833.84</td>
-          <td>—</td>
-          <td class="up">+3,324.28</td>
-          <td class="up" style="font-size:1.05em;">+5.59% 🔼🔼</td>
-          <td>59,263 – 59,706</td>
-          <td><span class="tag tag-up">已收盤(+5.59%)</span></td>
-        </tr>
-        <tr>
-          <td><strong>🇰🇷 韓國 KOSPI</strong></td>
-          <td class="up">7,490.05</td>
-          <td>—</td>
-          <td class="up">+105.49</td>
-          <td class="up">+1.43% 🔼</td>
-          <td>7,093 – 7,427</td>
-          <td><span class="tag tag-up">已收盤(+1.43%)</span></td>
-        </tr>
-        <tr>
-          <td><strong>🇭🇰 香港恒生</strong></td>
-          <td class="up">26,626.28</td>
-          <td>—</td>
-          <td class="up">+412.50</td>
-          <td class="up">+1.57% 🔼</td>
-          <td>25,878 – 26,213</td>
-          <td><span class="tag tag-neutral">尚未開盤</span></td>
-        </tr>
-        <tr>
-          <td><strong>🇨🇳 上海綜合</strong></td>
-          <td class="up">4,180.09</td>
-          <td>—</td>
-          <td class="up">+19.67</td>
-          <td class="up">+0.47% 🔼</td>
-          <td>4,130 – 4,166</td>
-          <td><span class="tag tag-neutral">尚未開盤</span></td>
-        </tr>
-        <tr>
-          <td><strong>🇨🇳 深圳綜合</strong></td>
-          <td class="up">15,641.89</td>
-          <td>—</td>
-          <td class="up">+177.44</td>
-          <td class="up">+1.15% 🔼</td>
-          <td>15,255 – 15,535</td>
-          <td><span class="tag tag-neutral">尚未開盤</span></td>
-        </tr>
-        <tr>
-          <td><strong>🇸🇬 新加坡 STI</strong></td>
-          <td class="up">4,941.96</td>
-          <td>—</td>
-          <td class="up">+8.95</td>
-          <td class="up">+0.18% 🔼</td>
-          <td>4,915 – 4,936</td>
-          <td><span class="tag tag-neutral">尚未開盤</span></td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="highlight-box" style="margin-top:14px;">
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>市場</th>
+            <th>現價/昨收</th>
+            <th>漲跌</th>
+            <th>漲跌幅</th>
+            <th>日內區間</th>
+            <th>狀態</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>🇯🇵 日經 225</strong></td>
+            <td class="up">62,833.84</td>
+            <td class="up">+3,324.28</td>
+            <td class="up">+5.59% 🔼🔼</td>
+            <td>59,263–62,834</td>
+            <td><span class="tag tag-up">已收盤</span></td>
+          </tr>
+          <tr>
+            <td><strong>🇰🇷 韓國 KOSPI</strong></td>
+            <td class="up">7,490.05</td>
+            <td class="up">+105.49</td>
+            <td class="up">+1.43% 🔼</td>
+            <td>7,093–7,427</td>
+            <td><span class="tag tag-up">已收盤</span></td>
+          </tr>
+          <tr>
+            <td><strong>🇭🇰 香港恒生</strong></td>
+            <td class="up">26,626.28</td>
+            <td class="up">+412.50</td>
+            <td class="up">+1.57% 🔼</td>
+            <td>25,878–26,626</td>
+            <td><span class="tag tag-neutral">尚未開盤</span></td>
+          </tr>
+          <tr>
+            <td><strong>🇨🇳 上海綜合</strong></td>
+            <td class="up">4,180.09</td>
+            <td class="up">+19.67</td>
+            <td class="up">+0.47% 🔼</td>
+            <td>4,130–4,180</td>
+            <td><span class="tag tag-neutral">尚未開盤</span></td>
+          </tr>
+          <tr>
+            <td><strong>🇨🇳 深圳綜合</strong></td>
+            <td class="up">15,641.89</td>
+            <td class="up">+177.44</td>
+            <td class="up">+1.15% 🔼</td>
+            <td>15,255–15,642</td>
+            <td><span class="tag tag-neutral">尚未開盤</span></td>
+          </tr>
+          <tr>
+            <td><strong>🇸🇬 新加坡 STI</strong></td>
+            <td class="up">4,941.96</td>
+            <td class="up">+8.95</td>
+            <td class="up">+0.18% 🔼</td>
+            <td>4,915–4,942</td>
+            <td><span class="tag tag-neutral">尚未開盤</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Legend -->
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot" style="background:#f85149"></div>🔴 紅漲（台/陸股）</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#3fb950"></div>🟢 綠跌（台/陸股）</div>
+      <div class="legend-item">💡 亞洲全數收漲，日經大漲 5.59% 領漲</div>
+    </div>
+
+    <div class="highlight-box">
       <h3>📌 市場概況</h3>
-      <p>日經 225 大漲 5.59%，為今日亞洲最強市場！韓國、港股、中國均收漲，台灣加權指數因 Yahoo Finance 無法取得數據。明日台股有望跟隨亞股腳步開高。</p>
+      <p>日經 225 大漲 5.59% 領漲，韓國、港股、中國均收紅。台灣加權因 Yahoo Finance 無資料缺席。明日台股有望跟隨亞股開高。</p>
     </div>
   </div>
 
@@ -142,32 +341,32 @@
       <div class="fx-card">
         <h4>💵 USD</h4>
         <div class="rate">31.33</div>
-        <div style="font-size:0.75em;color:#8b949e;">即期賣出 31.48</div>
+        <div class="rate-sub">即期賣出 31.48</div>
       </div>
       <div class="fx-card">
         <h4>💴 JPY</h4>
         <div class="rate">0.1978</div>
-        <div style="font-size:0.75em;color:#8b949e;">即期賣出 0.2028</div>
+        <div class="rate-sub">即期賣出 0.2028</div>
       </div>
       <div class="fx-card">
         <h4>💶 EUR</h4>
         <div class="rate">36.545</div>
-        <div style="font-size:0.75em;color:#8b949e;">即期賣出 37.145</div>
+        <div class="rate-sub">即期賣出 37.145</div>
       </div>
       <div class="fx-card">
         <h4>💴 CNY</h4>
         <div class="rate">4.585</div>
-        <div style="font-size:0.75em;color:#8b949e;">即期賣出 4.645</div>
+        <div class="rate-sub">即期賣出 4.645</div>
       </div>
       <div class="fx-card">
         <h4>🇭🇰 HKD</h4>
         <div class="rate">4.045</div>
-        <div style="font-size:0.75em;color:#8b949e;">即期賣出 4.058</div>
+        <div class="rate-sub">即期賣出 4.058</div>
       </div>
       <div class="fx-card">
         <h4>🇰🇷 KRW</h4>
         <div class="rate">0.023</div>
-        <div style="font-size:0.75em;color:#8b949e;">參考匯率</div>
+        <div class="rate-sub">參考匯率</div>
       </div>
     </div>
   </div>
@@ -175,22 +374,19 @@
   <!-- 3. 盤勢分析 -->
   <div class="analysis">
     <h2>📊 整體盤勢分析（2026/05/08）</h2>
-
     <p><strong>🔼 主要利多因素：</strong></p>
-    <p>• <strong>日經 225 大漲 5.59%</strong>：日本股市在美股反彈激勵下大幅走高，收盤突破 62,000 點大關，為今日亞洲最強市場。</p>
-    <p>• <strong>美股隔夜全線收紅</strong>：S&P 500 來到 7,337 點，NASDAQ 微幅反彈，市場風險情緒回暖，亞股獲得支撐。</p>
-    <p>• <strong>韓國 KOSPI 上漲 1.43%</strong>：半導體與科技股領漲，跟隨美股費半反彈。</p>
-    <p>• <strong>港股上漲 1.57%</strong>：中國 AI 概念與科技股延續漲勢，市場信心回升。</p>
-    <p>• <strong>中國A股雙雙收紅</strong>：上海 +0.47%，深圳 +1.15%，顯示資金持續流入中國資本市場。</p>
-
+    <p>• <strong>日經 225 大漲 5.59%</strong>：美股反彈激勵，收盤突破 62,000 大關，亞洲最強市場。</p>
+    <p>• <strong>美股隔夜全線收紅</strong>：S&P 500 報 7,337 點，NASDAQ 微幅反彈，市場情緒回暖。</p>
+    <p>• <strong>韓國 KOSPI +1.43%</strong>：半導體與科技股領漲，跟隨費半反彈。</p>
+    <p>• <strong>港股 +1.57%</strong>：中國 AI 概念與科技股延續漲勢。</p>
+    <p>• <strong>中國 A 股雙雙收紅</strong>：上海 +0.47%，深圳 +1.15%。</p>
     <p><strong>⚠️ 潛在風險：</strong></p>
-    <p>• <strong>美伊地緣政治風險</strong>：原油重返 $103+，若中東局勢進一步升級，可能影響亞洲能源進口國（如日本、韓國）。</p>
-    <p>• <strong>美中貿易談判不確定性</strong>：中美貿易談判進展仍需持續觀察。</p>
-    <p>• <strong>本週五美國 NFP 就業數據</strong>：本週五（5/9）將公佈非農就業，市場觀望情緒可能在週五前抑制漲幅。</p>
-
+    <p>• <strong>美伊地緣政治風險</strong>：原油重返 $103+，中東局勢若升級影響能源進口國。</p>
+    <p>• <strong>美中貿易談判不確定性</strong>：仍需持續觀察。</p>
+    <p>• <strong>本週五美國 NFP 就業數據</strong>（5/9），市場觀望可能抑制漲幅。</p>
     <div class="highlight-box">
       <h3>📝 Nova 觀點</h3>
-      <p>亞洲市場今日普遍收漲，日經大漲 5.59% 最為搶眼，反映美股反彈的外溢效應。明日台股可望跟隨亞股腳步開高。短線操作：可關注 AI 概念股、半導體供應鏈補漲機會。本週五注意美國 NFP 數據影響。</p>
+      <p>亞洲市場普遍收漲，日經大漲 5.59% 最搶眼。明日台股可望跟隨開高。短線關注 AI 概念股、半導體供應鏈補漲。本週五注意 NFP 數據影響。</p>
     </div>
   </div>
 
