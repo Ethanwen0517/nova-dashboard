@@ -1,0 +1,1990 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>嘉聯益 6153 ｜ 分析及建議｜Linear Dark</title>
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=JetBrains+Mono:wght@400;600&display=swap');
+
+    :root {
+        --bg: #0d1117;
+        --card: #161b22;
+        --border: #21262d;
+        --text: #e6edf3;
+        --text2: #8b949e;
+        --text3: #9ca3af;
+        --red: #f85149;
+        --green: #3fb950;
+        --yellow: #d29922;
+        --blue: #58a6ff;
+        --purple: #bc8cff;
+        --accent: #6366f1;
+        --mono: 'JetBrains Mono', monospace;
+
+        /* ── 統一色票：均線 / 籌碼 / 欄位 ── */
+        --ma5-color:    #f0c040;   /* MA5  = 黃 */
+        --ma20-color:   #58a6ff;   /* MA20 = 藍 */
+        --ma60-color:   #bc8cff;   /* MA60 = 紫 */
+        --chip-foreign: #3fb950;   /* 外資 = 綠 */
+        --chip-trust:   #bc8cff;   /* 投信 = 紫 */
+        --chip-dealer:  #22d3ee;   /* 自營 = 青藍，避免與股價橘衝突 */
+        --chip-price:   #58a6ff;   /* 股價線 = 藍 */
+
+        /* 三欄識別色 */
+        --col1-accent:  #58a6ff;   /* 技術面 = 藍 */
+        --col2-accent:  #3fb950;   /* 籌碼面 = 綠 */
+        --col3-accent:  #f59e0b;   /* 操作建議 = 橙 */
+    }
+
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        font-family: 'Noto Sans TC', sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        font-size: 16px;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* ═══ TOP HEADER ═══ */
+    .top-bar {
+        background: var(--card);
+        border-bottom: 1px solid var(--border);
+        padding: 10px 16px;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 10px;
+        flex-shrink: 0;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+    }
+
+    .tb-title {
+        font-size: 21px;
+        font-weight: 900;
+        color: var(--text);
+        display: flex;
+        align-items: baseline;
+        gap: 6px;
+    }
+
+    .tb-title .code {
+        color: var(--accent);
+    }
+
+    .tb-title .sub {
+        font-size: 16px;
+        font-weight: 500;
+        color: var(--text2);
+    }
+
+    .tb-stats {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        flex-wrap: wrap;
+        margin-left: auto;
+    }
+
+    .stat {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+
+    .stat .lbl {
+        font-size: 10px;
+        color: var(--text3);
+        line-height: 1;
+        margin-bottom: 2px;
+    }
+
+    .stat .val {
+        font-family: var(--mono);
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 1;
+    }
+
+    /* 台股習慣：漲=紅 跌=綠 */
+    .neg {
+        color: var(--green);   /* 跌 = 綠 */
+    }
+
+    .pos {
+        color: var(--red);     /* 漲 = 紅 */
+    }
+
+    /* 語意明確的別名，方便未來維護 */
+    .tw-up   { color: var(--red);    }
+    .tw-dn   { color: var(--green);  }
+    .tw-flat { color: var(--text2);  }
+
+    .warn {
+        color: var(--yellow);
+    }
+
+    .blue {
+        color: var(--blue);
+    }
+
+    .acc {
+        color: var(--accent);
+    }
+
+    .tb-divider {
+        width: 1px;
+        height: 28px;
+        background: var(--border);
+    }
+
+    /* ═══ 3-COL MAIN ═══ */
+    .main {
+        flex: 1;
+        display: grid;
+        /* 技術面內容最多但每個圖較矮，籌碼/操作表格較長
+           給技術面略窄、其他兩欄略寬，視覺上更均衡 */
+        grid-template-columns: 0.9fr 1.05fr 1.05fr;
+        gap: 0;
+        min-height: 0;
+        overflow: hidden;
+    }
+
+    .col {
+        border-right: 1px solid var(--border);
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        background: var(--bg);
+    }
+
+    .col:last-child {
+        border-right: none;
+    }
+
+    .col-hdr {
+        background: var(--card);
+        border-bottom: 2px solid var(--col-accent, var(--accent));
+        padding: 10px 14px;
+        font-size: 14px;
+        font-weight: 800;
+        color: var(--text2);
+        letter-spacing: 0.3px;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .col-hdr span {
+        color: var(--text);
+        font-weight: 700;
+    }
+
+    /* 欄位識別色 */
+    .col:nth-child(1) { --col-accent: var(--col1-accent); }
+    .col:nth-child(2) { --col-accent: var(--col2-accent); }
+    .col:nth-child(3) { --col-accent: var(--col3-accent); }
+
+    /* col-hdr 右側識別 badge */
+    .col-badge {
+        font-size: 10px;
+        font-weight: 600;
+        padding: 2px 8px;
+        border-radius: 20px;
+        letter-spacing: 0.4px;
+        border: 1px solid;
+    }
+    .col:nth-child(1) .col-badge { color: var(--col1-accent); border-color: var(--col1-accent); background: rgba(88,166,255,0.08); }
+    .col:nth-child(2) .col-badge { color: var(--col2-accent); border-color: var(--col2-accent); background: rgba(63,185,80,0.08);  }
+    .col:nth-child(3) .col-badge { color: var(--col3-accent); border-color: var(--col3-accent); background: rgba(245,158,11,0.08); }
+
+    .col-body {
+        flex: 1;
+        overflow-y: auto;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        min-height: 0;
+    }
+
+    /* 技術面欄的 card body 間距小一點（圖表多，靠緊一些） */
+    .col:nth-child(1) .col-body {
+        gap: 7px;
+        padding: 8px;
+    }
+
+    /* 籌碼/操作欄稍寬鬆 */
+    .col:nth-child(2) .col-body,
+    .col:nth-child(3) .col-body {
+        gap: 12px;
+        padding: 12px;
+    }
+
+    .col-body::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    .col-body::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .col-body::-webkit-scrollbar-thumb {
+        background: var(--border);
+        border-radius: 2px;
+    }
+
+    /* ═══ CARDS ═══ */
+    .card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 14px 16px;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.25);
+    }
+
+    .card-title {
+        font-size: 15px;
+        font-weight: 900;
+        color: var(--text2);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin-bottom: 8px;
+        padding-bottom: 7px;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .card-title .dot {
+        width: 3px;
+        height: 12px;
+        background: var(--col-accent, var(--accent));
+        border-radius: 2px;
+        flex-shrink: 0;
+    }
+
+    /* card-title 右側摘要標籤 */
+    .card-title .ct-spacer { flex: 1; }
+    .ct-tag {
+        font-size: 10px;
+        font-weight: 700;
+        padding: 2px 7px;
+        border-radius: 4px;
+        letter-spacing: 0.4px;
+        flex-shrink: 0;
+        white-space: nowrap;
+    }
+    .ct-tag.bull  { background: rgba(63,185,80,0.15);   color: #3fb950; border: 1px solid rgba(63,185,80,0.3);   }
+    .ct-tag.bear  { background: rgba(248,81,73,0.15);   color: #f85149; border: 1px solid rgba(248,81,73,0.3);   }
+    .ct-tag.neu   { background: rgba(139,148,158,0.15); color: #8b949e; border: 1px solid rgba(139,148,158,0.3); }
+    .ct-tag.warn  { background: rgba(210,153,34,0.15);  color: #d29922; border: 1px solid rgba(210,153,34,0.3);  }
+    .ct-tag.info  { background: rgba(88,166,255,0.15);  color: #58a6ff; border: 1px solid rgba(88,166,255,0.3);  }
+
+    .ind-meta {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        font-size: 12px;
+        color: var(--text3);
+        margin-bottom: 7px;
+    }
+
+    .ind-meta .iv {
+        font-family: var(--mono);
+        font-weight: 700;
+        color: var(--text);
+        font-size: 14px;
+    }
+
+    /* ═══ CHART CONTAINERS ═══ */
+    canvas {
+        display: block;
+        width: 100%;
+        cursor: crosshair;
+    }
+
+    .chart-wrap {
+        width: 100%;
+    }
+
+    /* ═══ TOOLTIP ═══ */
+    .chart-tooltip {
+        position: fixed;
+        z-index: 9999;
+        display: none;
+        pointer-events: none;
+        background: rgba(22, 27, 34, 0.97);
+        color: #e6edf3;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        border-radius: 8px;
+        padding: 12px 14px;
+        font-size: 13px;
+        line-height: 1.8;
+        font-family: 'Noto Sans TC', sans-serif;
+        min-width: 160px;
+    }
+
+    .chart-tooltip strong {
+        color: #fff;
+        font-weight: 800;
+    }
+
+    .chart-tooltip .mono {
+        font-family: var(--mono);
+    }
+
+    /* ═══ CONCLUDE ═══ */
+    .conclude {
+        background: var(--card);
+        border-radius: 6px;
+        border-left: 3px solid var(--accent);
+        padding: 12px 14px;
+        font-size: 14px;
+        line-height: 1.8;
+        color: var(--text2);
+    }
+
+    /* ═══ CHIP TABLE ═══ */
+    .ctbl {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+    }
+
+    .ctbl th {
+        background: var(--card);
+        color: var(--text);
+        padding: 3px 6px;
+        text-align: right;
+        border-bottom: 1px solid var(--border);
+        font-weight: 700;
+        font-size: 13px;
+        white-space: nowrap;
+    }
+
+    .ctbl th:first-child {
+        text-align: left;
+    }
+
+    .ctbl td {
+        padding: 4px 6px;
+        border-bottom: 1px solid var(--border);
+        text-align: right;
+        font-family: var(--mono);
+        font-size: 12px;
+        transition: background-color 0.15s ease;
+        white-space: nowrap;
+    }
+
+    .ctbl td:first-child {
+        text-align: left;
+        font-family: inherit;
+        color: var(--text2);
+    }
+
+    /* 表格列 hover 修正 */
+    .ctbl tbody tr {
+        transition: background-color 0.15s ease;
+    }
+
+    .ctbl tbody tr:hover td {
+        background: rgba(99,102,241,0.12);
+    }
+
+    .ctbl tfoot td {
+        font-weight: 700;
+        font-size: 13px;
+        border-top: 1.5px solid var(--border);
+        background: var(--card);
+        color: var(--text);
+    }
+
+    /* ═══ ACTION CARDS ═══ */
+    .zone-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 3px 0;
+        border-bottom: 1px solid var(--border);
+        font-size: 12px;
+        line-height: 1.4;
+    }
+
+    .zone-row:last-child {
+        border-bottom: none;
+    }
+
+    .zl {
+        color: var(--text2);
+        font-size: 14.5px;
+    }
+
+    .zv {
+        font-weight: 700;
+        font-size: 14.5px;
+    }
+
+    .path-item {
+        border-radius: 6px;
+        padding: 6px 10px;
+        border-left: 3px solid var(--accent);
+        background: var(--card);
+        margin-bottom: 0;
+    }
+
+    .path-item.up {
+        border-left-color: var(--green);
+    }
+
+    .path-item.down {
+        border-left-color: var(--red);
+    }
+
+    .path-item.neutral {
+        border-left-color: var(--yellow);
+    }
+
+    .path-item h4 {
+        font-size: 14px;
+        font-weight: 800;
+        color: var(--text);
+        margin-bottom: 7px;
+    }
+
+    .path-item p {
+        font-size: 13px;
+        color: var(--text2);
+        line-height: 1.7;
+    }
+
+    .path-item p em {
+        font-style: normal;
+        font-weight: 700;
+        color: var(--text);
+    }
+
+    .summary-tbl {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+    }
+
+    .summary-tbl th {
+        background: var(--card);
+        color: var(--text2);
+        font-weight: 700;
+        padding: 7px 10px;
+        text-align: center;
+        border-bottom: 1.5px solid var(--border);
+        font-size: 13px;
+    }
+
+    .summary-tbl td {
+        padding: 6px 10px;
+        text-align: center;
+        border-bottom: 1px solid var(--border);
+        color: var(--text);
+        font-size: 12px;
+    }
+
+    .summary-tbl tfoot td {
+        background: var(--card);
+        font-weight: 700;
+        border-top: 2px solid var(--accent);
+        font-size: 11.5px;
+        color: var(--text);
+        padding: 8px;
+    }
+
+    .star {
+        font-size: 18px;
+        letter-spacing: 2px;
+    }
+
+    /* ═══ FOOTER ═══ */
+    .footer {
+        background: var(--card);
+        border-top: 1px solid var(--border);
+        padding: 6px 16px;
+        text-align: center;
+        font-size: 12px;
+        color: var(--text3);
+        flex-shrink: 0;
+    }
+
+    /* ═══ MOBILE ═══ */
+    @media (max-width: 768px) {
+        .main {
+            grid-template-columns: 1fr;
+            overflow: visible;
+            height: auto;
+        }
+
+        .col {
+            border-right: none;
+            border-bottom: 2px solid var(--border);
+            overflow: visible;
+        }
+
+        .col-body {
+            overflow: visible;
+        }
+
+        body {
+            overflow-y: auto;
+        }
+
+        .tb-stats {
+            gap: 10px;
+        }
+
+        .stat .val {
+            font-size: 16px;
+        }
+
+        .tb-divider {
+            display: none;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .top-bar {
+            gap: 6px;
+            padding: 8px 10px;
+        }
+
+        .tb-title {
+            font-size: 16px;
+        }
+
+        .tb-stats {
+            width: 100%;
+            justify-content: space-between;
+        }
+
+        .stat {
+            align-items: center;
+        }
+    }
+    </style>
+</head>
+
+<body>
+    <!-- ══ TOP BAR ══ -->
+    <div class="top-bar">
+        <div class="tb-title">
+            嘉聯益
+            <span class="code">6153</span>
+            <span class="sub">分析及建議</span>
+        </div>
+        <div class="tb-stats">
+            <!-- 當日價格 -->
+            <div class="stat"><span class="lbl">收盤價</span><span class="val pos">18.45</span></div>
+            <div class="tb-divider"></div>
+            <div class="stat"><span class="lbl">開盤</span><span class="val">18.10</span></div>
+            <div class="stat"><span class="lbl">最高</span><span class="val pos">18.85</span></div>
+            <div class="stat"><span class="lbl">最低</span><span class="val neg">18.00</span></div>
+            <div class="tb-divider"></div>
+            <!-- 漲跌 -->
+            <div class="stat"><span class="lbl">漲跌</span><span class="val pos">-0.35</span></div>
+            <div class="stat"><span class="lbl">漲跌幅</span><span class="val pos">-1.86%</span></div>
+            <div class="tb-divider"></div>
+            <!-- 52週高低 -->
+            <div class="stat"><span class="lbl">52W 高</span><span class="val pos">21.80</span></div>
+            <div class="stat"><span class="lbl">52W 低</span><span class="val neg">14.30</span></div>
+            <div class="tb-divider"></div>
+            <!-- 成交量 / 更新 -->
+            <div class="stat"><span class="lbl">成交量</span><span class="val">5,465,199張</span></div>
+            <div class="tb-divider"></div>
+            <div class="stat"><span class="lbl">更新</span><span class="val" style="color:var(--text2)">2026-05-12</span></div>
+        </div>
+    </div>
+    <!-- ══ 3-COL MAIN ══ -->
+    <div class="main">
+        <!-- ══════ COL 1：技術面 ══════ -->
+        <div class="col">
+            <div class="col-hdr">一、<span>技術面分析</span><span class="col-badge">📈 TECHNICAL</span></div>
+            <div class="col-body">
+                <div class="card">
+                    <div class="card-title">
+                        <div class="dot"></div>K線 + 均線（日K / 近60日）
+                        <span class="ct-spacer"></span><span class="ct-tag bull">中性整理 ↑</span>
+                    </div>
+                    <div class="ind-meta">
+                        <span>K線</span>
+                        <span style="color:#f0c040">MA5 <span class="iv">18.47</span></span>
+                        <span style="color:#58a6ff">MA20 <span class="iv">18.41</span></span>
+                        <span style="color:#bc8cff">MA60 <span class="iv">17.04</span></span>
+                    </div>
+                    <div class="chart-wrap"><canvas id="kChart"></canvas></div>
+                    <div class="chart-wrap" style="margin-top:3px"><canvas id="volChart"></canvas></div>
+                </div>
+                <div class="card">
+                    <div class="card-title">
+                        <div class="dot"></div>KD 隨機指標（9,3,3）
+                        <span class="ct-spacer"></span><span class="ct-tag warn">死亡交叉 ↓</span>
+                    </div>
+                    <div class="ind-meta">
+                        <span style="color:#f0c040">K <span class="iv">36.39</span></span>
+                        <span style="color:#58a6ff">D <span class="iv">34.45</span></span>
+                        <span style="color:var(--text3);font-size:10px">死亡交叉低檔運行中</span>
+                    </div>
+                    <div class="chart-wrap"><canvas id="kdChart"></canvas></div>
+                </div>
+                <div class="card">
+                    <div class="card-title">
+                        <div class="dot"></div>RSI 相對強弱（14）
+                        <span class="ct-spacer"></span><span class="ct-tag info">偏弱 31.67</span>
+                    </div>
+                    <div class="ind-meta">
+                        <span style="color:var(--accent)">RSI <span class="iv">31.67</span></span>
+                        <span style="color:var(--red)">超買 70</span>
+                        <span style="color:var(--green)">超賣 30</span>
+                    </div>
+                    <div class="chart-wrap"><canvas id="rsiChart"></canvas></div>
+                </div>
+                <div class="card">
+                    <div class="card-title">
+                        <div class="dot"></div>MACD（12,26,9）
+                        <span class="ct-spacer"></span><span class="ct-tag bull">DIF > DEA ↑</span>
+                    </div>
+                    <div class="ind-meta">
+                        <span style="color:#f0c040">DIF <span class="iv">0.3166</span></span>
+                        <span style="color:#58a6ff">DEA <span class="iv">0.3954</span></span>
+                        <span style="color:var(--green)">MACD <span class="iv">-0.0788</span></span>
+                    </div>
+                    <div class="chart-wrap"><canvas id="macdChart"></canvas></div>
+                </div>
+                <div class="card">
+                    <div class="card-title">
+                        <div class="dot"></div>技術面結論
+                        <span class="ct-spacer"></span><span class="ct-tag warn">中性觀望</span>
+                    </div>
+                    <div class="conclude">
+                        📊 短線仍處弱勢。MA5(18.47) ≈ MA20(18.41) 形成毛刺，股價 18.45 夾在兩條均線之間。KD (K=36.39, D=34.45) 死亡交叉確認，RSI(31.67) 接近超賣但尚未進入（>30）。MACD DIF(0.3166) < DEA(0.3954)，MACD 柱 -0.0788，3日內從 -0.16 收斂至 -0.08，空方動能放緩但仍偏空。MA60(17.04) 為強撐，跌破才加速。
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ══════ COL 2：籌碼面 ══════ -->
+        <div class="col">
+            <div class="col-hdr">二、<span>籌碼面分析</span><span class="col-badge">🏦 CHIPS</span></div>
+            <div class="col-body">
+                <div class="card">
+                    <div class="card-title">
+                        <div class="dot"></div>三大法人近10日籌碼動向
+                        <span class="ct-spacer"></span><span class="ct-tag bear">法人賣超</span>
+                    </div>
+                    <div class="ind-meta">
+                        <span style="color:#3fb950">■ 外資</span>
+                        <span style="color:#bc8cff">■ 投信</span>
+                        <span style="color:#22d3ee">■ 自營商</span>
+                        <span style="color:#f59e0b">— 股價(右軸)</span>
+                    </div>
+                    <div class="chart-wrap"><canvas id="chipChart"></canvas></div>
+                </div>
+                <div class="card">
+                    <div class="card-title">
+                        <div class="dot"></div>法人買賣超（單位：張）
+                        <span class="ct-spacer"></span><span class="ct-tag bear">-892 張</span>
+                    </div>
+                    <table class="ctbl">
+                        <thead>
+                            <tr>
+                                <th>日期</th>
+                                <th>外資</th>
+                                <th>投信</th>
+                                <th>自營商</th>
+                                <th>合計</th>
+                            </tr>
+                        </thead>
+                        <tr><td>05/04</td><td class="neg">-685</td><td class="pos">0</td><td class="neg">-163</td><td class="neg">-848</td></tr>
+<tr><td>05/05</td><td class="pos">+1,050</td><td class="pos">0</td><td class="pos">+14</td><td class="pos">+1,064</td></tr>
+<tr><td>05/06</td><td class="neg">-1,554</td><td class="pos">0</td><td class="pos">+3</td><td class="neg">-1,551</td></tr>
+<tr><td>05/07</td><td class="pos">+1,258</td><td class="pos">0</td><td class="neg">-3</td><td class="pos">+1,255</td></tr>
+<tr><td>05/08</td><td class="neg">-701</td><td class="pos">0</td><td class="pos">+2</td><td class="neg">-698</td></tr>
+<tr><td>05/11</td><td class="neg">-1,255</td><td class="pos">0</td><td class="neg">-8</td><td class="neg">-1,263</td></tr>
+<tr><td>05/12</td><td class="pos">+1,069</td><td class="pos">0</td><td class="pos">+79</td><td class="pos">+1,148</td></tr>
+                        <tfoot>
+<tr>
+<td>合計</td>
+<td class="neg">-817</td>
+<td class="pos">0</td>
+<td class="neg">-76</td>
+<td class="neg">-892</td>
+</tr>
+</tfoot>
+                    </table>
+                </div>
+                <div class="card">
+                    <div class="card-title">
+                        <div class="dot"></div>主力進出（外資+投信，單位：張）
+                        <span class="ct-spacer"></span><span class="ct-tag bear">累計 -817</span>
+                    </div>
+                    <table class="ctbl">
+                        <thead>
+                            <tr>
+                                <th>日期</th>
+                                <th>主力淨買超</th>
+                                <th>累計</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>05/04</td><td class="neg">-685</td><td class="neg">-685</td></tr>
+                            <tr><td>05/05</td><td class="pos">+1,050</td><td class="pos">+365</td></tr>
+                            <tr><td>05/06</td><td class="neg">-1,554</td><td class="neg">-1,189</td></tr>
+                            <tr><td>05/07</td><td class="pos">+1,258</td><td class="pos">+69</td></tr>
+                            <tr><td>05/08</td><td class="neg">-701</td><td class="neg">-632</td></tr>
+                            <tr><td>05/11</td><td class="neg">-1,255</td><td class="neg">-1,887</td></tr>
+                            <tr><td>05/12</td><td class="pos">+1,069</td><td class="neg">-818</td></tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td>合計</td>
+                                <td class="neg">-817</td>
+                                <td class="neg">-817</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <div class="card">
+                    <div class="card-title">
+                        <div class="dot"></div>籌碼結論
+                        <span class="ct-spacer"></span><span class="ct-tag warn">中性觀望</span>
+                    </div>
+                    <div class="conclude">
+                        📊 外資近7日合計賣超 -817 張（多空拉鋸），投信無操作，自營商偏短線 +79 張。主力成本估約 <strong>18.50 元</strong>（05/06 高點區），與現價 18.45 接近，主力高檔輕套。MACD 空方收斂中，RSI 31.67 接近超賣，短線有技術反彈需求。
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ══════ COL 3：操作建議 ══════ -->
+        <div class="col">
+            <div class="col-hdr">三、<span>操作建議</span><span class="col-badge">🎯 ACTION</span></div>
+            <div class="col-body">
+                <div class="card">
+                    <div class="card-title">
+                        <div class="dot"></div>短線操作建議
+                        <span class="ct-spacer"></span><span class="ct-tag warn">中性觀望</span>
+                    </div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+                        <div>
+                            <div class="zone-row"><span class="zl">建議方向</span><span class="zv warn">中性觀望</span></div>
+                            <div class="zone-row"><span class="zl">現價位置</span><span class="zv neg">夾在MA5/MA20之間，中性</span></div>
+                            <div class="zone-row"><span class="zl">進場策略</span><span class="zv acc">拉回 MA20(18.41) 進場</span></div>
+                            <div class="zone-row"><span class="zl">停損參考</span><span class="zv neg">17.0 元</span></div>
+                            <div class="zone-row"><span class="zl">樂觀目標</span><span class="zv pos">19.0</span></div>
+                            <div class="zone-row"><span class="zl">操作週期</span><span class="zv">5～10日</span></div>
+                        </div>
+                        <div>
+                            <div class="zone-row"><span class="zl">💪 強壓力</span><span class="zv neg">19.00</span></div>
+                            <div class="zone-row"><span class="zl">🔴 短壓R1</span><span class="zv neg">18.47（MA5）</span></div>
+                            <div class="zone-row"><span class="zl">⚠️ 短撐S1</span><span class="zv pos">18.47（MA5）</span></div>
+                            <div class="zone-row"><span class="zl">🟡 中撐S2</span><span class="zv warn">18.41（MA20）</span></div>
+                            <div class="zone-row"><span class="zl">🔵 強撐S3</span><span class="zv pos">17.0（MA60下方）</span></div>
+                            <div class="zone-row"><span class="zl">⛔ 停損</span><span class="zv neg">17.0 元</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title">
+                        <div class="dot"></div>可能路徑分析
+                        <span class="ct-spacer"></span><span class="ct-tag neu">整理機率 50%</span>
+                    </div>
+                    <div style="display:flex;flex-direction:column;gap:6px;">
+                        <div class="path-item up">
+                            <h4>🟢 情境A｜上漲路徑（30%）</h4>
+                            <p>法人轉多＋放量突破 <em>18.47（MA5）</em> → 目標 <em>19.0</em>，少量試多。</p>
+                        </div>
+                        <div class="path-item neutral">
+                            <h4>🟡 情境B｜區間整理（50%）</h4>
+                            <p>股價在 <em>18.41～18.47</em> 震盪 → 高點測試 MA60 時先退出，低點 MA20(18.41) 布局。</p>
+                        </div>
+                        <div class="path-item down">
+                            <h4>🔴 情境C｜回檔路徑（20%）</h4>
+                            <p>跌破 <em>MA20（18.41）</em> 且法人持續賣超 → 目標 <em>16.5～17.0</em>，<em>離場觀望</em>。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title">
+                        <div class="dot"></div>中長線看法 ／ 風險提醒
+                        <span class="ct-spacer"></span><span class="ct-tag warn">4～8 週觀察</span>
+                    </div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+                        <div>
+                            <div style="font-size:14px;font-weight:800;color:var(--text);margin-bottom:6px;">🔭 中長線操作</div>
+                            <div class="zone-row"><span class="zl">趨勢</span><span class="zv warn">中期整理</span></div>
+                            <div class="zone-row"><span class="zl">布局參考</span><span class="zv pos">17.04～18.41</span></div>
+                            <div class="zone-row"><span class="zl">加碼點</span><span class="zv">16.5～17.0</span></div>
+                            <div class="zone-row"><span class="zl">預期漲幅</span><span class="zv pos">17→19(+12%)</span></div>
+                            <div class="zone-row"><span class="zl">時間軸</span><span class="zv">4～8 週</span></div>
+                        </div>
+                        <div>
+                            <div style="font-size:14px;font-weight:800;color:var(--text);margin-bottom:6px;">⚠️ 風險提醒</div>
+                            <div class="zone-row"><span class="zl">法人賣壓</span><span class="zv neg">-892張</span></div>
+                            <div class="zone-row"><span class="zl">技術破壞</span><span class="zv neg">MA5/20 死亡交叉</span></div>
+                            <div class="zone-row"><span class="zl">RSI</span><span class="zv warn">31.67 接近超賣</span></div>
+                            <div class="zone-row"><span class="zl">MACD</span><span class="zv neg">零軸下偏空</span></div>
+                            <div class="zone-row"><span class="zl">最大風險</span><span class="zv neg">跌破 16.5</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title">
+                        <div class="dot"></div>綜合評估
+                        <span class="ct-spacer"></span><span class="ct-tag warn">⭐⭐ 中性觀望</span>
+                    </div>
+                    <table class="summary-tbl">
+                        <thead>
+                            <tr>
+                                <th>項目</th>
+                                <th>星級</th>
+                                <th>評價</th>
+                                <th>說明</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="text-align:left;font-weight:700;font-size:13px;">股價趨勢</td>
+                                <td><span class="star">⭐⭐⭐</span></td>
+                                <td style="color:var(--red);font-weight:700;font-size:13px;">整理偏空</td>
+                                <td style="text-align:left;font-size:12px;">MA5/20死亡交叉，弱勢整理</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align:left;font-weight:700;font-size:13px;">技術面</td>
+                                <td><span class="star">⭐⭐⭐</span></td>
+                                <td style="color:var(--yellow);font-weight:700;font-size:13px;">整理中性</td>
+                                <td style="text-align:left;font-size:12px;">KD 低檔黃金交叉，RSI 中性</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align:left;font-weight:700;font-size:13px;">籌碼面</td>
+                                <td><span class="star">⭐⭐</span></td>
+                                <td style="color:var(--red);font-weight:700;font-size:13px;">略微賣超</td>
+                                <td style="text-align:left;">法人小幅賣超-892張</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align:left;font-weight:700;font-size:13px;">操作難度</td>
+                                <td><span class="star">⭐⭐⭐</span></td>
+                                <td style="color:var(--yellow);font-weight:700;font-size:13px;">適中</td>
+                                <td style="text-align:left;font-size:12px;">突破MA60後顺势操作</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="4" style="text-align:left;font-size:14px;font-weight:700;">平均 <strong>⭐⭐ 中性觀望</strong>｜建議：<strong style="color:var(--yellow)">區間整理</strong>｜進場參考：<strong>18.41～18.47</strong>｜停損：<strong style="color:var(--red)">17.0元</strong></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        本圖為技術分析及籌碼分析及操作建議，不代表一定獲利 ｜ 嘉聯益 (6153) ｜ Nova 分析系統 ｜ 2026-05-12 ｜ 僅供參考，不構成投資建議
+    </div>
+    <div id="chartTooltip" class="chart-tooltip"></div>
+    <script>
+    /* ════════════════════════════════════════════
+   共用 Canvas 工具
+════════════════════════════════════════════ */
+    var DPR = window.devicePixelRatio || 1;
+
+    var hoverState = {
+        k: null,
+        vol: null,
+        kd: null,
+        rsi: null,
+        macd: null,
+        chip: null
+    };
+
+    function setupCanvas(id, h) {
+        var el = document.getElementById(id);
+        if (!el) return null;
+
+        var w = el.parentElement.clientWidth || 300;
+        el.width = w * DPR;
+        el.height = h * DPR;
+        el.style.width = w + 'px';
+        el.style.height = h + 'px';
+
+        var ctx = el.getContext('2d');
+        ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+
+        return { el: el, ctx: ctx, W: w, H: h };
+    }
+
+    function gridH(ctx, PAD, W, H, steps) {
+        for (var i = 0; i <= steps; i++) {
+            var y = PAD.t + (H - PAD.t - PAD.b) / steps * i;
+            ctx.strokeStyle = '#21262d';
+            ctx.lineWidth = 0.5;
+            ctx.beginPath();
+            ctx.moveTo(PAD.l, y);
+            ctx.lineTo(W - PAD.r, y);
+            ctx.stroke();
+        }
+    }
+
+    function drawLine(ctx, xs, ys, color, lw, dash) {
+        ctx.beginPath();
+        ctx.strokeStyle = color;
+        ctx.lineWidth = lw || 1;
+
+        if (dash) ctx.setLineDash(dash);
+        else ctx.setLineDash([]);
+
+        xs.forEach(function(x, i) {
+            if (i === 0) ctx.moveTo(x, ys[i]);
+            else ctx.lineTo(x, ys[i]);
+        });
+
+        ctx.stroke();
+        ctx.setLineDash([]);
+    }
+
+    function fmtNum(v, d) {
+        if (v === null || v === undefined || isNaN(v)) return '—';
+        return Number(v).toLocaleString('zh-TW', {
+            minimumFractionDigits: d || 0,
+            maximumFractionDigits: d || 0
+        });
+    }
+
+    function fmtPrice(v) {
+        return Number(v).toFixed(2);
+    }
+
+    function showTip(evt, html) {
+        var tip = document.getElementById('chartTooltip');
+        tip.innerHTML = html;
+        tip.style.display = 'block';
+
+        var x = evt.clientX + 14;
+        var y = evt.clientY + 14;
+
+        var maxX = window.innerWidth - tip.offsetWidth - 10;
+        var maxY = window.innerHeight - tip.offsetHeight - 10;
+
+        tip.style.left = Math.min(x, maxX) + 'px';
+        tip.style.top = Math.min(y, maxY) + 'px';
+    }
+
+    function hideTip() {
+        var tip = document.getElementById('chartTooltip');
+        tip.style.display = 'none';
+    }
+
+    function getHoverIndex(evt, el, PAD, W, n, mode) {
+        var rect = el.getBoundingClientRect();
+        var mx = evt.clientX - rect.left;
+        var cW = W - PAD.l - PAD.r;
+
+        if (mx < PAD.l || mx > W - PAD.r) return null;
+
+        var idx;
+
+        if (mode === 'slot') {
+            idx = Math.floor((mx - PAD.l) / cW * n);
+        } else {
+            idx = Math.round((mx - PAD.l) / cW * (n - 1));
+        }
+
+        if (idx < 0) idx = 0;
+        if (idx > n - 1) idx = n - 1;
+
+        return idx;
+    }
+
+    function drawCrosshair(ctx, x, y, PAD, W, H) {
+        ctx.save();
+        ctx.strokeStyle = 'rgba(230,237,243,0.35)';
+        ctx.lineWidth = 1;
+        ctx.setLineDash([4, 4]);
+
+        ctx.beginPath();
+        ctx.moveTo(x, PAD.t);
+        ctx.lineTo(x, H - PAD.b);
+        ctx.stroke();
+
+        if (y !== null && y !== undefined) {
+            ctx.beginPath();
+            ctx.moveTo(PAD.l, y);
+            ctx.lineTo(W - PAD.r, y);
+            ctx.stroke();
+        }
+
+        ctx.setLineDash([]);
+        ctx.restore();
+    }
+
+    /*
+     * drawXLabels — 智慧 x 軸日期標籤
+     * 從最後一筆往前反推，確保間距 >= minPx px
+     * 月份切換時顯示完整 MM/DD，同月只顯示 DD
+     * 左右兩端各留 halfSlot，避免標籤被截半
+     */
+    function drawXLabels(ctx, dates, xAt, yPos, minPx) {
+        /*
+          策略：
+          1. 計算每個 slot 的像素寬度
+          2. 從 index 0 往後掃，距離上一個已顯示標籤 >= minPx 才顯示
+          3. 最後一筆（最新）一定顯示
+          4. 全部用 textAlign='center'，x 位置就是柱子中心
+          5. 月份切換時顯示 MM/DD，否則只顯示 DD
+        */
+        minPx = minPx || 40;
+        var n = dates.length;
+        if (n === 0) return;
+
+        ctx.textAlign = 'center';
+
+        /* 先決定哪些 index 要顯示：正向掃，間距足夠才標記 */
+        var shown = [];
+        var lastShownX = -9999;
+        for (var i = 0; i < n; i++) {
+            var x = xAt(i);
+            if (x - lastShownX >= minPx) {
+                shown.push(i);
+                lastShownX = x;
+            }
+        }
+
+        /* 確保最後一筆顯示，若與前一個太近則移除前一個 */
+        var last = n - 1;
+        if (shown.length === 0 || shown[shown.length - 1] !== last) {
+            if (shown.length > 0 && xAt(last) - xAt(shown[shown.length - 1]) < minPx * 0.6) {
+                shown.pop(); /* 移除太近的前一個 */
+            }
+            shown.push(last);
+        }
+
+        /* 繪製 */
+        shown.forEach(function(i) {
+            var d = dates[i];
+            /* 月份切換（或第一筆）顯示 MM/DD，其餘只顯示 DD */
+            var isMonthChange = (i === 0) ||
+                (dates[i].slice(0, 2) !== dates[i - 1].slice(0, 2));
+            var label = isMonthChange ? d : d.slice(3);
+            ctx.fillText(label, xAt(i), yPos);
+        });
+    }
+
+    /* ════════════════════════════════════════════
+       DATA
+    ════════════════════════════════════════════ */
+    var klineData = [{"t":"02/03","o":16.2,"h":16.6,"l":16.15,"c":16.15},{"t":"02/04","o":16.2,"h":17.1,"l":16.15,"c":16.8},{"t":"02/05","o":16.5,"h":16.6,"l":16.25,"c":16.3},{"t":"02/06","o":16.15,"h":16.15,"l":15.45,"c":15.6},{"t":"02/09","o":15.95,"h":16.05,"l":15.3,"c":15.3},{"t":"02/10","o":15.35,"h":15.85,"l":15.35,"c":15.75},{"t":"02/11","o":15.95,"h":16.0,"l":15.5,"c":15.7},{"t":"02/23","o":16.0,"h":16.6,"l":15.8,"c":16.6},{"t":"02/24","o":16.6,"h":17.0,"l":16.45,"c":16.95},{"t":"02/25","o":16.6,"h":16.7,"l":15.8,"c":15.95},{"t":"02/26","o":15.9,"h":16.55,"l":15.7,"c":16.5},{"t":"03/02","o":15.9,"h":16.8,"l":15.9,"c":16.4},{"t":"03/03","o":16.5,"h":16.75,"l":16.0,"c":16.0},{"t":"03/04","o":15.8,"h":15.9,"l":14.85,"c":14.85},{"t":"03/05","o":15.4,"h":15.55,"l":14.95,"c":15.2},{"t":"03/06","o":15.2,"h":15.65,"l":15.0,"c":15.55},{"t":"03/09","o":14.8,"h":14.8,"l":14.3,"c":14.45},{"t":"03/10","o":14.85,"h":15.85,"l":14.8,"c":15.85},{"t":"03/11","o":16.0,"h":16.5,"l":16.0,"c":16.3},{"t":"03/12","o":16.3,"h":16.6,"l":16.05,"c":16.4},{"t":"03/13","o":16.0,"h":17.0,"l":15.9,"c":16.85},{"t":"03/16","o":17.1,"h":17.45,"l":16.5,"c":16.6},{"t":"03/17","o":16.85,"h":17.55,"l":16.65,"c":17.25},{"t":"03/18","o":17.5,"h":17.5,"l":16.95,"c":17.45},{"t":"03/19","o":17.3,"h":17.55,"l":17.1,"c":17.1},{"t":"03/20","o":17.15,"h":17.6,"l":16.95,"c":17.05},{"t":"03/23","o":16.7,"h":17.55,"l":16.5,"c":16.8},{"t":"03/24","o":17.2,"h":17.3,"l":16.0,"c":16.25},{"t":"03/25","o":16.6,"h":16.8,"l":16.5,"c":16.55},{"t":"03/26","o":16.75,"h":17.0,"l":16.35,"c":16.35},{"t":"03/27","o":16.2,"h":17.2,"l":16.15,"c":17.2},{"t":"03/30","o":16.85,"h":17.1,"l":16.5,"c":16.55},{"t":"03/31","o":16.5,"h":16.65,"l":15.85,"c":15.85},{"t":"04/01","o":16.45,"h":16.8,"l":16.15,"c":16.2},{"t":"04/02","o":16.4,"h":16.8,"l":16.1,"c":16.2},{"t":"04/07","o":16.45,"h":16.5,"l":15.7,"c":15.8},{"t":"04/08","o":16.25,"h":17.35,"l":16.25,"c":17.35},{"t":"04/09","o":17.45,"h":17.75,"l":16.9,"c":17.5},{"t":"04/10","o":17.55,"h":17.9,"l":17.0,"c":17.05},{"t":"04/13","o":17.1,"h":17.8,"l":17.1,"c":17.45},{"t":"04/14","o":17.7,"h":18.2,"l":17.35,"c":17.45},{"t":"04/15","o":17.6,"h":17.85,"l":17.4,"c":17.65},{"t":"04/16","o":17.9,"h":17.9,"l":17.4,"c":17.45},{"t":"04/17","o":17.55,"h":18.8,"l":17.45,"c":18.75},{"t":"04/20","o":19.4,"h":19.6,"l":18.1,"c":18.8},{"t":"04/21","o":19.0,"h":20.65,"l":18.9,"c":20.65},{"t":"04/22","o":21.6,"h":21.8,"l":19.55,"c":19.7},{"t":"04/23","o":19.95,"h":20.0,"l":17.8,"c":18.55},{"t":"04/24","o":18.6,"h":19.3,"l":18.55,"c":18.55},{"t":"04/27","o":18.6,"h":18.8,"l":17.55,"c":17.9},{"t":"04/28","o":18.0,"h":18.3,"l":17.6,"c":18.1},{"t":"04/29","o":17.9,"h":18.3,"l":17.65,"c":17.75},{"t":"04/30","o":17.8,"h":18.4,"l":17.7,"c":17.95},{"t":"05/04","o":18.2,"h":18.85,"l":18.0,"c":18.0},{"t":"05/05","o":18.15,"h":18.7,"l":18.0,"c":18.65},{"t":"05/06","o":19.5,"h":19.5,"l":18.25,"c":18.55},{"t":"05/07","o":19.05,"h":19.6,"l":18.6,"c":18.95},{"t":"05/08","o":19.0,"h":19.2,"l":18.1,"c":18.35},{"t":"05/11","o":18.7,"h":19.05,"l":18.0,"c":18.05},{"t":"05/12","o":18.1,"h":18.85,"l":18.0,"c":18.45}];
+
+    var ma5 = [null,null,null,null,16.0300,15.9500,15.7300,15.7900,16.0600,16.1900,16.3400,16.4800,16.3600,15.9400,15.7900,15.6000,15.2100,15.1800,15.4700,15.7100,15.9700,16.4000,16.6800,16.9100,17.0500,17.0900,17.1300,16.9300,16.7500,16.6000,16.6300,16.5800,16.5000,16.4300,16.4000,16.1200,16.2800,16.6100,16.7800,17.0300,17.3600,17.4200,17.4100,17.7500,18.0200,18.6600,19.0700,19.2900,19.2500,19.0700,18.5600,18.1700,18.0500,17.9400,18.0900,18.1800,18.4200,18.5000,18.5100,18.4700];
+    var ma20 = [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,15.9300,15.9650,15.9550,16.0025,16.0950,16.1850,16.2500,16.3050,16.2875,16.2675,16.2875,16.3225,16.3300,16.3225,16.3900,16.4400,16.4525,16.5975,16.6800,16.7175,16.7700,16.8000,16.8525,16.8625,16.9275,17.0125,17.1925,17.3375,17.4525,17.5525,17.6300,17.6750,17.7350,17.8400,17.9300,18.0525,18.1900,18.2700,18.3125,18.3625,18.4125];
+    var ma60 = [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,17.0375];
+
+    var volData = [3101432,5054288,3060382,4258466,4116664,2964817,1776121,4500147,4689583,8655585,5800018,4513605,4374154,7038661,2625922,1991834,5641634,6489844,6922643,3073823,6542783,5414964,8433532,5621297,4067976,5972962,6245729,5925842,2578464,2297892,5130078,3846172,4430896,2548708,2215112,3603053,8104941,7241319,4714529,5299333,6624249,4532995,3234258,11729222,10834011,16248584,32604676,14600739,7879722,6289249,3330971,3103486,3883010,5010379,3606384,7365560,7216175,4713473,5045466,5465199];
+
+    var rsiData = [null,null,null,null,null,null,null,null,null,null,null,null,null,null,43.62,41.26,38.06,51.48,55.81,53.94,56.65,50.00,51.81,60.00,54.11,54.48,55.63,60.77,60.47,56.35,72.73,56.60,45.95,48.28,43.93,42.73,50.78,50.39,49.61,52.94,54.96,61.29,57.38,66.67,62.50,76.97,74.52,63.58,63.58,61.80,54.97,51.61,56.00,53.85,57.69,55.84,59.49,47.22,44.97,31.67];
+
+    var kData = [50.00,50.00,50.00,50.00,50.00,50.00,50.00,50.00,50.00,45.37,53.78,57.42,52.01,34.67,28.54,29.88,21.77,35.18,50.12,61.41,72.42,72.62,78.67,84.75,85.22,83.60,73.38,55.78,49.93,40.58,52.05,46.16,30.77,27.18,24.98,18.74,45.83,59.82,60.33,66.74,67.83,71.22,70.81,80.00,78.71,85.81,75.95,60.92,49.60,36.86,29.87,22.21,17.95,15.49,18.96,26.24,40.26,39.85,34.07,36.39];
+    var dData = [50.00,50.00,50.00,50.00,50.00,50.00,50.00,50.00,50.00,48.46,50.23,52.63,52.42,46.50,40.52,36.97,31.90,33.00,38.70,46.27,54.99,60.87,66.80,72.79,76.93,79.15,77.23,70.08,63.36,55.77,54.53,51.74,44.75,38.90,34.26,29.09,34.67,43.05,48.81,54.79,59.13,63.16,65.71,70.48,73.22,77.41,76.93,71.59,64.26,55.13,46.71,38.54,31.68,26.28,23.84,24.64,29.85,33.18,33.48,34.45];
+
+    var difData = [0.0000,0.0519,0.0520,-0.0043,-0.0724,-0.0889,-0.1048,-0.0443,0.0315,0.0107,0.0383,0.0514,0.0292,-0.0803,-0.1372,-0.1523,-0.2502,-0.2123,-0.1443,-0.0814,0.0047,0.0522,0.1406,0.2242,0.2593,0.2798,0.2728,0.2202,0.2005,0.1668,0.2063,0.1831,0.1070,0.0740,0.0474,-0.0060,0.0759,0.1512,0.1726,0.2192,0.2534,0.2931,0.3050,0.4145,0.4996,0.7081,0.7876,0.7492,0.7106,0.6204,0.5586,0.4759,0.4217,0.3783,0.3919,0.3901,0.4162,0.3840,0.3304,0.3167];
+    var deaData = [0.0000,0.0104,0.0187,0.0141,-0.0032,-0.0203,-0.0372,-0.0386,-0.0246,-0.0176,-0.0064,0.0052,0.0100,-0.0081,-0.0339,-0.0576,-0.0961,-0.1193,-0.1243,-0.1157,-0.0917,-0.0629,-0.0222,0.0271,0.0735,0.1148,0.1464,0.1612,0.1690,0.1686,0.1761,0.1775,0.1634,0.1455,0.1259,0.0995,0.0948,0.1061,0.1194,0.1393,0.1622,0.1883,0.2117,0.2522,0.3017,0.3830,0.4639,0.5210,0.5589,0.5712,0.5687,0.5501,0.5244,0.4952,0.4745,0.4577,0.4494,0.4363,0.4151,0.3954];
+    var macdData = [0.0000,0.0830,0.0666,-0.0368,-0.1384,-0.1372,-0.1352,-0.0114,0.1122,0.0566,0.0894,0.0924,0.0384,-0.1444,-0.2066,-0.1894,-0.3082,-0.1860,-0.0400,0.0686,0.1928,0.2302,0.3256,0.3942,0.3716,0.3300,0.2528,0.1180,0.0630,-0.0036,0.0604,0.0112,-0.1128,-0.1430,-0.1570,-0.2110,-0.0378,0.0902,0.1064,0.1598,0.1824,0.2096,0.1866,0.3246,0.3958,0.6502,0.6474,0.4564,0.3034,0.0984,-0.0202,-0.1484,-0.2054,-0.2338,-0.1652,-0.1352,-0.0664,-0.1046,-0.1694,-0.1574];
+
+    var chipDates = ["05/04","05/05","05/06","05/07","05/08","05/11","05/12"];
+    var chipCloses = [18.65, 18.95, 18.55, 18.95, 18.35, 18.05, 18.45];
+    var chipForeign = [-685000, 1050000, -1553706, 1258209, -700565, -1254870, 1069000];
+    var chipTrust = [0, 0, 0, 0, 0, 0, 0];
+    var chipDealer = [-163000, 14000, 2823, -2937, 2086, -7724, 79243];
+
+    /* ════════════════════════════════════════════
+       DRAW FUNCTIONS
+    ════════════════════════════════════════════ */
+    function drawK() {
+        var r = setupCanvas('kChart', 200);
+        if (!r) return;
+
+        var el = r.el,
+            ctx = r.ctx,
+            W = r.W,
+            H = r.H;
+        var PAD = { t: 8, r: 22, b: 18, l: 38 };
+        var cW = W - PAD.l - PAD.r;
+        var cH = H - PAD.t - PAD.b;
+        var n = klineData.length;
+        var allP = klineData.flatMap(function(d) { return [d.h, d.l]; });
+        var minP = Math.min.apply(null, allP) - 0.5;
+        var maxP = Math.max.apply(null, allP) + 0.5;
+        var slot = cW / n;
+        var bw = Math.max(slot * 0.6, 2);
+
+        function toY(v) { return PAD.t + cH * (1 - (v - minP) / (maxP - minP)); }
+
+        function xAt(i) { return PAD.l + i * slot + slot / 2; }
+
+        ctx.fillStyle = '#0d1117';
+        ctx.fillRect(0, 0, W, H);
+        gridH(ctx, PAD, W, H, 4);
+
+        ctx.textAlign = 'right';
+        ctx.font = '11px JetBrains Mono,monospace';
+        ctx.fillStyle = '#a0aab4';
+
+        [minP + 0.5, (minP + maxP) / 2, maxP - 0.5].forEach(function(v) {
+            ctx.fillText(v.toFixed(1), PAD.l - 2, toY(v) + 3);
+        });
+
+        [
+            [ma5, '#f0c040', 1.5],
+            [ma20, '#58a6ff', 1.5],
+            [ma60, '#bc8cff', 1.5]
+        ].forEach(function(m) {
+            ctx.beginPath();
+            ctx.strokeStyle = m[1];
+            ctx.lineWidth = m[2];
+            klineData.forEach(function(d, i) {
+                var x = xAt(i);
+                var y = toY(m[0][i]);
+                if (i === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            });
+            ctx.stroke();
+        });
+
+        klineData.forEach(function(d, i) {
+            var x = xAt(i);
+            var up = d.c >= d.o;
+            /* 台股習慣：紅漲綠跌 */
+            var col = up ? '#f85149' : '#3fb950';
+
+            ctx.strokeStyle = col;
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(x, toY(d.h));
+            ctx.lineTo(x, toY(d.l));
+            ctx.stroke();
+
+            var top = toY(Math.max(d.o, d.c));
+            var bot = toY(Math.min(d.o, d.c));
+            var bh = Math.max(bot - top, 1);
+
+            ctx.fillStyle = up ? 'rgba(248,81,73,0.88)' : 'rgba(63,185,80,0.88)';
+            ctx.fillRect(x - bw / 2, top, bw, bh);
+        });
+
+        if (hoverState.k !== null) {
+            var hi = hoverState.k;
+            var d = klineData[hi];
+            var x = xAt(hi);
+            var y = toY(d.c);
+
+            drawCrosshair(ctx, x, y, PAD, W, H);
+
+            ctx.beginPath();
+            ctx.arc(x, y, 4, 0, Math.PI * 2);
+            ctx.fillStyle = '#e6edf3';
+            ctx.fill();
+            ctx.strokeStyle = '#0d1117';
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+        }
+
+        ctx.font = '10px Noto Sans TC,sans-serif';
+        ctx.fillStyle = '#a0aab4';
+        drawXLabels(ctx, klineData.map(function(d){ return d.t; }), xAt, H - 3, 38);
+
+        el.onmousemove = function(evt) {
+            var idx = getHoverIndex(evt, el, PAD, W, n, 'slot');
+            hoverState.k = idx;
+            drawK();
+
+            if (idx !== null) {
+                var d = klineData[idx];
+                showTip(evt, `
+        <strong>${d.t}</strong><br>
+        開盤：<span class="mono">${fmtPrice(d.o)}</span><br>
+        最高：<span class="mono">${fmtPrice(d.h)}</span><br>
+        最低：<span class="mono">${fmtPrice(d.l)}</span><br>
+        收盤：<span class="mono">${fmtPrice(d.c)}</span><br>
+        MA5：<span class="mono">${fmtPrice(ma5[idx])}</span><br>
+        MA20：<span class="mono">${fmtPrice(ma20[idx])}</span><br>
+        MA60：<span class="mono">${fmtPrice(ma60[idx])}</span>
+      `);
+            }
+        };
+
+        el.onmouseleave = function() {
+            hoverState.k = null;
+            hideTip();
+            drawK();
+        };
+    }
+
+    function drawVol() {
+        var r = setupCanvas('volChart', 45);
+        if (!r) return;
+
+        var el = r.el,
+            ctx = r.ctx,
+            W = r.W,
+            H = r.H;
+        var PAD = { t: 2, r: 22, b: 16, l: 38 };
+        var cW = W - PAD.l - PAD.r;
+        var cH = H - PAD.t - PAD.b;
+        var n = klineData.length;
+        var slot = cW / n;
+        var bw = Math.max(slot * 0.6, 2);
+        var maxV = Math.max.apply(null, volData);
+
+        function xAt(i) {
+            return PAD.l + i * slot + slot / 2;
+        }
+
+        function yAt(v) {
+            return PAD.t + cH - (v / maxV) * cH;
+        }
+
+        ctx.fillStyle = '#0d1117';
+        ctx.fillRect(0, 0, W, H);
+
+        klineData.forEach(function(d, i) {
+            var v = volData[i];
+            var x = xAt(i);
+            var h = (v / maxV) * cH;
+            var up = d.c >= d.o;
+
+            var alpha = hoverState.vol === null ? 0.55 : (hoverState.vol === i ? 0.85 : 0.18);
+            /* 台股習慣：紅漲綠跌 */
+            ctx.fillStyle = up ? `rgba(248,81,73,${alpha})` : `rgba(63,185,80,${alpha})`;
+            ctx.fillRect(x - bw / 2, PAD.t + cH - h, bw, h);
+        });
+
+        if (hoverState.vol !== null) {
+            var hi = hoverState.vol;
+            var x = xAt(hi);
+            drawCrosshair(ctx, x, yAt(volData[hi]), PAD, W, H);
+        }
+
+        ctx.textAlign = 'right';
+        ctx.font = '10px JetBrains Mono,monospace';
+        ctx.fillStyle = '#a0aab4';
+        ctx.fillText((maxV / 1000).toFixed(0) + 'K', PAD.l - 2, PAD.t + 8);
+
+        ctx.textAlign = 'center';
+        ctx.font = '10px Noto Sans TC,sans-serif';
+        ctx.fillStyle = '#a0aab4';
+        ctx.fillText('成交量', PAD.l + cW / 2, H - 2);
+
+        el.onmousemove = function(evt) {
+            var idx = getHoverIndex(evt, el, PAD, W, n, 'slot');
+            hoverState.vol = idx;
+            drawVol();
+
+            if (idx !== null) {
+                var d = klineData[idx];
+                showTip(evt, `
+        <strong>${d.t}</strong><br>
+        成交量：<span class="mono">${fmtNum(volData[idx])}</span> 張<br>
+        收盤價：<span class="mono">${fmtPrice(d.c)}</span>
+      `);
+            }
+        };
+
+        el.onmouseleave = function() {
+            hoverState.vol = null;
+            hideTip();
+            drawVol();
+        };
+    }
+
+    function drawKD() {
+        var r = setupCanvas('kdChart', 100);
+        if (!r) return;
+
+        var el = r.el,
+            ctx = r.ctx,
+            W = r.W,
+            H = r.H;
+        var PAD = { t: 6, r: 22, b: 18, l: 32 };
+        var cW = W - PAD.l - PAD.r;
+        var cH = H - PAD.t - PAD.b;
+        var n = klineData.length;
+
+        function toY(v) {
+            return PAD.t + cH * (1 - v / 100);
+        }
+
+        function xAt(i) {
+            return PAD.l + i / (n - 1) * cW;
+        }
+
+        ctx.fillStyle = '#0d1117';
+        ctx.fillRect(0, 0, W, H);
+        gridH(ctx, PAD, W, H, 4);
+
+        [80, 50, 20].forEach(function(v) {
+            ctx.strokeStyle = v === 80 ?
+                'rgba(248,81,73,0.3)' :
+                v === 20 ?
+                'rgba(63,185,80,0.3)' :
+                'rgba(200,200,200,0.5)';
+
+            ctx.lineWidth = 0.8;
+            ctx.setLineDash([4, 4]);
+            ctx.beginPath();
+            ctx.moveTo(PAD.l, toY(v));
+            ctx.lineTo(PAD.l + cW, toY(v));
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            ctx.textAlign = 'right';
+            ctx.font = '10px JetBrains Mono,monospace';
+            ctx.fillStyle = '#a0aab4';
+            ctx.fillText(v, PAD.l - 2, toY(v) + 3);
+        });
+
+        drawLine(
+            ctx,
+            klineData.map(function(_, i) { return xAt(i); }),
+            kData.map(toY),
+            '#f0c040',
+            1.5
+        );
+
+        drawLine(
+            ctx,
+            klineData.map(function(_, i) { return xAt(i); }),
+            dData.map(toY),
+            '#58a6ff',
+            1.5
+        );
+
+        if (hoverState.kd !== null) {
+            var hi = hoverState.kd;
+            var x = xAt(hi);
+            var y = toY(kData[hi]);
+
+            drawCrosshair(ctx, x, y, PAD, W, H);
+
+            ctx.beginPath();
+            ctx.arc(x, y, 3.5, 0, Math.PI * 2);
+            ctx.fillStyle = '#f0c040';
+            ctx.fill();
+            ctx.strokeStyle = '#fff';
+            ctx.lineWidth = 1;
+            ctx.stroke();
+        }
+
+        ctx.font = '10px Noto Sans TC,sans-serif';
+        ctx.fillStyle = '#a0aab4';
+        drawXLabels(ctx, klineData.map(function(d){ return d.t; }), xAt, H - 3, 38);
+
+        el.onmousemove = function(evt) {
+            var idx = getHoverIndex(evt, el, PAD, W, n, 'line');
+            hoverState.kd = idx;
+            drawKD();
+
+            if (idx !== null) {
+                showTip(evt, `
+        <strong>${klineData[idx].t}</strong><br>
+        K：<span class="mono">${kData[idx].toFixed(2)}</span><br>
+        D：<span class="mono">${dData[idx].toFixed(2)}</span>
+      `);
+            }
+        };
+
+        el.onmouseleave = function() {
+            hoverState.kd = null;
+            hideTip();
+            drawKD();
+        };
+    }
+
+    function drawRSI() {
+        var r = setupCanvas('rsiChart', 90);
+        if (!r) return;
+
+        var el = r.el,
+            ctx = r.ctx,
+            W = r.W,
+            H = r.H;
+        var PAD = { t: 6, r: 22, b: 18, l: 32 };
+        var cW = W - PAD.l - PAD.r;
+        var cH = H - PAD.t - PAD.b;
+        var n = klineData.length;
+
+        function toY(v) {
+            return PAD.t + cH * (1 - v / 100);
+        }
+
+        function xAt(i) {
+            return PAD.l + i / (n - 1) * cW;
+        }
+
+        ctx.fillStyle = '#0d1117';
+        ctx.fillRect(0, 0, W, H);
+        gridH(ctx, PAD, W, H, 4);
+
+        [
+            [70, 'rgba(248,81,73,0.3)'],
+            [50, 'rgba(200,200,200,0.5)'],
+            [30, 'rgba(63,185,80,0.3)']
+        ].forEach(function(p) {
+            ctx.strokeStyle = p[1];
+            ctx.lineWidth = 0.8;
+            ctx.setLineDash([4, 4]);
+            ctx.beginPath();
+            ctx.moveTo(PAD.l, toY(p[0]));
+            ctx.lineTo(PAD.l + cW, toY(p[0]));
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            ctx.textAlign = 'right';
+            ctx.font = '10px JetBrains Mono,monospace';
+            ctx.fillStyle = '#a0aab4';
+            ctx.fillText(p[0], PAD.l - 2, toY(p[0]) + 3);
+        });
+
+        ctx.beginPath();
+        rsiData.forEach(function(v, i) {
+            if (i === 0) ctx.moveTo(xAt(i), toY(v));
+            else ctx.lineTo(xAt(i), toY(v));
+        });
+        ctx.lineTo(xAt(n - 1), PAD.t + cH);
+        ctx.lineTo(PAD.l, PAD.t + cH);
+        ctx.closePath();
+        ctx.fillStyle = 'rgba(99,102,241,0.18)';
+        ctx.fill();
+
+        drawLine(
+            ctx,
+            klineData.map(function(_, i) { return xAt(i); }),
+            rsiData.map(toY),
+            '#6366f1',
+            1.5
+        );
+
+        if (hoverState.rsi !== null) {
+            var hi = hoverState.rsi;
+            var x = xAt(hi);
+            var y = toY(rsiData[hi]);
+
+            drawCrosshair(ctx, x, y, PAD, W, H);
+
+            ctx.beginPath();
+            ctx.arc(x, y, 3.5, 0, Math.PI * 2);
+            ctx.fillStyle = '#6366f1';
+            ctx.fill();
+            ctx.strokeStyle = '#fff';
+            ctx.lineWidth = 1;
+            ctx.stroke();
+        }
+
+        ctx.font = '10px Noto Sans TC,sans-serif';
+        ctx.fillStyle = '#a0aab4';
+        drawXLabels(ctx, klineData.map(function(d){ return d.t; }), xAt, H - 3, 38);
+
+        el.onmousemove = function(evt) {
+            var idx = getHoverIndex(evt, el, PAD, W, n, 'line');
+            hoverState.rsi = idx;
+            drawRSI();
+
+            if (idx !== null) {
+                showTip(evt, `
+        <strong>${klineData[idx].t}</strong><br>
+        RSI(14)：<span class="mono">${rsiData[idx].toFixed(2)}</span>
+      `);
+            }
+        };
+
+        el.onmouseleave = function() {
+            hoverState.rsi = null;
+            hideTip();
+            drawRSI();
+        };
+    }
+
+    function drawMACD() {
+        var r = setupCanvas('macdChart', 100);
+        if (!r) return;
+
+        var el = r.el,
+            ctx = r.ctx,
+            W = r.W,
+            H = r.H;
+        var PAD = { t: 6, r: 22, b: 18, l: 38 };
+        var cW = W - PAD.l - PAD.r;
+        var cH = H - PAD.t - PAD.b;
+        var n = klineData.length;
+        var slot = cW / n;
+        var bw = Math.max(slot * 0.55, 2);
+
+        var allV = [].concat(macdData, difData, deaData);
+        var minV = Math.min.apply(null, allV);
+        var maxV = Math.max.apply(null, allV);
+        var pad2 = (maxV - minV) * 0.15;
+
+        minV -= pad2;
+        maxV += pad2;
+
+        function toY(v) {
+            return PAD.t + cH * (1 - (v - minV) / (maxV - minV));
+        }
+
+        function xAt(i) {
+            return PAD.l + i * slot + slot / 2;
+        }
+
+        var z0 = toY(0);
+
+        ctx.fillStyle = '#0d1117';
+        ctx.fillRect(0, 0, W, H);
+        gridH(ctx, PAD, W, H, 4);
+
+        ctx.strokeStyle = '#21262d';
+        ctx.lineWidth = 0.8;
+        ctx.setLineDash([4, 4]);
+        ctx.beginPath();
+        ctx.moveTo(PAD.l, z0);
+        ctx.lineTo(PAD.l + cW, z0);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        ctx.textAlign = 'right';
+        ctx.font = '10px JetBrains Mono,monospace';
+        ctx.fillStyle = '#a0aab4';
+
+        [minV + pad2, 0, maxV - pad2].forEach(function(v) {
+            ctx.fillText(v.toFixed(2), PAD.l - 2, toY(v) + 3);
+        });
+
+        macdData.forEach(function(v, i) {
+            var x = xAt(i);
+            var h = Math.abs(toY(v) - z0);
+            var alpha = hoverState.macd === null ? 0.7 : (hoverState.macd === i ? 0.9 : 0.18);
+
+                /* 台股習慣：MACD 正柱紅、負柱綠 */
+                ctx.fillStyle = v >= 0 ?
+                    `rgba(248,81,73,${alpha})` :
+                    `rgba(63,185,80,${alpha})`;
+
+            ctx.fillRect(x - bw / 2, v >= 0 ? toY(v) : z0, bw, h || 1);
+        });
+
+        drawLine(
+            ctx,
+            klineData.map(function(_, i) { return xAt(i); }),
+            difData.map(toY),
+            '#f0c040',
+            1.2
+        );
+
+        drawLine(
+            ctx,
+            klineData.map(function(_, i) { return xAt(i); }),
+            deaData.map(toY),
+            '#58a6ff',
+            1.2
+        );
+
+        if (hoverState.macd !== null) {
+            var hi = hoverState.macd;
+            var x = xAt(hi);
+
+            drawCrosshair(ctx, x, toY(macdData[hi]), PAD, W, H);
+        }
+
+        ctx.font = '10px Noto Sans TC,sans-serif';
+        ctx.fillStyle = '#a0aab4';
+        drawXLabels(ctx, klineData.map(function(d){ return d.t; }), xAt, H - 3, 38);
+
+        el.onmousemove = function(evt) {
+            var idx = getHoverIndex(evt, el, PAD, W, n, 'slot');
+            hoverState.macd = idx;
+            drawMACD();
+
+            if (idx !== null) {
+                showTip(evt, `
+        <strong>${klineData[idx].t}</strong><br>
+        DIF：<span class="mono">${difData[idx].toFixed(4)}</span><br>
+        DEA：<span class="mono">${deaData[idx].toFixed(4)}</span><br>
+        MACD：<span class="mono">${macdData[idx].toFixed(4)}</span>
+      `);
+            }
+        };
+
+        el.onmouseleave = function() {
+            hoverState.macd = null;
+            hideTip();
+            drawMACD();
+        };
+    }
+
+/* ── 三大法人近10日籌碼動向：修正版 ──
+   修正重點：
+   1. 正值：從 0 線往上堆疊。
+   2. 負值：從 0 線往下堆疊。
+   3. 負值矩形高度使用 Math.abs()，避免被壓成 1px 橫線。
+   4. hover 當日柱 alpha 0.9，非 hover 柱 alpha 0.18。
+   5. 外資 / 投信 / 自營商固定用各自顏色，不因正負變紅綠。
+*/
+function drawChip() {
+  var r = setupCanvas('chipChart', 180);
+  if (!r) return;
+
+  var el = r.el;
+  var ctx = r.ctx;
+  var W = r.W;
+  var H = r.H;
+
+  var PAD = { t: 8, r: 48, b: 22, l: 46 };
+  var cW = W - PAD.l - PAD.r;
+  var cH = H - PAD.t - PAD.b;
+
+  var n = chipDates.length;
+  var slot = cW / n;
+  var bw = slot * 0.58;
+
+  /* 計算每日正負堆疊總量，用來決定左軸範圍 */
+  var stackPos = [];
+  var stackNeg = [];
+
+  for (var i = 0; i < n; i++) {
+    var p = 0;
+    var ng = 0;
+
+    [chipForeign[i], chipTrust[i], chipDealer[i]].forEach(function(v) {
+      if (v > 0) p += v;
+      if (v < 0) ng += v;
+    });
+
+    stackPos.push(p);
+    stackNeg.push(ng);
+  }
+
+  var rawMax = Math.max.apply(null, stackPos);
+  var rawMin = Math.min.apply(null, stackNeg);
+
+  /*
+    讓軸線接近圖1效果：
+    上方留一點空間、下方保留足夠負值空間。
+  */
+  var range = rawMax - rawMin;
+  var pad = Math.max(range * 0.12, 3000);
+
+  var cMax = rawMax + pad;
+  var cMin = rawMin - pad;
+
+  /* 避免正值太小時上方空間不足 */
+  if (cMax < 10000) cMax = 10000;
+
+  /* 股價右軸 */
+  var pMin = Math.min.apply(null, chipCloses) - 0.5;
+  var pMax = Math.max.apply(null, chipCloses) + 0.5;
+
+  function cY(v) {
+    return PAD.t + cH * (1 - (v - cMin) / (cMax - cMin));
+  }
+
+  function pY(v) {
+    return PAD.t + cH * (1 - (v - pMin) / (pMax - pMin));
+  }
+
+  function xAt(i) {
+    return PAD.l + i * slot + slot / 2;
+  }
+
+  function drawStackRect(x, y1, y2, color) {
+    var y = Math.min(y1, y2);
+    var h = Math.abs(y2 - y1);
+
+    ctx.fillStyle = color;
+    ctx.fillRect(x - bw / 2, y, bw, Math.max(h, 1));
+  }
+
+  /* 背景 */
+  ctx.fillStyle = '#0d1117';
+  ctx.fillRect(0, 0, W, H);
+
+  gridH(ctx, PAD, W, H, 4);
+
+  /* 0 軸 */
+  var zeroY = cY(0);
+
+  ctx.strokeStyle = '#21262d';
+  ctx.lineWidth = 0.8;
+  ctx.setLineDash([4, 4]);
+  ctx.beginPath();
+  ctx.moveTo(PAD.l, zeroY);
+  ctx.lineTo(PAD.l + cW, zeroY);
+  ctx.stroke();
+  ctx.setLineDash([]);
+
+  /* 左軸標籤：籌碼 */
+  ctx.textAlign = 'right';
+  ctx.font = '10px JetBrains Mono,monospace';
+  ctx.fillStyle = '#a0aab4';
+
+  for (var t = 0; t <= 4; t++) {
+    var value = cMax - (cMax - cMin) * t / 4;
+    var y = cY(value);
+
+    var label;
+    if (Math.abs(value) >= 1000) {
+      label = (value / 1000).toFixed(0) + 'K';
+    } else {
+      label = value.toFixed(0);
+    }
+
+    ctx.fillText(label, PAD.l - 3, y + 3);
+  }
+
+  /* 右軸標籤：股價 */
+  ctx.textAlign = 'left';
+  ctx.font = '10px JetBrains Mono, monospace';
+  ctx.fillStyle = '#f59e0b';   /* 橙色，與股價線一致 */
+
+  for (var pt = 0; pt <= 3; pt++) {
+    var pv = pMax - (pMax - pMin) * pt / 3;
+    ctx.fillText(pv.toFixed(1), W - PAD.r + 3, pY(pv) + 3);
+  }
+
+  /*
+    三大法人固定色：
+    外資：綠
+    投信：紫
+    自營商：橘
+  */
+  var series = [
+    {
+      name: '外資',
+      data: chipForeign,
+      rgb: '16,185,129'
+    },
+    {
+      name: '投信',
+      data: chipTrust,
+      rgb: '139,92,246'
+    },
+    {
+      name: '自營商',
+      data: chipDealer,
+      rgb: '34,211,238'   /* 青藍 #22d3ee */
+    }
+  ];
+
+  /*
+    堆疊邏輯：
+    正值：
+      從 0 開始往上堆。
+      小值先貼近 0，大值往外堆。
+    負值：
+      從 0 開始往下堆。
+      接近 0 的負值先貼近 0，most negative 最遠離 0。
+  */
+  for (var i = 0; i < n; i++) {
+    var alpha = hoverState.chip === null
+      ? 0.9
+      : hoverState.chip === i
+        ? 0.9
+        : 0.18;
+
+    var items = series.map(function(s) {
+      return {
+        name: s.name,
+        value: s.data[i],
+        rgb: s.rgb
+      };
+    });
+
+    var positives = items
+      .filter(function(x) { return x.value > 0; })
+      .sort(function(a, b) {
+        return a.value - b.value;
+      });
+
+    var negatives = items
+      .filter(function(x) { return x.value < 0; })
+      .sort(function(a, b) {
+        return b.value - a.value;
+      });
+
+    var x = xAt(i);
+
+    /* 正值往上 */
+    var curP = 0;
+
+    positives.forEach(function(item) {
+      var yBase = cY(curP);
+      var yNext = cY(curP + item.value);
+      var color = 'rgba(' + item.rgb + ',' + alpha + ')';
+
+      drawStackRect(x, yBase, yNext, color);
+
+      curP += item.value;
+    });
+
+    /* 負值往下 */
+    var curN = 0;
+
+    negatives.forEach(function(item) {
+      var yBase = cY(curN);
+      var yNext = cY(curN + item.value);
+      var color = 'rgba(' + item.rgb + ',' + alpha + ')';
+
+      /*
+        這裡是關鍵修正：
+        yBase 與 yNext 不假設誰大誰小，
+        交給 drawStackRect() 使用 Math.min / Math.abs 處理。
+      */
+      drawStackRect(x, yBase, yNext, color);
+
+      curN += item.value;
+    });
+  }
+
+  /* 股價右軸線 — 橙色，與圖例一致 */
+  ctx.beginPath();
+  ctx.strokeStyle = hoverState.chip === null
+    ? 'rgba(245,158,11,0.95)'
+    : 'rgba(245,158,11,0.62)';
+  ctx.lineWidth = 2.5;
+  ctx.setLineDash([]);
+
+  chipCloses.forEach(function(v, i) {
+    if (i === 0) {
+      ctx.moveTo(xAt(i), pY(v));
+    } else {
+      ctx.lineTo(xAt(i), pY(v));
+    }
+  });
+
+  ctx.stroke();
+
+  /* 股價節點 */
+  chipCloses.forEach(function(v, i) {
+    var active = hoverState.chip === null || hoverState.chip === i;
+
+    ctx.beginPath();
+    ctx.arc(xAt(i), pY(v), active ? 3 : 2.2, 0, Math.PI * 2);
+    ctx.fillStyle = active
+      ? 'rgba(245,158,11,0.95)'
+      : 'rgba(245,158,11,0.22)';
+    ctx.fill();
+
+    ctx.strokeStyle = '#fff';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+  });
+
+  /* hover 十字線 */
+  if (hoverState.chip !== null) {
+    var hi = hoverState.chip;
+    drawCrosshair(ctx, xAt(hi), pY(chipCloses[hi]), PAD, W, H);
+  }
+
+  /* X 軸日期 */
+  ctx.font = '11px Noto Sans TC,sans-serif';
+  ctx.fillStyle = '#a0aab4';
+  drawXLabels(ctx, chipDates, xAt, H - 4, 22);
+
+  /* hover 互動 */
+  el.onmousemove = function(evt) {
+    var idx = getHoverIndex(evt, el, PAD, W, n, 'slot');
+
+    hoverState.chip = idx;
+    drawChip();
+
+    if (idx !== null) {
+      var total = chipForeign[idx] + chipTrust[idx] + chipDealer[idx];
+
+      showTip(evt, `
+        <strong>${chipDates[idx]}</strong><br>
+        外資：
+        <span class="mono" style="color:#10b981">
+          ${chipForeign[idx] >= 0 ? '+' : ''}${fmtNum(chipForeign[idx])}
+        </span> 張<br>
+        投信：
+        <span class="mono" style="color:#8b5cf6">
+          ${chipTrust[idx] >= 0 ? '+' : ''}${fmtNum(chipTrust[idx])}
+        </span> 張<br>
+        自營商：
+        <span class="mono" style="color:#22d3ee">
+          ${chipDealer[idx] >= 0 ? '+' : ''}${fmtNum(chipDealer[idx])}
+        </span> 張<br>
+        合計：
+        <span class="mono" style="color:${total >= 0 ? '#10b981' : '#ef4444'}">
+          ${total >= 0 ? '+' : ''}${fmtNum(total)}
+        </span> 張<br>
+        收盤：
+        <span class="mono" style="color:#f59e0b">
+          ${chipCloses[idx].toFixed(2)}
+        </span>
+      `);
+    }
+  };
+
+  el.onmouseleave = function() {
+    hoverState.chip = null;
+    hideTip();
+    drawChip();
+  };
+}
+
+
+    /* ════════════ 表格列互動強化 ════════════ */
+    function bindTableHover() {
+        var rows = document.querySelectorAll('.ctbl tbody tr');
+
+        rows.forEach(function(row) {
+            row.addEventListener('mouseenter', function() {
+                row.style.backgroundColor = '#eef2ff';
+                row.querySelectorAll('td').forEach(function(td) {
+                    td.style.backgroundColor = '#eef2ff';
+                });
+            });
+
+            row.addEventListener('mouseleave', function() {
+                row.style.backgroundColor = '';
+                row.querySelectorAll('td').forEach(function(td) {
+                    td.style.backgroundColor = '';
+                });
+            });
+        });
+    }
+
+    /* ════════════ INIT + RESIZE ════════════ */
+    function initAll() {
+        drawK();
+        drawVol();
+        drawKD();
+        drawRSI();
+        drawMACD();
+        drawChip();
+        bindTableHover();
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initAll);
+    } else {
+        initAll();
+    }
+
+    window.addEventListener('resize', function() {
+        DPR = window.devicePixelRatio || 1;
+        initAll();
+    });
+    </script>
+</body>
+
+</html>
