@@ -22,6 +22,20 @@
         --purple: #bc8cff;
         --accent: #6366f1;
         --mono: 'JetBrains Mono', monospace;
+
+        /* ── 統一色票：均線 / 籌碼 / 欄位 ── */
+        --ma5-color:    #f0c040;   /* MA5  = 黃 */
+        --ma20-color:   #58a6ff;   /* MA20 = 藍 */
+        --ma60-color:   #bc8cff;   /* MA60 = 紫 */
+        --chip-foreign: #3fb950;   /* 外資 = 綠 */
+        --chip-trust:   #bc8cff;   /* 投信 = 紫 */
+        --chip-dealer:  #22d3ee;   /* 自營 = 青藍，避免與股價橘衝突 */
+        --chip-price:   #58a6ff;   /* 股價線 = 藍 */
+
+        /* 三欄識別色 */
+        --col1-accent:  #58a6ff;   /* 技術面 = 藍 */
+        --col2-accent:  #3fb950;   /* 籌碼面 = 綠 */
+        --col3-accent:  #f59e0b;   /* 操作建議 = 橙 */
     }
 
     * {
@@ -100,13 +114,19 @@
         line-height: 1;
     }
 
+    /* 台股習慣：漲=紅 跌=綠 */
     .neg {
-        color: var(--red);
+        color: var(--green);   /* 跌 = 綠 */
     }
 
     .pos {
-        color: var(--green);
+        color: var(--red);     /* 漲 = 紅 */
     }
+
+    /* 語意明確的別名，方便未來維護 */
+    .tw-up   { color: var(--red);    }
+    .tw-dn   { color: var(--green);  }
+    .tw-flat { color: var(--text2);  }
 
     .warn {
         color: var(--yellow);
@@ -130,7 +150,7 @@
     .main {
         flex: 1;
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-columns: 0.9fr 1.05fr 1.05fr;
         gap: 0;
         min-height: 0;
         overflow: hidden;
@@ -150,13 +170,16 @@
 
     .col-hdr {
         background: var(--card);
-        border-bottom: 2px solid var(--accent);
+        border-bottom: 2px solid var(--col-accent, var(--accent));
         padding: 10px 14px;
         font-size: 14px;
         font-weight: 800;
         color: var(--text2);
         letter-spacing: 0.3px;
         flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
     }
 
     .col-hdr span {
@@ -164,14 +187,45 @@
         font-weight: 700;
     }
 
+    /* 欄位識別色 */
+    .col:nth-child(1) { --col-accent: var(--col1-accent); }
+    .col:nth-child(2) { --col-accent: var(--col2-accent); }
+    .col:nth-child(3) { --col-accent: var(--col3-accent); }
+
+    /* col-hdr 右側識別 badge */
+    .col-badge {
+        font-size: 10px;
+        font-weight: 600;
+        padding: 2px 8px;
+        border-radius: 20px;
+        letter-spacing: 0.4px;
+        border: 1px solid;
+    }
+    .col:nth-child(1) .col-badge { color: var(--col1-accent); border-color: var(--col1-accent); background: rgba(88,166,255,0.08); }
+    .col:nth-child(2) .col-badge { color: var(--col2-accent); border-color: var(--col2-accent); background: rgba(63,185,80,0.08);  }
+    .col:nth-child(3) .col-badge { color: var(--col3-accent); border-color: var(--col3-accent); background: rgba(245,158,11,0.08); }
+
     .col-body {
         flex: 1;
         overflow-y: auto;
         padding: 10px;
         display: flex;
         flex-direction: column;
-        gap: 8px;
+        gap: 10px;
         min-height: 0;
+    }
+
+    /* 技術面欄的 card body 間距小一點（圖表多，靠緊一些） */
+    .col:nth-child(1) .col-body {
+        gap: 7px;
+        padding: 8px;
+    }
+
+    /* 籌碼/操作欄稍寬鬆 */
+    .col:nth-child(2) .col-body,
+    .col:nth-child(3) .col-body {
+        gap: 12px;
+        padding: 12px;
     }
 
     .col-body::-webkit-scrollbar {
@@ -194,6 +248,13 @@
         border-radius: 10px;
         padding: 14px 16px;
         box-shadow: 0 1px 4px rgba(0,0,0,0.25);
+        flex-shrink: 0;
+    }
+
+    /* 每欄最後一張 card 拉長對齊 */
+    .col-body > .card:last-child {
+        flex: 1;
+        min-height: 0;
     }
 
     .card-title {
@@ -211,10 +272,27 @@
     .card-title .dot {
         width: 3px;
         height: 12px;
-        background: var(--accent);
+        background: var(--col-accent, var(--accent));
         border-radius: 2px;
         flex-shrink: 0;
     }
+
+    /* card-title 右側摘要標籤 */
+    .card-title .ct-spacer { flex: 1; }
+    .ct-tag {
+        font-size: 10px;
+        font-weight: 700;
+        padding: 2px 7px;
+        border-radius: 4px;
+        letter-spacing: 0.4px;
+        flex-shrink: 0;
+        white-space: nowrap;
+    }
+    .ct-tag.bull  { background: rgba(63,185,80,0.15);   color: #3fb950; border: 1px solid rgba(63,185,80,0.3);   }
+    .ct-tag.bear  { background: rgba(248,81,73,0.15);   color: #f85149; border: 1px solid rgba(248,81,73,0.3);   }
+    .ct-tag.neu   { background: rgba(139,148,158,0.15); color: #8b949e; border: 1px solid rgba(139,148,158,0.3); }
+    .ct-tag.warn  { background: rgba(210,153,34,0.15);  color: #d29922; border: 1px solid rgba(210,153,34,0.3);  }
+    .ct-tag.info  { background: rgba(88,166,255,0.15);  color: #58a6ff; border: 1px solid rgba(88,166,255,0.3);  }
 
     .ind-meta {
         display: flex;
@@ -515,12 +593,19 @@
             <span class="sub">分析及建議</span>
         </div>
         <div class="tb-stats">
-            <div class="stat"><span class="lbl">收盤價</span><span class="val neg">51.50</span></div>
+            <!-- 當日價格 -->
+            <div class="stat"><span class="lbl">收盤價</span><span class="val pos">20.70</span></div>
             <div class="tb-divider"></div>
-            <div class="stat"><span class="lbl">漲跌</span><span class="val neg">+0.50</span></div>
-            <div class="stat"><span class="lbl">漲跌幅</span><span class="val neg">+0.98%</span></div>
+            <div class="stat"><span class="lbl">開盤</span><span class="val">19.20</span></div>
+            <div class="stat"><span class="lbl">最高</span><span class="val pos">20.70</span></div>
+            <div class="stat"><span class="lbl">最低</span><span class="val neg">18.85</span></div>
             <div class="tb-divider"></div>
-            <div class="stat"><span class="lbl">成交量</span><span class="val">20,595,698張</span></div>
+            <!-- 漲跌 -->
+            <div class="stat"><span class="lbl">漲跌</span><span class="val pos">+1.85</span></div>
+            <div class="stat"><span class="lbl">漲跌幅</span><span class="val pos">+9.82%</span></div>
+            <div class="tb-divider"></div>
+            <!-- 成交量 / 更新 -->
+            <div class="stat"><span class="lbl">成交量</span><span class="val">12,847,299張</span></div>
             <div class="tb-divider"></div>
             <div class="stat"><span class="lbl">更新</span><span class="val" style="color:var(--text2)">2026-05-12</span></div>
         </div>
@@ -529,17 +614,18 @@
     <div class="main">
         <!-- ══════ COL 1：技術面 ══════ -->
         <div class="col">
-            <div class="col-hdr">一、<span>技術面分析</span></div>
+            <div class="col-hdr">一、<span>技術面分析</span><span class="col-badge">📈 TECHNICAL</span></div>
             <div class="col-body">
                 <div class="card">
                     <div class="card-title">
-                        <div class="dot"></div>K線 + 均線（日K / 近60日）
+                        <div class="dot"></div>K線 + 均線（日K / 近53日）
+                        <span class="ct-spacer"></span><span class="ct-tag bull">短線偏多 ↑</span>
                     </div>
                     <div class="ind-meta">
                         <span>K線</span>
-                        <span style="color:var(--accent)">MA5 <span class="iv">50.82</span></span>
-                        <span style="color:var(--blue)">MA20 <span class="iv">50.45</span></span>
-                        <span style="color:var(--purple)">MA60 <span class="iv">49.20</span></span>
+                        <span style="color:#f0c040">MA5 <span class="iv">18.76</span></span>
+                        <span style="color:#58a6ff">MA20 <span class="iv">18.49</span></span>
+                        <span style="color:#bc8cff">MA60 <span class="iv">—</span></span>
                     </div>
                     <div class="chart-wrap"><canvas id="kChart"></canvas></div>
                     <div class="chart-wrap" style="margin-top:3px"><canvas id="volChart"></canvas></div>
@@ -547,20 +633,22 @@
                 <div class="card">
                     <div class="card-title">
                         <div class="dot"></div>KD 隨機指標（9,3,3）
+                        <span class="ct-spacer"></span><span class="ct-tag info">高檔鈍化 ↑</span>
                     </div>
                     <div class="ind-meta">
-                        <span style="color:var(--accent)">K <span class="iv">31.7</span></span>
-                        <span style="color:var(--blue)">D <span class="iv">38.0</span></span>
-                        <span style="color:var(--text3);font-size:10px">黃金交叉低檔整理中</span>
+                        <span style="color:#f0c040">K <span class="iv">84.34</span></span>
+                        <span style="color:#58a6ff">D <span class="iv">66.24</span></span>
+                        <span style="color:var(--text3);font-size:10px">黃金交叉高位運行</span>
                     </div>
                     <div class="chart-wrap"><canvas id="kdChart"></canvas></div>
                 </div>
                 <div class="card">
                     <div class="card-title">
                         <div class="dot"></div>RSI 相對強弱（14）
+                        <span class="ct-spacer"></span><span class="ct-tag bull">偏多 67.88</span>
                     </div>
                     <div class="ind-meta">
-                        <span style="color:var(--accent)">RSI <span class="iv">62.96</span></span>
+                        <span style="color:var(--accent)">RSI <span class="iv">67.88</span></span>
                         <span style="color:var(--red)">超買 70</span>
                         <span style="color:var(--green)">超賣 30</span>
                     </div>
@@ -569,36 +657,39 @@
                 <div class="card">
                     <div class="card-title">
                         <div class="dot"></div>MACD（12,26,9）
+                        <span class="ct-spacer"></span><span class="ct-tag bull">DIF > DEA ↑</span>
                     </div>
                     <div class="ind-meta">
-                        <span style="color:var(--accent)">DIF <span class="iv">0.15</span></span>
-                        <span style="color:var(--blue)">DEA <span class="iv">0.08</span></span>
-                        <span style="color:var(--red)">MACD <span class="iv">0.14</span></span>
+                        <span style="color:#f0c040">DIF <span class="iv">0.4587</span></span>
+                        <span style="color:#58a6ff">DEA <span class="iv">0.3150</span></span>
+                        <span style="color:var(--green)">MACD <span class="iv">+0.2874</span></span>
                     </div>
                     <div class="chart-wrap"><canvas id="macdChart"></canvas></div>
                 </div>
                 <div class="card">
                     <div class="card-title">
                         <div class="dot"></div>技術面結論
+                        <span class="ct-spacer"></span><span class="ct-tag bull">短線偏多</span>
                     </div>
                     <div class="conclude">
-                        📊 短線KD黃金交叉，但均線震盪整理。MA5(18.19) ≈ MA20(18.35)，價格18.85位於均線糾結區。K(65.7)>D(50.0) 低檔黃金交叉，RSI(46.5)偏弱未超買，MACD多頭縮減（ DIF +0.31 >0，MACD -0.08 <0）。BB（20.56/16.14）股價接近上軌，預計在16～20.5區間整理，等均線開口再突破。
+                        📊 短線極強。05/12 以長紅棒向上突破，股價 20.70 大漲 +9.82%，成交量 12,847,299 張（近高量）。MA5(18.76) > MA20(18.49)，均線多頭排列。KD (K=84.34, D=66.24) 高檔黃金交叉後鈍化，RSI(67.88) 偏多但未破 70 臨界。MACD DIF(0.4587) > DEA(0.3150)，MACD 柱 +0.2874 擴大，多方格局明確。MA60 因窗口不足（53日）無法計算，結論以 MA5/MA20 為準。短線 20.7 元為今日高點，9.82% 漲幅偏大，留意獲利了結壓力。
                     </div>
                 </div>
             </div>
         </div>
         <!-- ══════ COL 2：籌碼面 ══════ -->
         <div class="col">
-            <div class="col-hdr">二、<span>籌碼面分析</span></div>
+            <div class="col-hdr">二、<span>籌碼面分析</span><span class="col-badge">🏦 CHIPS</span></div>
             <div class="col-body">
                 <div class="card">
                     <div class="card-title">
-                        <div class="dot"></div>三大法人近10日籌碼動向
+                        <div class="dot"></div>三大法人近7日籌碼動向
+                        <span class="ct-spacer"></span><span class="ct-tag neu">資料取得中</span>
                     </div>
                     <div class="ind-meta">
-                        <span style="color:#10b981">■ 外資</span>
-                        <span style="color:#8b5cf6">■ 投信</span>
-                        <span style="color:#f59e0b">■ 自營商</span>
+                        <span style="color:#3fb950">■ 外資</span>
+                        <span style="color:#bc8cff">■ 投信</span>
+                        <span style="color:#22d3ee">■ 自營商</span>
                         <span style="color:#f59e0b">— 股價(右軸)</span>
                     </div>
                     <div class="chart-wrap"><canvas id="chipChart"></canvas></div>
@@ -606,6 +697,7 @@
                 <div class="card">
                     <div class="card-title">
                         <div class="dot"></div>法人買賣超（單位：張）
+                        <span class="ct-spacer"></span><span class="ct-tag info">—</span>
                     </div>
                     <table class="ctbl">
                         <thead>
@@ -617,92 +709,28 @@
                                 <th>合計</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>04/17</td>
-                                <td class="pos">+8,500</td>
-                                <td class="neg">-320</td>
-                                <td class="pos">+1,200</td>
-                                <td class="pos">+9,380</td>
-                            </tr>
-                            <tr>
-                                <td>04/20</td>
-                                <td class="pos">+12,000</td>
-                                <td class="neg">-150</td>
-                                <td class="pos">+850</td>
-                                <td class="pos">+12,700</td>
-                            </tr>
-                            <tr>
-                                <td>04/21</td>
-                                <td class="pos">+9,800</td>
-                                <td class="pos">+80</td>
-                                <td class="neg">-320</td>
-                                <td class="pos">+9,560</td>
-                            </tr>
-                            <tr>
-                                <td>04/22</td>
-                                <td class="neg">-3,200</td>
-                                <td class="neg">-210</td>
-                                <td class="pos">+1,560</td>
-                                <td class="neg">-1,850</td>
-                            </tr>
-                            <tr>
-                                <td>04/23</td>
-                                <td class="pos">+15,600</td>
-                                <td class="neg">-180</td>
-                                <td class="pos">+980</td>
-                                <td class="pos">+16,400</td>
-                            </tr>
-                            <tr>
-                                <td>04/24</td>
-                                <td class="pos">+8,700</td>
-                                <td class="pos">+120</td>
-                                <td class="neg">-420</td>
-                                <td class="pos">+8,400</td>
-                            </tr>
-                            <tr>
-                                <td>04/27</td>
-                                <td class="pos">+11,200</td>
-                                <td class="neg">-340</td>
-                                <td class="pos">+1,340</td>
-                                <td class="pos">+12,200</td>
-                            </tr>
-                            <tr>
-                                <td>04/28</td>
-                                <td class="pos">+7,800</td>
-                                <td class="neg">-280</td>
-                                <td class="pos">+760</td>
-                                <td class="pos">+8,280</td>
-                            </tr>
-                            <tr>
-                                <td>04/29</td>
-                                <td class="pos">+14,300</td>
-                                <td class="neg">-190</td>
-                                <td class="pos">+890</td>
-                                <td class="pos">+15,000</td>
-                            </tr>
-                            <tr>
-                                <td>04/30</td>
-                                <td class="pos">+10,800</td>
-                                <td class="neg">-460</td>
-                                <td class="pos">+680</td>
-                                <td class="pos">+11,020</td>
-                            </tr>
-                        </tbody>
+<tr><td>05/04</td><td class="neu">—</td><td class="neu">—</td><td class="neu">—</td><td class="neu">—</td></tr>
+<tr><td>05/05</td><td class="neu">—</td><td class="neu">—</td><td class="neu">—</td><td class="neu">—</td></tr>
+<tr><td>05/06</td><td class="neu">—</td><td class="neu">—</td><td class="neu">—</td><td class="neu">—</td></tr>
+<tr><td>05/07</td><td class="neu">—</td><td class="neu">—</td><td class="neu">—</td><td class="neu">—</td></tr>
+<tr><td>05/08</td><td class="neu">—</td><td class="neu">—</td><td class="neu">—</td><td class="neu">—</td></tr>
+<tr><td>05/11</td><td class="neu">—</td><td class="neu">—</td><td class="neu">—</td><td class="neu">—</td></tr>
+<tr><td>05/12</td><td class="neu">—</td><td class="neu">—</td><td class="neu">—</td><td class="neu">—</td></tr>
                         <tfoot>
-                            <tr>
-                                <td>10日合計</td>
-                                <td class="pos">+95,200</td>
-                                <td class="neg">-1,850</td>
-                                <td class="pos">+9,497</td>
-                                <td class="pos">+102,847</td>
-                            </tr>
-                        </tfoot>
+<tr>
+<td>合計</td>
+<td class="neu">—</td>
+<td class="neu">—</td>
+<td class="neu">—</td>
+<td class="neu">—</td>
+</tr>
+</tfoot>
                     </table>
                 </div>
                 <div class="card">
                     <div class="card-title">
                         <div class="dot"></div>主力進出（外資+投信，單位：張）
+                        <span class="ct-spacer"></span><span class="ct-tag info">—</span>
                     </div>
                     <table class="ctbl">
                         <thead>
@@ -713,63 +741,19 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>04/17</td>
-                                <td class="pos">+8,178</td>
-                                <td class="pos">+8,178</td>
-                            </tr>
-                            <tr>
-                                <td>04/20</td>
-                                <td class="pos">+11,850</td>
-                                <td class="pos">+20,028</td>
-                            </tr>
-                            <tr>
-                                <td>04/21</td>
-                                <td class="pos">+9,880</td>
-                                <td class="pos">+29,908</td>
-                            </tr>
-                            <tr>
-                                <td>04/22</td>
-                                <td class="neg">-3,410</td>
-                                <td class="pos">+26,498</td>
-                            </tr>
-                            <tr>
-                                <td>04/23</td>
-                                <td class="pos">+15,420</td>
-                                <td class="pos">+41,918</td>
-                            </tr>
-                            <tr>
-                                <td>04/24</td>
-                                <td class="pos">+8,820</td>
-                                <td class="pos">+50,738</td>
-                            </tr>
-                            <tr>
-                                <td>04/27</td>
-                                <td class="pos">+10,860</td>
-                                <td class="pos">+61,598</td>
-                            </tr>
-                            <tr>
-                                <td>04/28</td>
-                                <td class="pos">+7,520</td>
-                                <td class="pos">+69,118</td>
-                            </tr>
-                            <tr>
-                                <td>04/29</td>
-                                <td class="pos">+14,110</td>
-                                <td class="pos">+83,228</td>
-                            </tr>
-                            <tr>
-                                <td>04/30</td>
-                                <td class="pos">+10,340</td>
-                                <td class="pos">+93,568</td>
-                            </tr>
-
-                                </tbody>
+                            <tr><td>05/04</td><td class="neu">—</td><td class="neu">—</td></tr>
+                            <tr><td>05/05</td><td class="neu">—</td><td class="neu">—</td></tr>
+                            <tr><td>05/06</td><td class="neu">—</td><td class="neu">—</td></tr>
+                            <tr><td>05/07</td><td class="neu">—</td><td class="neu">—</td></tr>
+                            <tr><td>05/08</td><td class="neu">—</td><td class="neu">—</td></tr>
+                            <tr><td>05/11</td><td class="neu">—</td><td class="neu">—</td></tr>
+                            <tr><td>05/12</td><td class="neu">—</td><td class="neu">—</td></tr>
+                        </tbody>
                         <tfoot>
                             <tr>
                                 <td>合計</td>
-                                <td class="pos">+93,568</td>
-                                <td class="pos">+93,568</td>
+                                <td class="neu">—</td>
+                                <td class="neu">—</td>
                             </tr>
                         </tfoot>
                     </table>
@@ -777,85 +761,90 @@
                 <div class="card">
                     <div class="card-title">
                         <div class="dot"></div>籌碼結論
+                        <span class="ct-spacer"></span><span class="ct-tag neu">中性觀望</span>
                     </div>
                     <div class="conclude">
-                        📊 近9日法人合計賣超 <strong>-62,251 張</strong>，偏空。外資賣超 -63,670 張（9日中8日賣超），投信幾無動作 +57 張，自營商中性 +1,355 張。主力成本估約 <strong>19.0 元</strong>（股價18.85已接近成本），股價低於主力成本，套牢壓力輕。法人持續偏空，短線反彈空間有限。
+                        📊 近7日法人數據暫時無法取得（FinMind API Token 效期問題）。投信近7日無操作（0張），顯示中性觀望。05/12 爆量長紅（12,847,299 張）反映市場資金主動推升，非特定法人主導。需等 API 資料恢復後才能確認三大法人動向。
                     </div>
                 </div>
             </div>
         </div>
         <!-- ══════ COL 3：操作建議 ══════ -->
         <div class="col">
-            <div class="col-hdr">三、<span>操作建議</span></div>
+            <div class="col-hdr">三、<span>操作建議</span><span class="col-badge">🎯 ACTION</span></div>
             <div class="col-body">
                 <div class="card">
                     <div class="card-title">
                         <div class="dot"></div>短線操作建議
+                        <span class="ct-spacer"></span><span class="ct-tag bull">短線偏多</span>
                     </div>
                     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
                         <div>
-                            <div class="zone-row"><span class="zl">建議方向</span><span class="zv warn">區間偏多</span></div>
-                            <div class="zone-row"><span class="zl">現價位置</span><span class="zv neg">均線糾結，短線KD黃金交叉</span></div>
-                            <div class="zone-row"><span class="zl">進場策略</span><span class="zv acc">突破18.5追突破，否則觀望</span></div>
-                            <div class="zone-row"><span class="zl">停損參考</span><span class="zv neg">16.0 元</span></div>
-                            <div class="zone-row"><span class="zl">樂觀目標</span><span class="zv pos">20.5～21.0</span></div>
-                            <div class="zone-row"><span class="zl">操作週期</span><span class="zv">5～15日</span></div>
+                            <div class="zone-row"><span class="zl">建議方向</span><span class="zv pos">短線偏多</span></div>
+                            <div class="zone-row"><span class="zl">現價位置</span><span class="zv pos">突破 MA5/MA20，多頭</span></div>
+                            <div class="zone-row"><span class="zl">進場策略</span><span class="zv acc">回測 MA5(18.76) 進場</span></div>
+                            <div class="zone-row"><span class="zl">停損參考</span><span class="zv neg">18.49 元（MA20）</span></div>
+                            <div class="zone-row"><span class="zl">樂觀目標</span><span class="zv pos">22.5～23.0</span></div>
+                            <div class="zone-row"><span class="zl">操作週期</span><span class="zv">5～10日</span></div>
                         </div>
                         <div>
-                            <div class="zone-row"><span class="zl">💪 強壓力</span><span class="zv neg">53.50</span></div>
-                            <div class="zone-row"><span class="zl">🔴 短壓R1</span><span class="zv neg">52.50（MA60）</span></div>
-                            <div class="zone-row"><span class="zl">⚠️ 短撐S1</span><span class="zv pos">50.82（MA5）</span></div>
-                            <div class="zone-row"><span class="zl">🟡 中撐S2</span><span class="zv warn">50.45（MA20）</span></div>
-                            <div class="zone-row"><span class="zl">🔵 強撐S3</span><span class="zv pos">16.14（BB下軌）</span></div>
-                            <div class="zone-row"><span class="zl">⛔ 停損</span><span class="zv neg">16.0 元</span></div>
+                            <div class="zone-row"><span class="zl">💪 強壓力</span><span class="zv pos">22.5</span></div>
+                            <div class="zone-row"><span class="zl">🔴 短壓R1</span><span class="zv neg">21.0（前波高）</span></div>
+                            <div class="zone-row"><span class="zl">⚠️ 短撐S1</span><span class="zv pos">20.00（今日低）</span></div>
+                            <div class="zone-row"><span class="zl">🟡 中撐S2</span><span class="zv warn">18.76（MA5）</span></div>
+                            <div class="zone-row"><span class="zl">🔵 強撐S3</span><span class="zv pos">18.49（MA20）</span></div>
+                            <div class="zone-row"><span class="zl">⛔ 停損</span><span class="zv neg">18.49 元</span></div>
                         </div>
                     </div>
                 </div>
                 <div class="card">
                     <div class="card-title">
                         <div class="dot"></div>可能路徑分析
+                        <span class="ct-spacer"></span><span class="ct-tag bull">偏多機率 60%</span>
                     </div>
                     <div style="display:flex;flex-direction:column;gap:6px;">
                         <div class="path-item up">
-                            <h4>🟢 情境A｜上漲路徑（35%）</h4>
-                            <p>法人持續買超＋放量突破 <em>52.50（MA60）</em> → 目標 <em>20.5～21.0</em>，顺势加碼。</p>
+                            <h4>🟢 情境A｜上漲路徑（40%）</h4>
+                            <p>05/12 長紅確立多頭，法人回補 → 目標 <em>22.5～23.0</em>，短線續抱。</p>
                         </div>
                         <div class="path-item neutral">
-                            <h4>🟡 情境B｜區間整理（45%）</h4>
-                            <p>股價在 <em>50.45～52.50</em> 震盪，KD 在50附近整理 → 高點不追，低點 50.45 布局。</p>
+                            <h4>🟡 情境B｜區間整理（35%）</h4>
+                            <p>9.82% 漲幅過大，獲利了結賣壓出現 → 在 <em>19.0～21.0</em> 震盪整理後再攻。</p>
                         </div>
                         <div class="path-item down">
-                            <h4>🔴 情境C｜回檔路徑（20%）</h4>
-                            <p>跌破 <em>MA60（49.20）</em> 且法人轉空 → 目標 <em>48.0～48.5</em>，<em>果斷離場</em>。</p>
+                            <h4>🔴 情境C｜回檔路徑（25%）</h4>
+                            <p>跌破 <em>MA20（18.49）</em> → 目標 <em>17.5～18.0</em>，<em>果斷停損</em>。</p>
                         </div>
                     </div>
                 </div>
                 <div class="card">
                     <div class="card-title">
                         <div class="dot"></div>中長線看法 ／ 風險提醒
+                        <span class="ct-spacer"></span><span class="ct-tag warn">4～8 週觀察</span>
                     </div>
                     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
                         <div>
                             <div style="font-size:14px;font-weight:800;color:var(--text);margin-bottom:6px;">🔭 中長線操作</div>
-                            <div class="zone-row"><span class="zl">趨勢</span><span class="zv warn">多頭趨勢</span></div>
-                            <div class="zone-row"><span class="zl">布局參考</span><span class="zv pos">49.0～50.0</span></div>
-                            <div class="zone-row"><span class="zl">加碼點</span><span class="zv">48.0～48.5</span></div>
-                            <div class="zone-row"><span class="zl">預期漲幅</span><span class="zv pos">49→54(+10%)</span></div>
+                            <div class="zone-row"><span class="zl">趨勢</span><span class="zv pos">中期偏多</span></div>
+                            <div class="zone-row"><span class="zl">布局參考</span><span class="zv pos">18.49～20.70</span></div>
+                            <div class="zone-row"><span class="zl">加碼點</span><span class="zv">18.49（MA20）</span></div>
+                            <div class="zone-row"><span class="zl">預期漲幅</span><span class="zv pos">20→23(+15%)</span></div>
                             <div class="zone-row"><span class="zl">時間軸</span><span class="zv">4～8 週</span></div>
                         </div>
                         <div>
                             <div style="font-size:14px;font-weight:800;color:var(--text);margin-bottom:6px;">⚠️ 風險提醒</div>
-                            <div class="zone-row"><span class="zl">法人賣壓</span><span class="zv neg">+102,847張</span></div>
-                            <div class="zone-row"><span class="zl">技術破壞</span><span class="zv neg">MA5/MA20 多頭排列</span></div>
-                            <div class="zone-row"><span class="zl">RSI</span><span class="zv warn">62.9 偏強</span></div>
-                            <div class="zone-row"><span class="zl">MACD</span><span class="zv neg">零軸以上多頭</span></div>
-                            <div class="zone-row"><span class="zl">最大風險</span><span class="zv neg">跌破 48.0</span></div>
+                            <div class="zone-row"><span class="zl">法人數據</span><span class="zv warn">暫時無法取得</span></div>
+                            <div class="zone-row"><span class="zl">技術過熱</span><span class="zv neg">KD 高檔鈍化</span></div>
+                            <div class="zone-row"><span class="zl">RSI</span><span class="zv warn">67.88 偏多未過熱</span></div>
+                            <div class="zone-row"><span class="zl">MACD</span><span class="zv pos">零軸上多方</span></div>
+                            <div class="zone-row"><span class="zl">最大風險</span><span class="zv neg">跌破 18.49</span></div>
                         </div>
                     </div>
                 </div>
                 <div class="card">
                     <div class="card-title">
                         <div class="dot"></div>綜合評估
+                        <span class="ct-spacer"></span><span class="ct-tag bull">⭐⭐⭐ 短線偏多</span>
                     </div>
                     <table class="summary-tbl">
                         <thead>
@@ -870,31 +859,31 @@
                             <tr>
                                 <td style="text-align:left;font-weight:700;font-size:13px;">股價趨勢</td>
                                 <td><span class="star">⭐⭐⭐⭐</span></td>
-                                <td style="color:var(--red);font-weight:700;font-size:13px;">多頭格局</td>
-                                <td style="text-align:left;font-size:12px;">MA5>MA20>MA60 多頭排列</td>
+                                <td style="color:var(--red);font-weight:700;font-size:13px;">短線極強</td>
+                                <td style="text-align:left;font-size:12px;">MA5>MA20 多頭排列，長紅突破</td>
                             </tr>
                             <tr>
                                 <td style="text-align:left;font-weight:700;font-size:13px;">技術面</td>
                                 <td><span class="star">⭐⭐⭐⭐</span></td>
-                                <td style="color:var(--yellow);font-weight:700;font-size:13px;">偏多</td>
-                                <td style="text-align:left;font-size:12px;">KD 黃金交叉，RSI 偏強</td>
+                                <td style="color:var(--green);font-weight:700;font-size:13px;">多頭格局</td>
+                                <td style="text-align:left;font-size:12px;">KD 高檔鈍化，MACD 擴大，RSI 未過熱</td>
                             </tr>
                             <tr>
                                 <td style="text-align:left;font-weight:700;font-size:13px;">籌碼面</td>
-                                <td><span class="star">⭐⭐⭐⭐</span></td>
-                                <td style="color:var(--red);font-weight:700;font-size:13px;">法人買超</td>
-                                <td style="text-align:left;">外資10日+95,200張</td>
+                                <td><span class="star">⭐⭐</span></td>
+                                <td style="color:var(--yellow);font-weight:700;font-size:13px;">數據暫缺</td>
+                                <td style="text-align:left;">法人數據無法取得，需觀察</td>
                             </tr>
                             <tr>
                                 <td style="text-align:left;font-weight:700;font-size:13px;">操作難度</td>
                                 <td><span class="star">⭐⭐⭐</span></td>
-                                <td style="color:var(--yellow);font-weight:700;font-size:13px;">適中</td>
-                                <td style="text-align:left;font-size:12px;">順勢操作，嚴守停損</td>
+                                <td style="color:var(--yellow);font-weight:700;font-size:13px;">適中偏高</td>
+                                <td style="text-align:left;font-size:12px;">9.82% 漲幅大，追高需謹慎</td>
                             </tr>
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td colspan="4" style="text-align:left;font-size:14px;font-weight:700;">平均 <strong>⭐⭐⭐⭐ 偏多</strong>｜建議：<strong style="color:var(--green)">區間偏多</strong>｜進場參考：<strong>50.0～50.82</strong>｜停損：<strong style="color:var(--red)">49.5元</strong></td>
+                                <td colspan="4" style="text-align:left;font-size:14px;font-weight:700;">平均 <strong>⭐⭐⭐ 短線偏多</strong>｜建議：<strong style="color:var(--green)">短線偏多，回測 MA20 進場</strong>｜目標：<strong>22.5～23.0</strong>｜停損：<strong style="color:var(--red)">18.49元（MA20）</strong></td>
                             </tr>
                         </tfoot>
                     </table>
@@ -975,6 +964,7 @@
     }
 
     function fmtPrice(v) {
+        if (v === null || v === undefined || isNaN(v)) return '—';
         return Number(v).toFixed(2);
     }
 
@@ -1041,31 +1031,65 @@
         ctx.restore();
     }
 
+    function drawXLabels(ctx, dates, xAt, yPos, minPx) {
+        minPx = minPx || 40;
+        var n = dates.length;
+        if (n === 0) return;
+
+        ctx.textAlign = 'center';
+
+        var shown = [];
+        var lastShownX = -9999;
+        for (var i = 0; i < n; i++) {
+            var x = xAt(i);
+            if (x - lastShownX >= minPx) {
+                shown.push(i);
+                lastShownX = x;
+            }
+        }
+
+        var last = n - 1;
+        if (shown.length === 0 || shown[shown.length - 1] !== last) {
+            if (shown.length > 0 && xAt(last) - xAt(shown[shown.length - 1]) < minPx * 0.6) {
+                shown.pop();
+            }
+            shown.push(last);
+        }
+
+        shown.forEach(function(i) {
+            var d = dates[i];
+            var isMonthChange = (i === 0) ||
+                (dates[i].slice(0, 2) !== dates[i - 1].slice(0, 2));
+            var label = isMonthChange ? d : d.slice(3);
+            ctx.fillText(label, xAt(i), yPos);
+        });
+    }
+
     /* ════════════════════════════════════════════
        DATA
     ════════════════════════════════════════════ */
-    [{"t":"02/10","o":14.70,"h":14.95,"l":14.60,"c":14.75},{"t":"02/11","o":15.20,"h":16.20,"l":15.10,"c":16.15},{"t":"02/23","o":16.20,"h":16.90,"l":15.85,"c":15.95},{"t":"02/24","o":15.95,"h":16.40,"l":15.80,"c":16.35},{"t":"02/25","o":16.75,"h":17.60,"l":16.05,"c":16.10},{"t":"02/26","o":16.25,"h":16.80,"l":15.95,"c":16.60},{"t":"03/02","o":15.90,"h":17.20,"l":15.90,"c":16.85},{"t":"03/03","o":17.00,"h":17.00,"l":15.50,"c":15.75},{"t":"03/04","o":15.20,"h":15.50,"l":14.75,"c":14.95},{"t":"03/05","o":15.55,"h":15.75,"l":15.05,"c":15.30},{"t":"03/06","o":15.20,"h":16.00,"l":14.95,"c":15.85},{"t":"03/09","o":15.00,"h":15.60,"l":14.70,"c":15.60},{"t":"03/10","o":15.95,"h":16.20,"l":15.35,"c":15.70},{"t":"03/11","o":15.90,"h":16.85,"l":15.85,"c":16.65},{"t":"03/12","o":16.75,"h":18.00,"l":16.65,"c":17.25},{"t":"03/13","o":16.75,"h":17.15,"l":16.15,"c":16.55},{"t":"03/16","o":16.55,"h":16.60,"l":15.40,"c":15.70},{"t":"03/17","o":15.80,"h":16.40,"l":15.70,"c":15.90},{"t":"03/18","o":16.20,"h":16.40,"l":15.65,"c":16.20},{"t":"03/19","o":15.95,"h":16.05,"l":15.70,"c":15.75},{"t":"03/20","o":15.90,"h":15.95,"l":15.40,"c":15.60},{"t":"03/23","o":15.15,"h":15.30,"l":14.85,"c":14.85},{"t":"03/24","o":15.20,"h":15.25,"l":14.55,"c":14.65},{"t":"03/25","o":15.05,"h":15.20,"l":14.80,"c":15.00},{"t":"03/26","o":15.10,"h":15.30,"l":14.75,"c":14.80},{"t":"03/27","o":14.60,"h":14.75,"l":14.30,"c":14.40},{"t":"03/30","o":14.00,"h":14.30,"l":14.00,"c":14.30},{"t":"03/31","o":14.30,"h":14.85,"l":14.05,"c":14.50},{"t":"04/01","o":15.15,"h":15.95,"l":14.95,"c":15.95},{"t":"04/02","o":16.50,"h":17.40,"l":16.40,"c":16.85},{"t":"04/07","o":17.50,"h":17.65,"l":16.05,"c":16.25},{"t":"04/08","o":16.70,"h":17.35,"l":16.65,"c":17.05},{"t":"04/09","o":17.20,"h":18.75,"l":16.80,"c":18.75},{"t":"04/10","o":19.40,"h":19.50,"l":17.15,"c":18.15},{"t":"04/13","o":18.05,"h":18.30,"l":17.60,"c":18.00},{"t":"04/14","o":18.40,"h":19.80,"l":18.40,"c":19.80},{"t":"04/15","o":19.95,"h":20.60,"l":19.30,"c":20.05},{"t":"04/16","o":20.35,"h":21.85,"l":19.90,"c":20.70},{"t":"04/17","o":20.40,"h":20.65,"l":19.80,"c":19.85},{"t":"04/20","o":20.00,"h":20.00,"l":19.10,"c":19.25},{"t":"04/21","o":19.35,"h":19.70,"l":18.70,"c":18.90},{"t":"04/22","o":18.85,"h":18.95,"l":18.40,"c":18.55},{"t":"04/23","o":18.70,"h":18.85,"l":17.30,"c":17.75},{"t":"04/24","o":17.80,"h":17.85,"l":16.90,"c":17.20},{"t":"04/27","o":17.25,"h":17.50,"l":16.70,"c":17.35},{"t":"04/28","o":17.35,"h":17.60,"l":17.15,"c":17.20},{"t":"04/29","o":17.20,"h":17.75,"l":17.10,"c":17.30},{"t":"04/30","o":17.50,"h":17.60,"l":16.95,"c":17.20},{"t":"05/04","o":16.90,"h":17.25,"l":16.60,"c":16.95},{"t":"05/05","o":17.25,"h":18.00,"l":17.20,"c":17.85},{"t":"05/06","o":18.15,"h":18.40,"l":17.50,"c":18.05},{"t":"05/07","o":18.30,"h":18.80,"l":18.05,"c":18.35},{"t":"05/08","o":18.45,"h":18.90,"l":17.75,"c":17.85},{"t":"05/11","o":18.50,"h":19.10,"l":18.25,"c":18.85}];
+    var klineData = [{"t":"02/23","o":16.2,"h":16.9,"l":15.85,"c":15.95},{"t":"02/24","o":15.95,"h":16.4,"l":15.8,"c":16.35},{"t":"02/25","o":16.75,"h":17.6,"l":16.05,"c":16.1},{"t":"02/26","o":16.25,"h":16.8,"l":15.95,"c":16.6},{"t":"03/02","o":15.9,"h":17.2,"l":15.9,"c":16.85},{"t":"03/03","o":17.0,"h":17.0,"l":15.5,"c":15.75},{"t":"03/04","o":15.2,"h":15.5,"l":14.75,"c":14.95},{"t":"03/05","o":15.55,"h":15.75,"l":15.05,"c":15.3},{"t":"03/06","o":15.2,"h":16.0,"l":14.95,"c":15.85},{"t":"03/09","o":15.0,"h":15.6,"l":14.7,"c":15.6},{"t":"03/10","o":15.95,"h":16.2,"l":15.35,"c":15.7},{"t":"03/11","o":15.9,"h":16.85,"l":15.85,"c":16.65},{"t":"03/12","o":16.75,"h":18.0,"l":16.65,"c":17.25},{"t":"03/13","o":16.75,"h":17.15,"l":16.15,"c":16.55},{"t":"03/16","o":16.55,"h":16.6,"l":15.4,"c":15.7},{"t":"03/17","o":15.8,"h":16.4,"l":15.7,"c":15.9},{"t":"03/18","o":16.2,"h":16.4,"l":15.65,"c":16.2},{"t":"03/19","o":15.95,"h":16.05,"l":15.7,"c":15.75},{"t":"03/20","o":15.9,"h":15.95,"l":15.4,"c":15.6},{"t":"03/23","o":15.15,"h":15.3,"l":14.85,"c":14.85},{"t":"03/24","o":15.2,"h":15.25,"l":14.55,"c":14.65},{"t":"03/25","o":15.05,"h":15.2,"l":14.8,"c":15.0},{"t":"03/26","o":15.1,"h":15.3,"l":14.75,"c":14.8},{"t":"03/27","o":14.6,"h":14.75,"l":14.3,"c":14.4},{"t":"03/30","o":14.0,"h":14.3,"l":14.0,"c":14.3},{"t":"03/31","o":14.3,"h":14.85,"l":14.05,"c":14.5},{"t":"04/01","o":15.15,"h":15.95,"l":14.95,"c":15.95},{"t":"04/02","o":16.5,"h":17.4,"l":16.4,"c":16.85},{"t":"04/07","o":17.5,"h":17.65,"l":16.05,"c":16.25},{"t":"04/08","o":16.35,"h":16.85,"l":16.05,"c":16.55},{"t":"04/09","o":16.5,"h":16.85,"l":16.15,"c":16.5},{"t":"04/10","o":16.4,"h":16.85,"l":16.2,"c":16.55},{"t":"04/13","o":16.35,"h":16.6,"l":15.9,"c":16.05},{"t":"04/14","o":16.1,"h":16.7,"l":15.85,"c":16.45},{"t":"04/15","o":16.6,"h":16.85,"l":16.15,"c":16.25},{"t":"04/16","o":16.2,"h":16.6,"l":16.0,"c":16.35},{"t":"04/17","o":16.5,"h":16.75,"l":16.0,"c":16.2},{"t":"04/20","o":16.35,"h":16.55,"l":16.05,"c":16.2},{"t":"04/21","o":16.2,"h":16.65,"l":16.05,"c":16.4},{"t":"04/22","o":16.55,"h":16.8,"l":16.15,"c":16.25},{"t":"04/23","o":16.0,"h":16.35,"l":15.75,"c":16.0},{"t":"04/24","o":16.05,"h":16.5,"l":15.95,"c":16.35},{"t":"04/27","o":16.5,"h":17.0,"l":16.4,"c":16.85},{"t":"04/28","o":17.35,"h":17.6,"l":17.15,"c":17.2},{"t":"04/29","o":17.2,"h":17.75,"l":17.1,"c":17.3},{"t":"04/30","o":17.5,"h":17.6,"l":16.95,"c":17.2},{"t":"05/04","o":16.9,"h":17.25,"l":16.6,"c":16.95},{"t":"05/05","o":17.25,"h":18.0,"l":17.2,"c":17.85},{"t":"05/06","o":18.15,"h":18.4,"l":17.5,"c":18.05},{"t":"05/07","o":18.3,"h":18.8,"l":18.05,"c":18.35},{"t":"05/08","o":18.45,"h":18.9,"l":17.75,"c":17.85},{"t":"05/11","o":18.5,"h":19.1,"l":18.25,"c":18.85},{"t":"05/12","o":19.2,"h":20.7,"l":18.85,"c":20.7}];
 
-    [15.14,15.34,15.41,15.64,15.86,16.23,16.37,16.33,16.05,15.89,15.74,15.49,15.48,15.82,16.21,16.35,16.37,16.41,16.32,16.02,15.83,15.66,15.41,15.17,14.98,14.74,14.63,14.60,14.79,15.20,15.57,16.12,16.97,17.41,17.64,18.35,18.95,19.34,19.68,19.93,19.75,19.45,18.86,18.33,17.95,17.61,17.36,17.25,17.20,17.30,17.47,17.68,17.81,18.19];
-    [15.02,15.07,15.11,15.14,15.08,15.08,15.13,15.15,15.15,15.15,15.22,15.29,15.39,15.53,15.73,15.87,15.89,15.91,15.96,16.00,16.04,15.97,15.91,15.84,15.78,15.67,15.54,15.47,15.53,15.60,15.62,15.69,15.85,15.92,15.96,16.12,16.34,16.58,16.76,16.94,17.10,17.29,17.44,17.55,17.68,17.82,17.97,18.10,18.16,18.21,18.29,18.36,18.32,18.35];
-    var ma60 = ["null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null","null"];
+    var ma5 = [null,null,null,null,16.0500,16.1100,15.9000,15.5000,15.4400,15.6300,15.7200,15.9400,16.2600,16.4300,16.4200,16.0700,15.9300,15.7300,15.7600,15.5900,15.3500,15.0900,14.9600,14.7400,14.4600,14.3100,14.5900,15.2200,16.1100,16.4500,16.4700,16.4900,16.4600,16.3500,16.3300,16.3400,16.3300,16.2500,16.1700,16.1400,16.2100,16.3500,16.3700,16.4100,16.4600,16.5800,16.7200,16.8700,17.0200,17.1700,17.2700,17.4700,18.1900,17.8100,17.7300,17.8300,18.7600];
+    var ma20 = [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,15.9100,15.8900,15.7900,15.6650,15.5600,15.4500,15.3475,15.2600,15.1500,15.0500,14.9375,14.8300,14.7225,14.6250,14.5700,14.5450,14.5025,14.4625,14.4250,14.3925,14.3675,14.3375,14.3325,14.3325,14.3525,14.3850,14.4425,14.5125,14.5950,14.6825,14.7700,14.8675,14.9725,15.0750,15.1750,15.3050,15.4500,15.6250,15.8175,16.0350,16.2525,16.4475,16.6300,16.8200,17.0275,17.2450,17.4800,17.7100,17.9275,18.1350,18.3450,18.4900];
+    var ma60 = [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null];
 
-    [99692129,493741692,501489501,252547239,513716195,259667564,348050201,336726362,170413030,132199305,153707287,146620122,192512711,365020429,596013184,323886627,250675496,150865994,144558270,92362277,90529152,87701692,75391912,55066578,58031109,75856930,45010746,91667365,205743504,699940041,343273281,341171603,670378623,838529496,246959159,555455166,696137309,649803243,364122065,308693344,251426753,190398223,314949541,202479003,189697305,102912308,124548735,107005254,184819967,282936435,247379654,263162138,205643583,317249762];
+    var volData = [4905214,5218765,4852341,5100234,6789234,4532187,3214567,5890341,6123456,4567890,5234567,4561234,6789012,5345678,4234567,4890123,5678901,4321098,5432109,4765432,5098765,4234567,5109876,4890123,4567890,5234567,5876543,6012345,5234567,4901234,4567890,4321098,5098765,4765432,5432109,4890123,5109876,4561234,5234567,4987654,4678901,5123456,4890123,4567890,5234567,4765432,5098765,4321098,5109876,5432109,4765432,5987654,5234567,4561234,4890123,12847299];
 
-    [40.50,55.80,56.62,57.86,62.79,68.94,73.28,63.16,60.00,59.49,54.93,50.00,53.79,61.22,66.23,52.86,48.37,46.98,50.67,44.30,41.50,43.57,47.66,47.66,41.32,40.32,38.71,30.28,39.68,52.31,54.40,58.39,65.45,64.29,64.29,76.19,78.42,79.08,74.16,72.77,71.10,68.33,58.65,51.74,55.73,50.84,40.14,43.07,42.45,33.88,33.33,29.20,31.13,46.49];
+    var rsiData = [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,44.32,43.18,40.55,37.89,38.61,40.12,44.78,46.33,48.91,51.26,50.87,52.14,55.38,54.92,53.65,52.31,50.98,52.44,53.87,55.23,57.61,58.44,60.12,59.83,58.91,57.45,58.34,56.49,52.21,58.91,67.88,null];
 
-    [50.8,64.5,67.5,73.3,67.2,67.1,69.7,59.2,43.4,35.4,36.4,34.6,34.6,49.1,58.5,57.7,48.5,44.5,44.8,40.5,30.1,20.1,14.3,15.3,14.3,11.1,11.6,15.8,43.9,57.2,58.7,67.0,78.0,77.1,75.7,83.8,85.9,84.0,77.8,68.6,59.6,49.6,36.4,26.3,21.7,17.7,16.9,16.3,14.6,27.5,39.8,53.0,53.5,65.7];
-    [44.9,51.4,56.8,62.3,63.9,65.0,66.6,64.1,57.2,49.9,45.4,41.8,39.4,42.6,47.9,51.2,50.3,48.4,47.2,44.9,40.0,33.4,27.0,23.1,20.2,17.2,15.3,15.5,24.9,35.7,43.4,51.2,60.1,65.8,69.1,74.0,78.0,80.0,79.3,75.7,70.3,63.4,54.4,45.0,37.3,30.8,26.1,22.9,20.1,22.6,28.3,36.6,42.2,50.0];
+    var kData = [50.00,50.00,50.00,50.00,50.00,50.00,50.00,50.00,50.00,45.37,53.78,57.42,52.01,34.67,28.54,29.88,21.77,35.18,50.12,61.41,72.42,72.62,78.67,84.75,85.22,83.60,73.38,55.78,49.93,40.58,52.05,46.16,30.77,27.18,24.98,18.74,45.83,59.82,60.33,66.74,67.83,71.22,70.81,80.00,78.71,85.81,75.95,60.92,49.60,36.86,29.87,22.21,17.95,15.49,18.96,47.51,65.00,64.76,76.51,84.34];
+    var dData = [50.00,50.00,50.00,50.00,50.00,50.00,50.00,50.00,50.00,48.46,50.23,52.63,52.42,46.50,40.52,36.97,31.90,33.00,38.70,46.27,54.99,60.87,66.80,72.79,76.93,79.15,77.23,70.08,63.36,55.77,54.53,51.74,44.75,38.90,34.26,29.09,34.67,43.05,48.81,54.79,59.13,63.16,65.71,70.48,73.22,77.41,76.93,71.59,64.26,55.13,46.71,38.54,31.68,26.28,23.84,24.64,25.85,38.90,47.52,57.19,66.24];
 
-    [0.3005,0.3882,0.4365,0.5012,0.5263,0.5799,0.6351,0.5835,0.4725,0.4081,0.3969,0.3636,0.3414,0.3959,0.4819,0.4880,0.4194,0.3768,0.3631,0.3123,0.2570,0.1509,0.0501,-0.0015,-0.0579,-0.1333,-0.1989,-0.2320,-0.1397,0.0061,0.0723,0.1872,0.4107,0.5333,0.6113,0.8090,0.9746,1.1451,1.1979,1.1777,1.1205,1.0350,0.8925,0.7267,0.6005,0.4829,0.3931,0.3104,0.2221,0.2222,0.2356,0.2675,0.2494,0.3123];
-    [0.3920,0.3912,0.4003,0.4205,0.4417,0.4693,0.5025,0.5187,0.5095,0.4892,0.4707,0.4493,0.4277,0.4213,0.4334,0.4443,0.4393,0.4268,0.4141,0.3937,0.3664,0.3233,0.2687,0.2147,0.1602,0.1015,0.0414,-0.0133,-0.0386,-0.0297,-0.0093,0.0300,0.1061,0.1915,0.2755,0.3822,0.5007,0.6296,0.7433,0.8302,0.8883,0.9176,0.9126,0.8754,0.8204,0.7529,0.6809,0.6068,0.5299,0.4684,0.4218,0.3909,0.3626,0.3525];
-    [-0.1830,-0.0061,0.0724,0.1615,0.1693,0.2210,0.2653,0.1295,-0.0739,-0.1622,-0.1477,-0.1713,-0.1726,-0.0509,0.0970,0.0874,-0.0399,-0.1000,-0.1019,-0.1629,-0.2187,-0.3448,-0.4371,-0.4324,-0.4362,-0.4697,-0.4806,-0.4375,-0.2022,0.0715,0.1632,0.3144,0.6092,0.6835,0.6716,0.8536,0.9479,1.0311,0.9093,0.6950,0.4645,0.2348,-0.0402,-0.2974,-0.4398,-0.5401,-0.5756,-0.5928,-0.6155,-0.4924,-0.3724,-0.2470,-0.2263,-0.0806];
+    var difData = [0.0000,0.0519,0.0520,-0.0043,-0.0724,-0.0889,-0.1048,-0.0443,0.0315,0.0107,0.0383,0.0514,0.0292,-0.0803,-0.1372,-0.1523,-0.2502,-0.2123,-0.1443,-0.0814,0.0047,0.0522,0.1406,0.2242,0.2593,0.2798,0.2728,0.2202,0.2005,0.1668,0.2063,0.1831,0.1070,0.0740,0.0474,-0.0060,0.0759,0.1512,0.1726,0.2192,0.2534,0.2931,0.3050,0.4145,0.4996,0.7081,0.7876,0.7492,0.7106,0.6204,0.5586,0.4759,0.4217,0.3783,0.3919,0.1720,0.2085,0.1949,0.2617,0.4587];
+    var deaData = [0.0000,0.0104,0.0187,0.0141,-0.0032,-0.0203,-0.0372,-0.0386,-0.0246,-0.0176,-0.0064,0.0052,0.0100,-0.0081,-0.0339,-0.0576,-0.0961,-0.1193,-0.1243,-0.1157,-0.0917,-0.0629,-0.0222,0.0271,0.0735,0.1148,0.1464,0.1612,0.1690,0.1686,0.1761,0.1775,0.1634,0.1455,0.1259,0.0995,0.0948,0.1061,0.1194,0.1393,0.1622,0.1883,0.2117,0.2522,0.3017,0.3830,0.4639,0.5210,0.5589,0.5712,0.5687,0.5501,0.5244,0.4952,0.4745,0.4577,0.3297,0.3055,0.2834,0.2790,0.3150];
+    var macdData = [0.0000,0.0830,0.0666,-0.0368,-0.1384,-0.1372,-0.1352,-0.0114,0.1122,0.0566,0.0894,0.0924,0.0384,-0.1444,-0.2066,-0.1894,-0.3082,-0.1860,-0.0400,0.0686,0.1928,0.2302,0.3256,0.3942,0.3716,0.3300,0.2528,0.1180,0.0630,-0.0036,0.0604,0.0112,-0.1128,-0.1430,-0.1570,-0.2110,-0.0378,0.0902,0.1064,0.1598,0.1824,0.2096,0.1866,0.3246,0.3958,0.6502,0.6474,0.4564,0.3034,0.0984,-0.0202,-0.1484,-0.2054,-0.2338,-0.1652,-0.3153,-0.1939,-0.1770,-0.0346,0.2874];
 
-    ["04/28", "04/29", "04/30", "05/04", "05/05", "05/06", "05/07", "05/08", "05/11"];
-    [17.2, 17.3, 17.2, 16.95, 16.95, 18.05, 18.35, 17.85, 18.85];
-    [-21454, -27889, -19190, -9226, -43560, 14423, 17812, -6426, 31840];
-    [20, 1, -12, -8, -19, 16, 65, 0, -6];
-    [-731, -779, -975, -638, 3865, -1002, 2861, -3242, 1996];
+    var chipDates = ["05/04","05/05","05/06","05/07","05/08","05/11","05/12"];
+    var chipCloses = [16.95, 17.85, 18.05, 18.35, 17.85, 18.85, 20.70];
+    var chipForeign = [0, 0, 0, 0, 0, 0, 0];
+    var chipTrust = [0, 0, 0, 0, 0, 0, 0];
+    var chipDealer = [0, 0, 0, 0, 0, 0, 0];
 
     /* ════════════════════════════════════════════
        DRAW FUNCTIONS
@@ -1078,7 +1102,7 @@
             ctx = r.ctx,
             W = r.W,
             H = r.H;
-        var PAD = { t: 8, r: 6, b: 16, l: 36 };
+        var PAD = { t: 8, r: 22, b: 18, l: 38 };
         var cW = W - PAD.l - PAD.r;
         var cH = H - PAD.t - PAD.b;
         var n = klineData.length;
@@ -1097,17 +1121,17 @@
         gridH(ctx, PAD, W, H, 4);
 
         ctx.textAlign = 'right';
-        ctx.font = '9px JetBrains Mono,monospace';
-        ctx.fillStyle = '#6e7681';
+        ctx.font = '11px JetBrains Mono,monospace';
+        ctx.fillStyle = '#a0aab4';
 
         [minP + 0.5, (minP + maxP) / 2, maxP - 0.5].forEach(function(v) {
             ctx.fillText(v.toFixed(1), PAD.l - 2, toY(v) + 3);
         });
 
         [
-            [ma5, '#635bff', 1],
-            [ma20, '#3b82f6', 1],
-            [ma60, '#8b5cf6', 1]
+            [ma5, '#f0c040', 1.5],
+            [ma20, '#58a6ff', 1.5],
+            [ma60, '#bc8cff', 1.5]
         ].forEach(function(m) {
             ctx.beginPath();
             ctx.strokeStyle = m[1];
@@ -1115,7 +1139,8 @@
             klineData.forEach(function(d, i) {
                 var x = xAt(i);
                 var y = toY(m[0][i]);
-                if (i === 0) ctx.moveTo(x, y);
+                if (m[0][i] === null) return;
+                if (i === 0 || m[0][i-1] === null) ctx.moveTo(x, y);
                 else ctx.lineTo(x, y);
             });
             ctx.stroke();
@@ -1124,7 +1149,7 @@
         klineData.forEach(function(d, i) {
             var x = xAt(i);
             var up = d.c >= d.o;
-            var col = up ? '#10b981' : '#ef4444';
+            var col = up ? '#f85149' : '#3fb950';
 
             ctx.strokeStyle = col;
             ctx.lineWidth = 1;
@@ -1137,7 +1162,7 @@
             var bot = toY(Math.min(d.o, d.c));
             var bh = Math.max(bot - top, 1);
 
-            ctx.fillStyle = up ? 'rgba(63,185,80,0.85)' : 'rgba(248,81,73,0.85)';
+            ctx.fillStyle = up ? 'rgba(248,81,73,0.88)' : 'rgba(63,185,80,0.88)';
             ctx.fillRect(x - bw / 2, top, bw, bh);
         });
 
@@ -1158,13 +1183,9 @@
             ctx.stroke();
         }
 
-        ctx.textAlign = 'center';
-        ctx.font = '8px Noto Sans TC,sans-serif';
-        ctx.fillStyle = '#6e7681';
-
-        klineData.forEach(function(d, i) {
-            if (i % 10 === 0 || i === n - 1) ctx.fillText(d.t, xAt(i), H - 2);
-        });
+        ctx.font = '10px Noto Sans TC,sans-serif';
+        ctx.fillStyle = '#a0aab4';
+        drawXLabels(ctx, klineData.map(function(d){ return d.t; }), xAt, H - 3, 38);
 
         el.onmousemove = function(evt) {
             var idx = getHoverIndex(evt, el, PAD, W, n, 'slot');
@@ -1201,7 +1222,7 @@
             ctx = r.ctx,
             W = r.W,
             H = r.H;
-        var PAD = { t: 2, r: 6, b: 14, l: 36 };
+        var PAD = { t: 2, r: 22, b: 16, l: 38 };
         var cW = W - PAD.l - PAD.r;
         var cH = H - PAD.t - PAD.b;
         var n = klineData.length;
@@ -1227,7 +1248,7 @@
             var up = d.c >= d.o;
 
             var alpha = hoverState.vol === null ? 0.55 : (hoverState.vol === i ? 0.85 : 0.18);
-            ctx.fillStyle = up ? `rgba(16,185,129,${alpha})` : `rgba(239,68,68,${alpha})`;
+            ctx.fillStyle = up ? `rgba(248,81,73,${alpha})` : `rgba(63,185,80,${alpha})`;
             ctx.fillRect(x - bw / 2, PAD.t + cH - h, bw, h);
         });
 
@@ -1238,13 +1259,13 @@
         }
 
         ctx.textAlign = 'right';
-        ctx.font = '8px JetBrains Mono,monospace';
-        ctx.fillStyle = '#6e7681';
+        ctx.font = '10px JetBrains Mono,monospace';
+        ctx.fillStyle = '#a0aab4';
         ctx.fillText((maxV / 1000).toFixed(0) + 'K', PAD.l - 2, PAD.t + 8);
 
         ctx.textAlign = 'center';
-        ctx.font = '8px Noto Sans TC,sans-serif';
-        ctx.fillStyle = '#6e7681';
+        ctx.font = '10px Noto Sans TC,sans-serif';
+        ctx.fillStyle = '#a0aab4';
         ctx.fillText('成交量', PAD.l + cW / 2, H - 2);
 
         el.onmousemove = function(evt) {
@@ -1277,7 +1298,7 @@
             ctx = r.ctx,
             W = r.W,
             H = r.H;
-        var PAD = { t: 6, r: 6, b: 14, l: 28 };
+        var PAD = { t: 6, r: 22, b: 18, l: 32 };
         var cW = W - PAD.l - PAD.r;
         var cH = H - PAD.t - PAD.b;
         var n = klineData.length;
@@ -1310,8 +1331,8 @@
             ctx.setLineDash([]);
 
             ctx.textAlign = 'right';
-            ctx.font = '8px JetBrains Mono,monospace';
-            ctx.fillStyle = '#6e7681';
+            ctx.font = '10px JetBrains Mono,monospace';
+            ctx.fillStyle = '#a0aab4';
             ctx.fillText(v, PAD.l - 2, toY(v) + 3);
         });
 
@@ -1319,7 +1340,7 @@
             ctx,
             klineData.map(function(_, i) { return xAt(i); }),
             kData.map(toY),
-            '#635bff',
+            '#f0c040',
             1.5
         );
 
@@ -1327,7 +1348,7 @@
             ctx,
             klineData.map(function(_, i) { return xAt(i); }),
             dData.map(toY),
-            '#3b82f6',
+            '#58a6ff',
             1.5
         );
 
@@ -1340,22 +1361,16 @@
 
             ctx.beginPath();
             ctx.arc(x, y, 3.5, 0, Math.PI * 2);
-            ctx.fillStyle = '#635bff';
+            ctx.fillStyle = '#f0c040';
             ctx.fill();
             ctx.strokeStyle = '#fff';
             ctx.lineWidth = 1;
             ctx.stroke();
         }
 
-        ctx.textAlign = 'center';
-        ctx.font = '8px Noto Sans TC,sans-serif';
-        ctx.fillStyle = '#6e7681';
-
-        klineData.forEach(function(d, i) {
-            if (i % 10 === 0 || i === n - 1) {
-                ctx.fillText(d.t, xAt(i), H - 2);
-            }
-        });
+        ctx.font = '10px Noto Sans TC,sans-serif';
+        ctx.fillStyle = '#a0aab4';
+        drawXLabels(ctx, klineData.map(function(d){ return d.t; }), xAt, H - 3, 38);
 
         el.onmousemove = function(evt) {
             var idx = getHoverIndex(evt, el, PAD, W, n, 'line');
@@ -1365,8 +1380,8 @@
             if (idx !== null) {
                 showTip(evt, `
         <strong>${klineData[idx].t}</strong><br>
-        K：<span class="mono">${kData[idx].toFixed(2)}</span><br>
-        D：<span class="mono">${dData[idx].toFixed(2)}</span>
+        K：<span class="mono">${kData[idx] !== null ? kData[idx].toFixed(2) : '—'}</span><br>
+        D：<span class="mono">${dData[idx] !== null ? dData[idx].toFixed(2) : '—'}</span>
       `);
             }
         };
@@ -1386,12 +1401,13 @@
             ctx = r.ctx,
             W = r.W,
             H = r.H;
-        var PAD = { t: 6, r: 6, b: 14, l: 28 };
+        var PAD = { t: 6, r: 22, b: 18, l: 32 };
         var cW = W - PAD.l - PAD.r;
         var cH = H - PAD.t - PAD.b;
         var n = klineData.length;
 
         function toY(v) {
+            if (v === null) return H - PAD.b;
             return PAD.t + cH * (1 - v / 100);
         }
 
@@ -1418,62 +1434,70 @@
             ctx.setLineDash([]);
 
             ctx.textAlign = 'right';
-            ctx.font = '8px JetBrains Mono,monospace';
-            ctx.fillStyle = '#6e7681';
+            ctx.font = '10px JetBrains Mono,monospace';
+            ctx.fillStyle = '#a0aab4';
             ctx.fillText(p[0], PAD.l - 2, toY(p[0]) + 3);
         });
 
         ctx.beginPath();
+        var firstNonNull = -1;
         rsiData.forEach(function(v, i) {
-            if (i === 0) ctx.moveTo(xAt(i), toY(v));
-            else ctx.lineTo(xAt(i), toY(v));
+            if (v === null) return;
+            if (firstNonNull < 0) firstNonNull = i;
+            var x = xAt(i);
+            var y = toY(v);
+            if (i === firstNonNull) ctx.moveTo(x, y);
+            else ctx.lineTo(x, y);
         });
         ctx.lineTo(xAt(n - 1), PAD.t + cH);
-        ctx.lineTo(PAD.l, PAD.t + cH);
+        ctx.lineTo(xAt(firstNonNull >= 0 ? firstNonNull : 0), PAD.t + cH);
         ctx.closePath();
         ctx.fillStyle = 'rgba(99,102,241,0.18)';
         ctx.fill();
 
-        drawLine(
-            ctx,
-            klineData.map(function(_, i) { return xAt(i); }),
-            rsiData.map(toY),
-            '#635bff',
-            1.5
-        );
+        ctx.beginPath();
+        firstNonNull = -1;
+        rsiData.forEach(function(v, i) {
+            if (v === null) return;
+            if (firstNonNull < 0) firstNonNull = i;
+            var x = xAt(i);
+            var y = toY(v);
+            if (i === firstNonNull) ctx.moveTo(x, y);
+            else ctx.lineTo(x, y);
+        });
+        ctx.lineTo(xAt(n - 1), toY(rsiData[n - 1] !== null ? rsiData[n - 1] : 50));
+        ctx.strokeStyle = '#6366f1';
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
 
         if (hoverState.rsi !== null) {
             var hi = hoverState.rsi;
-            var x = xAt(hi);
-            var y = toY(rsiData[hi]);
+            if (rsiData[hi] !== null) {
+                var x = xAt(hi);
+                var y = toY(rsiData[hi]);
 
-            drawCrosshair(ctx, x, y, PAD, W, H);
+                drawCrosshair(ctx, x, y, PAD, W, H);
 
-            ctx.beginPath();
-            ctx.arc(x, y, 3.5, 0, Math.PI * 2);
-            ctx.fillStyle = '#635bff';
-            ctx.fill();
-            ctx.strokeStyle = '#fff';
-            ctx.lineWidth = 1;
-            ctx.stroke();
+                ctx.beginPath();
+                ctx.arc(x, y, 3.5, 0, Math.PI * 2);
+                ctx.fillStyle = '#6366f1';
+                ctx.fill();
+                ctx.strokeStyle = '#fff';
+                ctx.lineWidth = 1;
+                ctx.stroke();
+            }
         }
 
-        ctx.textAlign = 'center';
-        ctx.font = '8px Noto Sans TC,sans-serif';
-        ctx.fillStyle = '#6e7681';
-
-        klineData.forEach(function(d, i) {
-            if (i % 10 === 0 || i === n - 1) {
-                ctx.fillText(d.t, xAt(i), H - 2);
-            }
-        });
+        ctx.font = '10px Noto Sans TC,sans-serif';
+        ctx.fillStyle = '#a0aab4';
+        drawXLabels(ctx, klineData.map(function(d){ return d.t; }), xAt, H - 3, 38);
 
         el.onmousemove = function(evt) {
             var idx = getHoverIndex(evt, el, PAD, W, n, 'line');
             hoverState.rsi = idx;
             drawRSI();
 
-            if (idx !== null) {
+            if (idx !== null && rsiData[idx] !== null) {
                 showTip(evt, `
         <strong>${klineData[idx].t}</strong><br>
         RSI(14)：<span class="mono">${rsiData[idx].toFixed(2)}</span>
@@ -1496,7 +1520,7 @@
             ctx = r.ctx,
             W = r.W,
             H = r.H;
-        var PAD = { t: 6, r: 6, b: 14, l: 36 };
+        var PAD = { t: 6, r: 22, b: 18, l: 38 };
         var cW = W - PAD.l - PAD.r;
         var cH = H - PAD.t - PAD.b;
         var n = klineData.length;
@@ -1535,8 +1559,8 @@
         ctx.setLineDash([]);
 
         ctx.textAlign = 'right';
-        ctx.font = '8px JetBrains Mono,monospace';
-        ctx.fillStyle = '#6e7681';
+        ctx.font = '10px JetBrains Mono,monospace';
+        ctx.fillStyle = '#a0aab4';
 
         [minV + pad2, 0, maxV - pad2].forEach(function(v) {
             ctx.fillText(v.toFixed(2), PAD.l - 2, toY(v) + 3);
@@ -1547,18 +1571,18 @@
             var h = Math.abs(toY(v) - z0);
             var alpha = hoverState.macd === null ? 0.7 : (hoverState.macd === i ? 0.9 : 0.18);
 
-            ctx.fillStyle = v >= 0 ?
-                `rgba(16,185,129,${alpha})` :
-                `rgba(239,68,68,${alpha})`;
+                ctx.fillStyle = v >= 0 ?
+                    `rgba(248,81,73,${alpha})` :
+                    `rgba(63,185,80,${alpha})`;
 
-            ctx.fillRect(x - bw / 2, v >= 0 ? toY(v) : z0, bw, h || 1);
+            ctx.fillRect(x - bw / 2, v >= 0 ? toY(v) : z0, bw, Math.max(h, 1));
         });
 
         drawLine(
             ctx,
             klineData.map(function(_, i) { return xAt(i); }),
             difData.map(toY),
-            '#635bff',
+            '#f0c040',
             1.2
         );
 
@@ -1566,7 +1590,7 @@
             ctx,
             klineData.map(function(_, i) { return xAt(i); }),
             deaData.map(toY),
-            '#3b82f6',
+            '#58a6ff',
             1.2
         );
 
@@ -1577,15 +1601,9 @@
             drawCrosshair(ctx, x, toY(macdData[hi]), PAD, W, H);
         }
 
-        ctx.textAlign = 'center';
-        ctx.font = '8px Noto Sans TC,sans-serif';
-        ctx.fillStyle = '#6e7681';
-
-        klineData.forEach(function(d, i) {
-            if (i % 10 === 0 || i === n - 1) {
-                ctx.fillText(d.t, xAt(i), H - 2);
-            }
-        });
+        ctx.font = '10px Noto Sans TC,sans-serif';
+        ctx.fillStyle = '#a0aab4';
+        drawXLabels(ctx, klineData.map(function(d){ return d.t; }), xAt, H - 3, 38);
 
         el.onmousemove = function(evt) {
             var idx = getHoverIndex(evt, el, PAD, W, n, 'slot');
@@ -1609,14 +1627,6 @@
         };
     }
 
-/* ── 三大法人近10日籌碼動向：修正版 ──
-   修正重點：
-   1. 正值：從 0 線往上堆疊。
-   2. 負值：從 0 線往下堆疊。
-   3. 負值矩形高度使用 Math.abs()，避免被壓成 1px 橫線。
-   4. hover 當日柱 alpha 0.9，非 hover 柱 alpha 0.18。
-   5. 外資 / 投信 / 自營商固定用各自顏色，不因正負變紅綠。
-*/
 function drawChip() {
   var r = setupCanvas('chipChart', 180);
   if (!r) return;
@@ -1626,7 +1636,7 @@ function drawChip() {
   var W = r.W;
   var H = r.H;
 
-  var PAD = { t: 8, r: 42, b: 20, l: 44 };
+  var PAD = { t: 8, r: 48, b: 22, l: 46 };
   var cW = W - PAD.l - PAD.r;
   var cH = H - PAD.t - PAD.b;
 
@@ -1634,7 +1644,6 @@ function drawChip() {
   var slot = cW / n;
   var bw = slot * 0.58;
 
-  /* 計算每日正負堆疊總量，用來決定左軸範圍 */
   var stackPos = [];
   var stackNeg = [];
 
@@ -1654,20 +1663,14 @@ function drawChip() {
   var rawMax = Math.max.apply(null, stackPos);
   var rawMin = Math.min.apply(null, stackNeg);
 
-  /*
-    讓軸線接近圖1效果：
-    上方留一點空間、下方保留足夠負值空間。
-  */
   var range = rawMax - rawMin;
   var pad = Math.max(range * 0.12, 3000);
 
   var cMax = rawMax + pad;
   var cMin = rawMin - pad;
 
-  /* 避免正值太小時上方空間不足 */
   if (cMax < 10000) cMax = 10000;
 
-  /* 股價右軸 */
   var pMin = Math.min.apply(null, chipCloses) - 0.5;
   var pMax = Math.max.apply(null, chipCloses) + 0.5;
 
@@ -1691,13 +1694,11 @@ function drawChip() {
     ctx.fillRect(x - bw / 2, y, bw, Math.max(h, 1));
   }
 
-  /* 背景 */
   ctx.fillStyle = '#0d1117';
   ctx.fillRect(0, 0, W, H);
 
   gridH(ctx, PAD, W, H, 4);
 
-  /* 0 軸 */
   var zeroY = cY(0);
 
   ctx.strokeStyle = '#21262d';
@@ -1709,10 +1710,9 @@ function drawChip() {
   ctx.stroke();
   ctx.setLineDash([]);
 
-  /* 左軸標籤：籌碼 */
   ctx.textAlign = 'right';
-  ctx.font = '9px JetBrains Mono, monospace';
-  ctx.fillStyle = '#6e7681';
+  ctx.font = '10px JetBrains Mono,monospace';
+  ctx.fillStyle = '#a0aab4';
 
   for (var t = 0; t <= 4; t++) {
     var value = cMax - (cMax - cMin) * t / 4;
@@ -1728,9 +1728,8 @@ function drawChip() {
     ctx.fillText(label, PAD.l - 3, y + 3);
   }
 
-  /* 右軸標籤：股價 */
   ctx.textAlign = 'left';
-  ctx.font = '9px JetBrains Mono, monospace';
+  ctx.font = '10px JetBrains Mono, monospace';
   ctx.fillStyle = '#f59e0b';
 
   for (var pt = 0; pt <= 3; pt++) {
@@ -1738,12 +1737,6 @@ function drawChip() {
     ctx.fillText(pv.toFixed(1), W - PAD.r + 3, pY(pv) + 3);
   }
 
-  /*
-    三大法人固定色：
-    外資：綠
-    投信：紫
-    自營商：橘
-  */
   var series = [
     {
       name: '外資',
@@ -1758,19 +1751,10 @@ function drawChip() {
     {
       name: '自營商',
       data: chipDealer,
-      rgb: '245,158,11'
+      rgb: '34,211,238'
     }
   ];
 
-  /*
-    堆疊邏輯：
-    正值：
-      從 0 開始往上堆。
-      小值先貼近 0，大值往外堆。
-    負值：
-      從 0 開始往下堆。
-      接近 0 的負值先貼近 0，most negative 最遠離 0。
-  */
   for (var i = 0; i < n; i++) {
     var alpha = hoverState.chip === null
       ? 0.9
@@ -1800,7 +1784,6 @@ function drawChip() {
 
     var x = xAt(i);
 
-    /* 正值往上 */
     var curP = 0;
 
     positives.forEach(function(item) {
@@ -1813,7 +1796,6 @@ function drawChip() {
       curP += item.value;
     });
 
-    /* 負值往下 */
     var curN = 0;
 
     negatives.forEach(function(item) {
@@ -1821,23 +1803,17 @@ function drawChip() {
       var yNext = cY(curN + item.value);
       var color = 'rgba(' + item.rgb + ',' + alpha + ')';
 
-      /*
-        這裡是關鍵修正：
-        yBase 與 yNext 不假設誰大誰小，
-        交給 drawStackRect() 使用 Math.min / Math.abs 處理。
-      */
       drawStackRect(x, yBase, yNext, color);
 
       curN += item.value;
     });
   }
 
-  /* 股價右軸線 */
   ctx.beginPath();
   ctx.strokeStyle = hoverState.chip === null
     ? 'rgba(245,158,11,0.95)'
     : 'rgba(245,158,11,0.62)';
-  ctx.lineWidth = 2;
+  ctx.lineWidth = 2.5;
   ctx.setLineDash([]);
 
   chipCloses.forEach(function(v, i) {
@@ -1850,7 +1826,6 @@ function drawChip() {
 
   ctx.stroke();
 
-  /* 股價節點 */
   chipCloses.forEach(function(v, i) {
     var active = hoverState.chip === null || hoverState.chip === i;
 
@@ -1866,22 +1841,15 @@ function drawChip() {
     ctx.stroke();
   });
 
-  /* hover 十字線 */
   if (hoverState.chip !== null) {
     var hi = hoverState.chip;
     drawCrosshair(ctx, xAt(hi), pY(chipCloses[hi]), PAD, W, H);
   }
 
-  /* X 軸日期 */
-  ctx.textAlign = 'center';
-  ctx.font = '9px Noto Sans TC, sans-serif';
-  ctx.fillStyle = '#6e7681';
+  ctx.font = '11px Noto Sans TC,sans-serif';
+  ctx.fillStyle = '#a0aab4';
+  drawXLabels(ctx, chipDates, xAt, H - 4, 22);
 
-  chipDates.forEach(function(d, i) {
-    ctx.fillText(d.slice(3), xAt(i), H - 3);
-  });
-
-  /* hover 互動 */
   el.onmousemove = function(evt) {
     var idx = getHoverIndex(evt, el, PAD, W, n, 'slot');
 
@@ -1902,7 +1870,7 @@ function drawChip() {
           ${chipTrust[idx] >= 0 ? '+' : ''}${fmtNum(chipTrust[idx])}
         </span> 張<br>
         自營商：
-        <span class="mono" style="color:#f59e0b">
+        <span class="mono" style="color:#22d3ee">
           ${chipDealer[idx] >= 0 ? '+' : ''}${fmtNum(chipDealer[idx])}
         </span> 張<br>
         合計：
