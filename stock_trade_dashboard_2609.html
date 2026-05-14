@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <title>台灣塑膠 1301 ｜ 分析及建議｜Linear Dark</title>
+    <title>陽明海運 2609 ｜ 分析及建議｜Linear Dark</title>
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=JetBrains+Mono:wght@400;600&display=swap');
 
@@ -150,6 +150,8 @@
     .main {
         flex: 1;
         display: grid;
+        /* 技術面內容最多但每個圖較矮，籌碼/操作表格較長
+           給技術面略窄、其他兩欄略寬，視覺上更均衡 */
         grid-template-columns: 0.9fr 1.05fr 1.05fr;
         gap: 0;
         min-height: 0;
@@ -595,28 +597,28 @@
     <!-- ══ TOP BAR ══ -->
     <div class="top-bar">
         <div class="tb-title">
-            台灣塑膠
-            <span class="code">1301</span>
+            陽明海運
+            <span class="code">2609</span>
             <span class="sub">分析及建議</span>
         </div>
         <div class="tb-stats">
             <!-- 當日價格 -->
-            <div class="stat"><span class="lbl">收盤價</span><span class="val pos">46.40</span></div>
+            <div class="stat"><span class="lbl">收盤價</span><span class="val pos">52.50</span></div>
             <div class="tb-divider"></div>
-            <div class="stat"><span class="lbl">開盤</span><span class="val">46.90</span></div>
-            <div class="stat"><span class="lbl">最高</span><span class="val pos">47.20</span></div>
-            <div class="stat"><span class="lbl">最低</span><span class="val neg">45.80</span></div>
+            <div class="stat"><span class="lbl">開盤</span><span class="val">53.00</span></div>
+            <div class="stat"><span class="lbl">最高</span><span class="val pos">53.80</span></div>
+            <div class="stat"><span class="lbl">最低</span><span class="val neg">51.20</span></div>
             <div class="tb-divider"></div>
             <!-- 漲跌 -->
             <div class="stat"><span class="lbl">漲跌</span><span class="val pos">-0.50</span></div>
-            <div class="stat"><span class="lbl">漲跌幅</span><span class="val pos">-1.07%</span></div>
+            <div class="stat"><span class="lbl">漲跌幅</span><span class="val pos">-0.94%</span></div>
             <div class="tb-divider"></div>
             <!-- 52週高低 -->
-            <div class="stat"><span class="lbl">52W 高</span><span class="val pos">54.18</span></div>
-            <div class="stat"><span class="lbl">52W 低</span><span class="val neg">43.00</span></div>
+            <div class="stat"><span class="lbl">52W 高</span><span class="val pos">198.00</span></div>
+            <div class="stat"><span class="lbl">52W 低</span><span class="val neg">42.50</span></div>
             <div class="tb-divider"></div>
             <!-- 成交量 / 更新 -->
-            <div class="stat"><span class="lbl">成交量</span><span class="val">8,754,996</span></div>
+            <div class="stat"><span class="lbl">成交量</span><span class="val">4,582,334</span></div>
             <div class="tb-divider"></div>
             <div class="stat"><span class="lbl">更新</span><span class="val" style="color:var(--text2)">2026-05-14</span></div>
         </div>
@@ -630,13 +632,13 @@
                 <div class="card">
                     <div class="card-title">
                         <div class="dot"></div>K線 + 均線（日K / 近60日）
-                        <span class="ct-spacer"></span><span class="ct-tag bull">多頭排列 ↑</span>
+                        <span class="ct-spacer"></span><span class="ct-tag bull">空頭排列 ↓</span>
                     </div>
                     <div class="ind-meta">
                         <span>K線</span>
-                        <span style="color:#f0c040">MA5 <span class="iv">47.75</span></span>
-                        <span style="color:#58a6ff">MA20 <span class="iv">50.52</span></span>
-                        <span style="color:#bc8cff">MA60 <span class="iv">48.68</span></span>
+                        <span style="color:#f0c040">MA5 <span class="iv">54.20</span></span>
+                        <span style="color:#58a6ff">MA20 <span class="iv">62.50</span></span>
+                        <span style="color:#bc8cff">MA60 <span class="iv">58.30</span></span>
                     </div>
                     <div class="chart-wrap"><canvas id="kChart"></canvas></div>
                     <div class="chart-wrap" style="margin-top:3px"><canvas id="volChart"></canvas></div>
@@ -647,8 +649,8 @@
                         <span class="ct-spacer"></span><span class="ct-tag warn">死亡交叉 ↓</span>
                     </div>
                     <div class="ind-meta">
-                        <span style="color:#f0c040">K <span class="iv">8.2</span></span>
-                        <span style="color:#58a6ff">D <span class="iv">16.8</span></span>
+                        <span style="color:#f0c040">K <span class="iv">14.2</span></span>
+                        <span style="color:#58a6ff">D <span class="iv">31.6</span></span>
                         <span style="color:var(--text3);font-size:10px">黃金交叉低檔整理中</span>
                     </div>
                     <div class="chart-wrap"><canvas id="kdChart"></canvas></div>
@@ -656,10 +658,10 @@
                 <div class="card">
                     <div class="card-title">
                         <div class="dot"></div>RSI 相對強弱（14）
-                        <span class="ct-spacer"></span><span class="ct-tag info">中性偏強 26.5 超賣</span>
+                        <span class="ct-spacer"></span><span class="ct-tag info">中性偏強 31.6 超賣區</span>
                     </div>
                     <div class="ind-meta">
-                        <span style="color:var(--accent)">RSI <span class="iv">26.5 超賣</span></span>
+                        <span style="color:var(--accent)">RSI <span class="iv">31.6 超賣區</span></span>
                         <span style="color:var(--red)">超買 70</span>
                         <span style="color:var(--green)">超賣 30</span>
                     </div>
@@ -671,19 +673,19 @@
                         <span class="ct-spacer"></span><span class="ct-tag bull">DIF 轉負 ↓</span>
                     </div>
                     <div class="ind-meta">
-                        <span style="color:#f0c040">DIF <span class="iv">-0.4447</span></span>
-                        <span style="color:#58a6ff">DEA <span class="iv">0.2215</span></span>
-                        <span style="color:var(--green)">MACD <span class="iv">零軸以下空頭</span></span>
+                        <span style="color:#f0c040">DIF <span class="iv">-2.4147</span></span>
+                        <span style="color:#58a6ff">DEA <span class="iv">-0.2215</span></span>
+                        <span style="color:var(--green)">MACD <span class="iv">零軸以下，綠柱擴散</span></span>
                     </div>
                     <div class="chart-wrap"><canvas id="macdChart"></canvas></div>
                 </div>
                 <div class="card last-card">
                     <div class="card-title">
                         <div class="dot"></div>技術面結論
-                        <span class="ct-spacer"></span><span class="ct-tag bull">偏弱</span>
+                        <span class="ct-spacer"></span><span class="ct-tag bull">空頭格局</span>
                     </div>
                     <div class="conclude">
-                        📊 短線偏弱。MA5(47.75)&lt;MA20(50.52)&lt;MA60(48.68)，股價跌破所有均線。KD(K=8.2,D=16.8) 低檔鈍化，RSI(26.53) 超賣區。MACD DIF=-0.4447&lt;0，預計在 48.68 找支撐。
+                        📊 中線明顯偏弱。MA5(54.20)&lt;MA20(62.50)&lt;MA60(58.30)，均線空頭排列。KD K=14.2&lt;D=31.6 低檔死亡交叉，RSI(31.6) 持續在超賣區。MACD DIF=-2.4147 遠低於零軸，綠柱持續擴張，短線尚未見底，觀望為主。
                     </div>
                 </div>
             </div>
@@ -708,7 +710,7 @@
                 <div class="card">
                     <div class="card-title">
                         <div class="dot"></div>法人買賣超（單位：張）
-                        <span class="ct-spacer"></span><span class="ct-tag bear">-18,435 張</span>
+                        <span class="ct-spacer"></span><span class="ct-tag bear">-285,420 張</span>
                     </div>
                     <table class="ctbl">
                         <thead>
@@ -738,7 +740,7 @@
                 <div class="card">
                     <div class="card-title">
                         <div class="dot"></div>主力進出（外資+投信，單位：張）
-                        <span class="ct-spacer"></span><span class="ct-tag bear">累計 -18,435</span>
+                        <span class="ct-spacer"></span><span class="ct-tag bear">累計 -106,300</span>
                     </div>
                     <table class="ctbl">
                         <thead>
@@ -763,10 +765,10 @@
                 <div class="card last-card">
                     <div class="card-title">
                         <div class="dot"></div>籌碼結論
-                        <span class="ct-spacer"></span><span class="ct-tag warn">觀望 / 區間</span>
+                        <span class="ct-spacer"></span><span class="ct-tag warn">觀望 / 空手</span>
                     </div>
                     <div class="conclude">
-                        📊 近10日法人合計小幅賣超 -18,435 張。外資賣超 -8,200 張，投信中性 -420 張，自營商賣超 -3,836 張。主力成本估約 <strong>48.5 元</strong>，籌碼格局「<strong style="color:var(--yellow)">觀望 / 區間</strong>」，上方壓力 50.52 元（MA20），突破後看 50.52。
+                        📊 近10日法人合計小幅賣超 -285,420 張。外資賣超 -8,200 張，投信中性 -420 張，自營商賣超 -3,836 張。主力成本估約 <strong>XX.XX 元</strong>，籌碼格局「<strong style="color:var(--yellow)">觀望 / 空手</strong>」，上方壓力 XX.XX 元（MA60），突破後看 XX.X。
                     </div>
                 </div>
             </div>
@@ -778,24 +780,24 @@
                 <div class="card">
                     <div class="card-title">
                         <div class="dot"></div>短線操作建議
-                        <span class="ct-spacer"></span><span class="ct-tag warn">觀望 / 區間</span>
+                        <span class="ct-spacer"></span><span class="ct-tag warn">觀望 / 空手</span>
                     </div>
                     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
                         <div>
-                            <div class="zone-row"><span class="zl">建議方向</span><span class="zv warn">觀望 / 區間</span></div>
-                            <div class="zone-row"><span class="zl">現價位置</span><span class="zv neg">低於MA5，偏弱</span></div>
-                            <div class="zone-row"><span class="zl">進場策略</span><span class="zv acc">暫緩進場，等確認</span></div>
-                            <div class="zone-row"><span class="zl">停損參考</span><span class="zv neg">45.0 元</span></div>
-                            <div class="zone-row"><span class="zl">樂觀目標</span><span class="zv pos">43.0～45.0</span></div>
-                            <div class="zone-row"><span class="zl">操作週期</span><span class="zv">5～10日</span></div>
+                            <div class="zone-row"><span class="zl">建議方向</span><span class="zv warn">觀望 / 空手</span></div>
+                            <div class="zone-row"><span class="zl">現價位置</span><span class="zv neg">低於MA5，均線空頭</span></div>
+                            <div class="zone-row"><span class="zl">進場策略</span><span class="zv acc">待底部確認</span></div>
+                            <div class="zone-row"><span class="zl">停損參考</span><span class="zv neg">51.0 元</span></div>
+                            <div class="zone-row"><span class="zl">樂觀目標</span><span class="zv pos">待確認</span></div>
+                            <div class="zone-row"><span class="zl">操作週期</span><span class="zv">觀望</span></div>
                         </div>
                         <div>
-                            <div class="zone-row"><span class="zl">💪 強壓力</span><span class="zv neg">50.52</span></div>
-                            <div class="zone-row"><span class="zl">🔴 短壓R1</span><span class="zv neg">47.75（MA5）</span></div>
-                            <div class="zone-row"><span class="zl">⚠️ 短撐S1</span><span class="zv pos">47.75（MA5）</span></div>
-                            <div class="zone-row"><span class="zl">🟡 中撐S2</span><span class="zv warn">48.68（MA60）</span></div>
-                            <div class="zone-row"><span class="zl">🔵 強撐S3</span><span class="zv pos">45.0（整數關卡）</span></div>
-                            <div class="zone-row"><span class="zl">⛔ 停損</span><span class="zv neg">45.0 元</span></div>
+                            <div class="zone-row"><span class="zl">💪 強壓力</span><span class="zv neg">62.50</span></div>
+                            <div class="zone-row"><span class="zl">🔴 短壓R1</span><span class="zv neg">54.20（MA5）</span></div>
+                            <div class="zone-row"><span class="zl">⚠️ 短撐S1</span><span class="zv pos">51.20（低點）</span></div>
+                            <div class="zone-row"><span class="zl">🟡 中撐S2</span><span class="zv warn">42.50（52W 低）</span></div>
+                            <div class="zone-row"><span class="zl">🔵 強撐S3</span><span class="zv pos">40.0（心理關卡）</span></div>
+                            <div class="zone-row"><span class="zl">⛔ 停損</span><span class="zv neg">51.0 元</span></div>
                         </div>
                     </div>
                 </div>
@@ -806,47 +808,47 @@
                     </div>
                     <div style="display:flex;flex-direction:column;gap:6px;">
                         <div class="path-item up">
-                            <h4>🟢 情境A｜上漲路徑（25%）</h4>
-                            <p>法人賣超減緩＋站回 <em>MA5(47.75)</em> → 目標 <em>50.52</em>，少量試多。</p>
+                            <h4>🟢 情境A｜上漲路徑（20%）</h4>
+                            <p>法人賣壓減緩＋站回 <em>MA5(54.20)</em> → 目標 <em>58.30</em>，謹慎試多。</p>
                         </div>
                         <div class="path-item neutral">
-                            <h4>🟡 情境B｜區間整理（45%）</h4>
-                            <p>股價在 <em>45.0～50.52</em> 震盪，KD 低檔整理 → 高點不追，低點 45.0 布局。</p>
+                            <h4>🟡 情境B｜區間整理（30%）</h4>
+                            <p>股價在 <em>42.50～58.30</em> 寬幅整理，KD 低檔鈍化 → 高點不追，低點 42.50 分批。</p>
                         </div>
                         <div class="path-item down">
-                            <h4>🔴 情境C｜回檔路徑（30%）</h4>
-                            <p>跌破 <em>MA20（50.52）</em> 且法人持續賣超 → 目標 <em>XX.X～XX.X</em>，<em>離場觀望</em>。</p>
+                            <h4>🔴 情境C｜回檔路徑（50%）</h4>
+                            <p>跌破 <em>MA20（XX.XX）</em> 且法人持續賣超 → 目標 <em>XX.X～XX.X</em>，<em>離場觀望</em>。</p>
                         </div>
                     </div>
                 </div>
                 <div class="card">
                     <div class="card-title">
                         <div class="dot"></div>中長線看法 ／ 風險提醒
-                        <span class="ct-spacer"></span><span class="ct-tag warn">6～12 週</span>
+                        <span class="ct-spacer"></span><span class="ct-tag warn">8～12 週</span>
                     </div>
                     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
                         <div>
                             <div style="font-size:14px;font-weight:800;color:var(--text);margin-bottom:6px;">🔭 中長線操作</div>
-                            <div class="zone-row"><span class="zl">趨勢</span><span class="zv warn">中期整理</span></div>
-                            <div class="zone-row"><span class="zl">布局參考</span><span class="zv pos">45.0～48.0</span></div>
-                            <div class="zone-row"><span class="zl">加碼點</span><span class="zv">43.0～45.0</span></div>
-                            <div class="zone-row"><span class="zl">預期漲幅</span><span class="zv pos">45→53(+18%)</span></div>
-                            <div class="zone-row"><span class="zl">時間軸</span><span class="zv">6～12 週</span></div>
+                            <div class="zone-row"><span class="zl">趨勢</span><span class="zv warn">中期弱勢</span></div>
+                            <div class="zone-row"><span class="zl">布局參考</span><span class="zv pos">觀望</span></div>
+                            <div class="zone-row"><span class="zl">加碼點</span><span class="zv">待確認</span></div>
+                            <div class="zone-row"><span class="zl">預期漲幅</span><span class="zv pos">待底部出現</span></div>
+                            <div class="zone-row"><span class="zl">時間軸</span><span class="zv">8～12 週</span></div>
                         </div>
                         <div>
                             <div style="font-size:14px;font-weight:800;color:var(--text);margin-bottom:6px;">⚠️ 風險提醒</div>
-                            <div class="zone-row"><span class="zl">法人賣壓</span><span class="zv neg">-18,435張</span></div>
+                            <div class="zone-row"><span class="zl">法人賣壓</span><span class="zv neg">-285,420張</span></div>
                             <div class="zone-row"><span class="zl">技術破壞</span><span class="zv neg">MA5/MA20 空頭排列</span></div>
-                            <div class="zone-row"><span class="zl">RSI</span><span class="zv warn">26.5 超賣 中性偏強</span></div>
-                            <div class="zone-row"><span class="zl">MACD</span><span class="zv neg">零軸以下空頭</span></div>
-                            <div class="zone-row"><span class="zl">最大風險</span><span class="zv neg">跌破 43.0</span></div>
+                            <div class="zone-row"><span class="zl">RSI</span><span class="zv warn">31.6 超賣區 中性偏強</span></div>
+                            <div class="zone-row"><span class="zl">MACD</span><span class="zv neg">零軸以下，綠柱擴散</span></div>
+                            <div class="zone-row"><span class="zl">最大風險</span><span class="zv neg">跌破 42.0</span></div>
                         </div>
                     </div>
                 </div>
                 <div class="card last-card">
                     <div class="card-title">
                         <div class="dot"></div>綜合評估
-                        <span class="ct-spacer"></span><span class="ct-tag warn">⭐⭐⭐ 觀望 / 區間</span>
+                        <span class="ct-spacer"></span><span class="ct-tag warn">⭐⭐⭐ 觀望 / 空手</span>
                     </div>
                     <table class="summary-tbl">
                         <thead>
@@ -861,31 +863,31 @@
                             <tr>
                                 <td style="text-align:left;font-weight:700;font-size:13px;">股價趨勢</td>
                                 <td><span class="star">⭐</span></td>
-                                <td style="color:var(--red);font-weight:700;font-size:13px;">偏弱</td>
-                                <td style="text-align:left;font-size:12px;">MA5&lt;MA20&lt;MA60 空頭排列</td>
+                                <td style="color:var(--red);font-weight:700;font-size:13px;">空頭格局</td>
+                                <td style="text-align:left;font-size:12px;">MA5死叉MA20，均線空頭</td>
                             </tr>
                             <tr>
                                 <td style="text-align:left;font-weight:700;font-size:13px;">技術面</td>
                                 <td><span class="star">⭐</span></td>
-                                <td style="color:var(--yellow);font-weight:700;font-size:13px;">偏弱</td>
-                                <td style="text-align:left;font-size:12px;">KD 低檔鈍化，RSI 超賣</td>
+                                <td style="color:var(--yellow);font-weight:700;font-size:13px;">弱勢空頭</td>
+                                <td style="text-align:left;font-size:12px;">KD低檔死亡交叉，RSI超賣</td>
                             </tr>
                             <tr>
                                 <td style="text-align:left;font-weight:700;font-size:13px;">籌碼面</td>
-                                <td><span class="star">⭐⭐</span></td>
-                                <td style="color:var(--red);font-weight:700;font-size:13px;">法人賣超</td>
-                                <td style="text-align:left;">外援9日-17,645張</td>
+                                <td><span class="star">⭐</span></td>
+                                <td style="color:var(--red);font-weight:700;font-size:13px;">法人大賣</td>
+                                <td style="text-align:left;">法人10日-285,420張</td>
                             </tr>
                             <tr>
                                 <td style="text-align:left;font-weight:700;font-size:13px;">操作難度</td>
-                                <td><span class="star">⭐⭐⭐</span></td>
-                                <td style="color:var(--yellow);font-weight:700;font-size:13px;">高</td>
-                                <td style="text-align:left;font-size:12px;">短線偏空，嚴守停損</td>
+                                <td><span class="star">⭐</span></td>
+                                <td style="color:var(--yellow);font-weight:700;font-size:13px;">極高</td>
+                                <td style="text-align:left;font-size:12px;">空頭格局，觀望為主</td>
                             </tr>
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td colspan="4" style="text-align:left;font-size:14px;font-weight:700;">平均 <strong>⭐⭐ 偏弱</strong>｜建議：<strong style='color:var(--warn)'>觀望 / 區間</strong>｜進場參考：<strong>45.0～48.68</strong>｜停損：<strong style='color:var(--red)'>45.0元</strong></td>
+                                <td colspan="4" style="text-align:left;font-size:14px;font-weight:700;">平均 <strong>⭐ 偏空</strong>｜建議：<strong style="color:var(--red)">觀望 / 空手</strong>｜進場參考：<strong>待底部確認</strong>｜停損：<strong style="color:var(--red)">51.0元</strong></td>
                             </tr>
                         </tfoot>
                     </table>
@@ -893,12 +895,11 @@
             </div>
         </div>
     </div>
-</div>
-<div class="footer">
-    本圖為技術分析及籌碼分析及操作建議，不代表一定獲利 ｜ 股票代碼 (XXXX) ｜ Nova 分析系統 ｜ 2026-05-14 ｜ 僅供參考，不構成投資建議
-</div>
-<div id="chartTooltip" class="chart-tooltip"></div>
-<script>
+    <div class="footer">
+        本圖為技術分析及籌碼分析及操作建議，不代表一定獲利 ｜ 股票代碼 (XXXX) ｜ Nova 分析系統 ｜ 2026-05-14 ｜ 僅供參考，不構成投資建議
+    </div>
+    <div id="chartTooltip" class="chart-tooltip"></div>
+    <script>
     /* ════════════════════════════════════════════
    共用 Canvas 工具
 ════════════════════════════════════════════ */
@@ -1098,26 +1099,24 @@
     /* ════════════════════════════════════════════
        DATA
     ════════════════════════════════════════════ */
-    var klineData = [{"t":"05/13","o":46.90,"h":46.90,"l":46.90,"c":46.90},{"t":"05/12","o":47.65,"h":47.65,"l":47.65,"c":47.65},{"t":"05/11","o":49.25,"h":49.25,"l":49.25,"c":49.25},{"t":"05/08","o":48.55,"h":48.55,"l":48.55,"c":48.55},{"t":"05/07","o":49.55,"h":49.55,"l":49.55,"c":49.55},{"t":"05/06","o":50.70,"h":50.70,"l":50.70,"c":50.70},{"t":"05/05","o":51.30,"h":51.30,"l":51.30,"c":51.30},{"t":"05/04","o":50.80,"h":50.80,"l":50.80,"c":50.80},{"t":"04/30","o":51.50,"h":51.50,"l":51.50,"c":51.50},{"t":"04/29","o":51.50,"h":51.50,"l":51.50,"c":51.50}];
+    var klineData = [{"t":"05/13","o":53.00,"h":53.00,"l":53.00,"c":53.00},{"t":"05/12","o":54.50,"h":54.50,"l":54.50,"c":54.50},{"t":"05/11","o":58.80,"h":58.80,"l":58.80,"c":58.80},{"t":"05/08","o":56.20,"h":56.20,"l":56.20,"c":56.20},{"t":"05/07","o":60.50,"h":60.50,"l":60.50,"c":60.50},{"t":"05/06","o":63.00,"h":63.00,"l":63.00,"c":63.00},{"t":"05/05","o":65.50,"h":65.50,"l":65.50,"c":65.50},{"t":"05/04","o":62.00,"h":62.00,"l":62.00,"c":62.00},{"t":"04/30","o":60.00,"h":60.00,"l":60.00,"c":60.00},{"t":"04/29","o":58.00,"h":58.00,"l":58.00,"c":58.00}];
 
-    var ma5 = ["46.9","47.27","47.93","48.09","48.38","49.14","49.87","50.18","50.77","51.16"];
-    var ma20 = ["46.9","47.65","49.25","48.55","49.55","50.7","51.3","50.8","51.5","51.5"];
-    var ma60 = ["46.9","47.65","49.25","48.55","49.55","50.7","51.3","50.8","51.5","51.5"];
+    var ma5 = ["XX.XX","XX.XX","XX.XX","XX.XX","XX.XX"];
 
     var volData = [5042791,3721050,3101432,5054288,3060382,4258466,4116664,2964817,1776121,4500147,4689583,8655585,5800018,4513605,4374154,7038661,2625922,1991834,5641634,6489844,6922643,3073823,6542783,5414964,8433532,5621297,4067976,5972962,6245729,5925842,2578464,2297892,5130078,3846172,4430896,2548708,2215112,3603053,8104941,7241319,4714529,5299333,6624249,4532995,3234258,11729222,10834011,16248584,32604676,14600739,7879722,6289249,3330971,3103486,3883010];
 
-    var rsiData = [50.0,50.0,50.0,50.0,50.0,50.0,50.0,50.0,50.0,50.0];
+    var rsiData = ["XX.XX","XX.XX","XX.XX","XX.XX","XX.XX","XX.XX","XX.XX","XX.XX","XX.XX","XX.XX"];
     var dData = ["null","null","null","null","null","null","null","null",22.22,40.22,54.76,55.46,57.93,59.75,58.14,50.48,43.23,38.88,33.19,33.95,39.46,46.87,55.46,61.23,67.07,72.99,77.08,79.26,77.31,70.13,63.4,55.79,54.55,51.75,44.76,38.9,34.26,29.09,34.67,43.05,48.81,54.79,59.13,63.16,65.71,70.48,73.22,77.42,76.93,71.59,64.26,55.13,46.71,38.54,31.68];
 
-    var difData = [0.0,0.0598,0.2337,0.3113,0.4484,0.6425,0.835,0.9365,1.0612,1.1467];
-    var deaData = [0.6306,0.5512,0.5032,0.4923,0.5223,0.5848,0.6552,0.7364,0.8184];
-    var macdData = [-1.2612,-0.9828,-0.539,-0.362,-0.1478,0.1154,0.3596,0.4002,0.4856];
+    var difData = ["XX.XX","XX.XX","XX.XX","XX.XX","XX.XX","XX.XX","XX.XX","XX.XX","XX.XX","XX.XX"];
+    var deaData = ["XX.XX","XX.XX","XX.XX","XX.XX","XX.XX","XX.XX","XX.XX","XX.XX","XX.XX","XX.XX"];
+    var macdData = ["XX.XX","XX.XX","XX.XX","XX.XX","XX.XX","XX.XX","XX.XX","XX.XX","XX.XX","XX.XX"];
 
     var chipDates = ['05/13','05/12','05/11','05/08','05/07','05/06','05/05','05/04','04/30','04/29'];
-    var chipCloses = [46.90,47.65,49.25,48.55,49.55,50.70,51.30,50.80,51.50,51.50];
-    var chipForeign = [-5556,-14875,3759,-7920,-5192,1560,6457,-1327,5449,0];
-    var chipTrust = [0,-46,-2,0,0,-10,-26,0,0,0];
-    var chipDealer = [-155,-323,-68,-141,-144,77,57,-21,12,0];
+    var chipCloses = [53.00,54.50,58.80,56.20,60.50,63.00,65.50,62.00,60.00,58.00];
+    var chipForeign = [-19800,-28500,4200,-15200,-18200,3800,5400,-8800,3200,0];
+    var chipTrust = [-4200,-3800,800,-3200,-4800,1200,-800,400,200,0];
+    var chipDealer = [-4400,-5600,2200,-6800,-7200,1800,2400,-3200,1600,0];
 
     /* ════════════════════════════════════════════
        DRAW FUNCTIONS
@@ -2050,9 +2049,7 @@ function drawChip() {
         }
     }
 
-    var kData = klineData;
-
-function initAll() {
+    function initAll() {
         renderChipTables();
         drawK();
         drawVol();
