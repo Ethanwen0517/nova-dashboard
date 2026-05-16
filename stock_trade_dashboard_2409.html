@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <title>友達光電 2409 技術分析看板</title>
+    <title>友達 2409 技術分析及建議｜Linear Dark</title>
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=JetBrains+Mono:wght@400;600&display=swap');
 
@@ -74,6 +74,10 @@
         display: flex;
         align-items: baseline;
         gap: 6px;
+    }
+
+    .tb-title .name {
+        color: var(--text);
     }
 
     .tb-title .code {
@@ -597,30 +601,30 @@
     <!-- ══ TOP BAR ══ -->
     <div class="top-bar">
         <div class="tb-title">
-            嘉聯益
-            <span class="code">6153</span>
+            <span class="name">友達</span>
+            <span class="code">2409</span>
             <span class="sub">分析及建議</span>
         </div>
         <div class="tb-stats">
             <!-- 當日價格 -->
-            <div class="stat"><span class="lbl">收盤價</span><span class="val pos">20.2</span></div>
+            <div class="stat"><span class="lbl">收盤價</span><span class="val pos">19.05</span></div>
             <div class="tb-divider"></div>
-            <div class="stat"><span class="lbl">開盤</span><span class="val">17.80</span></div>
-            <div class="stat"><span class="lbl">最高</span><span class="val pos">18.40</span></div>
-            <div class="stat"><span class="lbl">最低</span><span class="val neg">17.70</span></div>
+            <div class="stat"><span class="lbl">開盤</span><span class="val">19.60</span></div>
+            <div class="stat"><span class="lbl">最高</span><span class="val pos">21.85</span></div>
+            <div class="stat"><span class="lbl">最低</span><span class="val neg">10.80</span></div>
             <div class="tb-divider"></div>
             <!-- 漲跌 -->
-            <div class="stat"><span class="lbl">漲跌</span><span class="val pos">+0.15</span></div>
-            <div class="stat"><span class="lbl">漲跌幅</span><span class="val pos">+0.84%</span></div>
+            <div class="stat"><span class="lbl">漲跌</span><span class="val pos">-0.50</span></div>
+            <div class="stat"><span class="lbl">漲跌幅</span><span class="val pos">-2.56%</span></div>
             <div class="tb-divider"></div>
             <!-- 52週高低 -->
-            <div class="stat"><span class="lbl">52W 高</span><span class="val pos">21.80</span></div>
-            <div class="stat"><span class="lbl">52W 低</span><span class="val neg">14.30</span></div>
+            <div class="stat"><span class="lbl">52W 高</span><span class="val pos">21.85</span></div>
+            <div class="stat"><span class="lbl">52W 低</span><span class="val neg">10.80</span></div>
             <div class="tb-divider"></div>
             <!-- 成交量 / 更新 -->
-            <div class="stat"><span class="lbl">成交量</span><span class="val">8,342,156張</span></div>
+            <div class="stat"><span class="lbl">成交量</span><span class="val">316,310張</span></div>
             <div class="tb-divider"></div>
-            <div class="stat"><span class="lbl">更新</span><span class="val" style="color:var(--text2)">2026-05-13</span></div>
+            <div class="stat"><span class="lbl">更新</span><span class="val" style="color:var(--text2)">2026-05-15</span></div>
         </div>
     </div>
     <!-- ══ 3-COL MAIN ══ -->
@@ -632,13 +636,13 @@
                 <div class="card">
                     <div class="card-title">
                         <div class="dot"></div>K線 + 均線（日K / 近60日）
-                        <span class="ct-spacer"></span><span class="ct-tag bull">多頭排列 ↑</span>
+                        <span class="ct-spacer"></span><span class="ct-tag warn">多頭排列 ↑</span>
                     </div>
                     <div class="ind-meta">
                         <span>K線</span>
-                        <span style="color:#f0c040">MA5 <span class="iv">17.80</span></span>
-                        <span style="color:#58a6ff">MA20 <span class="iv">17.65</span></span>
-                        <span style="color:#bc8cff">MA60 <span class="iv">18.10</span></span>
+                        <span style="color:#f0c040">MA5 <span class="iv">19.67</span></span>
+                        <span style="color:#58a6ff">MA20 <span class="iv">18.40</span></span>
+                        <span style="color:#bc8cff">MA60 <span class="iv">16.96</span></span>
                     </div>
                     <div class="chart-wrap"><canvas id="kChart"></canvas></div>
                     <div class="chart-wrap" style="margin-top:3px"><canvas id="volChart"></canvas></div>
@@ -646,11 +650,11 @@
                 <div class="card">
                     <div class="card-title">
                         <div class="dot"></div>KD 隨機指標（9,3,3）
-                        <span class="ct-spacer"></span><span class="ct-tag warn">黃金交叉 ↑</span>
+                        <span class="ct-spacer"></span><span class="ct-tag warn">中性</span>
                     </div>
                     <div class="ind-meta">
-                        <span style="color:#f0c040">K <span class="iv">19.4</span></span>
-                        <span style="color:#58a6ff">D <span class="iv">32.9</span></span>
+                        <span style="color:#f0c040">K <span class="iv">71.5</span></span>
+                        <span style="color:#58a6ff">D <span class="iv">69.8</span></span>
                         <span style="color:var(--text3);font-size:10px">黃金交叉低檔整理中</span>
                     </div>
                     <div class="chart-wrap"><canvas id="kdChart"></canvas></div>
@@ -658,10 +662,10 @@
                 <div class="card">
                     <div class="card-title">
                         <div class="dot"></div>RSI 相對強弱（14）
-                        <span class="ct-spacer"></span><span class="ct-tag info">中性偏強 56</span>
+                        <span class="ct-spacer"></span><span class="ct-tag warn">偏強 63</span>
                     </div>
                     <div class="ind-meta">
-                        <span style="color:var(--accent)">RSI <span class="iv">56.00</span></span>
+                        <span style="color:var(--accent)">RSI <span class="iv">62.94</span></span>
                         <span style="color:var(--red)">超買 70</span>
                         <span style="color:var(--green)">超賣 30</span>
                     </div>
@@ -670,22 +674,22 @@
                 <div class="card">
                     <div class="card-title">
                         <div class="dot"></div>MACD（12,26,9）
-                        <span class="ct-spacer"></span><span class="ct-tag bull">DIF 轉正 ↑</span>
+                        <span class="ct-spacer"></span><span class="ct-tag warn">DIF 零軸上</span>
                     </div>
                     <div class="ind-meta">
-                        <span style="color:#f0c040">DIF <span class="iv">0.05</span></span>
-                        <span style="color:#58a6ff">DEA <span class="iv">0.03</span></span>
-                        <span style="color:var(--green)">MACD <span class="iv">0.04</span></span>
+                        <span style="color:#f0c040">DIF <span class="iv">0.6068</span></span>
+                        <span style="color:#58a6ff">DEA <span class="iv">0.4972</span></span>
+                        <span style="color:var(--green)">MACD <span class="iv">0.2192</span></span>
                     </div>
                     <div class="chart-wrap"><canvas id="macdChart"></canvas></div>
                 </div>
                 <div class="card last-card">
                     <div class="card-title">
                         <div class="dot"></div>技術面結論
-                        <span class="ct-spacer"></span><span class="ct-tag bull">偏多整理</span>
+                        <span class="ct-spacer"></span><span class="ct-tag bull">偏多</span>
                     </div>
                     <div class="conclude">
-                        📊 短線整理後反彈。MA5(17.80) 黃金交叉 MA20(17.65)，股價站上短均。MA60(18.10) 仍在上方形成壓力。KD 低檔黃金交叉後 K(19.4) 向上、D(32.9)，RSI(56.00) 中性偏強。MACD DIF 轉正但仍在零軸附近，整體格局偏多但不強，需突破 MA60(18.10) 才能打開空間。
+                        📊 短線偏多。MA5(19.67) 向上、MA排列多頭，K(71.5)/D(69.8)，RSI(62.94)中性偏強，MACD DIF 零軸上方，短線動能偏強。
                     </div>
                 </div>
             </div>
@@ -697,7 +701,7 @@
                 <div class="card">
                     <div class="card-title">
                         <div class="dot"></div>三大法人近10日籌碼動向
-                        <span class="ct-spacer"></span><span class="ct-tag bear">法人賣超</span>
+                        <span class="ct-spacer"></span><span class="ct-tag warn">法人大幅買超</span>
                     </div>
                     <div class="ind-meta">
                         <span style="color:#3fb950">■ 外資</span>
@@ -710,7 +714,7 @@
                 <div class="card">
                     <div class="card-title">
                         <div class="dot"></div>法人買賣超（單位：張）
-                        <span class="ct-spacer"></span><span class="ct-tag bear">-12,456 張</span>
+                        <span class="ct-spacer"></span><span class="ct-tag bear">法人買超 162,291張</span>
                     </div>
                     <table class="ctbl">
                         <thead>
@@ -723,24 +727,15 @@
                             </tr>
                         </thead>
                         <tbody id="chipTableBody">
-<tr><td>04/29</td><td class="neg">-27,889</td><td class="pos">+1</td><td class="neg">-30</td><td class="neg">-27,918</td></tr>
-<tr><td>04/30</td><td class="neg">-19,190</td><td class="neg">-12</td><td class="pos">+80</td><td class="neg">-19,122</td></tr>
-<tr><td>05/04</td><td class="neg">-9,226</td><td class="neg">-8</td><td class="pos">+10</td><td class="neg">-9,224</td></tr>
-<tr><td>05/05</td><td class="neg">-43,560</td><td class="neg">-19</td><td class="pos">+24</td><td class="neg">-43,555</td></tr>
-<tr><td>05/06</td><td class="pos">+14,423</td><td class="pos">+16</td><td class="pos">+6</td><td class="pos">+14,445</td></tr>
-<tr><td>05/07</td><td class="pos">+17,812</td><td class="pos">+65</td><td class="pos">+1,126</td><td class="pos">+19,003</td></tr>
-<tr><td>05/08</td><td class="neg">-6,426</td><td class="pos">+0</td><td class="neg">-1,328</td><td class="neg">-7,754</td></tr>
-<tr><td>05/11</td><td class="pos">+31,840</td><td class="neg">-6</td><td class="pos">+48</td><td class="pos">+31,882</td></tr>
-<tr><td>05/12</td><td class="pos">+110,947</td><td class="neg">-9</td><td class="pos">+294</td><td class="pos">+111,232</td></tr>
-
+                            <!-- Dynamically generated by renderChipTables() -->
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td>合計</td>
-                                <td class="pos">+68,731</td>
-                                <td class="pos">+28</td>
-                                <td class="pos">+230</td>
-                                <td class="pos">+68,989</td>
+                                <td>10日合計</td>
+                                <td class="neg">157,593</td>
+                                <td class="neg">10</td>
+                                <td class="neg">4,688</td>
+                                <td class="neg">162,291張</td>
                             </tr>
                         </tfoot>
                     </table>
@@ -748,7 +743,7 @@
                 <div class="card">
                     <div class="card-title">
                         <div class="dot"></div>主力進出（外資+投信，單位：張）
-                        <span class="ct-spacer"></span><span class="ct-tag bull">累計 +68,759</span>
+                        <span class="ct-spacer"></span><span class="ct-tag bear">累計 157,603張</span>
                     </div>
                     <table class="ctbl">
                         <thead>
@@ -759,22 +754,13 @@
                             </tr>
                         </thead>
                         <tbody id="mainFlowTableBody">
-<tr><td>04/29</td><td class="neg">-27,888</td><td class="neg">-27,888</td></tr>
-<tr><td>04/30</td><td class="neg">-19,202</td><td class="neg">-47,090</td></tr>
-<tr><td>05/04</td><td class="neg">-9,234</td><td class="neg">-56,324</td></tr>
-<tr><td>05/05</td><td class="neg">-43,579</td><td class="neg">-99,903</td></tr>
-<tr><td>05/06</td><td class="pos">+14,439</td><td class="neg">-85,464</td></tr>
-<tr><td>05/07</td><td class="pos">+17,877</td><td class="neg">-67,587</td></tr>
-<tr><td>05/08</td><td class="neg">-6,426</td><td class="neg">-74,013</td></tr>
-<tr><td>05/11</td><td class="pos">+31,834</td><td class="neg">-42,179</td></tr>
-<tr><td>05/12</td><td class="pos">+110,938</td><td class="pos">+68,759</td></tr>
-
+                            <!-- Dynamically generated by renderChipTables() -->
                         </tbody>
                         <tfoot>
                             <tr>
                                 <td>合計</td>
-                                <td class="pos">+68,759</td>
-                                <td class="pos">+68,759</td>
+                                <td class="neg">157,603張</td>
+                                <td class="neg">157,603張</td>
                             </tr>
                         </tfoot>
                     </table>
@@ -782,10 +768,10 @@
                 <div class="card last-card">
                     <div class="card-title">
                         <div class="dot"></div>籌碼結論
-                        <span class="ct-spacer"></span><span class="ct-tag warn">中性偏多</span>
+                        <span class="ct-spacer"></span><span class="ct-tag warn">偏多</span>
                     </div>
                     <div class="conclude">
-                        📊 近9日法人偏多。外資大額買超（+68,731張）為主要多方力量；投信近9日無明顯操作（合計+28張）；自營商小幅買超（+230張）。05/12 長紅確立多頭，法人回補 → 目標 22.5～23.0，短線續抱。<strong>17.65 元</strong>，籌碼格局「<strong style="color:var(--yellow)">中性偏多</strong>」，上方壓力 18.10 元（MA60），突破後看 19.0。
+                        📊 法人偏多。近10日外資買超 157,593張，投信買超 10張，自營商買超 4,688張，合計 162,291張。主力成本估約 19.05 元，格局「偏多」，突破 16.96（MA60）後看 18.40。
                     </div>
                 </div>
             </div>
@@ -797,64 +783,64 @@
                 <div class="card">
                     <div class="card-title">
                         <div class="dot"></div>短線操作建議
-                        <span class="ct-spacer"></span><span class="ct-tag warn">區間偏多</span>
+                        <span class="ct-spacer"></span><span class="ct-tag warn">拉回 MA5 短線偏多，謹慎追高</span>
                     </div>
                     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
                         <div>
                             <div class="zone-row"><span class="zl">建議方向</span><span class="zv warn">區間偏多</span></div>
                             <div class="zone-row"><span class="zl">現價位置</span><span class="zv neg">高於MA5/MA20，偏多</span></div>
-                            <div class="zone-row"><span class="zl">進場策略</span><span class="zv acc">拉回 17.65 進場</span></div>
-                            <div class="zone-row"><span class="zl">停損參考</span><span class="zv neg">17.0 元</span></div>
-                            <div class="zone-row"><span class="zl">樂觀目標</span><span class="zv pos">18.5～19.0</span></div>
+                            <div class="zone-row"><span class="zl">進場策略</span><span class="zv acc">拉回 19.67 進場</span></div>
+                            <div class="zone-row"><span class="zl">停損參考</span><span class="zv neg">18.0 元</span></div>
+                            <div class="zone-row"><span class="zl">樂觀目標</span><span class="zv pos">18.4~17.0</span></div>
                             <div class="zone-row"><span class="zl">操作週期</span><span class="zv">5～10日</span></div>
                         </div>
                         <div>
-                            <div class="zone-row"><span class="zl">💪 強壓力</span><span class="zv neg">19.00</span></div>
-                            <div class="zone-row"><span class="zl">🔴 短壓R1</span><span class="zv neg">18.10（MA60）</span></div>
-                            <div class="zone-row"><span class="zl">⚠️ 短撐S1</span><span class="zv pos">17.80（MA5）</span></div>
-                            <div class="zone-row"><span class="zl">🟡 中撐S2</span><span class="zv warn">17.65（MA20）</span></div>
-                            <div class="zone-row"><span class="zl">🔵 強撐S3</span><span class="zv pos">17.0（MA60下方）</span></div>
-                            <div class="zone-row"><span class="zl">⛔ 停損</span><span class="zv neg">17.0 元</span></div>
+                            <div class="zone-row"><span class="zl">💪 強壓力</span><span class="zv neg">17.0</span></div>
+                            <div class="zone-row"><span class="zl">🔴 短壓R1</span><span class="zv neg">18.40（MA60）</span></div>
+                            <div class="zone-row"><span class="zl">⚠️ 短撐S1</span><span class="zv pos">19.67（MA5）</span></div>
+                            <div class="zone-row"><span class="zl">🟡 中撐S2</span><span class="zv warn">18.40（MA20）</span></div>
+                            <div class="zone-row"><span class="zl">🔵 強撐S3</span><span class="zv pos">16.5（MA60下方）</span></div>
+                            <div class="zone-row"><span class="zl">⛔ 停損</span><span class="zv neg">18.0 元</span></div>
                         </div>
                     </div>
                 </div>
                 <div class="card">
                     <div class="card-title">
                         <div class="dot"></div>可能路徑分析
-                        <span class="ct-spacer"></span><span class="ct-tag neu">整理機率 50%</span>
+                        <span class="ct-spacer"></span><span class="ct-tag neu">MA5/MA20 差距 6.9%，整理機率 30%</span>
                     </div>
                     <div style="display:flex;flex-direction:column;gap:6px;">
                         <div class="path-item up">
                             <h4>🟢 情境A｜上漲路徑（30%）</h4>
-                            <p>法人轉多＋放量突破 <em>18.10（MA60）</em> → 目標 <em>18.5～19.0</em>，少量試多。</p>
+                            <p>法人轉多＋放量突破 <em>MA60(16.96)</em> → 目標 <em>16.96~18.40</em>，少量試多。</p>
                         </div>
                         <div class="path-item neutral">
                             <h4>🟡 情境B｜區間整理（50%）</h4>
-                            <p>股價在 <em>17.65～18.10</em> 震盪 → 高點測試 MA60 時先退出，低點 17.65 布局。</p>
+                            <p>股價在 <em>19.67~18.40</em> 震盪 → 高點測試 MA60 時先退出，低點 19.67 布局。</p>
                         </div>
                         <div class="path-item down">
                             <h4>🔴 情境C｜回檔路徑（20%）</h4>
-                            <p>跌破 <em>MA20（17.65）</em> 且法人持續賣超 → 目標 <em>16.5～17.0</em>，<em>離場觀望</em>。</p>
+                            <p>跌破 <em>MA20（18.40）</em> 且法人持續賣超 → 目標 <em>16.5~19.7</em>，<em>離場觀望</em>。</p>
                         </div>
                     </div>
                 </div>
                 <div class="card">
                     <div class="card-title">
                         <div class="dot"></div>中長線看法 ／ 風險提醒
-                        <span class="ct-spacer"></span><span class="ct-tag warn">4～8 週觀察</span>
+                        <span class="ct-spacer"></span><span class="ct-tag warn">MA60 在 MA20 下方，中期偏空</span>
                     </div>
                     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
                         <div>
                             <div style="font-size:14px;font-weight:800;color:var(--text);margin-bottom:6px;">🔭 中長線操作</div>
                             <div class="zone-row"><span class="zl">趨勢</span><span class="zv warn">中期整理</span></div>
-                            <div class="zone-row"><span class="zl">布局參考</span><span class="zv pos">17.0～17.65</span></div>
-                            <div class="zone-row"><span class="zl">加碼點</span><span class="zv">16.5～17.0</span></div>
+                            <div class="zone-row"><span class="zl">布局參考</span><span class="zv pos">16.45~19.67</span></div>
+                            <div class="zone-row"><span class="zl">加碼點</span><span class="zv">18.4~17.0</span></div>
                             <div class="zone-row"><span class="zl">預期漲幅</span><span class="zv pos">17→19(+12%)</span></div>
                             <div class="zone-row"><span class="zl">時間軸</span><span class="zv">4～8 週</span></div>
                         </div>
                         <div>
                             <div style="font-size:14px;font-weight:800;color:var(--text);margin-bottom:6px;">⚠️ 風險提醒</div>
-                            <div class="zone-row"><span class="zl">法人賣壓</span><span class="zv neg">-12,456張</span></div>
+                            <div class="zone-row"><span class="zl">法人賣壓</span><span class="zv neg">162,291張</span></div>
                             <div class="zone-row"><span class="zl">技術破壞</span><span class="zv neg">MA5/20 多頭初現</span></div>
                             <div class="zone-row"><span class="zl">RSI</span><span class="zv warn">56.0 中性偏強</span></div>
                             <div class="zone-row"><span class="zl">MACD</span><span class="zv neg">零軸附近整理</span></div>
@@ -865,7 +851,7 @@
                 <div class="card last-card">
                     <div class="card-title">
                         <div class="dot"></div>綜合評估
-                        <span class="ct-spacer"></span><span class="ct-tag warn">⭐⭐⭐ 中性偏多</span>
+                        <span class="ct-spacer"></span><span class="ct-tag warn">⭐⭐⭐⭐ 偏多格局</span>
                     </div>
                     <table class="summary-tbl">
                         <thead>
@@ -893,7 +879,7 @@
                                 <td style="text-align:left;font-weight:700;font-size:13px;">籌碼面</td>
                                 <td><span class="star">⭐⭐</span></td>
                                 <td style="color:var(--red);font-weight:700;font-size:13px;">略微賣超</td>
-                                <td style="text-align:left;">法人小幅賣超-12,456張</td>
+                                <td style="text-align:left;">法人小幅賣超162,291張</td>
                             </tr>
                             <tr>
                                 <td style="text-align:left;font-weight:700;font-size:13px;">操作難度</td>
@@ -904,7 +890,7 @@
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td colspan="4" style="text-align:left;font-size:14px;font-weight:700;">平均 <strong>⭐⭐⭐ 中性偏多</strong>｜建議：<strong style="color:var(--yellow)">區間偏多</strong>｜進場參考：<strong>17.65～17.80</strong>｜停損：<strong style="color:var(--red)">17.0元</strong></td>
+                                <td colspan="4" style="text-align:left;font-size:14px;font-weight:700;">平均 <strong>⭐⭐⭐ 中性</strong>｜建議：<strong style="color:var(--yellow)">觀望</strong>｜進場參考：<strong>16.45~19.67</strong>｜停損：<strong style="color:var(--red)">17.05元</strong></td>
                             </tr>
                         </tfoot>
                     </table>
@@ -913,7 +899,7 @@
         </div>
     </div>
     <div class="footer">
-        本圖為技術分析及籌碼分析及操作建議，不代表一定獲利 ｜ 嘉聯益 (6153) ｜ Nova 分析系統 ｜ 2026-04-30 ｜ 僅供參考，不構成投資建議
+        本圖為技術分析及籌碼分析及操作建議，不代表一定獲利 ｜ 股票代碼 (2409) ｜ Nova 分析系統 ｜ 2026-05-15 ｜ 僅供參考，不構成投資建議
     </div>
     <div id="chartTooltip" class="chart-tooltip"></div>
     <script>
@@ -1116,26 +1102,30 @@
     /* ════════════════════════════════════════════
        DATA
     ════════════════════════════════════════════ */
-    var klineData = [{"t":"02/23","o":16.2,"h":16.9,"l":15.85,"c":15.95},{"t":"02/24","o":15.95,"h":16.4,"l":15.8,"c":16.35},{"t":"02/25","o":16.75,"h":17.6,"l":16.05,"c":16.1},{"t":"02/26","o":16.25,"h":16.8,"l":15.95,"c":16.6},{"t":"03/02","o":15.9,"h":17.2,"l":15.9,"c":16.85},{"t":"03/03","o":17.0,"h":17.0,"l":15.5,"c":15.75},{"t":"03/04","o":15.2,"h":15.5,"l":14.75,"c":14.95},{"t":"03/05","o":15.55,"h":15.75,"l":15.05,"c":15.3},{"t":"03/06","o":15.2,"h":16.0,"l":14.95,"c":15.85},{"t":"03/09","o":15.0,"h":15.6,"l":14.7,"c":15.6},{"t":"03/10","o":15.95,"h":16.2,"l":15.35,"c":15.7},{"t":"03/11","o":15.9,"h":16.85,"l":15.85,"c":16.65},{"t":"03/12","o":16.75,"h":18.0,"l":16.65,"c":17.25},{"t":"03/13","o":16.75,"h":17.15,"l":16.15,"c":16.55},{"t":"03/16","o":16.55,"h":16.6,"l":15.4,"c":15.7},{"t":"03/17","o":15.8,"h":16.4,"l":15.7,"c":15.9},{"t":"03/18","o":16.2,"h":16.4,"l":15.65,"c":16.2},{"t":"03/19","o":15.95,"h":16.05,"l":15.7,"c":15.75},{"t":"03/20","o":15.9,"h":15.95,"l":15.4,"c":15.6},{"t":"03/23","o":15.15,"h":15.3,"l":14.85,"c":14.85},{"t":"03/24","o":15.2,"h":15.25,"l":14.55,"c":14.65},{"t":"03/25","o":15.05,"h":15.2,"l":14.8,"c":15.0},{"t":"03/26","o":15.1,"h":15.3,"l":14.75,"c":14.8},{"t":"03/27","o":14.6,"h":14.75,"l":14.3,"c":14.4},{"t":"03/30","o":14.0,"h":14.3,"l":14.0,"c":14.3},{"t":"03/31","o":14.3,"h":14.85,"l":14.05,"c":14.5},{"t":"04/01","o":15.15,"h":15.95,"l":14.95,"c":15.95},{"t":"04/02","o":16.5,"h":17.4,"l":16.4,"c":16.85},{"t":"04/07","o":17.5,"h":17.65,"l":16.05,"c":16.25},{"t":"04/08","o":16.35,"h":16.85,"l":16.05,"c":16.55},{"t":"04/09","o":16.5,"h":16.85,"l":16.15,"c":16.5},{"t":"04/10","o":16.4,"h":16.85,"l":16.2,"c":16.55},{"t":"04/13","o":16.35,"h":16.6,"l":15.9,"c":16.05},{"t":"04/14","o":16.1,"h":16.7,"l":15.85,"c":16.45},{"t":"04/15","o":16.6,"h":16.85,"l":16.15,"c":16.25},{"t":"04/16","o":16.2,"h":16.6,"l":16.0,"c":16.35},{"t":"04/17","o":16.5,"h":16.75,"l":16.0,"c":16.2},{"t":"04/20","o":16.35,"h":16.55,"l":16.05,"c":16.2},{"t":"04/21","o":16.2,"h":16.65,"l":16.05,"c":16.4},{"t":"04/22","o":16.55,"h":16.8,"l":16.15,"c":16.25},{"t":"04/23","o":16.0,"h":16.35,"l":15.75,"c":16.0},{"t":"04/24","o":16.05,"h":16.5,"l":15.95,"c":16.35},{"t":"04/27","o":16.5,"h":17.0,"l":16.4,"c":16.85},{"t":"04/28","o":17.35,"h":17.6,"l":17.15,"c":17.2},{"t":"04/29","o":17.2,"h":17.75,"l":17.1,"c":17.3},{"t":"04/30","o":17.5,"h":17.6,"l":16.95,"c":17.2},{"t":"05/04","o":16.9,"h":17.25,"l":16.6,"c":16.95},{"t":"05/05","o":17.25,"h":18.0,"l":17.2,"c":17.85},{"t":"05/06","o":18.15,"h":18.4,"l":17.5,"c":18.05},{"t":"05/07","o":18.3,"h":18.8,"l":18.05,"c":18.35},{"t":"05/08","o":18.45,"h":18.9,"l":17.75,"c":17.85},{"t":"05/11","o":18.5,"h":19.1,"l":18.25,"c":18.85},{"t":"05/12","o":19.2,"h":20.7,"l":18.85,"c":20.7},{"t":"05/13","o":20.6,"h":20.85,"l":19.95,"c":20.2}];var ma5 = [15.41,15.64,15.86,16.23,16.37,16.33,16.05,15.89,15.74,15.49,15.48,15.82,16.21,16.35,16.37,16.41,16.32,16.02,15.83,15.66,15.41,15.17,14.98,14.74,14.63,14.6,14.79,15.2,15.57,16.12,16.97,17.41,17.64,18.35,18.95,19.34,19.68,19.93,19.75,19.45,18.86,18.33,17.95,17.61,17.36,17.25,17.2,17.3,17.47,17.68,17.81,18.19,18.76,19.07];
-    var ma20 = [15.1075,15.14,15.0825,15.0825,15.13,15.15,15.145,15.1475,15.2175,15.2925,15.3875,15.5325,15.7275,15.865,15.8925,15.9075,15.9575,15.995,16.0375,15.9725,15.9075,15.84,15.775,15.665,15.5375,15.475,15.525,15.6025,15.6225,15.695,15.8475,15.9225,15.96,16.1225,16.34,16.58,16.7625,16.9375,17.1025,17.2875,17.4425,17.5525,17.68,17.82,17.97,18.105,18.155,18.205,18.295,18.36,18.315,18.35,18.485,18.57];
-    var ma60 = [13.23,13.3192,13.4017,13.4983,13.5983,13.6767,13.7375,13.8008,13.8717,13.9425,14.015,14.0983,14.1883,14.27,14.3383,14.415,14.4917,14.5642,14.635,14.6917,14.7475,14.8092,14.87,14.9225,14.9733,15.0267,15.1017,15.1925,15.2667,15.35,15.4583,15.5508,15.62,15.6967,15.7525,15.8367,15.9258,15.9917,16.0542,16.1108,16.1525,16.1775,16.1792,16.1892,16.2125,16.2433,16.275,16.3183,16.3783,16.4492,16.5167,16.6017,16.7242,16.80];
+    var klineData = [
+        {t:'02/06', o:15.30, h:15.80, l:15.00, c:15.20}, {t:'02/09', o:15.70, h:15.75, l:14.90, c:15.00}, {t:'02/10', o:14.70, h:14.95, l:14.60, c:14.75}, {t:'02/11', o:15.20, h:16.20, l:15.10, c:16.15}, {t:'02/23', o:16.20, h:16.90, l:15.85, c:15.95}, {t:'02/24', o:15.95, h:16.40, l:15.80, c:16.35}, {t:'02/25', o:16.75, h:17.60, l:16.05, c:16.10}, {t:'02/26', o:16.25, h:16.80, l:15.95, c:16.60}, {t:'03/02', o:15.90, h:17.20, l:15.90, c:16.85}, {t:'03/03', o:17.00, h:17.00, l:15.50, c:15.75}, {t:'03/04', o:15.20, h:15.50, l:14.75, c:14.95}, {t:'03/05', o:15.55, h:15.75, l:15.05, c:15.30}, {t:'03/06', o:15.20, h:16.00, l:14.95, c:15.85}, {t:'03/09', o:15.00, h:15.60, l:14.70, c:15.60}, {t:'03/10', o:15.95, h:16.20, l:15.35, c:15.70}, {t:'03/11', o:15.90, h:16.85, l:15.85, c:16.65}, {t:'03/12', o:16.75, h:18.00, l:16.65, c:17.25}, {t:'03/13', o:16.75, h:17.15, l:16.15, c:16.55}, {t:'03/16', o:16.55, h:16.60, l:15.40, c:15.70}, {t:'03/17', o:15.80, h:16.40, l:15.70, c:15.90}, {t:'03/18', o:16.20, h:16.40, l:15.65, c:16.20}, {t:'03/19', o:15.95, h:16.05, l:15.70, c:15.75}, {t:'03/20', o:15.90, h:15.95, l:15.40, c:15.60}, {t:'03/23', o:15.15, h:15.30, l:14.85, c:14.85}, {t:'03/24', o:15.20, h:15.25, l:14.55, c:14.65}, {t:'03/25', o:15.05, h:15.20, l:14.80, c:15.00}, {t:'03/26', o:15.10, h:15.30, l:14.75, c:14.80}, {t:'03/27', o:14.60, h:14.75, l:14.30, c:14.40}, {t:'03/30', o:14.00, h:14.30, l:14.00, c:14.30}, {t:'03/31', o:14.30, h:14.85, l:14.05, c:14.50}, {t:'04/01', o:15.15, h:15.95, l:14.95, c:15.95}, {t:'04/02', o:16.50, h:17.40, l:16.40, c:16.85}, {t:'04/07', o:17.50, h:17.65, l:16.05, c:16.25}, {t:'04/08', o:16.70, h:17.35, l:16.65, c:17.05}, {t:'04/09', o:17.20, h:18.75, l:16.80, c:18.75}, {t:'04/10', o:19.40, h:19.50, l:17.15, c:18.15}, {t:'04/13', o:18.05, h:18.30, l:17.60, c:18.00}, {t:'04/14', o:18.40, h:19.80, l:18.40, c:19.80}, {t:'04/15', o:19.95, h:20.60, l:19.30, c:20.05}, {t:'04/16', o:20.35, h:21.85, l:19.90, c:20.70}, {t:'04/17', o:20.40, h:20.65, l:19.80, c:19.85}, {t:'04/20', o:20.00, h:20.00, l:19.10, c:19.25}, {t:'04/21', o:19.35, h:19.70, l:18.70, c:18.90}, {t:'04/22', o:18.85, h:18.95, l:18.40, c:18.55}, {t:'04/23', o:18.70, h:18.85, l:17.30, c:17.75}, {t:'04/24', o:17.80, h:17.85, l:16.90, c:17.20}, {t:'04/27', o:17.25, h:17.50, l:16.70, c:17.35}, {t:'04/28', o:17.35, h:17.60, l:17.15, c:17.20}, {t:'04/29', o:17.20, h:17.75, l:17.10, c:17.30}, {t:'04/30', o:17.50, h:17.60, l:16.95, c:17.20}, {t:'05/04', o:16.90, h:17.25, l:16.60, c:16.95}, {t:'05/05', o:17.25, h:18.00, l:17.20, c:17.85}, {t:'05/06', o:18.15, h:18.40, l:17.50, c:18.05}, {t:'05/07', o:18.30, h:18.80, l:18.05, c:18.35}, {t:'05/08', o:18.45, h:18.90, l:17.75, c:17.85}, {t:'05/11', o:18.50, h:19.10, l:18.25, c:18.85}, {t:'05/12', o:19.20, h:20.70, l:18.85, c:20.70}, {t:'05/13', o:20.20, h:20.50, l:19.25, c:20.20}, {t:'05/14', o:20.70, h:20.70, l:19.30, c:19.55}, {t:'05/15', o:19.60, h:20.30, l:18.90, c:19.05}
+    ];
 
-    var volData = [501489.0,252547.0,513716.0,259667.0,348050.0,336726.0,170413.0,132199.0,153707.0,146620.0,192512.0,365020.0,596013.0,323886.0,250675.0,150865.0,144558.0,92362.0,90529.0,87701.0,75391.0,55066.0,58031.0,75856.0,45010.0,91667.0,205743.0,699940.0,343273.0,341171.0,670378.0,838529.0,246959.0,555455.0,696137.0,649803.0,364122.0,308693.0,251426.0,190398.0,314949.0,202479.0,189697.0,102912.0,124548.0,107005.0,184819.0,282936.0,247379.0,263162.0,205643.0,317249.0,856234,900000];
+    var ma5 = [14.62, 14.95, 15.14, 15.34, 15.41, 15.64, 15.86, 16.23, 16.37, 16.33, 16.05, 15.89, 15.74, 15.49, 15.48, 15.82, 16.21, 16.35, 16.37, 16.41, 16.32, 16.02, 15.83, 15.66, 15.41, 15.17, 14.98, 14.74, 14.63, 14.60, 14.79, 15.20, 15.57, 16.12, 16.97, 17.41, 17.64, 18.35, 18.95, 19.34, 19.68, 19.93, 19.75, 19.45, 18.86, 18.33, 17.95, 17.61, 17.36, 17.25, 17.20, 17.30, 17.47, 17.68, 17.81, 18.19, 18.76, 19.19, 19.43, 19.67];
+    var ma20 = [15.06, 15.04, 15.02, 15.07, 15.11, 15.14, 15.08, 15.08, 15.13, 15.15, 15.15, 15.15, 15.22, 15.29, 15.39, 15.53, 15.73, 15.87, 15.89, 15.91, 15.96, 16.00, 16.04, 15.97, 15.91, 15.84, 15.78, 15.67, 15.54, 15.47, 15.53, 15.60, 15.62, 15.69, 15.85, 15.92, 15.96, 16.12, 16.34, 16.58, 16.76, 16.94, 17.10, 17.29, 17.44, 17.55, 17.68, 17.82, 17.97, 18.10, 18.16, 18.21, 18.29, 18.36, 18.32, 18.35, 18.49, 18.51, 18.48, 18.40];
+    var ma60 = [null, null, 13.07, 13.15, 13.23, 13.32, 13.40, 13.50, 13.60, 13.68, 13.74, 13.80, 13.87, 13.94, 14.02, 14.10, 14.19, 14.27, 14.34, 14.42, 14.49, 14.56, 14.64, 14.69, 14.75, 14.81, 14.87, 14.92, 14.97, 15.03, 15.10, 15.19, 15.27, 15.35, 15.46, 15.55, 15.62, 15.70, 15.75, 15.84, 15.93, 15.99, 16.05, 16.11, 16.15, 16.18, 16.18, 16.19, 16.21, 16.24, 16.28, 16.32, 16.38, 16.45, 16.52, 16.60, 16.72, 16.83, 16.90, 16.96];
 
-    var rsiData = [56.62,57.86,62.79,68.94,73.28,63.16,60.0,59.49,54.93,50.0,53.79,61.22,66.23,52.86,48.37,46.98,50.67,44.3,41.5,43.57,47.66,47.66,41.32,40.32,38.71,30.28,39.68,52.31,54.4,58.39,65.45,64.29,64.29,76.19,78.42,79.08,74.16,72.77,71.1,68.33,58.65,51.74,55.73,50.84,40.14,43.07,42.45,33.88,33.33,29.2,31.13,46.49,62.5,58.2];
+    var volData = [288587889.00, 155051477.00, 99692129.00, 493741692.00, 501489501.00, 252547239.00, 513716195.00, 259667564.00, 348050201.00, 336726362.00, 170413030.00, 132199305.00, 153707287.00, 146620122.00, 192512711.00, 365020429.00, 596013184.00, 323886627.00, 250675496.00, 150865994.00, 144558270.00, 92362277.00, 90529152.00, 87701692.00, 75391912.00, 55066578.00, 58031109.00, 75856930.00, 45010746.00, 91667365.00, 205743504.00, 699940041.00, 343273281.00, 341171603.00, 670378623.00, 838529496.00, 246959159.00, 555455166.00, 696137309.00, 649803243.00, 364122065.00, 308693344.00, 251426753.00, 190398223.00, 314949541.00, 202479003.00, 189697305.00, 102912308.00, 124548735.00, 107005254.00, 184819967.00, 282936435.00, 247379654.00, 263162138.00, 205643583.00, 317249762.00, 728286402.00, 517635841.00, 323120834.00, 316310283.00];
 
-    var kData = [93.17,108.15,96.73,104.32,106.44,92.25,56.89,27.78,27.69,35.92,40.35,54.39,83.33,93.36,74.41,47.83,40.02,32.18,18.41,-12.12,-17.93,-13.44,4.34,1.74,-4.6,-3.72,39.59,92.95,114.94,112.95,115.38,118.73,110.49,97.75,103.82,114.72,100.49,88.06,66.33,46.16,20.6,-2.51,-7.87,-4.79,2.38,0.95,-3.11,11.32,34.24,80.73,86.77,109.09,132.46,95.3];
-    var dData = [84.14,96.0,99.35,103.07,102.5,101.0,85.19,58.97,37.45,30.46,34.65,43.55,59.36,77.03,83.7,71.87,54.09,40.01,30.2,12.82,-3.88,-14.5,-9.01,-2.45,0.49,-2.19,10.42,42.94,82.49,106.95,114.42,115.69,114.87,108.99,104.02,105.43,106.34,101.09,84.96,66.85,44.36,21.42,3.41,-5.06,-3.43,-0.49,0.07,3.05,14.15,42.1,67.25,92.2,109.44,100.1];
+    var rsiData = [35.25, 37.69, 40.50, 55.80, 56.62, 57.86, 62.79, 68.94, 73.28, 63.16, 60.00, 59.49, 54.93, 50.00, 53.79, 61.22, 66.23, 52.86, 48.37, 46.98, 50.67, 44.30, 41.50, 43.57, 47.66, 47.66, 41.32, 40.32, 38.71, 30.28, 39.68, 52.31, 54.40, 58.39, 65.45, 64.29, 64.29, 76.19, 78.42, 79.08, 74.16, 72.77, 71.10, 68.33, 58.65, 51.74, 55.73, 50.84, 40.14, 43.07, 42.45, 33.88, 33.33, 29.20, 31.13, 46.49, 62.50, 61.22, 62.50, 62.94];
+    var dData = [33.1, 38.8, 42.2, 49.3, 55.1, 61.0, 64.1, 66.1, 68.0, 65.5, 58.5, 51.4, 46.9, 43.1, 40.4, 42.2, 46.9, 50.0, 49.2, 47.4, 46.4, 44.3, 41.5, 35.7, 29.4, 24.8, 21.1, 17.6, 15.4, 15.1, 23.8, 34.4, 42.1, 50.1, 59.2, 65.1, 68.5, 73.6, 77.8, 80.3, 79.8, 76.8, 71.8, 65.4, 56.7, 47.2, 39.2, 32.3, 27.0, 23.0, 19.8, 20.7, 25.6, 33.6, 39.5, 47.7, 57.2, 64.8, 68.9, 69.8];
+    var kData = [47.9, 50.2, 49.1, 63.3, 66.8, 72.8, 70.2, 70.2, 71.8, 60.6, 44.3, 37.3, 37.7, 35.5, 35.2, 45.9, 56.3, 56.2, 47.6, 43.9, 44.4, 40.2, 35.9, 23.9, 16.9, 15.6, 13.6, 10.5, 11.2, 14.4, 41.3, 55.5, 57.5, 66.2, 77.5, 76.8, 75.4, 83.6, 86.3, 85.3, 78.7, 70.9, 61.7, 52.7, 39.4, 28.3, 23.0, 18.6, 16.3, 15.1, 13.5, 22.4, 35.5, 49.6, 51.2, 64.1, 76.1, 80.0, 77.3, 71.5];
 
-    var difData = [0.4208,0.4867,0.5129,0.5674,0.6236,0.5727,0.4626,0.3989,0.3883,0.3557,0.3341,0.3891,0.4756,0.4821,0.414,0.3718,0.3584,0.308,0.253,0.1472,0.0467,-0.0047,-0.0608,-0.1361,-0.2014,-0.2344,-0.1418,0.0041,0.0705,0.1855,0.4091,0.5318,0.6099,0.8077,0.9735,1.1441,1.1969,1.1768,1.1197,1.0343,0.8917,0.726,0.5999,0.4823,0.3926,0.3099,0.2216,0.2217,0.2352,0.2671,0.2491,0.3119,0.5052,0.42];
-    var deaData = [0.3781,0.3998,0.4224,0.4514,0.4859,0.5032,0.4951,0.4759,0.4584,0.4378,0.4171,0.4115,0.4243,0.4359,0.4315,0.4196,0.4073,0.3875,0.3606,0.3179,0.2637,0.21,0.1558,0.0974,0.0377,-0.0167,-0.0418,-0.0326,-0.012,0.0275,0.1038,0.1894,0.2735,0.3804,0.499,0.628,0.7418,0.8288,0.887,0.9164,0.9115,0.8744,0.8195,0.7521,0.6802,0.6061,0.5292,0.4677,0.4212,0.3904,0.3621,0.3521,0.3827,0.38];
-    var macdData = [0.0854,0.1738,0.181,0.232,0.2754,0.139,-0.065,-0.154,-0.1402,-0.1642,-0.166,-0.0448,0.1026,0.0924,-0.035,-0.0956,-0.0978,-0.159,-0.2152,-0.3414,-0.434,-0.4294,-0.4332,-0.467,-0.4782,-0.4354,-0.2,0.0734,0.165,0.316,0.6106,0.6848,0.6728,0.8546,0.949,1.0322,0.9102,0.696,0.4654,0.2358,-0.0396,-0.2968,-0.4392,-0.5396,-0.5752,-0.5924,-0.6152,-0.492,-0.372,-0.2466,-0.226,-0.0804,0.245,0.08];
+    var difData = [0.3126, 0.3105, 0.2853, 0.3741, 0.4234, 0.4891, 0.5150, 0.5694, 0.6254, 0.5744, 0.4642, 0.4004, 0.3897, 0.3570, 0.3352, 0.3902, 0.4766, 0.4831, 0.4148, 0.3726, 0.3592, 0.3087, 0.2536, 0.1478, 0.0472, -0.0042, -0.0604, -0.1356, -0.2010, -0.2340, -0.1415, 0.0044, 0.0708, 0.1858, 0.4094, 0.5321, 0.6101, 0.8079, 0.9736, 1.1442, 1.1970, 1.1769, 1.1198, 1.0344, 0.8918, 0.7261, 0.6000, 0.4824, 0.3927, 0.3100, 0.2217, 0.2218, 0.2353, 0.2671, 0.2492, 0.3120, 0.5052, 0.6110, 0.6351, 0.6068];
+    var deaData = [0.4125, 0.3921, 0.3708, 0.3714, 0.3818, 0.4033, 0.4256, 0.4544, 0.4886, 0.5057, 0.4974, 0.4780, 0.4604, 0.4397, 0.4188, 0.4131, 0.4258, 0.4372, 0.4328, 0.4207, 0.4084, 0.3885, 0.3615, 0.3188, 0.2644, 0.2107, 0.1565, 0.0981, 0.0383, -0.0162, -0.0412, -0.0321, -0.0115, 0.0279, 0.1042, 0.1898, 0.2739, 0.3807, 0.4993, 0.6283, 0.7420, 0.8290, 0.8872, 0.9166, 0.9116, 0.8745, 0.8196, 0.7522, 0.6803, 0.6062, 0.5293, 0.4678, 0.4213, 0.3905, 0.3622, 0.3522, 0.3828, 0.4284, 0.4698, 0.4972];
+    var macdData = [-0.1998, -0.1632, -0.1708, 0.0053, 0.0831, 0.1716, 0.1788, 0.2300, 0.2737, 0.1374, -0.0666, -0.1553, -0.1413, -0.1654, -0.1671, -0.0458, 0.1017, 0.0917, -0.0358, -0.0963, -0.0985, -0.1596, -0.2157, -0.3419, -0.4345, -0.4298, -0.4338, -0.4674, -0.4785, -0.4356, -0.2005, 0.0730, 0.1646, 0.3157, 0.6104, 0.6845, 0.6726, 0.8545, 0.9488, 1.0320, 0.9100, 0.6958, 0.4653, 0.2356, -0.0396, -0.2968, -0.4393, -0.5396, -0.5752, -0.5925, -0.6152, -0.4920, -0.3720, -0.2467, -0.2261, -0.0804, 0.2449, 0.3652, 0.3306, 0.2192];
 
-    var chipDates = ["05/13","05/12","05/11","05/08","05/07","05/06","05/05","05/04","04/30","04/29"];
-    var chipCloses = [20.2,20.7,18.85,17.85,18.35,18.05,17.85,16.95,17.2,17.3];
-    var chipForeign = [56470,110947,31840,-6426,17812,14423,-43560,-9226,-19190,-27889];
-    var chipTrust = [25,-9,-6,0,65,16,-19,-8,-12,1];
-    var chipDealer = [-181,294,48,-1328,1126,6,24,10,80,-30];
+    var chipDates = ['05-15', '05-14', '05-13', '05-12', '05-11', '05-08', '05-07', '05-06', '05-05', '05-04'];
+    var chipCloses = [19.05, 19.55, 20.2, 20.7, 18.85, 17.85, 18.35, 18.05, 17.85, 16.95];
+    var chipForeign = [9703, -24391, 56470, 110947, 31840, -6426, 17813, 14423, -43560, -9226];
+    var chipTrust = [-14, -44, 25, -8, -6, 0, 66, 16, -18, -7];
+    var chipDealer = [-1376, -2236, -3962, 8419, 1996, -3241, 2861, -1002, 3866, -637];
+
     /* ════════════════════════════════════════════
        DRAW FUNCTIONS
     ════════════════════════════════════════════ */
