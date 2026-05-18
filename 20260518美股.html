@@ -124,9 +124,22 @@
       td .chg-pct { font-size: .72rem; }
       th.pad, td.pad { padding: 0 !important; }
     }
+    /* ── 右上角浮動時間標籤 ─────────────────────────────── */
+    .nova-timestamp {
+      position: fixed;
+      top: 12px; right: 16px;
+      background: #1a73e8; color: white;
+      padding: 6px 14px; border-radius: 20px;
+      font-size: 12px; font-weight: 600;
+      z-index: 9999;
+      box-shadow: 0 2px 8px rgba(0,0,0,.2);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    }
   </style>
 </head>
-<body><h2>📈 2026/05/17 美股盤後晨報</h2>
+<body>
+<div class="nova-timestamp">📅 2026-05-18 19:10</div>
+<h2>📈 2026/05/17 美股盤後晨報</h2>
 <p></p>
 <h3>1️⃣ 美股三大指數</h3>
 <p></p>
@@ -190,17 +203,17 @@
 </tr></thead><tbody>
 <tr>
 <td>VIX 恐慌指數</td>
-<td>18.95</td>
+<td>19.09</td>
 <td>19.37</td>
 <td>18.85</td>
-<td><span class="chg-pt up">+0.52</span><span class="chg-pct up">🟢 +2.82%</span></td>
+<td><span class="chg-pt up">+0.66</span><span class="chg-pct up">🟢 +3.58%</span></td>
 </tr>
 <tr>
 <td>DXY 美元指數</td>
-<td>99.16</td>
+<td>99.24</td>
 <td>99.41</td>
 <td>99.09</td>
-<td><span class="chg-pt dn">-0.13</span><span class="chg-pct dn">🔴 -0.13%</span></td>
+<td><span class="chg-pt dn">-0.04</span><span class="chg-pct dn">🔴 -0.04%</span></td>
 </tr>
 </tbody></table></div>
 <p></p>
@@ -214,18 +227,18 @@
 </tr></thead><tbody>
 <tr>
 <td>原油 Brent (BZ=F)</td>
-<td>$110.46/桶</td>
-<td><span class="chg-pt up">+1.20</span><span class="chg-pct up">🟢 +1.10%</span></td>
+<td>$110.55/桶</td>
+<td><span class="chg-pt up">+1.29</span><span class="chg-pct up">🟢 +1.18%</span></td>
 </tr>
 <tr>
 <td>黃金 (GC=F)</td>
-<td>$4,550.10/盎司</td>
-<td><span class="chg-pt dn">-11.80</span><span class="chg-pct dn">🔴 -0.26%</span></td>
+<td>$4,545.30/盎司</td>
+<td><span class="chg-pt dn">-16.60</span><span class="chg-pct dn">🔴 -0.36%</span></td>
 </tr>
 <tr>
 <td>白銀 (SI=F)</td>
-<td>$76.15/盎司</td>
-<td><span class="chg-pt dn">-1.39</span><span class="chg-pct dn">🔴 -1.80%</span></td>
+<td>$76.11/盎司</td>
+<td><span class="chg-pt dn">-1.43</span><span class="chg-pct dn">🔴 -1.85%</span></td>
 </tr>
 </tbody></table></div>
 <p></p>
@@ -244,13 +257,13 @@
 </tr>
 <tr>
 <td>JPY</td>
-<td>0.1962</td>
-<td>0.2012</td>
+<td>0.1961</td>
+<td>0.2011</td>
 </tr>
 <tr>
 <td>EUR</td>
-<td>36.435</td>
-<td>37.035</td>
+<td>36.395</td>
+<td>36.995</td>
 </tr>
 <tr>
 <td>CNY</td>
@@ -264,8 +277,8 @@
 </tr>
 <tr>
 <td>AUD</td>
-<td>22.415</td>
-<td>22.76</td>
+<td>22.385</td>
+<td>22.73</td>
 </tr>
 </tbody></table></div>
 <p></p>
@@ -318,26 +331,14 @@
 <p></p>
 <h3>7️⃣ 盤勢分析</h3>
 <p></p>
-<h2>美股盤後晨報 2026/05/18（週一）</h2>
 <p></p>
-<h3>三大指數</h3>
-<ul>
-<li>道瓊：49,526.17（-1.07%）</li>
-<li>S&P 500：7,408.50（-1.24%）</li>
-<li>Nasdaq：26,225.14（-1.54%）</li>
-</ul>
-<p></p>
-<h3>盤勢分析</h3>
-<p>三大指數全數下跌，Nasdaq -1.54% 跌幅最大。</p>
-<p></p>
-<p><strong>結論：今日美股偏空。</strong></p>
 <p></p>
 <h3>📋 數據驗證</h3>
 <p></p>
 <ul>
 <li><strong>缺失欄位：</strong> 無</li>
 <li><strong>數據來源：</strong> Yahoo Finance API、台灣銀行 CSV API</li>
-<li><strong>生成時間：</strong> 2026-05-18 17:37:33 (Asia/Taipei)</li>
+<li><strong>生成時間：</strong> 2026-05-18 19:10:20 (Asia/Taipei)</li>
 </ul>
 <p></p>
 </body>
