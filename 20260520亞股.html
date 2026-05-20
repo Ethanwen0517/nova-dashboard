@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="theme-color" content="#1a73e8">
+  <title>2026-05-20 08:02:43.419953 亞股晨報</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue:   #1a73e8;
+      --bg:     #f0f4f8;
+      --card:   #ffffff;
+      --text:   #2d3748;
+      --border: #e2e8f0;
+      --radius: 12px;
+      --shadow: 0 2px 8px rgba(0,0,0,.08);
+      /* 漲跌：紅漲/綠跌（台股/陸股慣例） */
+      --up:     #16a34a;  /* 綠漲（台股/陸股） */
+      --dn:     #dc2626;  /* 紅跌（台股/陸股） */
+      --flat:   #6b7280;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+                   "Noto Sans TC", "PingFang TC", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      padding: 16px;
+      font-size: 14px;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body > * { max-width: 900px; margin-left: auto; margin-right: auto; }
+
+    h1, h2 {
+      font-size: clamp(1.1rem, 4vw, 1.6rem);
+      color: var(--blue);
+      border-bottom: 2px solid var(--blue);
+      padding-bottom: 6px;
+      margin: 24px 0 12px;
+    }
+    h3 { font-size: clamp(.95rem, 3.5vw, 1.15rem); color: #444; margin: 20px 0 8px; }
+    p  { margin: 6px 0; }
+    ul { padding-left: 20px; }
+    li { margin: 4px 0; }
+    hr { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+    code { background: #f0f0f0; padding: 2px 5px; border-radius: 4px; font-size: .88em; }
+
+    /* ── 表格容器 ──────────────────────────────────────────────
+       max-width:100% 確保容器不超出頁面；
+       overflow-x:auto 在表格比容器寬時觸發水平捲軸。
+    ─────────────────────────────────────────────────────────── */
+    .table-wrap {
+      display: block;
+      max-width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      margin: 12px 0 20px;
+      background: var(--card);
+    }
+
+    /* ── 表格本體 ──────────────────────────────────────────────
+       width:max-content 讓各欄依內容完整展開，
+       超出容器時 overflow-x 才能可靠觸發水平滾動。
+       min-width:100% 確保桌機版仍撐滿容器。
+    ─────────────────────────────────────────────────────────── */
+    table {
+      border-collapse: collapse;
+      table-layout: auto;
+      width: max-content;
+      min-width: 100%;
+      font-size: 13px;
+    }
+
+    thead tr { background: var(--blue); }
+
+    th {
+      color: #fff;
+      padding: 10px 14px;
+      text-align: left;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    td {
+      padding: 9px 14px;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+      line-height: 1.6;
+    }
+
+    tr:last-child td         { border-bottom: none; }
+    tbody tr:nth-child(even) { background: #f7faff; }
+    tbody tr:hover td        { background: #eef3ff; }
+
+    .up   { color: var(--up);   }
+    .dn   { color: var(--dn);   }
+    .flat { color: var(--flat); }
+
+    /* 漲跌數值：紅漲/綠跌（台股/陸股慣例） */
+    .chg-positive { color: #16a34a; font-weight: 600; }  /* 綠漲 */
+    .chg-negative { color: #dc2626; font-weight: 600; }  /* 紅跌 */
+
+    /* emoji 符號用原色不套色 */
+    .chg-positive .emoji { color: inherit; }
+    .chg-negative .emoji { color: inherit; }
+
+    @media (max-width: 480px) {
+      body   { padding: 10px; }
+      h2     { font-size: 1rem; }
+      h3     { font-size: .92rem; }
+      th, td { padding: 8px 10px; font-size: .78rem; }
+    }
+
+    /* ── 右上角浮動時間標籤 ─────────────────────────────── */
+    .nova-timestamp {
+      position: fixed;
+      top: 12px; right: 16px;
+      background: #1a73e8; color: white;
+      padding: 6px 14px; border-radius: 20px;
+      font-size: 12px; font-weight: 600;
+      z-index: 9999;
+      box-shadow: 0 2px 8px rgba(0,0,0,.2);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    }
+    </style>
+</head>
+<body>
+<div class="nova-timestamp">📅 2026-05-20 08:02</div>
+<h2>📊 2026/05/20 亞股晨報</h2>
+<h3>🌏 亞洲主要股市</h3>
+<div class="table-wrap"><table>
+<thead><tr><th>市場</th><th>指數</th><th>最高</th><th>最低</th><th>漲跌</th></tr></thead><tbody>
+<tr><td>🇹🇼 台灣加權 (TAIEX)</td><td>40,175.56</td><td>41,095.82</td><td>40,170.17</td><td>-996.80<br>🟢 -2.42%</td></tr>
+<tr><td>🇯🇵 日經225 (N225)</td><td>60,550.59</td><td>61,478.55</td><td>60,376.98</td><td>-858.70<br>🟢 -1.40%</td></tr>
+<tr><td>🇰🇷 韓國KOSPI (KS11)</td><td>7,271.66</td><td>7,636.20</td><td>7,142.71</td><td>-221.52<br>🟢 -2.96%</td></tr>
+<tr><td>🇭🇰 香港恒生 (HSI)</td><td>25,797.85</td><td>25,838.96</td><td>25,505.71</td><td>-164.88<br>🟢 -0.64%</td></tr>
+<tr><td>🇨🇳 上海綜合 (SSEC)</td><td>4,169.54</td><td>4,145.66</td><td>4,108.60</td><td>+34.15<br>🔴 +0.83%</td></tr>
+<tr><td>🇨🇳 深圳綜合 (SZSEC)</td><td>15,569.91</td><td>15,658.11</td><td>15,419.04</td><td>+8.54<br>🔴 +0.05%</td></tr>
+<tr><td>🇸🇬 新加坡STI (STI)</td><td>5,072.34</td><td>4,999.93</td><td>4,956.53</td><td>+83.26<br>🔴 +1.67%</td></tr>
+</tbody></table></div>
+<h3>💱 匯率（台灣銀行即期）</h3>
+<div class="table-wrap"><table>
+<thead><tr><th>幣別</th><th>即期買入</th><th>即期賣出</th></tr></thead><tbody>
+<tr><td>USD</td><td>31.57</td><td>31.73</td></tr>
+<tr><td>JPY</td><td>0.20</td><td>0.20</td></tr>
+<tr><td>HKD</td><td>4.01</td><td>4.08</td></tr>
+<tr><td>CNY</td><td>4.62</td><td>4.67</td></tr>
+<tr><td>AUD</td><td>22.32</td><td>22.67</td></tr>
+</tbody></table></div>
+<hr>
+<h3>📋 數據驗證</h3>
+<ul>
+<li><strong>缺失欄位：</strong> 無</li>
+<li><strong>數據來源：</strong> Yahoo Finance API、台灣銀行 CSV API</li>
+<li><strong>生成時間：</strong> 2026-05-20 08:02:43 (Asia/Taipei)</li>
+</ul>
+<p>🌏 亞股晨報 | 2026/05/19（台灣日期）</p>
+<p>【整體盤勢分析】</p>
+<p>今日亞股幾乎全數重挫，僅新加坡 STI 微幅小漲（+0.02%），顯示市場情緒偏向謹慎避險。韓國 KOSPI 跌幅最重，達 -5.83%，主要受到科技股賣壓與北韓地緣政治緊張升溫影響。日經 225 下跌 -2.93%，與美股科技股前一日走弱連動明顯。</p>
+<p>【重點市場觀察】</p>
+<p>🇰🇷 韓國 KOSPI（-5.83%）：今日跌幅最劇，權值股三星、SK 海力士承受沉重賣壓。推測與南韓政局不穩、半導體景氣疑慮加深有關。從日內低點 7,371.68 來看，指數曾急速下殺後略有反彈，但終場仍收於相對低點。</p>
+<p>🇯🇵 日經 225（-2.93%）：前一日美股那斯達克重挫，拖累日經電子、半導體相關族群。60,815 的收盤價已接近日內低點 60,937，多方防線面臨考驗。巴菲特減持日股訊息持續發酵。</p>
+<p>🇭🇰 香港恒生（-2.71%）：中國地產板塊持續承壓，恒大、清盤等負面消息抑制市場情緒。騰訊、阿里巴巴等科技權值亦隨美股期指走低。</p>
+<p>🇨🇳 中國A股（滬深）：上海 -1.11%、深圳 -1.37%，跌幅相對低於其他市場。中國官方護盤力道仍在，但市場信心不足，指數呈現破底後弱勢整理格局。</p>
+<p>🇸🇬 新加坡 STI（+0.02%）：今日唯一收紅市場，星國權值股（星展銀行、海皇航運）表現穩健，指數在高檔狹幅震盪。</p>
+<p>🇹🇼 台灣加權（-2.06%）：受美股科技股重挫、半導體庫存調整訊息影響，AI 供應鏈相關個股普遍回調。40,891 點距離近期低點不遠，需留意是否有撐。</p>
+<p>【綜合觀點】</p>
+<p>亞股今日普遍走弱，韓股、科技相關市場跌幅最重，反映市場對全球半導體景氣與科技股估值修正的擔憂。台股與日經連動性高，需持續觀察美股期指表現。新加坡的相對抗跌或顯示東協市場資金有所避險流入。操作上建議維持觀望，靜待美股今晚表現與市場情緒恢復。</p>
+</body>
+</html>
