@@ -7,616 +7,77 @@
 <style>
 .nova-timestamp{position:fixed;top:12px;right:16px;background:#1a73e8;color:white;padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600;z-index:9999;box-shadow:0 2px 8px rgba(0,0,0,.2);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body {
-  font-family: "Microsoft JhengHei", "PingFang TC", Arial, sans-serif;
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-  min-height: 100vh;
-  color: #ffffff;
-  padding: 20px;
-}
-.container { max-width: 900px; margin: 0 auto; }
-.header {
-  text-align: center;
-  padding: 40px 20px;
-  margin-bottom: 20px;
-}
-.header h1 {
-  font-size: 2.5em;
-  font-weight: bold;
-  color: #e94560;
-  text-shadow: 0 0 20px rgba(233,69,96,0.5);
-  margin-bottom: 8px;
-}
-.header p { color: #a0a0a0; font-size: 1.1em; }
-.grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  padding: 0 10px;
-}
-@media (max-width: 700px) {
-  .grid { grid-template-columns: repeat(2, 1fr); }
-}
-@media (max-width: 480px) {
-  .grid { grid-template-columns: 1fr; }
-}
-.card {
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.15);
-  border-radius: 16px;
-  padding: 28px;
-  text-decoration: none;
-  color: #ffffff;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(10px);
-  position: relative;
-  overflow: hidden;
-}
-.card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, #e94560, #0f3460);
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-.card:hover {
-  transform: translateY(-5px);
-  border-color: rgba(233,69,96,0.4);
-  box-shadow: 0 10px 40px rgba(233,69,96,0.2);
-}
-.card:hover::before { opacity: 1; }
-.card-icon { font-size: 3em; margin-bottom: 16px; display: block; }
-.card-title { font-size: 1.4em; font-weight: bold; margin-bottom: 8px; color: #ffffff; }
-.card-desc { font-size: 0.9em; color: #a0a0a0; line-height: 1.5; }
-.card-meta { margin-top: 14px; font-size: 0.8em; color: #666; }
-.footer {
-  text-align: center;
-  padding: 40px 20px;
-  color: #555;
-  font-size: 0.85em;
-}
-@media (max-width: 600px) {
-  .header h1 { font-size: 1.8em; }
-  .card { padding: 20px; }
-  .card-icon { font-size: 2.5em; }
-}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:"Microsoft JhengHei","PingFang TC",Arial,sans-serif;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);min-height:100vh;color:#fff;padding:20px;}
+.container{max-width:900px;margin:0 auto;}
+.header{text-align:center;padding:24px 20px 16px;}
+.header h1{font-size:2em;font-weight:bold;color:#e94560;text-shadow:0 0 20px rgba(233,69,96,.5);margin-bottom:4px;}
+.header p{color:#a0a0a0;font-size:.9em;}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;padding:0 10px;}
+@media(max-width:600px){.grid{grid-template-columns:repeat(2,1fr);}}
+
+.card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:18px 14px;text-decoration:none;color:#fff;transition:all .25s;position:relative;overflow:hidden;}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#e94560,#0f3460);opacity:0;transition:opacity .25s;}
+.card:hover{transform:translateY(-3px);border-color:rgba(233,69,96,.4);box-shadow:0 6px 20px rgba(233,69,96,.2);}
+.card:hover::before{opacity:1;}
+.card-icon{font-size:2em;margin-bottom:8px;}
+.card-title{font-size:1.05em;font-weight:bold;margin-bottom:6px;}
+.card-meta{font-size:.75em;color:#a0a0a0;line-height:1.3;}
+.card-size{font-size:.7em;color:#666;margin-top:6px;font-family:Consolas,monospace;}
+
+.footer{text-align:center;padding:24px 20px 12px;color:#555;font-size:.75em;}
 </style>
 </head>
 <body>
-<div class="nova-timestamp">📅 Updated: Jun 09, 2026 05:08 AM</div>
+<div class="nova-timestamp">📅 Updated: Jun 09, 2026 10:28 AM</div>
 
 <div class="container">
   <div class="header">
     <h1>📊 Nova 財經資訊站</h1>
-    <p>即時新聞 · 技術分析 · 晨報總覽</p>
+    <p>6 卡片 · 3×2 高密度佈局 · V1.3.1</p>
   </div>
 
   <div class="grid">
     <a href="lastnews.html" class="card" target="_blank">
-      <span class="card-icon">📰</span>
+      <div class="card-icon">📰</div>
       <div class="card-title">新聞儀表板</div>
-      <div class="card-desc">最新財經新聞總覽，含熱度圖 Tab 頁</div>
-      <div class="card-meta">來源：Google · Yahoo · MoneyDJ · cnyes</div>
+      <div class="card-meta">每 3 小時更新</div>
+      <div class="card-size">839KB · 06/09 05:09</div>
     </a>
-
-    
-    <a href="20260519美股.html" class="card" target="_blank">
-      <span class="card-icon">🇺🇸</span>
+    <a href="20260608美股.html" class="card" target="_blank">
+      <div class="card-icon">🇺🇸</div>
       <div class="card-title">美股晨報</div>
-      <div class="card-desc">三大指數、費城半導體、VIX，原物料、匯率</div>
-      <div class="card-meta">每日 06:00 更新 · 收盤日 2026/06/07</div>
+      <div class="card-meta">06:00 更新 · 收盤日 2026/06/08</div>
+      <div class="card-size">11KB · 06/09 07:16</div>
     </a>
-
-    <a href="20260519亞股.html" class="card" target="_blank">
-      <span class="card-icon">🌏</span>
+    <a href="20260609亞股.html" class="card" target="_blank">
+      <div class="card-icon">🌏</div>
       <div class="card-title">亞股晨報</div>
-      <div class="card-desc">日經 · 韓國 · 香港 · 上海 · 深圳 · 新加坡</div>
-      <div class="card-meta">每日 08:03 更新 · 收盤日 2026/06/05</div>
+      <div class="card-meta">08:03 更新 · 收盤日 2026/06/09</div>
+      <div class="card-size">10KB · 06/09 08:05</div>
     </a>
-
-    <a href="盤前報告_20260604.html" class="card" target="_blank">
-      <span class="card-icon">📋</span>
+    <a href="盤前報告_20260609.html" class="card" target="_blank">
+      <div class="card-icon">📋</div>
       <div class="card-title">盤前報告</div>
-      <div class="card-desc">v3.4 架構 · 8 段式完整版 · 統一資料源抓取</div>
-      <div class="card-meta">每日 08:10 更新</div>
+      <div class="card-meta">08:10 更新</div>
+      <div class="card-size">22KB · 06/09 10:28</div>
     </a>
-
+    <a href="技術分析總表_20260609.html" class="card" target="_blank">
+      <div class="card-icon">📊</div>
+      <div class="card-title">技術分析總表</div>
+      <div class="card-meta">05:30 更新 · 22 檔</div>
+      <div class="card-size">40KB · 06/09 07:32</div>
+    </a>
     <a href="bias_alert.html" class="card" target="_blank">
-      <span class="card-icon">📐</span>
+      <div class="card-icon">📐</div>
       <div class="card-title">BIAS 乖離率</div>
-      <div class="card-desc">過熱/超跌警示，篩選功能</div>
-      <div class="card-meta">自動更新</div>
+      <div class="card-meta">22 檔持股+觀察</div>
+      <div class="card-size">10KB · 06/09 10:28</div>
     </a>
-  
-    
   </div>
 
   <div class="footer">
-    Nova AI 助理 · 自動更新 · 2026-06-04 (v3.4)
+    Nova AI 助理 · 自動更新 · 2026-06-09 (V1.3.1 3×2 精簡版)
   </div>
 </div>
 
