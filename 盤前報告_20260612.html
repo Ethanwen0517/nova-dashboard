@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>📋 盤前報告 2026/06/12</title>
 <style>
 :root {
@@ -238,9 +238,69 @@ td.gray { color: var(--text3); }
   font-style: italic;
 }
 
-/* ============== 手機自適應 RWD ============== */
+/* ============== Phase 1 RWD 升級 v1.2.1 (2026-06-12) ============== */
+
+/* JetBrains Mono 數字字型 */
+.num, td.num, .card-value, .card-change {
+  font-family: 'JetBrains Mono', 'Menlo', 'Consolas', monospace;
+  font-weight: 700;
+}
+
+/* 多欄表格水平滾動（CSS-only，無需改 HTML）*/
+/* 原理：table:has(>tbody>tr>td:nth-child(6)) 判斷「≥6 欄」的表 */
+/* min-width 600 確保多欄內容有足夠空間不被擠壓 */
+table:has(tbody tr td:nth-child(6)) {
+  min-width: 600px;
+  table-layout: fixed;
+}
+
+/* 7 欄以上更寬（持股段 8 欄、籌碼段 6 欄、亞股段 6 欄）*/
+table:has(tbody tr td:nth-child(7)) {
+  min-width: 720px;
+}
+
+table:has(tbody tr td:nth-child(8)) {
+  min-width: 820px;
+}
+
+/* 滑動提示框（手機顯示）*/
+.scroll-hint {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--accent-blue);
+  font-weight: 600;
+  margin: 4px 0 6px;
+  padding: 6px 12px;
+  background: rgba(135,206,235,0.10);
+  border: 1px dashed var(--accent-blue);
+  border-radius: 6px;
+}
+
+/* 桌面 + 平板隱藏滑動提示 */
+@media (min-width: 901px) {
+  .scroll-hint { display: none !important; }
+}
+
+@media (max-width: 600px) {
+  .scroll-hint { display: flex; }
+  .scroll-hint::before { content: '👈 '; }
+  .scroll-hint::after  { content: ' 👉'; }
+}
+
+/* ============== 響應式斷點 ============== */
 @media (max-width: 900px) {
   .grid { grid-template-columns: repeat(2, 1fr); gap: 6px; }
+  /* 平板：表格自動滾動 */
+  table:has(tbody tr td:nth-child(6)) {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  thead { display: table-header-group; }
+  tbody { display: table-row-group; }
 }
 
 @media (max-width: 600px) {
@@ -261,13 +321,19 @@ td.gray { color: var(--text3); }
   table { font-size: 12px; }
   th { padding: 6px 8px; font-size: 12px; }
   td { padding: 5px 8px; font-size: 12px; }
+  /* 手機：表格也用滾動 */
+  table:has(tbody tr td:nth-child(6)) {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
 }
 </style>
 </head>
 <body>
 <div class="container">
 
-<div class="nova-timestamp">Nova 更新：2026/06/12 13:30 (Asia/Taipei)</div>
+<div class="nova-timestamp">Nova 更新：2026/06/12 18:40 (Asia/Taipei)</div>
 
 <h1>📋 盤前報告 2026/06/12</h1>
 
@@ -464,7 +530,7 @@ td.gray { color: var(--text3); }
 <!-- 3️⃣ 台指期與大盤技術面 -->
 <!-- =========================================== -->
 <h2>3️⃣ 台指期與大盤技術面</h2>
-<div class="data-source">📊 <strong>台指期資料來源：</strong>夜盤 05:00 收盤（手動更新 06/12 13:30（cmoney TXF1 夜盤 05:00 收盤））。今日 <strong>09:00 開盤前 5 分鐘</strong> 將有夜盤 → 日盤轉換新報價。</div>
+<div class="data-source">📊 <strong>台指期資料來源：</strong>夜盤 05:00 收盤（手動更新 06/12 18:40（cmoney TXF1 夜盤 05:00 收盤））。今日 <strong>09:00 開盤前 5 分鐘</strong> 將有夜盤 → 日盤轉換新報價。</div>
 
 <h3>📊 大盤加權技術面（06/11 收盤為基準）</h3>
 <table>
@@ -501,13 +567,14 @@ td.gray { color: var(--text3); }
 <div class="data-source">📅 個股現價：<strong>Yahoo Finance 即時</strong>　|　成本/停損/TP：<strong>監控股票總覽.md</strong></div>
 
 <h3>📌 持股個股分析</h3>
+<div class="scroll-hint">手機橫向滑動查看完整 8 欄資料</div>
 <table>
 <tr><th>股票</th><th>成本</th><th>現價</th><th>停損</th><th>TP1</th><th>TP2</th><th>TP3</th><th>狀態</th></tr>
 <tr><td><strong>6153</strong> 嘉聯益 <small>(11張)</small></td><td class="n">20.63</td><td class="n up"><strong>22.25</strong></td><td class="n">19.58</td><td class="n">26.34</td><td class="n">26.86</td><td class="n">27.38</td><td><span class="badge badge-green">🟢 持有中</span></td></tr>
-<tr><td><strong>2349</strong> 錸德 <small>(1張)</small></td><td class="n">15.1</td><td class="n down"><strong>13.35</strong></td><td class="n">14.35</td><td class="n">18.51</td><td class="n">18.82</td><td class="n">19.13</td><td><span class="badge badge-red">🔴 已觸及停損</span></td></tr>
+<tr><td><strong>2349</strong> 錸德 <small>(1張)</small></td><td class="n">15.1</td><td class="n down"><strong>13.3</strong></td><td class="n">14.35</td><td class="n">18.51</td><td class="n">18.82</td><td class="n">19.13</td><td><span class="badge badge-red">🔴 已觸及停損</span></td></tr>
 <tr><td><strong>1301</strong> 台塑 <small>(15張)</small></td><td class="n">54.18</td><td class="n down"><strong>45.25</strong></td><td class="n">48.76</td><td class="n">62.08</td><td class="n">62.8</td><td class="n">63.51</td><td><span class="badge badge-red">🔴 已觸及停損</span></td></tr>
 <tr><td><strong>2609</strong> 陽明 <small>(1張)</small></td><td class="n">55.15</td><td class="n down"><strong>52.4</strong></td><td class="n">52.39</td><td class="n">60.82</td><td class="n">61.33</td><td class="n">61.85</td><td><span class="badge badge-yellow">⚠️ 低於成本</span></td></tr>
-<tr><td><strong>00637L</strong> 元大滬深300正2 <small>(11張)</small></td><td class="n">13.9</td><td class="n up"><strong>21.5</strong></td><td class="n">10.5</td><td class="n">17.64</td><td class="n">17.98</td><td class="n">18.32</td><td><span class="badge badge-green">🟢 達停利 (>20%)</span></td></tr>
+<tr><td><strong>00637L</strong> 元大滬深300正2 <small>(11張)</small></td><td class="n">13.9</td><td class="n up"><strong>21.74</strong></td><td class="n">10.5</td><td class="n">17.64</td><td class="n">17.98</td><td class="n">18.32</td><td><span class="badge badge-green">🟢 達停利 (>20%)</span></td></tr>
 <tr><td><strong>00882</strong> 中信中國高股息 <small>(15張)</small></td><td class="n">12.51</td><td class="n up"><strong>16.06</strong></td><td class="n">10.5</td><td class="n">14.72</td><td class="n">14.92</td><td class="n">15.12</td><td><span class="badge badge-green">🟢 達停利 (>20%)</span></td></tr>
 <tr><td><strong>2009</strong> 第一銅 <small>(1張)</small></td><td class="n">39.08</td><td class="n up"><strong>40.0</strong></td><td class="n">37.0</td><td class="n">41.0</td><td class="n">45.0</td><td class="n">50.0</td><td><span class="badge badge-green">🟢 持有中</span></td></tr>
 
@@ -517,26 +584,26 @@ td.gray { color: var(--text3); }
 <table>
 <tr><th>股票</th><th>現價</th><th>觀察原因</th><th>進場條件</th><th>狀態</th></tr>
 <tr><td>2409 友達</td><td>23.5</td><td>2026-04-02 賣出 @ 17.05；6/4 漲停 +9.94%，BIAS5 過熱</td><td>拉回 5日線（27.x）有撐再考慮</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
-<tr><td>2887 台新新光金</td><td>30.25</td><td>金融併購題材</td><td>等回測 5日線有撐</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
-<tr><td>3062 建漢</td><td>25.5</td><td>網通/工業電腦</td><td>技術面轉多再進場</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
-<tr><td>3481 群創</td><td>48.65</td><td>面板/光電</td><td>法人轉買再進場</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
-<tr><td>3545 敦泰</td><td>54.1</td><td>觸控 IC</td><td>等技術面翻多</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
-<tr><td>3645 達邁</td><td>90.8</td><td>PI 膜，法人外本由負轉正</td><td>等回測 5日線（82-83）有撐再考慮</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
-<tr><td>6239 力成</td><td>347.0</td><td>封測</td><td>等技術面轉多</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
-<tr><td>6770 力積電</td><td>67.5</td><td>DRAM</td><td>等法人買盤</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
-<tr><td>7866 丹立</td><td>199.0</td><td>散熱</td><td>等技術面轉多</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
-<tr><td>3653 健策</td><td>3685.0</td><td>散熱元件/連接器</td><td>等回測有撐</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
-<tr><td>3017 奇鋐</td><td>2420.0</td><td>散熱風扇/機殼</td><td>等技術面轉多</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
-<tr><td>3324 雙鴻</td><td>1050.0</td><td>散熱模組大廠</td><td>等回測有撐</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
-<tr><td>2881 富邦金</td><td>121.5</td><td>金融</td><td>等技術面轉多</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
-<tr><td>00631L 元大台灣50正2</td><td>34.8</td><td>槓桿型 ETF</td><td>等大盤轉多</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
+<tr><td>2887 台新新光金</td><td>30.2</td><td>金融併購題材</td><td>等回測 5日線有撐</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
+<tr><td>3062 建漢</td><td>25.6</td><td>網通/工業電腦</td><td>技術面轉多再進場</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
+<tr><td>3481 群創</td><td>48.55</td><td>面板/光電</td><td>法人轉買再進場</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
+<tr><td>3545 敦泰</td><td>53.9</td><td>觸控 IC</td><td>等技術面翻多</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
+<tr><td>3645 達邁</td><td>90.4</td><td>PI 膜，法人外本由負轉正</td><td>等回測 5日線（82-83）有撐再考慮</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
+<tr><td>6239 力成</td><td>347.5</td><td>封測</td><td>等技術面轉多</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
+<tr><td>6770 力積電</td><td>67.2</td><td>DRAM</td><td>等法人買盤</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
+<tr><td>7866 丹立</td><td>200.5</td><td>散熱</td><td>等技術面轉多</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
+<tr><td>3653 健策</td><td>3690.0</td><td>散熱元件/連接器</td><td>等回測有撐</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
+<tr><td>3017 奇鋐</td><td>2405.0</td><td>散熱風扇/機殼</td><td>等技術面轉多</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
+<tr><td>3324 雙鴻</td><td>1055.0</td><td>散熱模組大廠</td><td>等回測有撐</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
+<tr><td>2881 富邦金</td><td>122.0</td><td>金融</td><td>等技術面轉多</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
+<tr><td>00631L 元大台灣50正2</td><td>34.83</td><td>槓桿型 ETF</td><td>等大盤轉多</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
 <tr><td>6147 頎邦</td><td>224.0</td><td>驅動 IC 封測</td><td>等技術面轉多</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
 
 </table>
 
 <div class="highlight-box">
   <h4>📋 Nova 持股策略建議</h4>
-  • <strong>6153 嘉聯益：</strong>現價 22.25 高於成本 20.63，<strong>持有中</strong>。停利目標 TP1=26.34。<br>• <strong>2349 錸德：</strong>現價 13.35 已觸及停損 14.35，<strong>應嚴格執行停損</strong>。等待止跌訊號再評估是否重新進場。<br>• <strong>1301 台塑：</strong>現價 45.25 已觸及停損 48.76，<strong>應嚴格執行停損</strong>。等待止跌訊號再評估是否重新進場。<br>• <strong>2609 陽明：</strong>現價 52.4 低於成本 55.15，<strong>耐心持有</strong>，注意支撐。<br>• <strong>00637L 元大滬深300正2：</strong>現價 21.5 已達停利區（>成本 20%），<strong>可考慮部分獲利了結</strong>。停利目標 TP1=17.64。<br>• <strong>00882 中信中國高股息：</strong>現價 16.06 已達停利區（>成本 20%），<strong>可考慮部分獲利了結</strong>。停利目標 TP1=14.72。<br>• <strong>2009 第一銅：</strong>現價 40.0 高於成本 39.08，<strong>持有中</strong>。停利目標 TP1=41.0。
+  • <strong>6153 嘉聯益：</strong>現價 22.25 高於成本 20.63，<strong>持有中</strong>。停利目標 TP1=26.34。<br>• <strong>2349 錸德：</strong>現價 13.3 已觸及停損 14.35，<strong>應嚴格執行停損</strong>。等待止跌訊號再評估是否重新進場。<br>• <strong>1301 台塑：</strong>現價 45.25 已觸及停損 48.76，<strong>應嚴格執行停損</strong>。等待止跌訊號再評估是否重新進場。<br>• <strong>2609 陽明：</strong>現價 52.4 低於成本 55.15，<strong>耐心持有</strong>，注意支撐。<br>• <strong>00637L 元大滬深300正2：</strong>現價 21.74 已達停利區（>成本 20%），<strong>可考慮部分獲利了結</strong>。停利目標 TP1=17.64。<br>• <strong>00882 中信中國高股息：</strong>現價 16.06 已達停利區（>成本 20%），<strong>可考慮部分獲利了結</strong>。停利目標 TP1=14.72。<br>• <strong>2009 第一銅：</strong>現價 40.0 高於成本 39.08，<strong>持有中</strong>。停利目標 TP1=41.0。
 </div>
 
 <!-- =========================================== -->
@@ -547,11 +614,11 @@ td.gray { color: var(--text3); }
 <h3>📅 今日重大事件</h3>
 <table>
 <tr><th>時間</th><th>事件</th><th>影響</th></tr>
-<tr><td>#01</td><td>晶片恐被禁！台積電遭控侵權公司回應了</td><td>半導體</td></tr>
-<tr><td>#02</td><td>豪砸261億淪泡影！日本晶片國家隊慘敗台積電 日媒揭關鍵內幕</td><td>半導體</td></tr>
-<tr><td>#03</td><td>美股收盤》川普取消攻擊伊朗！道瓊飆929點 台積電ADR漲逾3％</td><td>半導體</td></tr>
-<tr><td>#06</td><td>川普下令再度攻擊伊朗！美股道瓊暴跌953點、台積電ADR跌4.48%</td><td>半導體</td></tr>
-<tr><td>#07</td><td>台股跌76點收43149點 台積電收平盤2250元</td><td>半導體</td></tr>
+<tr><td>#01</td><td>台積電(2330)最低價竟能事先算出來？杜金龍親曝「抄底公式」！聯電..</td><td>半導體</td></tr>
+<tr><td>#02</td><td>快訊／台股收盤大漲1019.58點　台積電漲60元至2310</td><td>半導體</td></tr>
+<tr><td>#03</td><td>快訊／台積電捲侵權訴訟 龔明鑫親說明！</td><td>半導體</td></tr>
+<tr><td>#04</td><td>向台積電了解在美侵權案 龔明鑫：溝通後更有信心</td><td>半導體</td></tr>
+<tr><td>#05</td><td>台積電侵權案疑被專利蟑螂咬上 智慧局認可提專利無效反制</td><td>半導體</td></tr>
 
 </table>
 
@@ -569,17 +636,17 @@ td.gray { color: var(--text3); }
 <h3>📊 三大法人買賣超（近 5 日）</h3>
 <table>
 <tr><th>日期</th><th>外資</th><th>投信</th><th>自營商</th><th>合計</th><th>方向</th></tr>
+<tr><td>6/12</td><td class="up">+7.2 億</td><td class="neutral">—</td><td>—</td><td>偏多</td><td><span class="badge badge-green">✅</span></td></tr>
 <tr><td>6/11</td><td class="up">+0.4 億</td><td class="up">+0.7 億</td><td>—</td><td>微多</td><td><span class="badge badge-yellow">✅</span></td></tr>
 <tr><td>6/10</td><td class="up">-0.3 億</td><td class="up">+1.1 億</td><td>—</td><td>微空</td><td><span class="badge badge-yellow">✅</span></td></tr>
 <tr><td>6/9</td><td class="up">+0.4 億</td><td class="up">+0.7 億</td><td>—</td><td>微多</td><td><span class="badge badge-yellow">✅</span></td></tr>
 <tr><td>6/8</td><td class="up">-3.6 億</td><td class="up">+1.2 億</td><td>—</td><td>偏空</td><td><span class="badge badge-red">✅</span></td></tr>
-<tr><td>6/5</td><td class="up">-1.9 億</td><td class="up">+0.7 億</td><td>—</td><td>偏空</td><td><span class="badge badge-red">✅</span></td></tr>
 
 </table>
 
 <div class="highlight-box">
   <h4>💡 Nova 籌碼觀點</h4>
-  昨日法人個股加總：外資 +0.4 億、投信 +0.7 億 （溫和偏多）。近 5 日累計：外資 -5.0 億、投信 +4.4 億。注：資料來自 FinMind 個股抽樣加總（涵蓋部分上市櫃），非整體市場公告，數字絕對值較小但<strong>方向指標可信</strong>，建議作為多空訊號觀察。
+  昨日法人個股加總：外資 +7.2 億、投信 +0.0 億 （強勁偏多）。近 5 日累計：外資 +4.1 億、投信 +3.7 億。注：資料來自 FinMind 個股抽樣加總（涵蓋部分上市櫃），非整體市場公告，數字絕對值較小但<strong>方向指標可信</strong>，建議作為多空訊號觀察。
 </div>
 
 <!-- =========================================== -->
@@ -625,7 +692,7 @@ td.gray { color: var(--text3); }
 </div>
 
 <div class="footer">
-  報告生成：2026/06/12 13:30 (Asia/Taipei) | 統一資料源：2026/06/12 美股收盤
+  報告生成：2026/06/12 18:40 (Asia/Taipei) | 統一資料源：2026/06/12 美股收盤
 </div>
 
 </div>
