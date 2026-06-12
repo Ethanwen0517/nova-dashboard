@@ -133,12 +133,15 @@ h3 {
 
 table {
   width: 100%;
+  max-width: 100%;
+  table-layout: fixed;
   border-collapse: collapse;
   margin: 8px 0;
   background: rgba(0,0,0,0.2);
   border-radius: 8px;
   overflow: hidden;
   font-size: 14px;
+  word-break: break-all;
 }
 
 th {
@@ -264,7 +267,7 @@ td.gray { color: var(--text3); }
 <body>
 <div class="container">
 
-<div class="nova-timestamp">Nova 更新：2026/06/12 13:10 (Asia/Taipei)</div>
+<div class="nova-timestamp">Nova 更新：2026/06/12 13:30 (Asia/Taipei)</div>
 
 <h1>📋 盤前報告 2026/06/12</h1>
 
@@ -461,7 +464,7 @@ td.gray { color: var(--text3); }
 <!-- 3️⃣ 台指期與大盤技術面 -->
 <!-- =========================================== -->
 <h2>3️⃣ 台指期與大盤技術面</h2>
-<div class="data-source">📊 <strong>台指期資料來源：</strong>夜盤 05:00 收盤（手動更新 06/12 13:10（cmoney TXF1 夜盤 05:00 收盤））。今日 <strong>09:00 開盤前 5 分鐘</strong> 將有夜盤 → 日盤轉換新報價。</div>
+<div class="data-source">📊 <strong>台指期資料來源：</strong>夜盤 05:00 收盤（手動更新 06/12 13:30（cmoney TXF1 夜盤 05:00 收盤））。今日 <strong>09:00 開盤前 5 分鐘</strong> 將有夜盤 → 日盤轉換新報價。</div>
 
 <h3>📊 大盤加權技術面（06/11 收盤為基準）</h3>
 <table>
@@ -500,40 +503,40 @@ td.gray { color: var(--text3); }
 <h3>📌 持股個股分析</h3>
 <table>
 <tr><th>股票</th><th>成本</th><th>現價</th><th>停損</th><th>TP1</th><th>TP2</th><th>TP3</th><th>狀態</th></tr>
-<tr><td><strong>6153</strong> 嘉聯益 <small>(11張)</small></td><td class="n">20.63</td><td class="n up"><strong>22.3</strong></td><td class="n">19.58</td><td class="n">26.34</td><td class="n">26.86</td><td class="n">27.38</td><td><span class="badge badge-green">🟢 持有中</span></td></tr>
-<tr><td><strong>2349</strong> 錸德 <small>(1張)</small></td><td class="n">15.1</td><td class="n down"><strong>13.45</strong></td><td class="n">14.35</td><td class="n">18.51</td><td class="n">18.82</td><td class="n">19.13</td><td><span class="badge badge-red">🔴 已觸及停損</span></td></tr>
+<tr><td><strong>6153</strong> 嘉聯益 <small>(11張)</small></td><td class="n">20.63</td><td class="n up"><strong>22.25</strong></td><td class="n">19.58</td><td class="n">26.34</td><td class="n">26.86</td><td class="n">27.38</td><td><span class="badge badge-green">🟢 持有中</span></td></tr>
+<tr><td><strong>2349</strong> 錸德 <small>(1張)</small></td><td class="n">15.1</td><td class="n down"><strong>13.35</strong></td><td class="n">14.35</td><td class="n">18.51</td><td class="n">18.82</td><td class="n">19.13</td><td><span class="badge badge-red">🔴 已觸及停損</span></td></tr>
 <tr><td><strong>1301</strong> 台塑 <small>(15張)</small></td><td class="n">54.18</td><td class="n down"><strong>45.25</strong></td><td class="n">48.76</td><td class="n">62.08</td><td class="n">62.8</td><td class="n">63.51</td><td><span class="badge badge-red">🔴 已觸及停損</span></td></tr>
-<tr><td><strong>2609</strong> 陽明 <small>(1張)</small></td><td class="n">55.15</td><td class="n down"><strong>52.6</strong></td><td class="n">52.39</td><td class="n">60.82</td><td class="n">61.33</td><td class="n">61.85</td><td><span class="badge badge-yellow">⚠️ 低於成本</span></td></tr>
-<tr><td><strong>00637L</strong> 元大滬深300正2 <small>(11張)</small></td><td class="n">13.9</td><td class="n up"><strong>21.41</strong></td><td class="n">10.5</td><td class="n">17.64</td><td class="n">17.98</td><td class="n">18.32</td><td><span class="badge badge-green">🟢 達停利 (>20%)</span></td></tr>
-<tr><td><strong>00882</strong> 中信中國高股息 <small>(15張)</small></td><td class="n">12.51</td><td class="n up"><strong>16.07</strong></td><td class="n">10.5</td><td class="n">14.72</td><td class="n">14.92</td><td class="n">15.12</td><td><span class="badge badge-green">🟢 達停利 (>20%)</span></td></tr>
-<tr><td><strong>2009</strong> 第一銅 <small>(1張)</small></td><td class="n">39.08</td><td class="n up"><strong>40.05</strong></td><td class="n">37.0</td><td class="n">41.0</td><td class="n">45.0</td><td class="n">50.0</td><td><span class="badge badge-green">🟢 持有中</span></td></tr>
+<tr><td><strong>2609</strong> 陽明 <small>(1張)</small></td><td class="n">55.15</td><td class="n down"><strong>52.4</strong></td><td class="n">52.39</td><td class="n">60.82</td><td class="n">61.33</td><td class="n">61.85</td><td><span class="badge badge-yellow">⚠️ 低於成本</span></td></tr>
+<tr><td><strong>00637L</strong> 元大滬深300正2 <small>(11張)</small></td><td class="n">13.9</td><td class="n up"><strong>21.5</strong></td><td class="n">10.5</td><td class="n">17.64</td><td class="n">17.98</td><td class="n">18.32</td><td><span class="badge badge-green">🟢 達停利 (>20%)</span></td></tr>
+<tr><td><strong>00882</strong> 中信中國高股息 <small>(15張)</small></td><td class="n">12.51</td><td class="n up"><strong>16.06</strong></td><td class="n">10.5</td><td class="n">14.72</td><td class="n">14.92</td><td class="n">15.12</td><td><span class="badge badge-green">🟢 達停利 (>20%)</span></td></tr>
+<tr><td><strong>2009</strong> 第一銅 <small>(1張)</small></td><td class="n">39.08</td><td class="n up"><strong>40.0</strong></td><td class="n">37.0</td><td class="n">41.0</td><td class="n">45.0</td><td class="n">50.0</td><td><span class="badge badge-green">🟢 持有中</span></td></tr>
 
 </table>
 
 <h3>👀 觀察名單</h3>
 <table>
 <tr><th>股票</th><th>現價</th><th>觀察原因</th><th>進場條件</th><th>狀態</th></tr>
-<tr><td>2409 友達</td><td>23.7</td><td>2026-04-02 賣出 @ 17.05；6/4 漲停 +9.94%，BIAS5 過熱</td><td>拉回 5日線（27.x）有撐再考慮</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
-<tr><td>2887 台新新光金</td><td>30.2</td><td>金融併購題材</td><td>等回測 5日線有撐</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
-<tr><td>3062 建漢</td><td>25.55</td><td>網通/工業電腦</td><td>技術面轉多再進場</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
-<tr><td>3481 群創</td><td>48.9</td><td>面板/光電</td><td>法人轉買再進場</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
-<tr><td>3545 敦泰</td><td>54.3</td><td>觸控 IC</td><td>等技術面翻多</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
-<tr><td>3645 達邁</td><td>91.1</td><td>PI 膜，法人外本由負轉正</td><td>等回測 5日線（82-83）有撐再考慮</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
-<tr><td>6239 力成</td><td>353.0</td><td>封測</td><td>等技術面轉多</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
+<tr><td>2409 友達</td><td>23.5</td><td>2026-04-02 賣出 @ 17.05；6/4 漲停 +9.94%，BIAS5 過熱</td><td>拉回 5日線（27.x）有撐再考慮</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
+<tr><td>2887 台新新光金</td><td>30.25</td><td>金融併購題材</td><td>等回測 5日線有撐</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
+<tr><td>3062 建漢</td><td>25.5</td><td>網通/工業電腦</td><td>技術面轉多再進場</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
+<tr><td>3481 群創</td><td>48.65</td><td>面板/光電</td><td>法人轉買再進場</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
+<tr><td>3545 敦泰</td><td>54.1</td><td>觸控 IC</td><td>等技術面翻多</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
+<tr><td>3645 達邁</td><td>90.8</td><td>PI 膜，法人外本由負轉正</td><td>等回測 5日線（82-83）有撐再考慮</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
+<tr><td>6239 力成</td><td>347.0</td><td>封測</td><td>等技術面轉多</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
 <tr><td>6770 力積電</td><td>67.5</td><td>DRAM</td><td>等法人買盤</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
-<tr><td>7866 丹立</td><td>200.0</td><td>散熱</td><td>等技術面轉多</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
-<tr><td>3653 健策</td><td>3690.0</td><td>散熱元件/連接器</td><td>等回測有撐</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
-<tr><td>3017 奇鋐</td><td>2425.0</td><td>散熱風扇/機殼</td><td>等技術面轉多</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
-<tr><td>3324 雙鴻</td><td>1060.0</td><td>散熱模組大廠</td><td>等回測有撐</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
-<tr><td>2881 富邦金</td><td>121.0</td><td>金融</td><td>等技術面轉多</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
-<tr><td>00631L 元大台灣50正2</td><td>34.96</td><td>槓桿型 ETF</td><td>等大盤轉多</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
-<tr><td>6147 頎邦</td><td>225.0</td><td>驅動 IC 封測</td><td>等技術面轉多</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
+<tr><td>7866 丹立</td><td>199.0</td><td>散熱</td><td>等技術面轉多</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
+<tr><td>3653 健策</td><td>3685.0</td><td>散熱元件/連接器</td><td>等回測有撐</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
+<tr><td>3017 奇鋐</td><td>2420.0</td><td>散熱風扇/機殼</td><td>等技術面轉多</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
+<tr><td>3324 雙鴻</td><td>1050.0</td><td>散熱模組大廠</td><td>等回測有撐</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
+<tr><td>2881 富邦金</td><td>121.5</td><td>金融</td><td>等技術面轉多</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
+<tr><td>00631L 元大台灣50正2</td><td>34.8</td><td>槓桿型 ETF</td><td>等大盤轉多</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
+<tr><td>6147 頎邦</td><td>224.0</td><td>驅動 IC 封測</td><td>等技術面轉多</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
 
 </table>
 
 <div class="highlight-box">
   <h4>📋 Nova 持股策略建議</h4>
-  • <strong>6153 嘉聯益：</strong>現價 22.3 高於成本 20.63，<strong>持有中</strong>。停利目標 TP1=26.34。<br>• <strong>2349 錸德：</strong>現價 13.45 已觸及停損 14.35，<strong>應嚴格執行停損</strong>。等待止跌訊號再評估是否重新進場。<br>• <strong>1301 台塑：</strong>現價 45.25 已觸及停損 48.76，<strong>應嚴格執行停損</strong>。等待止跌訊號再評估是否重新進場。<br>• <strong>2609 陽明：</strong>現價 52.6 低於成本 55.15，<strong>耐心持有</strong>，注意支撐。<br>• <strong>00637L 元大滬深300正2：</strong>現價 21.41 已達停利區（>成本 20%），<strong>可考慮部分獲利了結</strong>。停利目標 TP1=17.64。<br>• <strong>00882 中信中國高股息：</strong>現價 16.07 已達停利區（>成本 20%），<strong>可考慮部分獲利了結</strong>。停利目標 TP1=14.72。<br>• <strong>2009 第一銅：</strong>現價 40.05 高於成本 39.08，<strong>持有中</strong>。停利目標 TP1=41.0。
+  • <strong>6153 嘉聯益：</strong>現價 22.25 高於成本 20.63，<strong>持有中</strong>。停利目標 TP1=26.34。<br>• <strong>2349 錸德：</strong>現價 13.35 已觸及停損 14.35，<strong>應嚴格執行停損</strong>。等待止跌訊號再評估是否重新進場。<br>• <strong>1301 台塑：</strong>現價 45.25 已觸及停損 48.76，<strong>應嚴格執行停損</strong>。等待止跌訊號再評估是否重新進場。<br>• <strong>2609 陽明：</strong>現價 52.4 低於成本 55.15，<strong>耐心持有</strong>，注意支撐。<br>• <strong>00637L 元大滬深300正2：</strong>現價 21.5 已達停利區（>成本 20%），<strong>可考慮部分獲利了結</strong>。停利目標 TP1=17.64。<br>• <strong>00882 中信中國高股息：</strong>現價 16.06 已達停利區（>成本 20%），<strong>可考慮部分獲利了結</strong>。停利目標 TP1=14.72。<br>• <strong>2009 第一銅：</strong>現價 40.0 高於成本 39.08，<strong>持有中</strong>。停利目標 TP1=41.0。
 </div>
 
 <!-- =========================================== -->
@@ -622,7 +625,7 @@ td.gray { color: var(--text3); }
 </div>
 
 <div class="footer">
-  報告生成：2026/06/12 13:10 (Asia/Taipei) | 統一資料源：2026/06/12 美股收盤
+  報告生成：2026/06/12 13:30 (Asia/Taipei) | 統一資料源：2026/06/12 美股收盤
 </div>
 
 </div>
