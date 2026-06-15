@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>嘉聯益 6153 技術分析模塊圖 v2.0</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap');
+* { box-sizing:border-box; margin:0; padding:0; }
+body {
+  background:#f9fafb;
+  color:#111827;
+  font-family:'Inter','Noto Sans TC',sans-serif;
+  font-size:15px;
+  padding:20px 16px;
+  -webkit-font-smoothing:antialiased;
+}
+.header {
+  display:flex; align-items:center; gap:16px;
+  background:#fff; border:1px solid #e5e7eb; border-radius:10px;
+  padding:14px 20px; flex-wrap:wrap;
+  box-shadow:0 1px 3px rgba(0,0,0,0.06);
+}
+.header-title { font-size:22px; font-weight:700; color:#111827; letter-spacing:-0.3px; }
+.header-code  { font-size:22px; font-weight:700; color:#635bff; margin-left:4px; letter-spacing:-0.3px; }
+.header-sub   { font-size:14px; font-weight:400; color:#6b7280; margin-left:6px; }
+.header-spacer { flex:1; }
+.hitem { display:flex; flex-direction:column; align-items:center; gap:2px; min-width:52px; }
+.hitem .label { font-size:11px; color:#9ca3af; letter-spacing:0.3px; text-transform:uppercase; }
+.hitem .val   { font-size:15px; font-weight:600; }
+.price-now  { color:#ef4444; }
+.time-val   { color:#6b7280; }
+.c-y  { color:#635bff; }
+.c-b  { color:#3b82f6; }
+.c-p  { color:#8b5cf6; }
+.c-o  { color:#f97316; }
+.main-grid { display:grid; grid-template-columns:minmax(0,1fr); gap:16px; margin:16px auto 0; }
+.panel {
+  background:#fff;
+  border:1px solid #e5e7eb;
+  border-radius:10px;
+  padding:20px;
+  box-shadow:0 1px 3px rgba(0,0,0,0.04);
+}
+.panel-title {
+  font-size:14px; font-weight:600; color:#111827;
+  padding:0 0 12px 0;
+  border-bottom:1.5px solid #f3f4f6;
+  margin-bottom:14px;
+  letter-spacing:-0.1px;
+  display:flex; align-items:center; gap:8px;
+}
+.panel-title::before {
+  content:'';
+  display:inline-block;
+  width:3px; height:15px; background:#635bff;
+  border-radius:2px; flex-shrink:0;
+}
+.indicator-label {
+  font-size:12px; color:#9ca3af;
+  padding:5px 10px; background:#f9fafb;
+  border-radius:4px;
+  display:flex; gap:12px;
+  align-items:center; flex-wrap:wrap; margin-bottom:4px;
+}
+.ind-val { font-weight:600; }
+.chart-wrap { position:relative; width:100%; }
+.chart-container { width:100%; }
+
+/* ── Tooltip (附圖風格) ── */
+.tt-box {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  width: 158px;
+  background: #1f2937;
+  color: #f3f4f6;
+  border-radius: 7px;
+  padding: 8px 12px;
+  font-size: 12px;
+  line-height: 1.8;
+  pointer-events: none;
+  z-index: 100;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.22), 0 0 0 1px rgba(255,255,255,0.06);
+  border: 1px solid #374151;
+  display: none;
+}
+.tt-box.active { display: block; }
+.tt-date {
+  font-size: 13px; font-weight: 700; color: #f9fafb;
+  margin-bottom: 5px; padding-bottom: 5px;
+  border-bottom: 1px solid #374151;
+  letter-spacing: -0.2px;
+}
+.tt-row { display:flex; justify-content:space-between; gap:16px; }
+.tt-lbl { color: #9ca3af; font-size: 12px; }
+.tt-val { font-weight: 600; font-size: 12px; }
+.tv-red    { color:#f87171; }
+.tv-green  { color:#34d399; }
+.tv-yellow { color:#FFFF54; }
+.tv-blue   { color:#E832F5; }
+.tv-purple { color:#74F9FB; }
+.tv-orange { color:#fb923c; }
+
+.tech-conclusion {
+  background:#f9fafb; border-radius:8px; padding:14px 18px;
+  font-size:16px; color:#374151; border-left:3px solid #635bff;
+  display:flex; align-items:flex-start; gap:10px;
+  margin-top:4px; line-height:1.7;
+}
+.tech-conclusion .icon { font-size:17px; flex-shrink:0; margin-top:1px; }
+.footer {
+  text-align:center; font-size:12px; color:#9ca3af;
+  padding:16px; margin-top:8px; letter-spacing:0.2px;
+}
+
+/* TradingView attribution - shrink & fade */
+#tv-attr-logo {
+  transform: scale(0.5) !important;
+  transform-origin: left bottom !important;
+  opacity: 0.25 !important;
+  filter: grayscale(1) !important;
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <span class="header-title">嘉聯益</span>
+  <span class="header-code">6153</span>
+  <span class="header-sub">技術分析模塊圖 v2.0</span>
+  <div class="header-spacer"></div>
+  <div class="hitem"><span class="label">收盤價</span><span class="val price-now">24.45</span></div>
+  <div class="hitem"><span class="label">MA5</span><span class="val c-y">21.65</span></div>
+  <div class="hitem"><span class="label">MA20</span><span class="val c-b">19.35</span></div>
+  <div class="hitem"><span class="label">MA60</span><span class="val c-p">18.20</span></div>
+  <div class="hitem"><span class="label">RSI</span><span class="val c-y">75.33</span></div>
+  <div class="hitem"><span class="label">BB(20)</span><span class="val c-o">22.70</span></div>
+  <div class="hitem"><span class="label">BIAS5</span><span class="val c-y">12.93%</span></div>
+  <div class="hitem"><span class="label">更新</span><span class="val time-val">06-15</span></div>
+</div>
+
+<div class="main-grid">
+
+  <!-- 一、K線 -->
+  <div class="panel">
+    <div class="panel-title">一、K線 + 均線（MA5 / MA20 / MA60）+ 布林通道（20,2）</div>
+    <div class="indicator-label">
+      <span class="c-y" >K線</span>
+      <span style="color:#FFF759">MA5 <span class="ind-val" id="lbl-ma5">--</span></span>
+      <span style="color:#E832F5">MA20 <span class="ind-val" id="lbl-ma20">--</span></span>
+      <span style="color:#74F9FB">MA60 <span class="ind-val" id="lbl-ma60">--</span></span>
+      <span class="c-o">UB <span class="ind-val" id="lbl-ub">--</span></span>
+      <span class="c-o">LB <span class="ind-val" id="lbl-lb">--</span></span>
+      <span style="margin-left:auto;color:#404040;font-size:14px;">日K · 近 60 交易日</span>
+    </div>
+    <div class="chart-wrap">
+      <div id="kline-chart" class="chart-container" style="height:320px;"></div>
+      <div class="tt-box" id="tt-kline">
+        <div class="tt-date" id="tt-kline-date"></div>
+        <div id="tt-kline-body"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 二、成交量 -->
+  <div class="panel">
+    <div class="panel-title">二、成交量（近60日）</div>
+    <div class="indicator-label">
+      <span style="color:#ef4444">紅漲綠跌</span>
+      <span id="lbl-vol-wrap" class="c-y" style="display:none;">成交量 <span class="ind-val" id="lbl-vol">--</span></span>
+      <span style="margin-left:auto;color:#404040;font-size:14px;">單位：張</span>
+    </div>
+    <div class="chart-wrap">
+      <div id="vol-chart" class="chart-container" style="height:140px;"></div>
+      <div class="tt-box" id="tt-vol">
+        <div class="tt-date" id="tt-vol-date"></div>
+        <div id="tt-vol-body"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 三、KD -->
+  <div class="panel">
+    <div class="panel-title">三、KD 隨機指標（9,3,3）</div>
+    <div class="indicator-label">
+      <span class="c-y">K <span class="ind-val" id="lbl-k">--</span></span>
+      <span class="c-b">D <span class="ind-val" id="lbl-d">--</span></span>
+      <span style="margin-left:auto;color:#404040;font-size:14px;">黃色=K，藍色=D，紅線=80 超買參考</span>
+    </div>
+    <div class="chart-wrap">
+      <div id="kd-chart" class="chart-container" style="height:160px;"></div>
+      <div class="tt-box" id="tt-kd">
+        <div class="tt-date" id="tt-kd-date"></div>
+        <div id="tt-kd-body"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 四、RSI -->
+  <div class="panel">
+    <div class="panel-title">四、RSI 相對強弱指標（14）</div>
+    <div class="indicator-label">
+      <span class="c-y">RSI(14) <span class="ind-val" id="lbl-rsi">--</span></span>
+      <span style="color:#ef4444">超買70</span>
+      <span style="color:#10b981">超賣30</span>
+      <span style="margin-left:auto;color:#404040;font-size:14px;">虛線：30/50/70參考線</span>
+    </div>
+    <div class="chart-wrap">
+      <div id="rsi-chart" class="chart-container" style="height:160px;"></div>
+      <div class="tt-box" id="tt-rsi">
+        <div class="tt-date" id="tt-rsi-date"></div>
+        <div id="tt-rsi-body"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 五、MACD -->
+  <div class="panel">
+    <div class="panel-title">五、MACD 指標（12,26,9）</div>
+    <div class="indicator-label">
+      <span class="c-y">DIF <span class="ind-val" id="lbl-dif">--</span></span>
+      <span class="c-b">DEA <span class="ind-val" id="lbl-dea">--</span></span>
+      <span id="lbl-macd-wrap" style="color:#ef4444">MACD <span class="ind-val" id="lbl-macd">--</span></span>
+      <span style="margin-left:auto;color:#404040;font-size:14px;">柱= DIF-DEA，紅漲綠跌</span>
+    </div>
+    <div class="chart-wrap">
+      <div id="macd-chart" class="chart-container" style="height:160px;"></div>
+      <div class="tt-box" id="tt-macd">
+        <div class="tt-date" id="tt-macd-date"></div>
+        <div id="tt-macd-body"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 六、BIAS -->
+  <div class="panel">
+    <div class="panel-title">六、乖離率 BIAS</div>
+    <div class="indicator-label">
+      <span id="lbl-bias5-wrap" class="c-y">BIAS5 <span class="ind-val" id="lbl-bias5">--</span></span>
+      <span id="lbl-bias20-wrap" class="c-b">BIAS20 <span class="ind-val" id="lbl-bias20">--</span></span>
+      <span style="color:#f97316">+10%</span>
+      <span style="color:#f97316">+5%</span>
+      <span style="color:#10b981">-5%</span>
+      <span style="color:#10b981">-10%</span>
+      <span style="margin-left:auto;color:#404040;font-size:14px;">偏離MA5/MA20的程度</span>
+    </div>
+    <div class="chart-wrap">
+      <div id="bias-chart" class="chart-container" style="height:160px;"></div>
+      <div class="tt-box" id="tt-bias">
+        <div class="tt-date" id="tt-bias-date"></div>
+        <div id="tt-bias-body"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 七、結論 -->
+  <div class="panel">
+    <div class="panel-title">七、技術面結論</div>
+    <div class="tech-conclusion">
+      <span class="icon">📊</span>
+      <span>05-11 收漲。股價(18.85)高於MA20(18.35)，MA5(18.19)短線向上。K(65.65)攀升、D(50.02)跟進。RSI(46.49)中性。MACD DIF(0.3123) DEA(0.3525)柱(負值)，整體偏震盪。</span>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">Nova 技術分析模塊圖 v2.0 | 嘉聯益 (6153) | Yahoo Finance | 2026-03-19 ~ 2026-06-15 | 僅供參考，不構成投資建議</div>
+
+<script src="https://unpkg.com/lightweight-charts@5.0.0/dist/lightweight-charts.standalone.production.js"></script>
+<script>
+(function(){
+var L = LightweightCharts;
+
+var COMMON = {
+  layout: { background: { color: '#fff' }, textColor: '#374151' },
+  crosshair: { mode: 1 },
+  grid: { vertLines: { color: '#f3f4f6' }, horzLines: { color: '#f3f4f6' } },
+  timeScale: { borderColor: '#e5e7eb', timeVisible: false, rightOffset: 0, fixLeftEdge: true, fixRightEdge: true },
+  rightPriceScale: { borderColor: '#e5e7eb' },
+  handleScroll: { mouseWheel: false, pressedMouseMove: true },
+  handleScale:  { mouseWheel: false, axisPressedMouseMove: true }
+};
+
+function mkChart(id, h) {
+  var el = document.getElementById(id);
+  if (!el) return null;
+  var cfg = Object.assign({}, COMMON, { width: el.clientWidth || 860, height: h });
+  return L.createChart(el, cfg);
+}
+
+/* ── DATA ── */
+var klineData  = [{"time":"2026-03-19","open":17.3,"high":17.55,"low":17.1,"close":17.1},{"time":"2026-03-20","open":17.15,"high":17.6,"low":16.95,"close":17.05},{"time":"2026-03-23","open":16.7,"high":17.55,"low":16.5,"close":16.8},{"time":"2026-03-24","open":17.2,"high":17.3,"low":16,"close":16.25},{"time":"2026-03-25","open":16.6,"high":16.8,"low":16.5,"close":16.55},{"time":"2026-03-26","open":16.75,"high":17,"low":16.35,"close":16.35},{"time":"2026-03-27","open":16.2,"high":17.2,"low":16.15,"close":17.2},{"time":"2026-03-30","open":16.85,"high":17.1,"low":16.5,"close":16.55},{"time":"2026-03-31","open":16.5,"high":16.65,"low":15.85,"close":15.85},{"time":"2026-04-01","open":16.45,"high":16.8,"low":16.15,"close":16.2},{"time":"2026-04-02","open":16.4,"high":16.8,"low":16.1,"close":16.2},{"time":"2026-04-07","open":16.45,"high":16.5,"low":15.7,"close":15.8},{"time":"2026-04-08","open":16.25,"high":17.35,"low":16.25,"close":17.35},{"time":"2026-04-09","open":17.45,"high":17.75,"low":16.9,"close":17.5},{"time":"2026-04-10","open":17.55,"high":17.9,"low":17,"close":17.05},{"time":"2026-04-13","open":17.1,"high":17.8,"low":17.1,"close":17.45},{"time":"2026-04-14","open":17.7,"high":18.2,"low":17.35,"close":17.45},{"time":"2026-04-15","open":17.6,"high":17.85,"low":17.4,"close":17.65},{"time":"2026-04-16","open":17.9,"high":17.9,"low":17.4,"close":17.45},{"time":"2026-04-17","open":17.55,"high":18.8,"low":17.45,"close":18.75},{"time":"2026-04-20","open":19.4,"high":19.6,"low":18.1,"close":18.8},{"time":"2026-04-21","open":19,"high":20.65,"low":18.9,"close":20.65},{"time":"2026-04-22","open":21.6,"high":21.8,"low":19.55,"close":19.7},{"time":"2026-04-23","open":19.95,"high":20,"low":17.8,"close":18.55},{"time":"2026-04-24","open":18.6,"high":19.3,"low":18.55,"close":18.55},{"time":"2026-04-27","open":18.6,"high":18.8,"low":17.55,"close":17.9},{"time":"2026-04-28","open":18,"high":18.3,"low":17.6,"close":18.1},{"time":"2026-04-29","open":17.9,"high":18.3,"low":17.65,"close":17.75},{"time":"2026-04-30","open":17.8,"high":18.4,"low":17.7,"close":17.95},{"time":"2026-05-04","open":18.2,"high":18.85,"low":18,"close":18},{"time":"2026-05-05","open":18.15,"high":18.7,"low":18,"close":18.65},{"time":"2026-05-06","open":19.5,"high":19.5,"low":18.25,"close":18.55},{"time":"2026-05-07","open":19.05,"high":19.6,"low":18.6,"close":18.95},{"time":"2026-05-08","open":19,"high":19.2,"low":18.1,"close":18.35},{"time":"2026-05-11","open":18.7,"high":19.05,"low":18,"close":18.05},{"time":"2026-05-12","open":18.1,"high":18.85,"low":18,"close":18.45},{"time":"2026-05-13","open":18.5,"high":18.5,"low":17.6,"close":17.7},{"time":"2026-05-14","open":17.8,"high":18.1,"low":17.6,"close":17.8},{"time":"2026-05-15","open":17.95,"high":18.1,"low":16.7,"close":16.8},{"time":"2026-05-18","open":16.7,"high":17.35,"low":16.3,"close":17.3},{"time":"2026-05-19","open":17.3,"high":18,"low":17.15,"close":17.7},{"time":"2026-05-20","open":18,"high":18.1,"low":17.3,"close":17.55},{"time":"2026-05-21","open":17.9,"high":18.65,"low":17.75,"close":18.35},{"time":"2026-05-22","open":18.75,"high":19.6,"low":18.4,"close":19.35},{"time":"2026-05-25","open":20,"high":20,"low":19.1,"close":19.1},{"time":"2026-05-26","open":19.2,"high":19.35,"low":18.35,"close":18.55},{"time":"2026-05-27","open":18.85,"high":19,"low":18,"close":18.25},{"time":"2026-05-28","open":18.6,"high":19,"low":17.4,"close":17.6},{"time":"2026-05-29","open":17.85,"high":18.05,"low":17.7,"close":17.9},{"time":"2026-06-01","open":18.1,"high":18.9,"low":17.95,"close":18.5},{"time":"2026-06-02","open":18.75,"high":19.3,"low":18.35,"close":19},{"time":"2026-06-03","open":19.15,"high":19.65,"low":18.85,"close":19.6},{"time":"2026-06-04","open":19.25,"high":19.45,"low":18.4,"close":18.45},{"time":"2026-06-05","open":18.5,"high":18.7,"low":17.75,"close":18.5},{"time":"2026-06-08","open":16.9,"high":20.35,"low":16.85,"close":20.35},{"time":"2026-06-09","open":21,"high":21.2,"low":19.85,"close":20.5},{"time":"2026-06-10","open":20.8,"high":22.55,"low":20.6,"close":20.75},{"time":"2026-06-11","open":21.1,"high":21.1,"low":19.9,"close":20.3},{"time":"2026-06-12","open":20.7,"high":22.3,"low":20.7,"close":22.25},{"time":"2026-06-15","open":23.35,"high":24.45,"low":23.05,"close":24.45}];
+var ma5Data    = [17.05,17.09,17.13,16.93,16.75,16.6,16.63,16.58,16.5,16.43,16.4,16.12,16.28,16.61,16.78,17.03,17.36,17.42,17.41,17.75,18.02,18.66,19.07,19.29,19.25,19.07,18.56,18.17,18.05,17.94,18.09,18.18,18.42,18.5,18.51,18.47,18.3,18.07,17.76,17.61,17.46,17.43,17.54,18.05,18.41,18.58,18.72,18.57,18.28,18.16,18.25,18.52,18.69,18.81,19.18,19.48,19.71,20.08,20.83,21.65];
+var ma20Data   = [16.19,16.25,16.31,16.29,16.27,16.29,16.32,16.33,16.32,16.39,16.44,16.45,16.6,16.68,16.72,16.77,16.8,16.85,16.86,16.93,17.01,17.19,17.34,17.45,17.55,17.63,17.68,17.74,17.84,17.93,18.05,18.19,18.27,18.31,18.36,18.41,18.43,18.43,18.4,18.33,18.27,18.12,18.05,18.09,18.12,18.15,18.16,18.15,18.15,18.17,18.19,18.24,18.22,18.23,18.34,18.44,18.59,18.72,18.99,19.35];
+var ma60Data   = [15.91,15.94,15.96,15.98,16,16.03,16.06,16.08,16.09,16.1,16.11,16.11,16.15,16.19,16.23,16.27,16.3,16.33,16.37,16.43,16.48,16.57,16.64,16.68,16.73,16.75,16.79,16.81,16.84,16.86,16.86,16.88,16.93,16.97,16.99,17.04,17.06,17.08,17.09,17.12,17.16,17.19,17.23,17.28,17.31,17.36,17.39,17.41,17.44,17.5,17.56,17.63,17.7,17.74,17.81,17.88,17.94,18,18.09,18.2];
+var bbUpData   = [17.74,17.83,17.88,17.86,17.81,17.83,17.9,17.92,17.91,17.84,17.78,17.77,17.6,17.69,17.73,17.82,17.89,18,18.02,18.34,18.64,19.46,19.85,19.96,20.07,20.09,20.14,20.15,20.09,20.05,20.03,19.89,19.95,19.96,19.91,19.9,19.89,19.88,19.96,19.95,19.9,19.35,19.06,19.23,19.33,19.37,19.38,19.38,19.38,19.41,19.46,19.65,19.59,19.61,20,20.35,20.71,20.93,21.51,22.7];
+var bbMidData  = [16.19,16.25,16.31,16.29,16.27,16.29,16.32,16.33,16.32,16.39,16.44,16.45,16.6,16.68,16.72,16.77,16.8,16.85,16.86,16.93,17.01,17.19,17.34,17.45,17.55,17.63,17.68,17.74,17.84,17.93,18.05,18.19,18.27,18.31,18.36,18.41,18.43,18.43,18.4,18.33,18.27,18.12,18.05,18.09,18.12,18.15,18.16,18.15,18.15,18.17,18.19,18.24,18.22,18.23,18.34,18.44,18.59,18.72,18.99,19.35];
+var bbLoData   = [14.64,14.67,14.74,14.72,14.73,14.75,14.74,14.74,14.73,14.94,15.1,15.13,15.6,15.67,15.71,15.72,15.71,15.7,15.7,15.52,15.38,14.92,14.83,14.94,15.03,15.17,15.22,15.33,15.59,15.81,16.07,16.49,16.59,16.66,16.81,16.92,16.97,16.98,16.84,16.71,16.64,16.89,17.04,16.95,16.91,16.93,16.94,16.92,16.92,16.93,16.92,16.83,16.85,16.85,16.68,16.53,16.47,16.51,16.47,16];
+var volData    = [{"time":"2026-03-19","value":4067976,"color":"rgba(239,68,68,0.6)"},{"time":"2026-03-20","value":5972962,"color":"rgba(16,185,129,0.6)"},{"time":"2026-03-23","value":6245729,"color":"rgba(16,185,129,0.6)"},{"time":"2026-03-24","value":5925842,"color":"rgba(16,185,129,0.6)"},{"time":"2026-03-25","value":2578464,"color":"rgba(239,68,68,0.6)"},{"time":"2026-03-26","value":2297892,"color":"rgba(16,185,129,0.6)"},{"time":"2026-03-27","value":5130078,"color":"rgba(239,68,68,0.6)"},{"time":"2026-03-30","value":3846172,"color":"rgba(16,185,129,0.6)"},{"time":"2026-03-31","value":4430896,"color":"rgba(16,185,129,0.6)"},{"time":"2026-04-01","value":2548708,"color":"rgba(239,68,68,0.6)"},{"time":"2026-04-02","value":2215112,"color":"rgba(239,68,68,0.6)"},{"time":"2026-04-07","value":3603053,"color":"rgba(16,185,129,0.6)"},{"time":"2026-04-08","value":8104941,"color":"rgba(239,68,68,0.6)"},{"time":"2026-04-09","value":7241319,"color":"rgba(239,68,68,0.6)"},{"time":"2026-04-10","value":4714529,"color":"rgba(16,185,129,0.6)"},{"time":"2026-04-13","value":5299333,"color":"rgba(239,68,68,0.6)"},{"time":"2026-04-14","value":6624249,"color":"rgba(239,68,68,0.6)"},{"time":"2026-04-15","value":4532995,"color":"rgba(239,68,68,0.6)"},{"time":"2026-04-16","value":3234258,"color":"rgba(16,185,129,0.6)"},{"time":"2026-04-17","value":11729222,"color":"rgba(239,68,68,0.6)"},{"time":"2026-04-20","value":10834011,"color":"rgba(239,68,68,0.6)"},{"time":"2026-04-21","value":16248584,"color":"rgba(239,68,68,0.6)"},{"time":"2026-04-22","value":32604676,"color":"rgba(16,185,129,0.6)"},{"time":"2026-04-23","value":14600739,"color":"rgba(16,185,129,0.6)"},{"time":"2026-04-24","value":7879722,"color":"rgba(239,68,68,0.6)"},{"time":"2026-04-27","value":6289249,"color":"rgba(16,185,129,0.6)"},{"time":"2026-04-28","value":3330971,"color":"rgba(239,68,68,0.6)"},{"time":"2026-04-29","value":3103486,"color":"rgba(16,185,129,0.6)"},{"time":"2026-04-30","value":3883010,"color":"rgba(239,68,68,0.6)"},{"time":"2026-05-04","value":5010379,"color":"rgba(239,68,68,0.6)"},{"time":"2026-05-05","value":3606384,"color":"rgba(239,68,68,0.6)"},{"time":"2026-05-06","value":7365560,"color":"rgba(16,185,129,0.6)"},{"time":"2026-05-07","value":7216175,"color":"rgba(239,68,68,0.6)"},{"time":"2026-05-08","value":4713473,"color":"rgba(16,185,129,0.6)"},{"time":"2026-05-11","value":5045466,"color":"rgba(16,185,129,0.6)"},{"time":"2026-05-12","value":5449913,"color":"rgba(239,68,68,0.6)"},{"time":"2026-05-13","value":5309756,"color":"rgba(16,185,129,0.6)"},{"time":"2026-05-14","value":3147233,"color":"rgba(239,68,68,0.6)"},{"time":"2026-05-15","value":5490055,"color":"rgba(16,185,129,0.6)"},{"time":"2026-05-18","value":3213680,"color":"rgba(239,68,68,0.6)"},{"time":"2026-05-19","value":3848813,"color":"rgba(239,68,68,0.6)"},{"time":"2026-05-20","value":3114844,"color":"rgba(16,185,129,0.6)"},{"time":"2026-05-21","value":6847227,"color":"rgba(239,68,68,0.6)"},{"time":"2026-05-22","value":8374600,"color":"rgba(239,68,68,0.6)"},{"time":"2026-05-25","value":6562044,"color":"rgba(16,185,129,0.6)"},{"time":"2026-05-26","value":3943372,"color":"rgba(16,185,129,0.6)"},{"time":"2026-05-27","value":3956745,"color":"rgba(16,185,129,0.6)"},{"time":"2026-05-28","value":6329696,"color":"rgba(16,185,129,0.6)"},{"time":"2026-05-29","value":3175737,"color":"rgba(239,68,68,0.6)"},{"time":"2026-06-01","value":5466643,"color":"rgba(239,68,68,0.6)"},{"time":"2026-06-02","value":7589349,"color":"rgba(239,68,68,0.6)"},{"time":"2026-06-03","value":8903704,"color":"rgba(239,68,68,0.6)"},{"time":"2026-06-04","value":6650242,"color":"rgba(16,185,129,0.6)"},{"time":"2026-06-05","value":4566217,"color":"rgba(239,68,68,0.6)"},{"time":"2026-06-08","value":23052384,"color":"rgba(239,68,68,0.6)"},{"time":"2026-06-09","value":32055976,"color":"rgba(239,68,68,0.6)"},{"time":"2026-06-10","value":52034658,"color":"rgba(239,68,68,0.6)"},{"time":"2026-06-11","value":15746820,"color":"rgba(16,185,129,0.6)"},{"time":"2026-06-12","value":28567537,"color":"rgba(239,68,68,0.6)"},{"time":"2026-06-15","value":21424192,"color":"rgba(239,68,68,0.6)"}];
+var bias5Data  = [0.29,-0.23,-1.93,-4.02,-1.19,-1.51,3.43,-0.18,-3.94,-1.4,-1.22,-1.99,6.57,5.36,1.61,2.47,0.52,1.32,0.23,5.63,4.33,10.66,3.3,-3.84,-3.64,-6.14,-2.48,-2.31,-0.55,0.33,3.1,2.04,2.88,-0.81,-2.49,-0.11,-3.28,-1.49,-5.41,-1.76,1.37,0.69,4.62,7.2,3.75,-0.16,-2.51,-5.22,-2.08,1.87,4.11,5.83,-1.28,-1.65,6.1,5.24,5.28,1.1,6.82,12.93];
+var bias20Data = [5.62,4.92,3,-0.25,1.72,0.37,5.39,1.35,-2.88,-1.16,-1.46,-3.95,4.52,4.92,1.97,4.05,3.87,4.75,3.5,10.75,10.52,20.13,13.61,6.3,5.7,1.53,2.38,0.06,0.62,0.39,3.32,1.98,3.72,0.22,-1.69,0.22,-3.96,-3.42,-8.7,-5.62,-3.12,-3.15,1.66,6.97,5.41,2.2,0.5,-3.03,-1.38,1.82,4.45,7.46,1.26,1.48,10.96,11.17,11.62,8.44,17.17,26.36];
+var rsiData    = [56.37,55.94,53.74,49.16,51.59,49.88,56.47,50.95,45.77,48.58,48.58,45.45,57.01,57.94,54.16,56.86,56.86,58.28,56.28,64.74,65.02,73.44,64.81,56.21,56.21,51.71,52.96,50.5,51.87,52.23,56.73,55.86,58.6,53.26,50.77,53.86,47.79,48.62,41.5,45.78,48.99,47.84,54.02,60.33,58.18,53.65,51.3,46.55,48.9,53.33,56.69,60.39,51.35,51.69,62.17,62.88,64.08,60.3,68.87,75.33];
+var kData      = [85.23,83.6,73.38,55.78,49.93,40.58,52.05,46.16,30.77,27.18,24.98,18.74,45.83,59.82,60.33,66.74,67.83,71.22,70.81,80,78.71,85.81,75.95,60.92,49.6,36.86,29.87,22.21,17.95,15.49,18.96,26.24,40.26,39.85,34.07,36.39,25.92,20.62,14.89,20.03,27.49,32.7,46.65,61.91,66.5,64.6,60.63,52.13,43.53,43.83,49.74,61.36,54.37,52.54,68.36,73.54,71.84,68.07,76.96,84.64];
+var dData      = [76.94,79.16,77.23,70.08,63.36,55.77,54.53,51.74,44.75,38.89,34.26,29.08,34.67,43.05,48.81,54.79,59.13,63.16,65.71,70.47,73.22,77.42,76.93,71.59,64.26,55.13,46.71,38.54,31.68,26.28,23.84,24.64,29.85,33.18,33.48,34.45,31.61,27.94,23.59,22.41,24.1,26.97,33.53,42.99,50.83,55.42,57.15,55.48,51.5,48.94,49.21,53.26,53.63,53.27,58.3,63.38,66.2,66.82,70.2,75.01];
+var difData    = [0.2751,0.2943,0.2859,0.2323,0.2116,0.177,0.2156,0.1916,0.1148,0.0812,0.054,0.0001,0.0815,0.1564,0.1773,0.2237,0.2574,0.2968,0.3084,0.4176,0.5025,0.7108,0.7901,0.7516,0.7127,0.6223,0.5604,0.4776,0.4232,0.3797,0.3932,0.3913,0.4173,0.385,0.3314,0.3175,0.2432,0.1902,0.0668,0.0091,-0.0042,-0.0266,0.02,0.1361,0.2055,0.2137,0.1937,0.1241,0.0919,0.1136,0.1691,0.2587,0.2341,0.2162,0.3472,0.4579,0.5593,0.5965,0.7744,1.0805];
+var deaData    = [0.101,0.1397,0.1689,0.1816,0.1876,0.1855,0.1915,0.1915,0.1762,0.1572,0.1365,0.1093,0.1037,0.1142,0.1269,0.1462,0.1685,0.1941,0.217,0.2571,0.3062,0.3871,0.4677,0.5245,0.5621,0.5742,0.5714,0.5526,0.5268,0.4973,0.4765,0.4595,0.451,0.4378,0.4165,0.3967,0.366,0.3309,0.2781,0.2243,0.1786,0.1375,0.114,0.1184,0.1359,0.1514,0.1599,0.1527,0.1406,0.1352,0.142,0.1653,0.1791,0.1865,0.2186,0.2665,0.325,0.3793,0.4584,0.5828];
+var macdData   = [0.3482,0.3092,0.234,0.1014,0.048,-0.017,0.0482,0.0002,-0.1228,-0.152,-0.165,-0.2184,-0.0444,0.0844,0.1008,0.155,0.1778,0.2054,0.1828,0.321,0.3926,0.6474,0.6448,0.4542,0.3012,0.0962,-0.022,-0.15,-0.2072,-0.2352,-0.1666,-0.1364,-0.0674,-0.1056,-0.1702,-0.1584,-0.2456,-0.2814,-0.4226,-0.4304,-0.3656,-0.3282,-0.188,0.0354,0.1392,0.1246,0.0676,-0.0572,-0.0974,-0.0432,0.0542,0.1868,0.11,0.0594,0.2572,0.3828,0.4686,0.4344,0.632,0.9954];
+var lastClose  = 24.450000762939453;
+
+/* ── HELPERS ── */
+function f2(v)   { return v == null ? '--' : Number(v).toFixed(2); }
+function f4(v)   { return v == null ? '--' : Number(v).toFixed(4); }
+function fVol(v) {
+  if (v == null) return '--';
+  if (v >= 1e8) return (v/1e8).toFixed(2) + '億';
+  if (v >= 1e4) return (v/1e4).toFixed(0) + '萬';
+  return Number(v).toFixed(0);
+}
+function row(lbl, val, cls) {
+  return '<div class="tt-row"><span class="tt-lbl">' + lbl +
+         '</span><span class="tt-val ' + (cls||'') + '">' + val + '</span></div>';
+}
+function showTT(ttId, dateId, bodyId, date, bodyHtml) {
+  var box = document.getElementById(ttId);
+  var d   = document.getElementById(dateId);
+  var b   = document.getElementById(bodyId);
+  if (!box) return;
+  d.textContent = date;
+  b.innerHTML = bodyHtml;
+  box.classList.add('active');
+}
+function hideTT(ttId) {
+  var box = document.getElementById(ttId);
+  if (box) box.classList.remove('active');
+}
+function bindTT(chart, el, ttId, dateId, bodyId, buildHtml) {
+  chart.subscribeCrosshairMove(function(param) {
+    if (!param || !param.time || !param.point) { hideTT(ttId); return; }
+    var idx = klineData.findIndex(function(d) { return d.time === param.time; });
+    if (idx < 0) { hideTT(ttId); return; }
+    var html = buildHtml(idx, param.time);
+    var xRatio = param.point.x / el.clientWidth;
+    showTT(ttId, dateId, bodyId, param.time, html, xRatio);
+  });
+  el.addEventListener('mouseleave', function() { hideTT(ttId); });
+}
+
+/* ── 一、K線 ── */
+var kChart = mkChart('kline-chart', 320);
+if (kChart) {
+  // 布林通道帶狀填色
+  var bbUp = kChart.addSeries(L.AreaSeries, {
+    lineColor:   'rgba(249,115,22,0.9)',
+    topColor:    'rgba(249,115,22,0.10)',
+    bottomColor: 'rgba(249,115,22,0.10)',
+    lineWidth: 1.5,
+    priceLineVisible: false, lastValueVisible: false, crosshairMarkerVisible: false
+  });
+  /* Filter out null BB entries to avoid vertical drop lines */
+  var validBB = klineData.map(function(d,i){ return {time:d.time, value:bbUpData[i]}; }).filter(function(d){ return d.value !== null; });
+  var validBBLo = klineData.map(function(d,i){ return {time:d.time, value:bbLoData[i]}; }).filter(function(d){ return d.value !== null; });
+  bbUp.setData(validBB);
+
+  var bbLo = kChart.addSeries(L.AreaSeries, {
+    lineColor:   'rgba(249,115,22,0.9)',
+    topColor:    'rgba(255,255,255,1)',
+    bottomColor: 'rgba(255,255,255,1)',
+    lineWidth: 1.5,
+    priceLineVisible: false, lastValueVisible: false, crosshairMarkerVisible: false
+  });
+  bbLo.setData(validBBLo);
+
+  var cs = kChart.addSeries(L.CandlestickSeries, {
+    upColor: '#ef4444', downColor: '#10b981',
+    borderVisible: false, wickUpColor: '#ef4444', wickDownColor: '#10b981'
+  });
+  cs.setData(klineData);
+
+  var m5 = kChart.addSeries(L.LineSeries, { color:'#FFFF54', lineWidth:1, priceLineVisible:false });
+  m5.setData(klineData.map(function(d,i){ return {time:d.time, value:ma5Data[i]}; }).filter(function(d){ return d.value !== null; }));
+
+  var m20 = kChart.addSeries(L.LineSeries, { color:'#E832F5', lineWidth:1, priceLineVisible:false });
+  m20.setData(klineData.map(function(d,i){ return {time:d.time, value:ma20Data[i]}; }).filter(function(d){ return d.value !== null; }));
+
+  var m60 = kChart.addSeries(L.LineSeries, { color:'#74F9FB', lineWidth:1, priceLineVisible:false });
+  m60.setData(klineData.map(function(d,i){ return {time:d.time, value:ma60Data[i]}; }).filter(function(d){ return d.value !== null; }));
+
+  cs.createPriceLine({ price:lastClose, color:'#635bff', lineWidth:1, lineStyle:1, axisLabelVisible:true, title:'現價' });
+  kChart.timeScale().fitContent();
+
+  bindTT(kChart, document.getElementById('kline-chart'), 'tt-kline', 'tt-kline-date', 'tt-kline-body',
+    function(i, date) {
+      var d = klineData[i];
+      var prevClose = i > 0 ? klineData[i-1].close : d.open;
+      var cOpen  = d.open  >= prevClose ? 'tv-red' : 'tv-green';
+      var cHigh  = d.high  >= prevClose ? 'tv-red' : 'tv-green';
+      var cLow   = d.low   >= prevClose ? 'tv-red' : 'tv-green';
+      var cClose = d.close >= prevClose ? 'tv-red' : 'tv-green';
+      return row('開盤', f2(d.open),  cOpen)
+           + row('最高', f2(d.high),  cHigh)
+           + row('最低', f2(d.low),   cLow)
+           + row('收盤', f2(d.close), cClose)
+           + row('MA5',  f2(ma5Data[i]),  'tv-yellow')
+           + row('MA20', f2(ma20Data[i]), 'tv-blue')
+           + row('MA60', f2(ma60Data[i]), 'tv-purple')
+           + row('UB',   f2(bbUpData[i]), 'tv-orange')
+           + row('LB',   f2(bbLoData[i]), 'tv-orange');
+    });
+}
+
+/* ── 二、成交量 ── */
+var volChart = mkChart('vol-chart', 140);
+if (volChart) {
+  var vs = volChart.addSeries(L.HistogramSeries, {
+    priceLineVisible: false, priceFormat: { type:'volume' }
+  });
+  var volDataColored = volData.map(function(v, i) {
+    var volNum = (typeof v === 'object') ? v.value : v;
+    var prevClose = i > 0 ? klineData[i-1].close : klineData[i].open;
+    var up = klineData[i].close >= prevClose;
+    return { time: klineData[i].time, value: volNum, color: up ? 'rgba(239,68,68,0.6)' : 'rgba(16,185,129,0.6)' };
+  });
+  vs.setData(volDataColored);
+  volChart.timeScale().fitContent();
+
+  bindTT(volChart, document.getElementById('vol-chart'), 'tt-vol', 'tt-vol-date', 'tt-vol-body',
+    function(i, date) {
+      var v = volData[i];
+      var up = klineData[i].close >= klineData[i].open;
+      var c = up ? 'tv-red' : 'tv-green';
+      return row('成交量', fVol(v), c)
+           + row('收盤價', f2(klineData[i].close), c);
+    });
+}
+
+/* ── 三、KD ── */
+var kdChart = mkChart('kd-chart', 160);
+if (kdChart) {
+  var ks = kdChart.addSeries(L.LineSeries, { color:'#635bff', lineWidth:1, priceLineVisible:false });
+  ks.setData(klineData.map(function(d,i){ return {time:d.time, value:kData[i]}; }));
+
+  var ds = kdChart.addSeries(L.LineSeries, { color:'#3b82f6', lineWidth:1, priceLineVisible:false });
+  ds.setData(klineData.map(function(d,i){ return {time:d.time, value:dData[i]}; }));
+
+  var k80 = kdChart.addSeries(L.LineSeries, { color:'rgba(255,77,109,0.3)', lineWidth:1, priceLineVisible:false });
+  k80.setData(klineData.map(function(d){ return {time:d.time, value:80}; }));
+
+  kdChart.timeScale().fitContent();
+
+  bindTT(kdChart, document.getElementById('kd-chart'), 'tt-kd', 'tt-kd-date', 'tt-kd-body',
+    function(i, date) {
+      return row('K', f2(kData[i]), 'tv-yellow')
+           + row('D', f2(dData[i]), 'tv-blue');
+    });
+}
+
+/* ── 四、RSI ── */
+var rsiChart = mkChart('rsi-chart', 160);
+if (rsiChart) {
+  var rs = rsiChart.addSeries(L.LineSeries, { color:'#635bff', lineWidth:2, priceLineVisible:false });
+  rs.setData(klineData.map(function(d,i){ return {time:d.time, value:rsiData[i]}; }));
+
+  [[70,'rgba(255,77,109,0.3)'],[50,'rgba(255,208,74,0.2)'],[30,'rgba(34,217,108,0.3)']].forEach(function(pair) {
+    var line = rsiChart.addSeries(L.LineSeries, { color:pair[1], lineWidth:1, priceLineVisible:false });
+    line.setData(klineData.map(function(d){ return {time:d.time, value:pair[0]}; }));
+  });
+  rsiChart.timeScale().fitContent();
+
+  bindTT(rsiChart, document.getElementById('rsi-chart'), 'tt-rsi', 'tt-rsi-date', 'tt-rsi-body',
+    function(i, date) {
+      var v = rsiData[i];
+      var cls = v >= 70 ? 'tv-red' : v <= 30 ? 'tv-green' : 'tv-yellow';
+      var zone = v >= 70 ? '超買' : v <= 30 ? '超賣' : '中性';
+      return row('RSI(14)', f2(v), cls)
+           + row('狀態', zone, cls);
+    });
+}
+
+/* ── 五、MACD ── */
+var macdChart = mkChart('macd-chart', 160);
+if (macdChart) {
+  var ms = macdChart.addSeries(L.HistogramSeries, {
+    priceLineVisible: false, priceFormat: { type:'price', precision:4 }
+  });
+  ms.setData(klineData.map(function(d,i) {
+    var v = macdData[i];
+    return { time:d.time, value:v, color: v>=0 ? 'rgba(239,68,68,0.6)' : 'rgba(16,185,129,0.6)' };
+  }));
+
+  var df = macdChart.addSeries(L.LineSeries, { color:'#635bff', lineWidth:1, priceLineVisible:false });
+  df.setData(klineData.map(function(d,i){ return {time:d.time, value:difData[i]}; }));
+
+  var de = macdChart.addSeries(L.LineSeries, { color:'#3b82f6', lineWidth:1, priceLineVisible:false });
+  de.setData(klineData.map(function(d,i){ return {time:d.time, value:deaData[i]}; }));
+
+  macdChart.timeScale().fitContent();
+
+  bindTT(macdChart, document.getElementById('macd-chart'), 'tt-macd', 'tt-macd-date', 'tt-macd-body',
+    function(i, date) {
+      var mv = macdData[i];
+      return row('DIF',  f4(difData[i]),  'tv-yellow')
+           + row('DEA',  f4(deaData[i]),  'tv-blue')
+           + row('MACD', f4(mv), mv >= 0 ? 'tv-red' : 'tv-green');
+    });
+}
+
+/* ── 六、BIAS ── */
+var biasChart = mkChart('bias-chart', 160);
+if (biasChart) {
+  var bs5 = biasChart.addSeries(L.LineSeries, { color:'#635bff', lineWidth:1.5, priceLineVisible:false });
+  bs5.setData(klineData.map(function(d,i){ return {time:d.time, value:bias5Data[i]}; }));
+
+  var bs20 = biasChart.addSeries(L.LineSeries, { color:'#3b82f6', lineWidth:1.5, priceLineVisible:false });
+  bs20.setData(klineData.map(function(d,i){ return {time:d.time, value:bias20Data[i]}; }));
+
+  // 參考線：+10%(橙實線), +5%(橙虛線), -5%(綠虛線), -10%(綠實線)
+  [
+    [10,  '#f97316', 1, 0],
+    [5,   '#f97316', 1, 2],
+    [-5,  '#10b981', 1, 2],
+    [-10, '#10b981', 1, 0]
+  ].forEach(function(pair) {
+    var line = biasChart.addSeries(L.LineSeries, {
+      color: pair[1], lineWidth: pair[2], lineStyle: pair[3],
+      priceLineVisible: false, lastValueVisible: true,
+      crosshairMarkerVisible: false
+    });
+    line.setData(klineData.map(function(d){ return {time:d.time, value:pair[0]}; }));
+  });
+  biasChart.timeScale().fitContent();
+
+  bindTT(biasChart, document.getElementById('bias-chart'), 'tt-bias', 'tt-bias-date', 'tt-bias-body',
+    function(i, date) {
+      var b5 = bias5Data[i], b20 = bias20Data[i];
+      return row('BIAS5',  f2(b5)+'%',  b5  >= 0 ? 'tv-red' : 'tv-green')
+           + row('BIAS20', f2(b20)+'%', b20 >= 0 ? 'tv-red' : 'tv-green');
+    });
+}
+
+/* ── Resize ── */
+window.addEventListener('resize', function() {
+  function fitAndResize(chart, el, h) {
+    if (!chart || !el) return;
+    var w = el.clientWidth || 860;
+    chart.resize(w, h);
+    chart.timeScale().fitContent();
+  }
+  if (kChart)    fitAndResize(kChart,    document.getElementById('kline-chart'), 320);
+  if (volChart)  fitAndResize(volChart,  document.getElementById('vol-chart'),   140);
+  if (kdChart)   fitAndResize(kdChart,   document.getElementById('kd-chart'),    160);
+  if (rsiChart)  fitAndResize(rsiChart,  document.getElementById('rsi-chart'),   160);
+  if (macdChart) fitAndResize(macdChart, document.getElementById('macd-chart'),  160);
+  if (biasChart) fitAndResize(biasChart, document.getElementById('bias-chart'),  160);
+});
+
+/* ── 6圖同步 Crosshair + Tooltip ── */
+var allCharts = [
+  { chart: kChart,    mainSeries: cs,  el: document.getElementById('kline-chart'), ttId:'tt-kline', dateId:'tt-kline-date', bodyId:'tt-kline-body',
+    build: function(i,t){
+      var d = klineData[i];
+      var prevClose = i > 0 ? klineData[i-1].close : d.open;
+      var cOpen  = d.open  >= prevClose ? 'tv-red' : 'tv-green';
+      var cHigh  = d.high  >= prevClose ? 'tv-red' : 'tv-green';
+      var cLow   = d.low   >= prevClose ? 'tv-red' : 'tv-green';
+      var cClose = d.close >= prevClose ? 'tv-red' : 'tv-green';
+      return row('開盤', f2(d.open),  cOpen)
+           + row('最高', f2(d.high),  cHigh)
+           + row('最低', f2(d.low),   cLow)
+           + row('收盤', f2(d.close), cClose)
+           + row('MA5',  f2(ma5Data[i]),  'tv-yellow')
+           + row('MA20', f2(ma20Data[i]), 'tv-blue')
+           + row('MA60', f2(ma60Data[i]), 'tv-purple')
+           + row('UB',   f2(bbUpData[i]), 'tv-orange')
+           + row('LB',   f2(bbLoData[i]), 'tv-orange');
+    }
+  },
+  { chart: volChart,  mainSeries: vs,  el: document.getElementById('vol-chart'),   ttId:'tt-vol',   dateId:'tt-vol-date',   bodyId:'tt-vol-body',
+    build: function(i,t){ var v=volData[i],up=klineData[i].close>=klineData[i].open,c=up?'tv-red':'tv-green';
+      return row('成交量',fVol(v.value),c)+row('收盤價',f2(klineData[i].close),c); }
+  },
+  { chart: kdChart,   mainSeries: ks,  el: document.getElementById('kd-chart'),    ttId:'tt-kd',    dateId:'tt-kd-date',    bodyId:'tt-kd-body',
+    build: function(i,t){ return row('K',f2(kData[i]),'tv-yellow')+row('D',f2(dData[i]),'tv-blue'); }
+  },
+  { chart: rsiChart,  mainSeries: rs,  el: document.getElementById('rsi-chart'),   ttId:'tt-rsi',   dateId:'tt-rsi-date',   bodyId:'tt-rsi-body',
+    build: function(i,t){ var v=rsiData[i],cls=v>=70?'tv-red':v<=30?'tv-green':'tv-yellow',zone=v>=70?'超買':v<=30?'超賣':'中性';
+      return row('RSI(14)',f2(v),cls)+row('狀態',zone,cls); }
+  },
+  { chart: macdChart, mainSeries: ms,  el: document.getElementById('macd-chart'),  ttId:'tt-macd',  dateId:'tt-macd-date',  bodyId:'tt-macd-body',
+    build: function(i,t){ var mv=macdData[i];
+      return row('DIF',f4(difData[i]),'tv-yellow')+row('DEA',f4(deaData[i]),'tv-blue')+row('MACD',f4(mv),mv>=0?'tv-red':'tv-green'); }
+  },
+  { chart: biasChart, mainSeries: bs5, el: document.getElementById('bias-chart'),  ttId:'tt-bias',  dateId:'tt-bias-date',  bodyId:'tt-bias-body',
+    build: function(i,t){ var b5=bias5Data[i],b20=bias20Data[i];
+      return row('BIAS5',f2(b5)+'%',b5>=0?'tv-red':'tv-green')+row('BIAS20',f2(b20)+'%',b20>=0?'tv-red':'tv-green'); }
+  }
+];
+
+var isSyncing = false;
+
+allCharts.forEach(function(src) {
+  if (!src.chart) return;
+  src.chart.subscribeCrosshairMove(function(param) {
+    if (isSyncing) return;
+    isSyncing = true;
+
+    allCharts.forEach(function(dst) {
+      if (!dst.chart) return;
+
+      if (!param || !param.time || !param.point) {
+        hideTT(dst.ttId);
+        if (dst.chart !== src.chart) {
+          try { dst.chart.clearCrosshairPosition(); } catch(e) {}
+        }
+      } else {
+        var idx = klineData.findIndex(function(d) { return d.time === param.time; });
+        if (idx < 0) { hideTT(dst.ttId); isSyncing = false; return; }
+
+        if (dst.chart !== src.chart) {
+          try {
+            dst.chart.setCrosshairPosition(0, param.time, dst.mainSeries);
+          } catch(e) {}
+        }
+
+        // 右半邊 → tooltip 貼左；左半邊 → tooltip 貼右，避開 Y 軸 label
+        var xRatio = param.point.x / (src.el.clientWidth || 860);
+        var box = document.getElementById(dst.ttId);
+        if (box) {
+          box.style.right = '';
+          box.style.left  = '';
+          if (xRatio >= 0.5) {
+            box.style.left  = '12px';
+          } else {
+            box.style.right = '68px';
+          }
+        }
+        showTT(dst.ttId, dst.dateId, dst.bodyId, param.time, dst.build(idx, param.time));
+      }
+    });
+
+    if (param && param.time) {
+      var lblIdx = klineData.findIndex(function(d) { return d.time === param.time; });
+      if (lblIdx >= 0) updateLabels(lblIdx);
+    }
+
+    isSyncing = false;
+  });
+
+  src.el.addEventListener('mouseleave', function() {
+    allCharts.forEach(function(dst) { hideTT(dst.ttId); });
+    resetLabels();
+  });
+});
+
+/* ── Label updater ── */
+function setEl(id, val) {
+  var el = document.getElementById(id);
+  if (el) el.textContent = val;
+}
+function updateLabels(i) {
+  var d = klineData[i];
+  var up = d.close >= d.open;
+
+  setEl('lbl-ma5',  f2(ma5Data[i]));
+  setEl('lbl-ma20', f2(ma20Data[i]));
+  setEl('lbl-ma60', f2(ma60Data[i]));
+  setEl('lbl-ub',   f2(bbUpData[i]));
+  setEl('lbl-lb',   f2(bbLoData[i]));
+  var ma5el  = document.getElementById('lbl-ma5');  if(ma5el)  ma5el.style.color  = '#FFF759';
+  var ma20el = document.getElementById('lbl-ma20'); if(ma20el) ma20el.style.color = '#E832F5';
+  var ma60el = document.getElementById('lbl-ma60'); if(ma60el) ma60el.style.color = '#74F9FB';
+
+  var volWrap = document.getElementById('lbl-vol-wrap');
+  if (volWrap) volWrap.style.display = 'inline';
+  var vv = (typeof volData[i] === 'object') ? volData[i].value : volData[i];
+  var volEl = document.getElementById('lbl-vol');
+  if (volEl) { volEl.textContent = fVol(vv); volEl.style.color = up ? '#ef4444' : '#10b981'; }
+  var volWrapSpan = document.getElementById('lbl-vol-wrap');
+  if (volWrapSpan) volWrapSpan.style.color = up ? '#ef4444' : '#10b981';
+
+  setEl('lbl-k', f2(kData[i]));
+  setEl('lbl-d', f2(dData[i]));
+
+  var rv = rsiData[i];
+  setEl('lbl-rsi', f2(rv));
+  var rsiEl = document.getElementById('lbl-rsi');
+  if (rsiEl) rsiEl.style.color = rv >= 70 ? '#ef4444' : rv <= 30 ? '#10b981' : '#635bff';
+
+  setEl('lbl-dif', f4(difData[i]));
+  setEl('lbl-dea', f4(deaData[i]));
+  var mv = macdData[i];
+  setEl('lbl-macd', f4(mv));
+  var macdWrap = document.getElementById('lbl-macd-wrap');
+  if (macdWrap) macdWrap.style.color = mv >= 0 ? '#ef4444' : '#10b981';
+
+  var b5 = bias5Data[i], b20 = bias20Data[i];
+  setEl('lbl-bias5',  f2(b5)  + '%');
+  setEl('lbl-bias20', f2(b20) + '%');
+  var b5wrap  = document.getElementById('lbl-bias5-wrap');
+  if (b5wrap)  b5wrap.style.color  = b5  >= 0 ? '#ef4444' : '#10b981';
+  var b20wrap = document.getElementById('lbl-bias20-wrap');
+  if (b20wrap) b20wrap.style.color = b20 >= 0 ? '#ef4444' : '#10b981';
+}
+function resetLabels() {
+  var last = klineData.length - 1;
+  if (last >= 0) updateLabels(last);
+  var volWrap = document.getElementById('lbl-vol-wrap');
+  if (volWrap) volWrap.style.display = 'none';
+}
+
+// 初始化 labels
+resetLabels();
+var volWrap = document.getElementById('lbl-vol-wrap');
+if (volWrap) volWrap.style.display = 'inline';
+
+/* ── X 軸平移同步 ── */
+var isSyncingRange = false;
+allCharts.forEach(function(src) {
+  if (!src.chart) return;
+  src.chart.timeScale().subscribeVisibleLogicalRangeChange(function(range) {
+    if (isSyncingRange || !range) return;
+    isSyncingRange = true;
+    allCharts.forEach(function(dst) {
+      if (!dst.chart || dst.chart === src.chart) return;
+      dst.chart.timeScale().setVisibleLogicalRange(range);
+    });
+    isSyncingRange = false;
+  });
+});
+
+})();
+</script>
+</body>
+</html>
