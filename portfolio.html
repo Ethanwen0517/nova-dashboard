@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>持股總覽 V1.3</title>
+<style>
+body{font-family:"Microsoft JhengHei","PingFang TC",Arial,sans-serif;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 100%);color:#fff;padding:20px;margin:0;}
+.nova-timestamp{position:fixed;top:12px;right:16px;background:#1a73e8;color:#fff;padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600;z-index:9999;box-shadow:0 2px 8px rgba(0,0,0,.2);}
+h1{text-align:center;color:#e94560;margin:8px 0 4px;font-size:1.6em;}
+.subtitle{text-align:center;color:#a0a0a0;font-size:.85em;margin-bottom:18px;}
+h2{color:#0f3460;background:rgba(233,69,96,.15);padding:6px 12px;border-left:4px solid #e94560;font-size:1.05em;margin:18px 0 8px;}
+table{width:100%;border-collapse:collapse;background:rgba(255,255,255,.04);font-size:.82em;}
+th{background:rgba(233,69,96,.25);color:#fff;padding:5px 6px;text-align:left;font-size:.85em;}
+td{padding:4px 6px;border-bottom:1px solid rgba(255,255,255,.06);}
+.c{color:#e94560;font-weight:600;width:55px;}
+.n{text-align:right;font-family:Consolas,monospace;}
+.note{color:#a0a0a0;font-size:.92em;}
+.icon{text-align:center;width:30px;}
+tr:hover td{background:rgba(233,69,96,.1);}
+.footer{text-align:center;color:#555;font-size:.75em;padding:24px 0 8px;}
+@media(max-width:600px){table{font-size:.72em;}h1{font-size:1.3em;}}
+</style>
+</head>
+<body>
+<div class="nova-timestamp">📅 Updated: Jun 17, 2026 05:41 AM</div>
+<h1>🏭 持股 + 觀察股總覽</h1>
+<div class="subtitle">Single Source of Truth：config/portfolio.yaml · 報價：Yahoo Finance</div>
+
+<h2>📊 持股（6 檔）</h2>
+<table>
+<thead><tr><th class="c">代號</th><th>名稱</th><th class="n">張</th><th class="n">成本</th><th class="n">現價</th><th class="n">停損</th><th class="n">TP1</th><th class="n">TP2</th><th class="n">TP3</th><th class="icon">🚦</th></tr></thead>
+<tbody>
+<tr>
+  <td class="c">6153</td>
+  <td>嘉聯益</td>
+  <td class="n">11</td>
+  <td class="n">20.63</td>
+  <td class="n"><b>23.1</b></td>
+  <td class="n">19.58</td>
+  <td class="n">26.34</td>
+  <td class="n">26.86</td>
+  <td class="n">27.38</td>
+  <td class="icon">🟢</td>
+</tr>
+<tr>
+  <td class="c">2349</td>
+  <td>錸德</td>
+  <td class="n">1</td>
+  <td class="n">15.1</td>
+  <td class="n"><b>13.25</b></td>
+  <td class="n">14.35</td>
+  <td class="n">18.51</td>
+  <td class="n">18.82</td>
+  <td class="n">19.13</td>
+  <td class="icon">🔴</td>
+</tr>
+<tr>
+  <td class="c">1301</td>
+  <td>台塑</td>
+  <td class="n">15</td>
+  <td class="n">54.18</td>
+  <td class="n"><b>46.75</b></td>
+  <td class="n">48.76</td>
+  <td class="n">62.08</td>
+  <td class="n">62.8</td>
+  <td class="n">63.51</td>
+  <td class="icon">🔴</td>
+</tr>
+<tr>
+  <td class="c">2609</td>
+  <td>陽明</td>
+  <td class="n">1</td>
+  <td class="n">55.15</td>
+  <td class="n"><b>51.0</b></td>
+  <td class="n">52.39</td>
+  <td class="n">60.82</td>
+  <td class="n">65.0</td>
+  <td class="n">69.9</td>
+  <td class="icon">🔴</td>
+</tr>
+<tr>
+  <td class="c">00637L</td>
+  <td>元大滬深300正2</td>
+  <td class="n">11</td>
+  <td class="n">13.9</td>
+  <td class="n"><b>21.89</b></td>
+  <td class="n">10.5</td>
+  <td class="n">17.64</td>
+  <td class="n">17.98</td>
+  <td class="n">18.32</td>
+  <td class="icon">🟢</td>
+</tr>
+<tr>
+  <td class="c">00882</td>
+  <td>中信中國高股息</td>
+  <td class="n">15</td>
+  <td class="n">12.51</td>
+  <td class="n"><b>15.97</b></td>
+  <td class="n">10.5</td>
+  <td class="n">14.72</td>
+  <td class="n">14.92</td>
+  <td class="n">15.12</td>
+  <td class="icon">🟢</td>
+</tr>
+</tbody>
+</table>
+
+<h2>👀 觀察名單（16 檔）</h2>
+<table>
+<thead><tr><th class="c">代號</th><th>名稱</th><th class="n">現價</th><th class="note">觀察原因</th></tr></thead>
+<tbody>
+<tr>
+  <td class="c">2409</td>
+  <td>友達</td>
+  <td class="n">23.9</td>
+  <td class="note">2026-04-02 賣出 @ 17.05；6/4 漲停 +9.94%，BIAS5 過熱</td>
+</tr>
+<tr>
+  <td class="c">2887</td>
+  <td>台新新光金</td>
+  <td class="n">32.3</td>
+  <td class="note">金融併購題材</td>
+</tr>
+<tr>
+  <td class="c">3062</td>
+  <td>建漢</td>
+  <td class="n">25.15</td>
+  <td class="note">網通/工業電腦</td>
+</tr>
+<tr>
+  <td class="c">3481</td>
+  <td>群創</td>
+  <td class="n">53.3</td>
+  <td class="note">面板/光電</td>
+</tr>
+<tr>
+  <td class="c">3545</td>
+  <td>敦泰</td>
+  <td class="n">56.1</td>
+  <td class="note">觸控 IC</td>
+</tr>
+<tr>
+  <td class="c">3645</td>
+  <td>達邁</td>
+  <td class="n">91.9</td>
+  <td class="note">PI 膜，法人外本由負轉正</td>
+</tr>
+<tr>
+  <td class="c">6239</td>
+  <td>力成</td>
+  <td class="n">346.5</td>
+  <td class="note">封測</td>
+</tr>
+<tr>
+  <td class="c">6770</td>
+  <td>力積電</td>
+  <td class="n">71.0</td>
+  <td class="note">DRAM</td>
+</tr>
+<tr>
+  <td class="c">7866</td>
+  <td>丹立</td>
+  <td class="n">—</td>
+  <td class="note">散熱</td>
+</tr>
+<tr>
+  <td class="c">3653</td>
+  <td>健策</td>
+  <td class="n">3785.0</td>
+  <td class="note">散熱元件/連接器</td>
+</tr>
+<tr>
+  <td class="c">3017</td>
+  <td>奇鋐</td>
+  <td class="n">2370.0</td>
+  <td class="note">散熱風扇/機殼</td>
+</tr>
+<tr>
+  <td class="c">3324</td>
+  <td>雙鴻</td>
+  <td class="n">—</td>
+  <td class="note">散熱模組大廠</td>
+</tr>
+<tr>
+  <td class="c">2881</td>
+  <td>富邦金</td>
+  <td class="n">132.0</td>
+  <td class="note">金融</td>
+</tr>
+<tr>
+  <td class="c">00631L</td>
+  <td>元大台灣50正2</td>
+  <td class="n">37.31</td>
+  <td class="note">槓桿型 ETF</td>
+</tr>
+<tr>
+  <td class="c">6147</td>
+  <td>頎邦</td>
+  <td class="n">—</td>
+  <td class="note">驅動 IC 封測</td>
+</tr>
+<tr>
+  <td class="c">2009</td>
+  <td>第一銅</td>
+  <td class="n">40.05</td>
+  <td class="note">2026-06-08 進場 @ 39.08；2026-06-16 賣出 1 張 @ 40.60（賺 1,520元/3.89%）。賣出原因：大盤弱勢 + 接近 TP1 41.00，先落袋</td>
+</tr>
+</tbody>
+</table>
+
+<div class="footer">Generated by render_portfolio.py · 2026-06-17 05:41</div>
+</body>
+</html>
