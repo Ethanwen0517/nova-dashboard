@@ -200,6 +200,12 @@ td.gray { color: var(--text3); }
 .badge-green { background: var(--down); color: #000; }
 .badge-gray { background: #555; color: #fff; }
 
+/* === v1.3 支撐與壓力 X 軸=價位（標準表格） === */
+.th-s, .td-s { background: #f0fdf4 !important; color: #166534 !important; }
+.th-r, .td-r { background: #fef2f2 !important; color: #991b1b !important; }
+.th-now, .td-now { background: #eff6ff !important; color: var(--blue) !important; font-weight: 700; }
+.th-s, .th-r, .th-now { font-weight: 700; }
+
 .alert {
   background: rgba(255,82,82,0.08);
   border: 1px solid var(--up);
@@ -333,7 +339,7 @@ table:has(tbody tr td:nth-child(8)) {
 <body>
 <div class="container">
 
-<div class="nova-timestamp">Nova 更新：2026/06/19 09:21 (Asia/Taipei)</div>
+<div class="nova-timestamp">Nova 更新：2026/06/19 09:27 (Asia/Taipei)</div>
 
 <h1>📋 盤前報告 2026/06/19</h1>
 
@@ -434,9 +440,9 @@ table:has(tbody tr td:nth-child(8)) {
 <tr>
   <td>DXY 美元指數</td>
   <td>100.79</td>
-  <td class="up">+0.70</td>
-  <td class="up">+0.70%</td>
-  <td><span class="badge badge-green">美元強弱</span></td>
+  <td class="down">-0.06</td>
+  <td class="down">-0.06%</td>
+  <td><span class="badge badge-red">美元強弱</span></td>
 </tr>
 
 </table>
@@ -446,30 +452,30 @@ table:has(tbody tr td:nth-child(8)) {
 <tr><th>商品</th><th>價格</th><th>漲跌</th><th>漲跌幅</th><th>評估</th></tr>
 <tr>
   <td>黃金 (GC=F)</td>
-  <td>$4,204.30</td>
-  <td class="down">-154.60</td>
+  <td>$4,204.20</td>
+  <td class="down">-154.70</td>
   <td class="down">-3.55%</td>
   <td>避險需求</td>
 </tr>
 <tr>
   <td>白銀 (SI=F)</td>
-  <td>$65.19</td>
-  <td class="down">-5.51</td>
-  <td class="down">-7.79%</td>
+  <td>$65.20</td>
+  <td class="down">-5.50</td>
+  <td class="down">-7.77%</td>
   <td>商品走勢</td>
 </tr>
 <tr>
   <td>布蘭特原油</td>
-  <td>$79.02</td>
-  <td class="down">-0.53</td>
-  <td class="down">-0.67%</td>
+  <td>$79.19</td>
+  <td class="down">-0.36</td>
+  <td class="down">-0.45%</td>
   <td>能源</td>
 </tr>
 <tr>
   <td>銅 (HG=F)</td>
   <td>$6.36</td>
   <td class="down">-0.12</td>
-  <td class="down">-1.86%</td>
+  <td class="down">-1.81%</td>
   <td>基本金屬</td>
 </tr>
 <tr>
@@ -508,7 +514,7 @@ table:has(tbody tr td:nth-child(8)) {
 
 <div class="highlight-box">
   <h4>📋 美股隔夜報總結</h4>
-  昨夜美股三大指數全漲，漲幅介於 <strong>0.14% ~ 1.91%</strong>，Nasdaq最強。 但 <strong>費城半導體指數（SOX）逆勢大漲 +6.42%</strong>，收 14,341.78 點，為今日最大亮點。<br><br><strong>關鍵驅動因子：</strong><br>• 📈 <strong>半導體強弱：</strong>SOX +6.42%，與 S&P 500 (+1.08%) 出現明顯分歧<br>• 💵 <strong>10Y 殖利率回落至 4.45%：</strong>月減 -0.04%，風險情緒改善<br>• 📉 <strong>黃金走弱 3.55%：</strong>$4,204.30，避險需求降溫<br>• 🔴 <strong>VIX -11.06% 至 16.40：</strong>恐慌指數急速回落，市場恢復冷靜
+  昨夜美股三大指數全漲，漲幅介於 <strong>0.14% ~ 1.91%</strong>，Nasdaq最強。 但 <strong>費城半導體指數（SOX）逆勢大漲 +6.42%</strong>，收 14,341.78 點，為今日最大亮點。<br><br><strong>關鍵驅動因子：</strong><br>• 📈 <strong>半導體強弱：</strong>SOX +6.42%，與 S&P 500 (+1.08%) 出現明顯分歧<br>• 💵 <strong>10Y 殖利率回落至 4.45%：</strong>月減 -0.04%，風險情緒改善<br>• 📉 <strong>黃金走弱 3.55%：</strong>$4,204.20，避險需求降溫<br>• 🔴 <strong>VIX -11.06% 至 16.40：</strong>恐慌指數急速回落，市場恢復冷靜
 </div>
 
 <!-- =========================================== -->
@@ -518,31 +524,31 @@ table:has(tbody tr td:nth-child(8)) {
 <div class="data-source">📅 資料時段：<strong>亞股 06/19 收盤</strong>（昨日收盤）</div>
 <table>
 <tr><th>市場</th><th>指數</th><th>收盤</th><th>漲跌</th><th>漲跌幅</th><th>狀態</th></tr>
-<tr><td>🇹🇼 台灣加權</td><td></td><td>45,877.39</td><td class="up">68.20</td><td class="up">+0.15%</td><td>亞股</td></tr>
-<tr><td>🇯🇵 日經225</td><td></td><td>69,902.25</td><td class="up">497.75</td><td class="up">+0.72%</td><td>亞股</td></tr>
-<tr><td>🇰🇷 韓國KOSPI</td><td></td><td>8,864.24</td><td class="up">137.64</td><td class="up">+1.58%</td><td>亞股</td></tr>
-<tr><td>🇭🇰 香港恒生</td><td></td><td>24,312.16</td><td class="down">-181.79</td><td class="down">-0.74%</td><td>亞股</td></tr>
-<tr><td>🇨🇳 上海綜合</td><td></td><td>nan</td><td class="neutral">nan</td><td class="neutral">+nan%</td><td>亞股</td></tr>
-<tr><td>🇨🇳 深圳綜合</td><td></td><td>nan</td><td class="neutral">nan</td><td class="neutral">+nan%</td><td>亞股</td></tr>
-<tr><td>🇸🇬 新加坡STI</td><td></td><td>5,176.46</td><td class="up">59.60</td><td class="up">+1.16%</td><td>亞股</td></tr>
+<tr><td>🇹🇼 台灣加權</td><td></td><td>46,465.20</td><td class="up">587.81</td><td class="up">+1.28%</td><td>亞股</td></tr>
+<tr><td>🇯🇵 日經225</td><td></td><td>71,053.49</td><td class="up">1,151.24</td><td class="up">+1.65%</td><td>亞股</td></tr>
+<tr><td>🇰🇷 韓國KOSPI</td><td></td><td>9,063.84</td><td class="up">199.60</td><td class="up">+2.25%</td><td>亞股</td></tr>
+<tr><td>🇭🇰 香港恒生</td><td></td><td>23,924.81</td><td class="down">-387.35</td><td class="down">-1.59%</td><td>亞股</td></tr>
+<tr><td>🇨🇳 上海綜合</td><td></td><td>4,090.48</td><td class="down">-17.60</td><td class="down">-0.43%</td><td>亞股</td></tr>
+<tr><td>🇨🇳 深圳綜合</td><td></td><td>16,030.70</td><td class="up">149.75</td><td class="up">+0.94%</td><td>亞股</td></tr>
+<tr><td>🇸🇬 新加坡STI</td><td></td><td>5,212.84</td><td class="up">36.38</td><td class="up">+0.70%</td><td>亞股</td></tr>
 
 </table>
 
 <div class="highlight-box">
   <h4>💡 Nova 觀點：亞股普遍走揚</h4>
-  • 亞股漲跌分歧，<strong>韓國KOSPI漲 1.58%</strong>，<strong>香港恒生跌 0.74%</strong><br>• 台股加權 +0.15% 🟢（+68.20 點）<br>• 日經225 +0.72% 🟢（+497.75 點）<br>• 韓國KOSPI +1.58% 🟢（+137.64 點）<br>• 香港恒生 -0.74% 🔴（-181.79 點）<br>• 上海綜合 +nan% 🟢（+nan 點）<br>• 深圳綜合 +nan% 🟢（+nan 點）<br>• 新加坡 STI +1.16% 🟢（+59.60 點）
+  • 亞股普遍走揚，<strong>韓國KOSPI漲 2.25%</strong>最強<br>• 台股加權 +1.28% 🟢（+587.81 點）<br>• 日經225 +1.65% 🟢（+1,151.24 點）<br>• 韓國KOSPI +2.25% 🟢（+199.60 點）<br>• 香港恒生 -1.59% 🔴（-387.35 點）<br>• 上海綜合 -0.43% 🔴（-17.60 點）<br>• 深圳綜合 +0.94% 🟢（+149.75 點）<br>• 新加坡 STI +0.70% 🟢（+36.38 點）
 </div>
 
 <!-- =========================================== -->
-<!-- 3️⃣ 台指期與大盤技術面 -->
+<!-- 3️⃣ 台指期與大盤技術面（v1.3：標準表格 + X 軸=價位） -->
 <!-- =========================================== -->
 <h2>3️⃣ 台指期與大盤技術面</h2>
-<div class="data-source">📊 <strong>台指期資料來源：</strong>夜盤 05:00 收盤（cmoney TXF1（2026-06-19 09:21:47））。今日 <strong>09:00 開盤前 5 分鐘</strong> 將有夜盤 → 日盤轉換新報價。</div>
+<div class="data-source">📊 <strong>台指期：</strong>夜盤 05:00 收盤（cmoney TXF1（2026-06-19 09:28:00））　|　09:00 開盤前 5 分鐘將轉日盤</div>
 
 <h3>📊 大盤加權技術面（06/18 收盤為基準）</h3>
 <table>
 <tr><th>項目</th><th>數值</th><th>評估</th></tr>
-<tr><td>加權指數（06/18 收）</td><td>45,877.39</td><td><span class="badge badge-green">加權 +0.15%</span></td></tr>
+<tr><td>加權指數（06/18 收）</td><td>46,465.20</td><td><span class="badge badge-green">加權 +1.28%</span></td></tr>
 <tr><td>5 日均線</td><td>~45,800</td><td>✅ 多方</td></tr>
 <tr><td>10 日均線</td><td>~45,200</td><td>✅ 多方</td></tr>
 <tr><td>20 日均線</td><td>~44,500</td><td>✅ 多方</td></tr>
@@ -551,20 +557,42 @@ table:has(tbody tr td:nth-child(8)) {
 <tr><td>RSI(14)</td><td>~68</td><td>中性偏多但偏高</td></tr>
 </table>
 
-<h3>🛡️ 支撐與壓力</h3>
+<h3>🛡️ 支撐與壓力（X 軸=價位，現價居中）</h3>
 <table>
-<tr><th>類型</th><th>價位</th><th>說明</th></tr>
-<tr><td>壓力 1</td><td>46,500</td><td>昨日高點</td></tr>
-<tr><td>壓力 2</td><td>47,000</td><td>整數關卡</td></tr>
-<tr><td>壓力 3</td><td>47,500</td><td>前波高點</td></tr>
-<tr><td>支撐 1</td><td>45,800</td><td>5 日均線</td></tr>
-<tr><td>支撐 2</td><td>45,500</td><td>10 日線支撐</td></tr>
-<tr><td>支撐 3</td><td>45,000</td><td>心理關卡 + 半年線</td></tr>
+<tr>
+  <th>類型</th>
+  <th class="th-s">🟢 支撐 3</th>
+  <th class="th-s">🟢 支撐 2</th>
+  <th class="th-s">🟢 支撐 1</th>
+  <th class="th-now">📍 現價</th>
+  <th class="th-r">🔴 壓力 1</th>
+  <th class="th-r">🔴 壓力 2</th>
+  <th class="th-r">🔴 壓力 3</th>
+</tr>
+<tr>
+  <td>價位</td>
+  <td class="td-s">45,000</td>
+  <td class="td-s">45,500</td>
+  <td class="td-s">45,800</td>
+  <td class="td-now"><strong>46,465.20</strong></td>
+  <td class="td-r">46,500</td>
+  <td class="td-r">47,000</td>
+  <td class="td-r">47,500</td>
+</tr>
+<tr>
+  <td>說明</td>
+  <td class="td-s">心理關卡 + 半年線</td>
+  <td class="td-s">10 日線支撐</td>
+  <td class="td-s">5 日均線</td>
+  <td class="td-now"><span class="badge badge-green">加權 +1.28%</span></td>
+  <td class="td-r">昨日高點</td>
+  <td class="td-r">整數關卡</td>
+  <td class="td-r">前波高點</td>
+</tr>
 </table>
 
 <div class="highlight-box">
-  <h4>💡 Nova 技術面觀點</h4>
-  大盤均線多頭排列，5/10/20 日線全部向上發散，KD 與 RSI 處於中高位置，<strong>短線有獲利了結壓力</strong>但中長線趨勢偏多。昨日量能達 18,277 張（量能充沛），顯示資金持續進場。
+  💡 <strong>Nova 觀點：</strong>大盤均線多頭排列，5/10/20 日線全部向上發散，KD 與 RSI 處於中高位置，<strong>短線有獲利了結壓力</strong>但中長線趨勢偏多。昨日量能達 18,277 張（量能充沛），顯示資金持續進場。
 </div>
 
 <!-- =========================================== -->
@@ -663,7 +691,7 @@ table:has(tbody tr td:nth-child(8)) {
 
 <div class="strategy">
   <h3>🎯 今日核心策略</h3>
-  <p><strong>🟡 區間震盪，量縮整理：</strong>加權 +0.15%，夜盤 TXF +1.74% 至 47,565，盤勢中性。操作上以<strong>區間操作</strong>為主，不追高，等量縮止穩再加碼。</p>
+  <p><strong>🟢 多方控盤，偏多操作：</strong>加權昨日強勢 +1.28%，夜盤 TXF 續漲 +1.74% 至 47,565，今日開盤動能延續。操作上以<strong>偏多操作</strong>為主，主流股回檔可加碼。</p>
 
   <h3>📈 進場區</h3>
   <table>
@@ -699,7 +727,7 @@ table:has(tbody tr td:nth-child(8)) {
 </div>
 
 <div class="footer">
-  報告生成：2026/06/19 09:21 (Asia/Taipei) | 統一資料源：2026/06/19 美股收盤
+  報告生成：2026/06/19 09:27 (Asia/Taipei) | 統一資料源：2026/06/19 美股收盤
 </div>
 
 </div>
