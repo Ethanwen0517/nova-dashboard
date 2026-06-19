@@ -200,11 +200,11 @@ td.gray { color: var(--text3); }
 .badge-green { background: var(--down); color: #000; }
 .badge-gray { background: #555; color: #fff; }
 
-/* === v1.3 支撐與壓力 X 軸=價位（標準表格） === */
-.th-s, .td-s { background: #f0fdf4 !important; color: #166534 !important; }
-.th-r, .td-r { background: #fef2f2 !important; color: #991b1b !important; }
-.th-now, .td-now { background: #eff6ff !important; color: #1a73e8 !important; font-weight: 700; }
-.th-s, .th-r, .th-now { font-weight: 700; }
+/* === v1.3 支撐與壓力 X 軸=價位（黑色底色調，與大盤加權技術面同風格） === */
+/* 移除所有彩色背景，只用 emoji + 文字標示類型，保持黑色底色調統一風格 */
+.td-now strong { color: var(--accent); font-weight: 800; }
+.td-now { border-left: 2px solid var(--accent); border-right: 2px solid var(--accent); }
+.th-now { border-left: 2px solid var(--accent); border-right: 2px solid var(--accent); }
 
 .alert {
   background: rgba(255,82,82,0.08);
@@ -339,7 +339,7 @@ table:has(tbody tr td:nth-child(8)) {
 <body>
 <div class="container">
 
-<div class="nova-timestamp">Nova 更新：2026/06/19 09:51 (Asia/Taipei)</div>
+<div class="nova-timestamp">Nova 更新：2026/06/19 10:37 (Asia/Taipei)</div>
 
 <h1>📋 盤前報告 2026/06/19</h1>
 
@@ -371,7 +371,7 @@ table:has(tbody tr td:nth-child(8)) {
   </div>
   <div class="card">
     <div class="card-label">美元/台幣 (台銀)</div>
-    <div class="card-value">31.63</div>
+    <div class="card-value">31.62</div>
     <div class="card-change gray" style="font-size:12px">即期買入</div>
   </div>
   <div class="card">
@@ -439,9 +439,9 @@ table:has(tbody tr td:nth-child(8)) {
 </tr>
 <tr>
   <td>DXY 美元指數</td>
-  <td>100.82</td>
-  <td class="down">-0.03</td>
-  <td class="down">-0.03%</td>
+  <td>100.83</td>
+  <td class="down">-0.02</td>
+  <td class="down">-0.02%</td>
   <td><span class="badge badge-red">美元強弱</span></td>
 </tr>
 
@@ -452,30 +452,30 @@ table:has(tbody tr td:nth-child(8)) {
 <tr><th>商品</th><th>價格</th><th>漲跌</th><th>漲跌幅</th><th>評估</th></tr>
 <tr>
   <td>黃金 (GC=F)</td>
-  <td>$4,204.10</td>
-  <td class="down">-154.80</td>
-  <td class="down">-3.55%</td>
+  <td>$4,195.60</td>
+  <td class="down">-163.30</td>
+  <td class="down">-3.75%</td>
   <td>避險需求</td>
 </tr>
 <tr>
   <td>白銀 (SI=F)</td>
-  <td>$65.14</td>
-  <td class="down">-5.56</td>
-  <td class="down">-7.86%</td>
+  <td>$64.70</td>
+  <td class="down">-6.00</td>
+  <td class="down">-8.48%</td>
   <td>商品走勢</td>
 </tr>
 <tr>
   <td>布蘭特原油</td>
-  <td>$79.39</td>
-  <td class="down">-0.16</td>
-  <td class="down">-0.20%</td>
+  <td>$79.68</td>
+  <td class="up">+0.13</td>
+  <td class="up">+0.16%</td>
   <td>能源</td>
 </tr>
 <tr>
   <td>銅 (HG=F)</td>
-  <td>$6.35</td>
-  <td class="down">-0.13</td>
-  <td class="down">-1.97%</td>
+  <td>$6.34</td>
+  <td class="down">-0.15</td>
+  <td class="down">-2.25%</td>
   <td>基本金屬</td>
 </tr>
 <tr>
@@ -514,7 +514,7 @@ table:has(tbody tr td:nth-child(8)) {
 
 <div class="highlight-box">
   <h4>📋 美股隔夜報總結</h4>
-  昨夜美股三大指數全漲，漲幅介於 <strong>0.14% ~ 1.91%</strong>，Nasdaq最強。 但 <strong>費城半導體指數（SOX）逆勢大漲 +6.42%</strong>，收 14,341.78 點，為今日最大亮點。<br><br><strong>關鍵驅動因子：</strong><br>• 📈 <strong>半導體強弱：</strong>SOX +6.42%，與 S&P 500 (+1.08%) 出現明顯分歧<br>• 💵 <strong>10Y 殖利率回落至 4.45%：</strong>月減 -0.04%，風險情緒改善<br>• 📉 <strong>黃金走弱 3.55%：</strong>$4,204.10，避險需求降溫<br>• 🔴 <strong>VIX -11.06% 至 16.40：</strong>恐慌指數急速回落，市場恢復冷靜
+  昨夜美股三大指數全漲，漲幅介於 <strong>0.14% ~ 1.91%</strong>，Nasdaq最強。 但 <strong>費城半導體指數（SOX）逆勢大漲 +6.42%</strong>，收 14,341.78 點，為今日最大亮點。<br><br><strong>關鍵驅動因子：</strong><br>• 📈 <strong>半導體強弱：</strong>SOX +6.42%，與 S&P 500 (+1.08%) 出現明顯分歧<br>• 💵 <strong>10Y 殖利率回落至 4.45%：</strong>月減 -0.04%，風險情緒改善<br>• 📉 <strong>黃金走弱 3.75%：</strong>$4,195.60，避險需求降溫<br>• 🔴 <strong>VIX -11.06% 至 16.40：</strong>恐慌指數急速回落，市場恢復冷靜
 </div>
 
 <!-- =========================================== -->
@@ -543,7 +543,7 @@ table:has(tbody tr td:nth-child(8)) {
 <!-- 3️⃣ 台指期與大盤技術面（v1.3：標準表格 + X 軸=價位） -->
 <!-- =========================================== -->
 <h2>3️⃣ 台指期與大盤技術面</h2>
-<div class="data-source">📊 <strong>台指期：</strong>夜盤 05:00 收盤（cmoney TXF1（2026-06-19 09:52:08））　|　09:00 開盤前 5 分鐘將轉日盤</div>
+<div class="data-source">📊 <strong>台指期：</strong>夜盤 05:00 收盤（cmoney TXF1（2026-06-19 10:37:58））　|　09:00 開盤前 5 分鐘將轉日盤</div>
 
 <h3>📊 大盤加權技術面（06/18 收盤為基準）</h3>
 <table>
@@ -727,7 +727,7 @@ table:has(tbody tr td:nth-child(8)) {
 </div>
 
 <div class="footer">
-  報告生成：2026/06/19 09:51 (Asia/Taipei) | 統一資料源：2026/06/19 美股收盤
+  報告生成：2026/06/19 10:37 (Asia/Taipei) | 統一資料源：2026/06/19 美股收盤
 </div>
 
 </div>
