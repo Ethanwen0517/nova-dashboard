@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>技術分析總表 2026/06/26</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap');
+
+  :root {
+    --bg: #eef3fa;
+    --surface: #ffffff;
+    --surface2: #ddeaf8;
+    --border: #b8d0ed;
+    --header-bg: #0d47a1;
+    --header-text: #ffffff;
+    --accent: #1565c0;
+    --accent2: #0d47a1;
+    --accent-light: #1976d2;
+    --grp-bg: #e8f0fe;
+    --grp-text: #1a3a8f;
+    --grp-watch-bg: #e8f0fe;
+    --grp-watch-text: #1a3a8f;
+  --grp-hold-bg: #fff3e0;
+    --grp-hold-text: #b45309;
+    --up: #c62828;
+    --dn: #1a7a52;
+    --neutral: #4a6a8a;
+    --warn: #b45309;
+    --bull: #1a7a52;
+    --bear: #c62828;
+    --text: #0a1628;
+    --text-dim: #1e3a5f;
+    --text-muted: #4a6a8a;
+    --shadow: 0 2px 12px rgba(21,101,192,0.10);
+    --shadow-lg: 0 6px 28px rgba(21,101,192,0.16);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Noto Sans TC', Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    padding: clamp(12px, 3vw, 28px);
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  .page-header {
+    background: linear-gradient(135deg, #0d47a1 0%, #1565c0 55%, #1976d2 100%);
+    border-radius: 16px;
+    padding: clamp(16px,3vw,28px) clamp(18px,4vw,32px);
+    margin-bottom: 18px;
+    box-shadow: var(--shadow-lg);
+    position: relative;
+    overflow: hidden;
+  }
+  .page-header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 20% 50%, rgba(255,255,255,0.10) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .page-header h2 {
+    font-size: clamp(16px, 3.5vw, 24px);
+    font-weight: 900;
+    color: #fff;
+    margin-bottom: 6px;
+    position: relative;
+  }
+  .page-header p {
+    font-size: clamp(11px, 1.8vw, 13px);
+    color: rgba(255,255,255,0.80);
+    position: relative;
+  }
+  .header-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+    position: relative;
+  }
+  .badge {
+    background: rgba(255,255,255,0.18);
+    border: 1px solid rgba(255,255,255,0.35);
+    color: #fff;
+    font-size: 11px;
+    padding: 3px 11px;
+    border-radius: 20px;
+    font-weight: 600;
+    letter-spacing: 0.4px;
+  }
+
+  /* ── SORT HINT ── */
+  .sort-hint {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 8px;
+    padding: 7px 12px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    flex-wrap: wrap;
+  }
+  .sort-hint .hint-icon { font-size: 14px; }
+
+  /* ── SCROLL HINT (mobile) ── */
+  .scroll-hint {
+    display: none;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 8px;
+    padding: 7px 12px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+  }
+  @media(max-width: 768px) { .scroll-hint { display: flex; } }
+
+  /* ── TABLE WRAPPER ── */
+  .table-wrap {
+    background: var(--surface);
+    border-radius: 16px;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .scroll-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent) var(--surface2);
+  }
+  .scroll-wrap::-webkit-scrollbar { height: 6px; }
+  .scroll-wrap::-webkit-scrollbar-track { background: var(--surface2); }
+  .scroll-wrap::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+
+  /* ── TABLE ── */
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    min-width: 1100px;
+  }
+
+  /* Header row */
+  thead tr th {
+    background: var(--header-bg);
+    color: var(--header-text);
+    font-size: clamp(11px, 1.5vw, 13px);
+    font-weight: 700;
+    padding: clamp(10px,1.5vw,14px) clamp(8px,1.2vw,12px);
+    text-align: center;
+    border-bottom: 2px solid rgba(255,255,255,0.15);
+    border-right: 1px solid rgba(255,255,255,0.10);
+    white-space: nowrap;
+    letter-spacing: 0.3px;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    user-select: none;
+  }
+  thead tr th.sortable {
+    cursor: pointer;
+    transition: background 0.18s;
+  }
+  thead tr th.sortable:hover {
+    background: #1a5fcc;
+  }
+  thead tr th.sort-asc,
+  thead tr th.sort-desc {
+    background: #0a3a8f;
+  }
+  .sort-icon {
+    display: inline-block;
+    margin-left: 5px;
+    font-size: 10px;
+    opacity: 0.55;
+    vertical-align: middle;
+    transition: opacity 0.15s;
+  }
+  th.sortable:hover .sort-icon { opacity: 0.9; }
+  th.sort-asc .sort-icon,
+  th.sort-desc .sort-icon { opacity: 1; color: #64b5f6; }
+
+  thead tr th:last-child { border-right: none; }
+
+  /* Body cells */
+  tbody td {
+    border-bottom: 1px solid var(--border);
+    border-right: 1px solid #e2ecf8;
+    padding: clamp(9px,1.4vw,13px) clamp(7px,1.1vw,11px);
+    text-align: center;
+    font-size: clamp(13px, 1.8vw, 15px);
+    color: var(--text-dim);
+    vertical-align: middle;
+    transition: background 0.15s;
+  }
+  tbody td:last-child { border-right: none; }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:hover td { background: #f0f6ff; }
+
+  /* Sticky first two columns */
+  tbody td:nth-child(1),
+  tbody td:nth-child(2),
+  thead th:nth-child(1),
+  thead th:nth-child(2) {
+    position: sticky;
+    z-index: 1;
+  }
+  tbody td:nth-child(1), thead th:nth-child(1) { left: 0; min-width: 54px; }
+  tbody td:nth-child(2), thead th:nth-child(2) { left: 54px; min-width: 92px; }
+  tbody td:nth-child(1), tbody td:nth-child(2) { background: #f7faff; }
+  tbody tr:hover td:nth-child(1),
+  tbody tr:hover td:nth-child(2) { background: #e8f0fe; }
+  thead th:nth-child(1), thead th:nth-child(2) { z-index: 3; }
+
+  /* Number font */
+  .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: clamp(13px, 1.9vw, 15px);
+  }
+
+  /* Color classes */
+  .up      { color: var(--up);   font-weight: 700; }
+  .dn      { color: var(--dn);   font-weight: 700; }
+  .neutral { color: var(--neutral); }
+  .warn    { color: var(--warn); font-weight: 600; }
+  .bull    { color: var(--bull); font-weight: 700; }
+  .bear    { color: var(--bear); font-weight: 700; }
+
+  /* Group rows */
+  .grp td {
+    background: var(--grp-bg) !important;
+    color: var(--grp-text);
+    font-weight: 800;
+    text-align: left;
+    padding: 10px 16px;
+    font-size: clamp(12px, 1.8vw, 14px);
+    border-bottom: 2px solid #b8c8f0;
+    letter-spacing: 0.5px;
+  }
+  .grp-hold td {
+    background: var(--grp-hold-bg) !important;
+    color: var(--grp-hold-text);
+    font-weight: 800;
+    text-align: left;
+    padding: 10px 16px;
+    font-size: clamp(12px, 1.8vw, 14px);
+    border-bottom: 2px solid #f0d0a0;
+    letter-spacing: 0.5px;
+  }
+
+.grp-watch td {
+    background: var(--grp-watch-bg) !important;
+    color: var(--grp-watch-text);
+    font-weight: 800;
+    text-align: left;
+    padding: 10px 16px;
+    font-size: clamp(12px, 1.8vw, 14px);
+    border-bottom: 2px solid #b8c8f0;
+    letter-spacing: 0.5px;
+  }
+
+.grp-select td {
+    background: var(--grp-bg) !important;
+    color: var(--grp-text);
+    font-weight: 800;
+    text-align: left;
+    padding: 10px 16px;
+    font-size: clamp(12px, 1.8vw, 14px);
+    border-bottom: 2px solid #b8c8f0;
+    letter-spacing: 0.5px;
+  }
+
+  /* Hold tag */
+  .hold-tag {
+    background: #dbeafe;
+    color: #1d4ed8;
+    border-radius: 5px;
+    padding: 1px 6px;
+    font-size: 11px;
+    font-weight: 700;
+    margin-right: 3px;
+  }
+
+  /* Score badges */
+  .score-best { background: #1a7a52; color: #fff; padding: 3px 9px; border-radius: 12px; font-weight: 800; font-size: clamp(12px,1.8vw,14px); font-family: 'JetBrains Mono', monospace; }
+  .score-good { background: #2ecc71; color: #fff; padding: 3px 9px; border-radius: 12px; font-weight: 800; font-size: clamp(12px,1.8vw,14px); font-family: 'JetBrains Mono', monospace; }
+  .score-avg  { background: #b45309; color: #fff; padding: 3px 9px; border-radius: 12px; font-weight: 800; font-size: clamp(12px,1.8vw,14px); font-family: 'JetBrains Mono', monospace; }
+  .score-bad  { background: #c62828; color: #fff; padding: 3px 9px; border-radius: 12px; font-weight: 800; font-size: clamp(12px,1.8vw,14px); font-family: 'JetBrains Mono', monospace; }
+
+  /* Trend pill */
+  .trend-pill {
+    display: inline-block;
+    padding: 2px 9px;
+    border-radius: 20px;
+    font-size: clamp(11px,1.5vw,12px);
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .trend-bull    { background: #e3f4ec; color: #1a7a52; border: 1px solid #a7d9bc; }
+  .trend-bear    { background: #fdecea; color: #c62828; border: 1px solid #f5b8b8; }
+  .trend-neutral { background: #eef3fa; color: #4a6a8a; border: 1px solid #b8d0ed; }
+
+  /* Result icon */
+  .result-up, .result-dn, .result-flat { font-size: clamp(16px,2.5vw,20px); }
+
+  /* Error row */
+  .err-row td { color: #c62828; font-size: 12px; font-style: italic; }
+
+  /* Active sort column highlight */
+  tbody tr:not(.grp-hold):not(.grp-watch):not(.grp-select):not(.err-row) td.sort-col {
+    background: #f0f6ff;
+  }
+
+  /* Footer */
+  .page-footer {
+    margin-top: 14px;
+    font-size: 12px;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .page-footer span { color: var(--accent); font-weight: 600; }
+
+  /* Legend */
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 14px;
+    margin-bottom: 10px;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    color: var(--text-muted);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 3px 9px;
+  }
+  .legend-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+  /* Reset sort button */
+  .reset-sort-btn {
+    display: none;
+    align-items: center;
+    gap: 5px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 5px 13px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.18s;
+    margin-left: auto;
+  }
+  .reset-sort-btn:hover { background: var(--accent2); }
+  .reset-sort-btn.visible { display: flex; }
+</style>
+</head>
+<body>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <h2>📊 技術分析總表 2026/06/26</h2>
+  <p>24檔個股 · 代碼 / 名稱 / 收盤 / 漲跌% / 主力成本 / MA5 / MA排列 / 趨勢 / KD / RSI / MACD / 量比 / 60日高 · 分析：Nova AI</p>
+  <div class="header-badges">
+    <span class="badge">📅 2026/06/26</span>
+    <span class="badge">📈 選股池 17檔</span>
+    <span class="badge">👁️ 觀察池 7檔</span>
+    <span class="badge">⏰ 2026/06/26 05:30</span>
+  </div>
+</div>
+
+<!-- LEGEND -->
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:#1a7a52"></div>多頭 / 上漲</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#c62828"></div>空頭 / 下跌</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#b45309"></div>中性 / 警示</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#1a7a52"></div>評分 4.5 最佳</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#c62828"></div>評分 ≤ 2.0 偏弱</div>
+  <div class="legend-item"><span>🏠 = 庫存股</span></div>
+</div>
+
+<!-- HINTS ROW -->
+<div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:10px; align-items:center;">
+  <div class="sort-hint">
+    <span class="hint-icon">↕️</span>
+    點擊欄位標題可排序，再次點擊切換升冪／降冪
+  </div>
+  <div class="scroll-hint">← 左右滑動查看完整欄位 →</div>
+  <button class="reset-sort-btn" id="resetBtn" onclick="resetSort()">✕ 重設排序</button>
+</div>
+
+<!-- TABLE -->
+<div class="table-wrap">
+  <div class="scroll-wrap">
+    <table id="mainTable">
+      <thead>
+        <tr>
+          <th class="sortable" data-col="0" data-type="num">代碼 <span class="sort-icon">⇅</span></th>
+          <th class="sortable" data-col="1" data-type="str">名稱 <span class="sort-icon">⇅</span></th>
+          <th class="sortable" data-col="2" data-type="num">收盤價 <span class="sort-icon">⇅</span></th>
+          <th class="sortable" data-col="3" data-type="num">漲跌% <span class="sort-icon">⇅</span></th>
+          <th class="sortable" data-col="4" data-type="num">主力成本 <span class="sort-icon">⇅</span></th>
+          <th class="sortable" data-col="5" data-type="num">MA5 <span class="sort-icon">⇅</span></th>
+          <th class="sortable" data-col="6" data-type="str">MA排列 <span class="sort-icon">⇅</span></th>
+          <th class="sortable" data-col="7" data-type="str">趨勢 <span class="sort-icon">⇅</span></th>
+          <th class="sortable" data-col="8" data-type="num">K <span class="sort-icon">⇅</span></th>
+          <th class="sortable" data-col="9" data-type="num">D <span class="sort-icon">⇅</span></th>
+          <th class="sortable" data-col="10" data-type="num">RSI <span class="sort-icon">⇅</span></th>
+          <th class="sortable" data-col="11" data-type="num">BIAS5 <span class="sort-icon">⇅</span></th>
+          <th class="sortable" data-col="12" data-type="num">BIAS20 <span class="sort-icon">⇅</span></th>
+          <th class="sortable" data-col="13" data-type="str">MACD <span class="sort-icon">⇅</span></th>
+          <th class="sortable" data-col="14" data-type="num">量比 <span class="sort-icon">⇅</span></th>
+          <th class="sortable" data-col="15" data-type="num">60日高 <span class="sort-icon">⇅</span></th>
+          <th class="sortable" data-col="16" data-type="str">結論Icon <span class="sort-icon">⇅</span></th>
+          <th class="sortable" data-col="17" data-type="num">評分 <span class="sort-icon">⇅</span></th>
+          <th class="sortable" data-col="18" data-type="str">結論 <span class="sort-icon">⇅</span></th>
+        </tr>
+      </thead>
+      <tbody id="tableBody">
+                <tr class="grp-hold"><td colspan="19">🏠 持股分析</td></tr>
+        <tr data-0="6153" data-1="嘉聯益" data-2="22.65" data-3="-2.58" data-4="19.02" data-5="23.72" data-6="多頭" data-7="多頭" data-8="76.30" data-9="85.50" data-10="57.75" data-11="-4.51" data-12="6.78" data-13="1.44" data-14="0.52" data-15="24.45" data-16="🟢佳" data-17="4.5" data-18="技術面佳，趨勢向上，底部進場">
+          <td>6153</td>
+          <td><span class="hold-tag">🏠</span>嘉聯益</td>
+          <td class="num">22.65</td>
+          <td class="neutral">-2.58</td>
+          <td class="num">19.02</td>
+          <td class="num">23.72</td>
+          <td class="num">多頭</td>
+          <td><span class="trend-pill trend-bull">多頭</span></td>
+          <td class="num">76.30</td>
+          <td class="num">85.50</td>
+          <td class="num">57.75</td>
+          <td class="num">-4.51</td>
+          <td class="num">6.78</td>
+          <td class="up">1.44</td>
+          <td class="neutral">0.52</td>
+          <td class="neutral">24.45</td>
+          <td class="result-up">🟢佳</td>
+          <td><span class="score-best">4.5</span></td>
+          <td>技術面佳，趨勢向上，底部進場</td>
+        </tr>
+        <tr data-0="2409" data-1="友達" data-2="30.40" data-3="-0.33" data-4="21.11" data-5="29.81" data-6="多頭" data-7="多頭" data-8="83.80" data-9="70.50" data-10="66.80" data-11="1.98" data-12="16.80" data-13="2.25" data-14="0.56" data-15="30.95" data-16="🟡佳" data-17="4.0" data-18="技術面向多，回調伺機進場">
+          <td>2409</td>
+          <td><span class="hold-tag">🏠</span>友達</td>
+          <td class="num">30.40</td>
+          <td class="neutral">-0.33</td>
+          <td class="num">21.11</td>
+          <td class="num">29.81</td>
+          <td class="num">多頭</td>
+          <td><span class="trend-pill trend-bull">多頭</span></td>
+          <td class="num">83.80</td>
+          <td class="num">70.50</td>
+          <td class="num">66.80</td>
+          <td class="num">1.98</td>
+          <td class="num">16.80</td>
+          <td class="up">2.25</td>
+          <td class="neutral">0.56</td>
+          <td class="neutral">30.95</td>
+          <td class="result-up">🟡佳</td>
+          <td><span class="score-good">4.0</span></td>
+          <td>技術面向多，回調伺機進場</td>
+        </tr>
+        <tr data-0="2349" data-1="錸德" data-2="13.40" data-3="-1.47" data-4="13.28" data-5="13.69" data-6="糾結" data-7="多頭" data-8="55.60" data-9="53.10" data-10="48.47" data-11="-2.12" data-12="-3.23" data-13="0.05" data-14="0.70" data-15="16.15" data-16="🔴離場" data-17="2.5" data-18="技術面偏弱，停損紀律嚴守">
+          <td>2349</td>
+          <td><span class="hold-tag">🏠</span>錸德</td>
+          <td class="num">13.40</td>
+          <td class="neutral">-1.47</td>
+          <td class="num">13.28</td>
+          <td class="num">13.69</td>
+          <td class="num">糾結</td>
+          <td><span class="trend-pill trend-bull">多頭</span></td>
+          <td class="num">55.60</td>
+          <td class="num">53.10</td>
+          <td class="num">48.47</td>
+          <td class="num">-2.12</td>
+          <td class="num">-3.23</td>
+          <td class="up">0.05</td>
+          <td class="neutral">0.70</td>
+          <td class="neutral">16.15</td>
+          <td class="result-up">🔴離場</td>
+          <td><span class="score-bad">2.5</span></td>
+          <td>技術面偏弱，停損紀律嚴守</td>
+        </tr>
+        <tr data-0="1301" data-1="台塑" data-2="58.00" data-3="6.42" data-4="48.85" data-5="53.23" data-6="多頭" data-7="多頭" data-8="87.10" data-9="72.80" data-10="69.31" data-11="8.96" data-12="18.60" data-13="1.57" data-14="1.65" data-15="58.00" data-16="🟢佳" data-17="4.5" data-18="技術面佳，趨勢向上，底部進場">
+          <td>1301</td>
+          <td><span class="hold-tag">🏠</span>台塑</td>
+          <td class="num">58.00</td>
+          <td class="neutral">6.42</td>
+          <td class="num">48.85</td>
+          <td class="num">53.23</td>
+          <td class="num">多頭</td>
+          <td><span class="trend-pill trend-bull">多頭</span></td>
+          <td class="num">87.10</td>
+          <td class="num">72.80</td>
+          <td class="num">69.31</td>
+          <td class="num">8.96</td>
+          <td class="num">18.60</td>
+          <td class="up">1.57</td>
+          <td class="neutral">1.65</td>
+          <td class="neutral">58.00</td>
+          <td class="result-up">🟢佳</td>
+          <td><span class="score-best">4.5</span></td>
+          <td>技術面佳，趨勢向上，底部進場</td>
+        </tr>
+        <tr data-0="2609" data-1="陽明" data-2="51.40" data-3="-0.39" data-4="51.16" data-5="51.58" data-6="糾結" data-7="中性" data-8="40.90" data-9="39.30" data-10="48.52" data-11="-0.35" data-12="-1.53" data-13="-0.01" data-14="0.42" data-15="54.90" data-16="🔴離場" data-17="2.5" data-18="技術面偏弱，停損紀律嚴守">
+          <td>2609</td>
+          <td><span class="hold-tag">🏠</span>陽明</td>
+          <td class="num">51.40</td>
+          <td class="neutral">-0.39</td>
+          <td class="num">51.16</td>
+          <td class="num">51.58</td>
+          <td class="num">糾結</td>
+          <td><span class="trend-pill trend-neutral">中性</span></td>
+          <td class="num">40.90</td>
+          <td class="num">39.30</td>
+          <td class="num">48.52</td>
+          <td class="num">-0.35</td>
+          <td class="num">-1.53</td>
+          <td class="down">-0.01</td>
+          <td class="neutral">0.42</td>
+          <td class="neutral">54.90</td>
+          <td class="result-up">🔴離場</td>
+          <td><span class="score-bad">2.5</span></td>
+          <td>技術面偏弱，停損紀律嚴守</td>
+        </tr>
+        <tr data-0="00637L" data-1="元大滬深300正2" data-2="22.15" data-3="0.00" data-4="21.17" data-5="21.96" data-6="—" data-7="中性" data-8="67.50" data-9="64.10" data-10="51.57" data-11="-0.97" data-12="0.13" data-13="0.16" data-14="1.42" data-15="22.96" data-16="🟡觀望" data-17="3.0" data-18="中性格局，區間操作">
+          <td>00637L</td>
+          <td><span class="hold-tag">🏠</span>元大滬深300正2</td>
+          <td class="num">22.15</td>
+          <td class="neutral">0.00</td>
+          <td class="num">21.17</td>
+          <td class="num">21.96</td>
+          <td class="num">—</td>
+          <td><span class="trend-pill trend-neutral">中性</span></td>
+          <td class="num">67.50</td>
+          <td class="num">64.10</td>
+          <td class="num">51.57</td>
+          <td class="num">-0.97</td>
+          <td class="num">0.13</td>
+          <td class="up">0.16</td>
+          <td class="neutral">1.42</td>
+          <td class="neutral">22.96</td>
+          <td class="result-up">🟡觀望</td>
+          <td><span class="score-avg">3.0</span></td>
+          <td>中性格局，區間操作</td>
+        </tr>
+        <tr data-0="00882" data-1="中信中國高股息" data-2="14.95" data-3="0.00" data-4="15.76" data-5="15.41" data-6="—" data-7="中性" data-8="14.50" data-9="34.80" data-10="30.76" data-11="-2.61" data-12="-4.31" data-13="-0.12" data-14="0.56" data-15="16.28" data-16="🟡觀望" data-17="3.0" data-18="中性格局，區間操作">
+          <td>00882</td>
+          <td><span class="hold-tag">🏠</span>中信中國高股息</td>
+          <td class="num">14.95</td>
+          <td class="neutral">0.00</td>
+          <td class="num">15.76</td>
+          <td class="num">15.41</td>
+          <td class="num">—</td>
+          <td><span class="trend-pill trend-neutral">中性</span></td>
+          <td class="num">14.50</td>
+          <td class="num">34.80</td>
+          <td class="num">30.76</td>
+          <td class="num">-2.61</td>
+          <td class="num">-4.31</td>
+          <td class="down">-0.12</td>
+          <td class="neutral">0.56</td>
+          <td class="neutral">16.28</td>
+          <td class="result-up">🟡觀望</td>
+          <td><span class="score-avg">3.0</span></td>
+          <td>中性格局，區間操作</td>
+        </tr>
+        <tr class="grp"><td colspan="19">👁️ 觀察名單</td></tr>
+        <tr data-0="2887" data-1="台新新光金" data-2="31.85" data-3="0.79" data-4="25.67" data-5="32.02" data-6="多頭" data-7="中性" data-8="84.40" data-9="89.40" data-10="71.35" data-11="-0.53" data-12="9.03" data-13="2.00" data-14="0.65" data-15="32.60" data-16="🟢佳" data-17="4.5" data-18="技術面佳，趨勢向上，底部進場">
+          <td>2887</td>
+          <td>台新新光金</td>
+          <td class="num">31.85</td>
+          <td class="neutral">0.79</td>
+          <td class="num">25.67</td>
+          <td class="num">32.02</td>
+          <td class="num">多頭</td>
+          <td><span class="trend-pill trend-neutral">中性</span></td>
+          <td class="num">84.40</td>
+          <td class="num">89.40</td>
+          <td class="num">71.35</td>
+          <td class="num">-0.53</td>
+          <td class="num">9.03</td>
+          <td class="up">2.00</td>
+          <td class="neutral">0.65</td>
+          <td class="neutral">32.60</td>
+          <td class="result-up">🟢佳</td>
+          <td><span class="score-best">4.5</span></td>
+          <td>技術面佳，趨勢向上，底部進場</td>
+        </tr>
+        <tr data-0="3062" data-1="建漢" data-2="24.95" data-3="-0.60" data-4="28.22" data-5="25.40" data-6="空頭" data-7="空頭" data-8="17.60" data-9="21.20" data-10="38.16" data-11="-1.77" data-12="-8.26" data-13="-0.93" data-14="0.56" data-15="32.60" data-16="🔴離場" data-17="2.0" data-18="技術面極弱，避免持有">
+          <td>3062</td>
+          <td>建漢</td>
+          <td class="num">24.95</td>
+          <td class="neutral">-0.60</td>
+          <td class="num">28.22</td>
+          <td class="num">25.40</td>
+          <td class="num">空頭</td>
+          <td><span class="trend-pill trend-bear">空頭</span></td>
+          <td class="num">17.60</td>
+          <td class="num">21.20</td>
+          <td class="num">38.16</td>
+          <td class="num">-1.77</td>
+          <td class="num">-8.26</td>
+          <td class="down">-0.93</td>
+          <td class="neutral">0.56</td>
+          <td class="neutral">32.60</td>
+          <td class="result-up">🔴離場</td>
+          <td><span class="score-bad">2.0</span></td>
+          <td>技術面極弱，避免持有</td>
+        </tr>
+        <tr data-0="3481" data-1="群創" data-2="70.90" data-3="2.16" data-4="38.88" data-5="67.34" data-6="多頭" data-7="中性" data-8="94.90" data-9="84.50" data-10="75.80" data-11="5.29" data-12="27.08" data-13="7.18" data-14="0.71" data-15="70.90" data-16="🟡佳" data-17="4.0" data-18="技術面向多，回調伺機進場">
+          <td>3481</td>
+          <td>群創</td>
+          <td class="num">70.90</td>
+          <td class="neutral">2.16</td>
+          <td class="num">38.88</td>
+          <td class="num">67.34</td>
+          <td class="num">多頭</td>
+          <td><span class="trend-pill trend-neutral">中性</span></td>
+          <td class="num">94.90</td>
+          <td class="num">84.50</td>
+          <td class="num">75.80</td>
+          <td class="num">5.29</td>
+          <td class="num">27.08</td>
+          <td class="up">7.18</td>
+          <td class="neutral">0.71</td>
+          <td class="neutral">70.90</td>
+          <td class="result-up">🟡佳</td>
+          <td><span class="score-good">4.0</span></td>
+          <td>技術面向多，回調伺機進場</td>
+        </tr>
+        <tr data-0="3545" data-1="敦泰" data-2="58.50" data-3="-2.66" data-4="54.52" data-5="59.46" data-6="多頭" data-7="多頭" data-8="77.30" data-9="75.30" data-10="53.84" data-11="-1.61" data-12="2.49" data-13="0.91" data-14="0.52" data-15="61.60" data-16="🟡佳" data-17="4.0" data-18="技術面向多，回調伺機進場">
+          <td>3545</td>
+          <td>敦泰</td>
+          <td class="num">58.50</td>
+          <td class="neutral">-2.66</td>
+          <td class="num">54.52</td>
+          <td class="num">59.46</td>
+          <td class="num">多頭</td>
+          <td><span class="trend-pill trend-bull">多頭</span></td>
+          <td class="num">77.30</td>
+          <td class="num">75.30</td>
+          <td class="num">53.84</td>
+          <td class="num">-1.61</td>
+          <td class="num">2.49</td>
+          <td class="up">0.91</td>
+          <td class="neutral">0.52</td>
+          <td class="neutral">61.60</td>
+          <td class="result-up">🟡佳</td>
+          <td><span class="score-good">4.0</span></td>
+          <td>技術面向多，回調伺機進場</td>
+        </tr>
+        <tr data-0="3645" data-1="達邁" data-2="91.60" data-3="-2.86" data-4="97.81" data-5="93.68" data-6="空頭" data-7="中性" data-8="42.40" data-9="37.10" data-10="43.11" data-11="-2.22" data-12="-5.20" data-13="-2.40" data-14="0.78" data-15="117.50" data-16="🔴離場" data-17="2.5" data-18="技術面偏弱，停損紀律嚴守">
+          <td>3645</td>
+          <td>達邁</td>
+          <td class="num">91.60</td>
+          <td class="neutral">-2.86</td>
+          <td class="num">97.81</td>
+          <td class="num">93.68</td>
+          <td class="num">空頭</td>
+          <td><span class="trend-pill trend-neutral">中性</span></td>
+          <td class="num">42.40</td>
+          <td class="num">37.10</td>
+          <td class="num">43.11</td>
+          <td class="num">-2.22</td>
+          <td class="num">-5.20</td>
+          <td class="down">-2.40</td>
+          <td class="neutral">0.78</td>
+          <td class="neutral">117.50</td>
+          <td class="result-up">🔴離場</td>
+          <td><span class="score-bad">2.5</span></td>
+          <td>技術面偏弱，停損紀律嚴守</td>
+        </tr>
+        <tr data-0="6239" data-1="力成" data-2="326.00" data-3="-3.55" data-4="266.18" data-5="347.50" data-6="多頭" data-7="中性" data-8="47.10" data-9="63.60" data-10="51.52" data-11="-6.19" data-12="-4.87" data-13="—" data-14="0.81" data-15="379.00" data-16="🟡佳" data-17="4.0" data-18="技術面向多，回調伺機進場">
+          <td>6239</td>
+          <td>力成</td>
+          <td class="num">326.00</td>
+          <td class="neutral">-3.55</td>
+          <td class="num">266.18</td>
+          <td class="num">347.50</td>
+          <td class="num">多頭</td>
+          <td><span class="trend-pill trend-neutral">中性</span></td>
+          <td class="num">47.10</td>
+          <td class="num">63.60</td>
+          <td class="num">51.52</td>
+          <td class="num">-6.19</td>
+          <td class="num">-4.87</td>
+          <td class="neutral">—</td>
+          <td class="neutral">0.81</td>
+          <td class="neutral">379.00</td>
+          <td class="result-up">🟡佳</td>
+          <td><span class="score-good">4.0</span></td>
+          <td>技術面向多，回調伺機進場</td>
+        </tr>
+        <tr data-0="6770" data-1="力積電" data-2="83.20" data-3="-2.92" data-4="64.07" data-5="80.66" data-6="多頭" data-7="多頭" data-8="84.00" data-9="70.70" data-10="60.51" data-11="3.15" data-12="8.38" data-13="—" data-14="1.40" data-15="88.70" data-16="🟢佳" data-17="4.5" data-18="技術面佳，趨勢向上，底部進場">
+          <td>6770</td>
+          <td>力積電</td>
+          <td class="num">83.20</td>
+          <td class="neutral">-2.92</td>
+          <td class="num">64.07</td>
+          <td class="num">80.66</td>
+          <td class="num">多頭</td>
+          <td><span class="trend-pill trend-bull">多頭</span></td>
+          <td class="num">84.00</td>
+          <td class="num">70.70</td>
+          <td class="num">60.51</td>
+          <td class="num">3.15</td>
+          <td class="num">8.38</td>
+          <td class="neutral">—</td>
+          <td class="neutral">1.40</td>
+          <td class="neutral">88.70</td>
+          <td class="result-up">🟢佳</td>
+          <td><span class="score-best">4.5</span></td>
+          <td>技術面佳，趨勢向上，底部進場</td>
+        </tr>
+        <tr data-0="7866" data-1="丹立" data-2="235.00" data-3="0.00" data-4="218.81" data-5="231.60" data-6="多頭" data-7="多頭" data-8="80.70" data-9="63.80" data-10="55.15" data-11="1.47" data-12="5.19" data-13="-1.25" data-14="1.00" data-15="288.00" data-16="🟡佳" data-17="4.0" data-18="技術面向多，回調伺機進場">
+          <td>7866</td>
+          <td>丹立</td>
+          <td class="num">235.00</td>
+          <td class="neutral">0.00</td>
+          <td class="num">218.81</td>
+          <td class="num">231.60</td>
+          <td class="num">多頭</td>
+          <td><span class="trend-pill trend-bull">多頭</span></td>
+          <td class="num">80.70</td>
+          <td class="num">63.80</td>
+          <td class="num">55.15</td>
+          <td class="num">1.47</td>
+          <td class="num">5.19</td>
+          <td class="down">-1.25</td>
+          <td class="neutral">1.00</td>
+          <td class="neutral">288.00</td>
+          <td class="result-up">🟡佳</td>
+          <td><span class="score-good">4.0</span></td>
+          <td>技術面向多，回調伺機進場</td>
+        </tr>
+        <tr data-0="3653" data-1="健策" data-2="3390.00" data-3="-6.87" data-4="4046.92" data-5="3735.00" data-6="空頭" data-7="空頭" data-8="30.60" data-9="49.30" data-10="39.75" data-11="-9.24" data-12="-9.94" data-13="-43.88" data-14="1.67" data-15="5445.00" data-16="🔴離場" data-17="2.0" data-18="技術面極弱，避免持有">
+          <td>3653</td>
+          <td>健策</td>
+          <td class="num">3390.00</td>
+          <td class="neutral">-6.87</td>
+          <td class="num">4046.92</td>
+          <td class="num">3735.00</td>
+          <td class="num">空頭</td>
+          <td><span class="trend-pill trend-bear">空頭</span></td>
+          <td class="num">30.60</td>
+          <td class="num">49.30</td>
+          <td class="num">39.75</td>
+          <td class="num">-9.24</td>
+          <td class="num">-9.94</td>
+          <td class="down">-43.88</td>
+          <td class="neutral">1.67</td>
+          <td class="neutral">5445.00</td>
+          <td class="result-up">🔴離場</td>
+          <td><span class="score-bad">2.0</span></td>
+          <td>技術面極弱，避免持有</td>
+        </tr>
+        <tr data-0="3017" data-1="奇鋐" data-2="2505.00" data-3="-0.99" data-4="2494.50" data-5="2456.00" data-6="糾結" data-7="多頭" data-8="64.10" data-9="42.30" data-10="50.68" data-11="2.00" data-12="-0.86" data-13="-23.58" data-14="0.97" data-15="2945.00" data-16="🔴離場" data-17="2.5" data-18="技術面偏弱，停損紀律嚴守">
+          <td>3017</td>
+          <td>奇鋐</td>
+          <td class="num">2505.00</td>
+          <td class="neutral">-0.99</td>
+          <td class="num">2494.50</td>
+          <td class="num">2456.00</td>
+          <td class="num">糾結</td>
+          <td><span class="trend-pill trend-bull">多頭</span></td>
+          <td class="num">64.10</td>
+          <td class="num">42.30</td>
+          <td class="num">50.68</td>
+          <td class="num">2.00</td>
+          <td class="num">-0.86</td>
+          <td class="down">-23.58</td>
+          <td class="neutral">0.97</td>
+          <td class="neutral">2945.00</td>
+          <td class="result-up">🔴離場</td>
+          <td><span class="score-bad">2.5</span></td>
+          <td>技術面偏弱，停損紀律嚴守</td>
+        </tr>
+        <tr data-0="3324" data-1="雙鴻" data-2="1010.00" data-3="0.00" data-4="1051.90" data-5="1047.00" data-6="糾結" data-7="中性" data-8="39.30" data-9="40.80" data-10="44.38" data-11="-3.53" data-12="-6.54" data-13="—" data-14="1.00" data-15="1280.00" data-16="🔴離場" data-17="2.5" data-18="技術面偏弱，停損紀律嚴守">
+          <td>3324</td>
+          <td>雙鴻</td>
+          <td class="num">1010.00</td>
+          <td class="neutral">0.00</td>
+          <td class="num">1051.90</td>
+          <td class="num">1047.00</td>
+          <td class="num">糾結</td>
+          <td><span class="trend-pill trend-neutral">中性</span></td>
+          <td class="num">39.30</td>
+          <td class="num">40.80</td>
+          <td class="num">44.38</td>
+          <td class="num">-3.53</td>
+          <td class="num">-6.54</td>
+          <td class="neutral">—</td>
+          <td class="neutral">1.00</td>
+          <td class="neutral">1280.00</td>
+          <td class="result-up">🔴離場</td>
+          <td><span class="score-bad">2.5</span></td>
+          <td>技術面偏弱，停損紀律嚴守</td>
+        </tr>
+        <tr data-0="2881" data-1="富邦金" data-2="136.00" data-3="1.12" data-4="102.46" data-5="136.90" data-6="多頭" data-7="中性" data-8="88.20" data-9="92.40" data-10="74.33" data-11="-0.66" data-12="9.70" data-13="9.56" data-14="0.70" data-15="138.50" data-16="🟢佳" data-17="4.5" data-18="技術面佳，趨勢向上，底部進場">
+          <td>2881</td>
+          <td>富邦金</td>
+          <td class="num">136.00</td>
+          <td class="neutral">1.12</td>
+          <td class="num">102.46</td>
+          <td class="num">136.90</td>
+          <td class="num">多頭</td>
+          <td><span class="trend-pill trend-neutral">中性</span></td>
+          <td class="num">88.20</td>
+          <td class="num">92.40</td>
+          <td class="num">74.33</td>
+          <td class="num">-0.66</td>
+          <td class="num">9.70</td>
+          <td class="up">9.56</td>
+          <td class="neutral">0.70</td>
+          <td class="neutral">138.50</td>
+          <td class="result-up">🟢佳</td>
+          <td><span class="score-best">4.5</span></td>
+          <td>技術面佳，趨勢向上，底部進場</td>
+        </tr>
+        <tr data-0="00631L" data-1="元大台灣50正2" data-2="38.16" data-3="0.00" data-4="30.98" data-5="39.09" data-6="—" data-7="中性" data-8="75.50" data-9="72.10" data-10="57.55" data-11="-2.58" data-12="3.26" data-13="1.91" data-14="0.67" data-15="41.32" data-16="🟡觀望" data-17="3.0" data-18="中性格局，區間操作">
+          <td>00631L</td>
+          <td>元大台灣50正2</td>
+          <td class="num">38.16</td>
+          <td class="neutral">0.00</td>
+          <td class="num">30.98</td>
+          <td class="num">39.09</td>
+          <td class="num">—</td>
+          <td><span class="trend-pill trend-neutral">中性</span></td>
+          <td class="num">75.50</td>
+          <td class="num">72.10</td>
+          <td class="num">57.55</td>
+          <td class="num">-2.58</td>
+          <td class="num">3.26</td>
+          <td class="up">1.91</td>
+          <td class="neutral">0.67</td>
+          <td class="neutral">41.32</td>
+          <td class="result-up">🟡觀望</td>
+          <td><span class="score-avg">3.0</span></td>
+          <td>中性格局，區間操作</td>
+        </tr>
+        <tr data-0="6147" data-1="頎邦" data-2="240.50" data-3="0.00" data-4="189.41" data-5="255.30" data-6="多頭" data-7="中性" data-8="47.20" data-9="45.60" data-10="51.49" data-11="-5.80" data-12="-5.70" data-13="—" data-14="1.00" data-15="305.50" data-16="🟡佳" data-17="4.0" data-18="技術面向多，回調伺機進場">
+          <td>6147</td>
+          <td>頎邦</td>
+          <td class="num">240.50</td>
+          <td class="neutral">0.00</td>
+          <td class="num">189.41</td>
+          <td class="num">255.30</td>
+          <td class="num">多頭</td>
+          <td><span class="trend-pill trend-neutral">中性</span></td>
+          <td class="num">47.20</td>
+          <td class="num">45.60</td>
+          <td class="num">51.49</td>
+          <td class="num">-5.80</td>
+          <td class="num">-5.70</td>
+          <td class="neutral">—</td>
+          <td class="neutral">1.00</td>
+          <td class="neutral">305.50</td>
+          <td class="result-up">🟡佳</td>
+          <td><span class="score-good">4.0</span></td>
+          <td>技術面向多，回調伺機進場</td>
+        </tr>
+        <tr data-0="2009" data-1="第一銅" data-2="38.70" data-3="-1.65" data-4="39.74" data-5="39.23" data-6="糾結" data-7="中性" data-8="10.50" data-9="16.40" data-10="44.90" data-11="-1.35" data-12="-4.07" data-13="-0.20" data-14="0.81" data-15="45.20" data-16="🔴離場" data-17="2.5" data-18="技術面偏弱，停損紀律嚴守">
+          <td>2009</td>
+          <td>第一銅</td>
+          <td class="num">38.70</td>
+          <td class="neutral">-1.65</td>
+          <td class="num">39.74</td>
+          <td class="num">39.23</td>
+          <td class="num">糾結</td>
+          <td><span class="trend-pill trend-neutral">中性</span></td>
+          <td class="num">10.50</td>
+          <td class="num">16.40</td>
+          <td class="num">44.90</td>
+          <td class="num">-1.35</td>
+          <td class="num">-4.07</td>
+          <td class="down">-0.20</td>
+          <td class="neutral">0.81</td>
+          <td class="neutral">45.20</td>
+          <td class="result-up">🔴離場</td>
+          <td><span class="score-bad">2.5</span></td>
+          <td>技術面偏弱，停損紀律嚴守</td>
+        </tr>
+        <tr data-0="2409" data-1="友達" data-2="30.40" data-3="-0.33" data-4="21.11" data-5="29.81" data-6="多頭" data-7="多頭" data-8="83.80" data-9="70.50" data-10="66.80" data-11="1.98" data-12="16.80" data-13="2.25" data-14="0.56" data-15="30.95" data-16="🟡佳" data-17="4.0" data-18="技術面向多，回調伺機進場">
+          <td>2409</td>
+          <td>友達</td>
+          <td class="num">30.40</td>
+          <td class="neutral">-0.33</td>
+          <td class="num">21.11</td>
+          <td class="num">29.81</td>
+          <td class="num">多頭</td>
+          <td><span class="trend-pill trend-bull">多頭</span></td>
+          <td class="num">83.80</td>
+          <td class="num">70.50</td>
+          <td class="num">66.80</td>
+          <td class="num">1.98</td>
+          <td class="num">16.80</td>
+          <td class="up">2.25</td>
+          <td class="neutral">0.56</td>
+          <td class="neutral">30.95</td>
+          <td class="result-up">🟡佳</td>
+          <td><span class="score-good">4.0</span></td>
+          <td>技術面向多，回調伺機進場</td>
+        </tr>
+        <tr data-0="6442" data-1="台勝科" data-2="1865.00" data-3="-3.62" data-4="1995.42" data-5="1962.00" data-6="糾結" data-7="中性" data-8="38.20" data-9="41.10" data-10="46.48" data-11="-4.94" data-12="-3.98" data-13="-10.75" data-14="1.19" data-15="2370.00" data-16="🟡觀望" data-17="3.0" data-18="技術面偏弱，觀望為宜">
+          <td>6442</td>
+          <td>台勝科</td>
+          <td class="num">1865.00</td>
+          <td class="neutral">-3.62</td>
+          <td class="num">1995.42</td>
+          <td class="num">1962.00</td>
+          <td class="num">糾結</td>
+          <td><span class="trend-pill trend-neutral">中性</span></td>
+          <td class="num">38.20</td>
+          <td class="num">41.10</td>
+          <td class="num">46.48</td>
+          <td class="num">-4.94</td>
+          <td class="num">-3.98</td>
+          <td class="down">-10.75</td>
+          <td class="neutral">1.19</td>
+          <td class="neutral">2370.00</td>
+          <td class="result-up">🟡觀望</td>
+          <td><span class="score-avg">3.0</span></td>
+          <td>技術面偏弱，觀望為宜</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="page-footer">
+  📝 資料來源：<span>Yahoo Finance + FinMind API</span> ｜ 分析：<span>Nova AI</span> ｜ 更新：<span>2026/06/26 05:30</span>
+</div>
+
+<script>
+var sortState = { col: null, dir: 0 };
+var originalOrder = [];
+
+window.addEventListener('DOMContentLoaded', function() {
+  var tbody = document.getElementById('tableBody');
+  if (!tbody) return;
+  var rows = tbody.rows;
+  for (var i = 0; i < rows.length; i++) {
+    originalOrder.push(rows[i]);
+  }
+  var ths = document.querySelectorAll('th.sortable');
+  for (var j = 0; j < ths.length; j++) {
+    (function(th) {
+      th.addEventListener('click', function() {
+        var col = parseInt(th.getAttribute('data-col'));
+        var type = th.getAttribute('data-type');
+        if (sortState.col === col) {
+          if (sortState.dir === 1) sortState.dir = -1;
+          else if (sortState.dir === -1) sortState.dir = 0;
+          else sortState.dir = 1;
+        } else {
+          sortState.col = col;
+          sortState.dir = 1;
+        }
+        doSort(col, type, sortState.dir, th);
+      });
+    })(ths[j]);
+  }
+});
+
+function doSort(col, type, dir, activeTh) {
+  var tbody = document.getElementById('tableBody');
+
+  // 重設所有 header icon
+  var allTh = document.querySelectorAll('th.sortable');
+  for (var i = 0; i < allTh.length; i++) {
+    allTh[i].classList.remove('sort-asc', 'sort-desc');
+    var icon = allTh[i].querySelector('.sort-icon');
+    if (icon) icon.textContent = '⇅';
+  }
+  var highlighted = document.querySelectorAll('td.sort-col');
+  for (var i = 0; i < highlighted.length; i++) {
+    highlighted[i].classList.remove('sort-col');
+  }
+
+  var resetBtn = document.getElementById('resetBtn');
+
+  // dir=0 → 恢復原始順序
+  if (dir === 0) {
+    for (var i = 0; i < originalOrder.length; i++) {
+      tbody.appendChild(originalOrder[i]);
+    }
+    if (resetBtn) resetBtn.classList.remove('visible');
+    sortState = { col: null, dir: 0 };
+    return;
+  }
+
+  // 更新 header 箭頭
+  activeTh.classList.add(dir === 1 ? 'sort-asc' : 'sort-desc');
+  var icon = activeTh.querySelector('.sort-icon');
+  if (icon) icon.textContent = (dir === 1 ? '↑' : '↓');
+  if (resetBtn) resetBtn.classList.add('visible');
+
+  // ══ 核心修正：用「陣列」建立分組，不再用物件 key ══
+  var segments = [];
+  var currentSeg = null;
+
+  for (var i = 0; i < originalOrder.length; i++) {
+    var row = originalOrder[i];
+    var isHeader = row.classList.contains('grp-hold') || row.classList.contains('grp-watch') || row.classList.contains('grp-select') || row.classList.contains('grp');
+    if (isHeader) {
+      currentSeg = { header: row, dataRows: [] };
+      segments.push(currentSeg);
+    } else if (currentSeg) {
+      currentSeg.dataRows.push(row);
+    }
+  }
+
+  // 對每個分組內的資料列獨立排序
+  for (var s = 0; s < segments.length; s++) {
+    segments[s].dataRows.sort(function(a, b) {
+      var aVal = a.getAttribute('data-' + col);
+      var bVal = b.getAttribute('data-' + col);
+
+      if (aVal === null && bVal === null) return 0;
+      if (aVal === null) return 1;
+      if (bVal === null) return -1;
+      if ((aVal === '' || aVal === '—') && (bVal === '' || bVal === '—')) return 0;
+      if (aVal === '' || aVal === '—') return 1;
+      if (bVal === '' || bVal === '—') return -1;
+
+      var cmp = 0;
+      if (type === 'num') {
+        var aNum = parseFloat(aVal);
+        var bNum = parseFloat(bVal);
+        if (isNaN(aNum) && isNaN(bNum)) cmp = 0;
+        else if (isNaN(aNum)) cmp = 1;
+        else if (isNaN(bNum)) cmp = -1;
+        else cmp = aNum - bNum;
+      } else {
+        cmp = aVal.localeCompare(bVal, 'zh-TW');
+      }
+      return dir === 1 ? cmp : -cmp;
+    });
+  }
+
+  // 重新渲染：header → 排序後的資料列
+  for (var s = 0; s < segments.length; s++) {
+    tbody.appendChild(segments[s].header);
+    for (var r = 0; r < segments[s].dataRows.length; r++) {
+      tbody.appendChild(segments[s].dataRows[r]);
+    }
+  }
+
+  // 高亮排序欄位
+  var colIdx = col + 1;
+  var cells = tbody.querySelectorAll('tr:not(.grp-hold):not(.grp-watch):not(.grp-select):not(.err-row) td:nth-child(' + colIdx + ')');
+  for (var i = 0; i < cells.length; i++) {
+    cells[i].classList.add('sort-col');
+  }
+}
+
+function resetSort() {
+  sortState = { col: null, dir: 0 };
+  var tbody = document.getElementById('tableBody');
+  for (var i = 0; i < originalOrder.length; i++) {
+    tbody.appendChild(originalOrder[i]);
+  }
+  var allTh = document.querySelectorAll('th.sortable');
+  for (var i = 0; i < allTh.length; i++) {
+    allTh[i].classList.remove('sort-asc', 'sort-desc');
+    var icon = allTh[i].querySelector('.sort-icon');
+    if (icon) icon.textContent = '⇅';
+  }
+  var highlighted = document.querySelectorAll('td.sort-col');
+  for (var i = 0; i < highlighted.length; i++) {
+    highlighted[i].classList.remove('sort-col');
+  }
+  var resetBtn = document.getElementById('resetBtn');
+  if (resetBtn) resetBtn.classList.remove('visible');
+}
+</script>
+
+
+</body>
+</html>
