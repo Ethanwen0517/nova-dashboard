@@ -15,8 +15,8 @@
     --border: #e2e8f0;
     --radius: 12px;
     --shadow: 0 2px 8px rgba(0,0,0,.08);
-    --up:     #16a34a;  /* 2026-07-03 Ethan 修法:美股標準 綠漲紅跌 (.up=綠 / .dn=紅);原版反過來 */
-    --dn:     #dc2626;
+    --up:     #dc2626;  /* 2026-07-07 Ethan 修法 (rollback 7/3):台灣標準 紅漲綠跌 (.up=紅 / .dn=綠);Ethan 2026-07-07 確認台灣閱讀習慣優先於美股國際標準 */
+    --dn:     #16a34a;
     --flat:   #6b7280;
   }
   body {
@@ -94,8 +94,8 @@
   .up { color: var(--up); }
   .dn { color: var(--dn); }
   .flat { color: var(--flat); }
-  .chg-positive { color: #16a34a; font-weight: 600; }
-  .chg-negative { color: #dc2626; font-weight: 600; }
+  .chg-positive { color: #dc2626; font-weight: 600; }  /* 2026-07-07 台灣標準 紅漲 */
+  .chg-negative { color: #16a34a; font-weight: 600; }  /* 2026-07-07 台灣標準 綠跌 */
 
   /* 🎯 全域清單:flexbox 懸掛縮排,手機 PC 一致靠左 */
   ul {
@@ -193,7 +193,7 @@
  </style>
 </head>
 <body>
-<div class="nova-timestamp">📅 2026-07-07 06:36</div>
+<div class="nova-timestamp">📅 2026-07-07 07:14</div>
 <h2>📈 2026/07/06 美股盤後晨報</h2>
 <p></p>
 <h3>1️⃣ 美股三大指數</h3>
