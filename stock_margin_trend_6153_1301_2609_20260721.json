@@ -1,0 +1,52 @@
+{
+  "end_date": "20260721",
+  "days": 30,
+  "financing_ratio": 0.6,
+  "valuation_discount": 0.6,
+  "codes": [
+    "6153",
+    "1301",
+    "2609"
+  ],
+  "latest": {
+    "6153": {
+      "date": "20260720",
+      "close": 16.399999618530273,
+      "balance_lots": 14186,
+      "WACP": 22.14,
+      "est_margin_yi": 1.88,
+      "collateral_yi": 1.4,
+      "maintenance_ratio_pct": 74.07,
+      "method": "net_buy",
+      "sample_size": 30,
+      "is_full_window": true,
+      "name": "嘉聯益"
+    },
+    "1301": {
+      "date": "20260720",
+      "close": 60.599998474121094,
+      "balance_lots": 26048,
+      "WACP": 56.97,
+      "est_margin_yi": 8.9,
+      "collateral_yi": 9.47,
+      "maintenance_ratio_pct": 106.38,
+      "method": "net_buy",
+      "sample_size": 30,
+      "is_full_window": true,
+      "name": "台塑"
+    },
+    "2609": {
+      "date": "20260720",
+      "close": 49.0,
+      "balance_lots": 34422,
+      "WACP": 48.96,
+      "est_margin_yi": 10.11,
+      "collateral_yi": 10.12,
+      "maintenance_ratio_pct": 100.07,
+      "method": "net_buy",
+      "sample_size": 30,
+      "is_full_window": true,
+      "name": "陽明"
+    }
+  }
+}
