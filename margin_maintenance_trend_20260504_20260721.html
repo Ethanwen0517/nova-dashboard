@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>大盤整體融資維持率 趨勢圖 (20260504 ~ 20260721)</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  body { font-family: -apple-system, "Segoe UI", "Microsoft JhengHei", sans-serif;
+         background: #0F172A; color: #E2E8F0; margin: 0; padding: 20px; }
+  .container { max-width: 1200px; margin: 0 auto; }
+  h1 { color: #F8FAFC; }
+  .subtitle { color: #94A3B8; margin-bottom: 20px; }
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px; margin-bottom: 24px; }
+  .stat-card { background: #1E293B; border-radius: 8px; padding: 16px; border: 1px solid #334155; }
+  .stat-label { color: #94A3B8; font-size: 0.875rem; margin-bottom: 4px; }
+  .stat-value { color: #F8FAFC; font-size: 1.5rem; font-weight: 600; }
+  .stat-delta-up { color: #EF4444; font-size: 0.875rem; }
+  .stat-delta-dn { color: #10B981; font-size: 0.875rem; }
+  .chart-panel { background: #1E293B; border-radius: 8px; padding: 20px;
+                  border: 1px solid #334155; margin-bottom: 20px; }
+  .chart-container { position: relative; height: 400px; }
+  .legend { margin-top: 12px; font-size: 0.875rem; color: #94A3B8; }
+  .legend span { display: inline-flex; align-items: center; margin-right: 16px; }
+  .dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%;
+         margin-right: 6px; }
+  .data-source { background: #1E293B; border-radius: 8px; padding: 16px;
+                  border: 1px solid #334155; font-size: 0.875rem; color: #94A3B8; }
+  .warning { color: #FBBF24; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>📈 大盤整體融資維持率 趨勢圖</h1>
+  <div class="subtitle">期間: 20260504 ~ 20260721 (54 個交易日) ·
+                       v0.3 Nova 計算 (cache data)</div>
+
+  <div class="stats">
+    <div class="stat-card">
+      <div class="stat-label">期初 (20260504)</div>
+      <div class="stat-value">202.48%</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">最新 (20260721)</div>
+      <div class="stat-value">171.90%</div>
+      <div class="stat-delta-dn">
+        -30.58pp
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">高點 (20260504)</div>
+      <div class="stat-value">202.48%</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">低點 (20260713)</div>
+      <div class="stat-value">160.34%</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">CMoney 對照 (7/16)</div>
+      <div class="stat-value">159.31%</div>
+      <div class="warning">偏差 +12.59pp (需查證)</div>
+    </div>
+  </div>
+
+  <div class="chart-panel">
+    <h3>① 維持率時序 (%)</h3>
+    <div class="chart-container">
+      <canvas id="mainChart"></canvas>
+    </div>
+    <div class="legend">
+      <span><span class="dot" style="background:#F59E0B"></span>整體維持率 (上市 TWSE)</span>
+      <span><span class="dot" style="background:#94A3B8"></span>CMoney 對照 159.31% (7/16)</span>
+    </div>
+  </div>
+
+  <div class="data-source">
+    <strong>資料來源</strong>: <code>daily/cache/margin_maintenance_history.json</code><br>
+    <strong>計算公式</strong>: ratio = (上市擔保品市值 ÷ 上市融資金額) × 100<br>
+    <strong>更新頻率</strong>: 17:00 cron 每日 (TWSE 約 21:00 出當日融資餘額 → 隔日 17:00 算出前一日維持率)<br>
+    <strong>⚠️ 注意</strong>: 7/22 (171.9%) 與 CMoney 7/16 (159.31%) 偏差 12.59pp 連 2 天上升,口徑差異待查證。<br>
+    <strong>📌 數據口徑</strong>: 分子為 TWSE 公布之「全市場融資擔保品市值」,分母為「全市場融資餘額」,
+    與 CMoney / 券商 App 略有差異,差 5~15pp 為合理範圍。
+  </div>
+</div>
+
+<script>
+const dates = ["20260504", "20260505", "20260506", "20260507", "20260508", "20260511", "20260512", "20260513", "20260514", "20260515", "20260518", "20260519", "20260520", "20260521", "20260522", "20260525", "20260526", "20260527", "20260528", "20260529", "20260601", "20260602", "20260603", "20260604", "20260605", "20260608", "20260609", "20260610", "20260611", "20260612", "20260615", "20260616", "20260617", "20260618", "20260622", "20260623", "20260624", "20260625", "20260626", "20260629", "20260630", "20260701", "20260702", "20260703", "20260706", "20260707", "20260708", "20260709", "20260713", "20260714", "20260715", "20260716", "20260720", "20260721"];
+const ratios = [202.48, 200.97, 199.27, 198.03, 197.01, 196.23, 195.03, 194.2, 193.97, 193.02, 189.49, 188.94, 188.62, 187.92, 186.75, 185.11, 182.93, 181.3, 180.36, 178.4, 177.02, 175.73, 174.35, 173.4, 173.21, 174.01, 173.33, 173.33, 173.31, 172.6, 171.29, 170.37, 169.28, 168.09, 166.44, 165.34, 164.23, 163.46, 163.59, 163.46, 162.68, 162.38, 161.75, 161.2, 160.62, 160.94, 160.87, 160.61, 160.34, 160.9, 161.05, 161.01, 165.51, 171.9];
+
+// 標註轉折點（≥5pp 變化）
+const annotations = [];
+for (let i = 1; i < ratios.length; i++) {
+  const diff = ratios[i] - ratios[i-1];
+  if (Math.abs(diff) >= 5) {
+    annotations.push({
+      x: dates[i],
+      y: ratios[i],
+      label: `${diff > 0 ? '+' : ''}${diff.toFixed(1)}pp`
+    });
+  }
+}
+
+new Chart(document.getElementById('mainChart'), {
+  type: 'line',
+  data: {
+    labels: dates,
+    datasets: [
+      {
+        label: '整體融資維持率 (%)',
+        data: ratios,
+        borderColor: '#F59E0B',
+        backgroundColor: 'rgba(245, 158, 11, 0.15)',
+        fill: true,
+        tension: 0.3,
+        pointRadius: 3,
+        pointHoverRadius: 6,
+        borderWidth: 2
+      },
+      {
+        label: 'CMoney 對照 (159.31%)',
+        data: Array(dates.length).fill(159.31),
+        borderColor: '#94A3B8',
+        borderDash: [5, 5],
+        borderWidth: 1.5,
+        pointRadius: 0,
+        fill: false
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { labels: { color: '#94A3B8' } },
+      tooltip: {
+        backgroundColor: 'rgba(15, 23, 42, 0.95)',
+        borderColor: '#334155',
+        borderWidth: 1,
+        callbacks: {
+          label: (ctx) => `${ctx.dataset.label}: ${ctx.parsed.y.toFixed(2)}%`
+        }
+      }
+    },
+    scales: {
+      x: {
+        type: 'category',
+        offset: true,
+        ticks: { color: '#94A3B8', maxRotation: 45, autoSkip: true, maxTicksLimit: 12 },
+        grid: { color: 'rgba(255,255,255,0.05)' }
+      },
+      y: {
+        ticks: { color: '#94A3B8', callback: v => v.toFixed(0) + '%' },
+        grid: { color: 'rgba(255,255,255,0.05)' },
+        title: { display: true, text: '維持率 (%)', color: '#94A3B8' },
+        suggestedMin: 155,
+        suggestedMax: 210
+      }
+    }
+  }
+});
+</script>
+</body>
+</html>
