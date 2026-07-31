@@ -101,13 +101,14 @@
     hr { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
     code { background: #f0f0f0; padding: 2px 5px; border-radius: 4px; font-size: .88em; }
     blockquote {
-      border-left: 4px solid var(--blue);
-      background: #eef4ff;
-      padding: 10px 16px;
-      border-radius: 0 var(--radius) var(--radius) 0;
-      margin: 10px 0;
+      /* 2026-07-31 Ethan 優化: 備註型 blockquote (資料日期/來源/時間/API 狀態) 改為一般內文,不佔版面 */
+      border: none;
+      background: transparent;
+      padding: 2px 0;
+      margin: 2px 0;
       font-size: 13px;
-      color: #2d3748;
+      color: #555;
+      font-style: normal;
     }
     .table-wrap {
       display: block;
@@ -188,7 +189,7 @@
   </style>
 </head>
 <body>
-<div class="nova-timestamp">📅 2026-07-31 08:39</div>
+<div class="nova-timestamp">📅 2026-07-31 08:44</div>
 <h1>📊 亞股晨報數據匯整 (2026/07/31)</h1>
 <p></p>
 <blockquote><strong>資料日期：</strong> 2026-07-31</blockquote>
