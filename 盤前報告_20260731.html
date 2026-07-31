@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+<title>📋 盤前報告 2026/07/31</title>
+<style>
+:root {
+  --bg-dark: #0f1419;
+  --bg-card: #1a1f2e;
+  --bg-card-hover: #232938;
+  --accent: #ffd700;
+  --accent-blue: #87ceeb;
+  --accent-green: #98fb98;
+  --up: #ff5252;
+  --down: #00e676;
+  --neutral: #ffd700;
+  --text: #e0e0e0;
+  --text2: #aaa;
+  --text3: #666;
+  --border: rgba(255,255,255,0.1);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: -apple-system, "Microsoft JhengHei", "Segoe UI", sans-serif;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  color: var(--text);
+  line-height: 1.5;
+  padding: 12px;
+  min-height: 100vh;
+  font-size: 15px;
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+.container { max-width: 1100px; width: 100%; margin: 0 auto; box-sizing: border-box; }
+
+h1 {
+  color: var(--accent);
+  text-align: center;
+  padding: 16px 12px;
+  background: rgba(255,215,0,0.08);
+  border-radius: 12px;
+  border: 1px solid var(--accent);
+  margin-bottom: 10px;
+  font-size: 28px;
+}
+
+h2 {
+  color: var(--accent-blue);
+  border-left: 4px solid var(--accent-blue);
+  padding-left: 10px;
+  margin-top: 14px;
+  margin-bottom: 6px;
+  font-size: 22px;
+}
+
+h3 {
+  color: var(--accent-green);
+  margin-top: 8px;
+  margin-bottom: 4px;
+  font-size: 17px;
+}
+
+.nova-timestamp {
+  text-align: right;
+  color: var(--text2);
+  font-size: 13px;
+  margin-bottom: 4px;
+}
+
+.data-source {
+  background: rgba(255,215,0,0.08);
+  border: 1px solid var(--accent);
+  border-left: 4px solid var(--accent);
+  padding: 8px 12px;
+  margin: 6px 0 8px;
+  border-radius: 4px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.data-source strong { color: var(--accent); }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+  margin: 10px 0;
+  min-width: 0;
+}
+
+@media (max-width: 1100px) {
+  .grid { grid-template-columns: repeat(4, 1fr); }
+}
+@media (max-width: 800px) {
+  .grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 600px) {
+  .grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+.card {
+  background: var(--bg-card);
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  transition: background 0.2s;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.card:hover { background: var(--bg-card-hover); }
+
+.card-label {
+  font-size: 13px;
+  color: var(--text2);
+  margin-bottom: 3px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.card-value {
+  font-size: 26px;
+  font-weight: bold;
+  color: var(--text);
+  line-height: 1.2;
+}
+
+.card-change {
+  font-size: 14px;
+  margin-top: 4px;
+  font-weight: 600;
+}
+
+.card-change.up { color: var(--up); }
+.card-change.down { color: var(--down); }
+.card-change.neutral { color: var(--neutral); }
+.card-change.gray { color: var(--text3); }
+
+/* 🆕 2026-07-30 市場情緒溫度評分 (mini card 模式,強入 .grid) */
+.sentiment-mini { display: flex; align-items: center; gap: 6px; margin-top: 6px; font-size: 12px; }
+.sentiment-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 12px;
+}
+.sentiment-badge.cold { background: rgba(33,150,243,0.25); color: #64b5f6; border: 1px solid rgba(100,181,246,0.4); }
+.sentiment-badge.neutral { background: rgba(158,158,158,0.25); color: #bdbdbd; border: 1px solid rgba(189,189,189,0.4); }
+.sentiment-badge.hot { background: rgba(255,152,0,0.25); color: #ffb74d; border: 1px solid rgba(255,183,77,0.4); }
+.sentiment-total-value {
+  font-size: 32px;
+  font-weight: bold;
+  font-family: -apple-system, BlinkMacSystemFont, monospace;
+  line-height: 1;
+}
+.sentiment-total-value.cold { color: #64b5f6; }
+.sentiment-total-value.neutral { color: #bdbdbd; }
+.sentiment-total-value.hot { color: #ffb74d; }
+.sentiment-bar-mini {
+  position: relative;
+  height: 6px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 3px;
+  overflow: hidden;
+  margin: 8px 0 4px 0;
+}
+.sentiment-bar-mini-fill {
+  height: 100%;
+}
+.sentiment-bar-mini-fill.cold { background: linear-gradient(to right, #1976d2, #42a5f5); }
+.sentiment-bar-mini-fill.neutral { background: linear-gradient(to right, #757575, #bdbdbd); }
+.sentiment-bar-mini-fill.hot { background: linear-gradient(to right, #e65100, #ff9800); }
+.sentiment-advice-mini { margin-top: 6px; font-size: 11px; opacity: 0.85; line-height: 1.3; }
+
+table {
+  width: 100%;
+  max-width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  margin: 5px 0;
+  background: rgba(0,0,0,0.2);
+  border-radius: 8px;
+  overflow: hidden;
+  font-size: 14px;
+  word-break: break-all;
+}
+
+th {
+  background: #2d2d44;
+  color: var(--accent);
+  padding: 5px 10px;
+  text-align: left;
+  font-weight: 700;
+  font-size: 14px;
+  border-bottom: 2px solid var(--accent);
+}
+
+td {
+  padding: 5px 10px;
+  border-bottom: 1px solid var(--border);
+  font-size: 14px;
+}
+
+tr:hover { background: rgba(255,215,0,0.04); }
+
+td.up { color: var(--up); font-weight: 600; }
+td.down { color: var(--down); font-weight: 600; }
+td.neutral { color: var(--neutral); font-weight: 600; }
+td.gray { color: var(--text3); }
+
+.highlight-box {
+  background: linear-gradient(135deg, rgba(255,215,0,0.08), rgba(135,206,235,0.05));
+  border: 1px solid var(--accent);
+  padding: 12px 14px;
+  border-radius: 8px;
+  margin: 10px 0;
+}
+
+.highlight-box h4 {
+  color: var(--accent);
+  margin-bottom: 6px;
+  font-size: 15px;
+}
+
+.highlight-box ul {
+  margin: 4px 0 0 20px;
+  line-height: 1.6;
+}
+
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.badge-red { background: var(--up); color: #fff; }
+.badge-yellow { background: var(--neutral); color: #000; }
+.badge-green { background: var(--down); color: #000; }
+.badge-gray { background: #555; color: #fff; }
+
+/* === 🆕 2026-07-02 表格橫向滑動（手機自適應） === */
+.table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  max-width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin: 8px 0;
+}
+.table-wrap > table {
+  min-width: 600px;
+  margin: 0;
+  border: none;
+  border-radius: 0;
+}
+.scroll-hint {
+  display: none;
+  font-size: 11px;
+  color: var(--text2);
+  padding: 4px 8px;
+  background: rgba(255,215,0,0.05);
+  border-radius: 4px;
+  margin: 4px 0;
+}
+@media (max-width: 900px) {
+  .scroll-hint { display: block; }
+}
+
+/* === v1.3 支撐與壓力 X 軸=價位（黑色底色調，與大盤加權技術面同風格） === */
+/* 移除所有彩色背景，只用 emoji + 文字標示類型，保持黑色底色調統一風格 */
+.td-now strong { color: var(--accent); font-weight: 800; }
+.td-now { border-left: 2px solid var(--accent); border-right: 2px solid var(--accent); }
+.th-now { border-left: 2px solid var(--accent); border-right: 2px solid var(--accent); }
+
+.alert {
+  background: rgba(255,82,82,0.08);
+  border: 1px solid var(--up);
+  padding: 10px 12px;
+  border-radius: 8px;
+  margin: 10px 0;
+}
+
+.alert h4 { color: var(--up); margin-bottom: 6px; font-size: 15px; }
+.alert ul { margin-left: 20px; line-height: 1.6; }
+
+.strategy {
+  background: linear-gradient(135deg, rgba(255,215,0,0.05), rgba(135,206,235,0.05));
+  padding: 14px;
+  border-radius: 8px;
+  margin: 10px 0;
+  border: 1px solid var(--border);
+}
+
+.strategy h3 { color: var(--accent); margin-top: 10px; font-size: 16px; }
+.strategy h3:first-child { margin-top: 0; }
+
+.footer {
+  text-align: right;
+  color: var(--text3);
+  font-size: 12px;
+  margin-top: 24px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+
+.note {
+  color: var(--accent-blue);
+  font-size: 13px;
+  margin: 6px 0;
+  font-style: italic;
+}
+
+/* ============== Phase 1 RWD 升級 v1.2.1 (2026-06-12) ============== */
+
+/* JetBrains Mono 數字字型 */
+.num, td.num, .card-value, .card-change {
+  font-family: 'JetBrains Mono', 'Menlo', 'Consolas', monospace;
+  font-weight: 700;
+}
+
+/* 多欄表格水平滾動（CSS-only，無需改 HTML）*/
+/* 原理：table:has(>tbody>tr>td:nth-child(6)) 判斷「≥6 欄」的表 */
+/* min-width 600 確保多欄內容有足夠空間不被擠壓 */
+table:has(tbody tr td:nth-child(6)) {
+  min-width: 600px;
+  table-layout: fixed;
+}
+
+/* 7 欄以上更寬（持股段 8 欄、籌碼段 6 欄、亞股段 6 欄）*/
+table:has(tbody tr td:nth-child(7)) {
+  min-width: 720px;
+}
+
+table:has(tbody tr td:nth-child(8)) {
+  min-width: 820px;
+}
+
+/* 滑動提示框（手機顯示）*/
+.scroll-hint {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--accent-blue);
+  font-weight: 600;
+  margin: 4px 0 6px;
+  padding: 6px 12px;
+  background: rgba(135,206,235,0.10);
+  border: 1px dashed var(--accent-blue);
+  border-radius: 6px;
+}
+
+/* 桌面 + 平板隱藏滑動提示 */
+@media (min-width: 901px) {
+  .scroll-hint { display: none !important; }
+}
+
+@media (max-width: 600px) {
+  .scroll-hint { display: flex; }
+  .scroll-hint::before { content: '👈 '; }
+  .scroll-hint::after  { content: ' 👉'; }
+}
+
+/* ============== 響應式斷點 ============== */
+@media (max-width: 900px) {
+  .grid { grid-template-columns: repeat(2, 1fr); gap: 6px; }
+  /* 平板：表格自動滾動 */
+  table:has(tbody tr td:nth-child(6)) {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  thead { display: table-header-group; }
+  tbody { display: table-row-group; }
+}
+
+@media (max-width: 600px) {
+  /* 防止水平溢出 + 容器滿寬 */
+  html, body { overflow-x: hidden; max-width: 100vw; }
+  body { padding: 4px; font-size: 14px; }
+  .container { padding: 0; max-width: 100% !important; width: 100% !important; }
+  /* 所有媒體元素滿寬（預防 frame width 100% 未指定問題） */
+  iframe, embed, video, img, object, canvas, svg { max-width: 100% !important; height: auto; }
+  /* 表格滿寬 + 手機字體縮 */
+  table { font-size: 11px; max-width: 100% !important; width: 100% !important; word-break: break-word; }
+  th, td { padding: 4px 6px; font-size: 11px; word-break: break-word; }
+  /* 標題更小、緊湊 */
+  h1 { font-size: 18px; padding: 10px 6px; margin-bottom: 6px; }
+  h2 { font-size: 16px; margin-top: 10px; margin-bottom: 4px; }
+  h3 { font-size: 14px; margin-top: 6px; margin-bottom: 3px; }
+  /* 區塊縮小 */
+  .grid { grid-template-columns: 1fr; gap: 4px; }
+  .card { padding: 6px; }
+  .card-label { font-size: 11px; }
+  .card-value { font-size: 16px; }
+  .card-change { font-size: 12px; }
+  .data-source { padding: 6px 8px; font-size: 12px; line-height: 1.4; }
+  .highlight-box { padding: 8px; }
+  .alert { padding: 6px 8px; font-size: 12px; }
+  .strategy { padding: 8px; }
+  /* 手機：表格也用滾動 */
+  table:has(tbody tr td:nth-child(6)) {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="nova-timestamp">Nova 更新：2026/07/31 08:10 (Asia/Taipei)</div>
+
+<h1>📋 盤前報告 2026/07/31</h1>
+
+<div class="data-source">
+  ⚠️ <strong>資料時段統一聲明：</strong><br>
+  • 美股：<strong>07/30 收盤</strong>（台灣時間 07/31 06:00 GMT+8 抓取）<br>• 亞股：<strong>07/29 收盤</strong>（昨日收盤）<br>• 台指期：<strong>夜盤 05:00 收盤</strong>（TXF1 手動更新）<br>• 個股：<strong>持股紀錄/監控股票總覽.md + Yahoo Finance 即時</strong>
+</div>
+
+<!-- =========================================== -->
+<!-- 0️⃣ 市場情緒體溫計 -->
+<!-- =========================================== -->
+<h2>0️⃣ 市場情緒體溫計</h2>
+<div class="grid">
+  <div class="card">
+    <div class="card-label">VIX 恐慌指數</div>
+    <div class="card-value">17.09</div>
+    <div class="card-change down">-3.57 (-17.28%) 🔴 避險情緒</div>
+  </div>
+  <div class="card">
+    <div class="card-label">台指期 (TXF 夜盤)</div>
+    <div class="card-value">41,859</div>
+    <div class="card-change up">+1573 (+3.90%) 🟢 夜盤收紅</div>
+    <div class="card-change gray" style="font-size:12px">夜盤 05:00 收盤</div>
+  </div>
+  <div class="card">
+    <div class="card-label">S&P 500 收盤</div>
+    <div class="card-value">7,437.63</div>
+    <div class="card-change up">+121.48 (+1.66%) 🟢 美股大盤</div>
+  </div>
+  <div class="card">
+    <div class="card-label">美元/台幣 (台銀)</div>
+    <div class="card-value">32.39</div>
+    <div class="card-change gray" style="font-size:12px">即期買入</div>
+  </div>
+  <div class="card">
+    <div class="card-label">亞股 07/29 收盤</div>
+    <div class="card-value" style="font-size:18px">📈 普遍上漲</div>
+    <div class="card-change gray" style="font-size:12px">日韓港陸星 +1~3%</div>
+  </div>
+
+  <!-- 🆕 2026-07-30 綜合市場情緒溫度 (mini card 強入 grid) -->
+  <div class="card">
+    <div class="card-label">🌡️ 綜合情緒溫度</div>
+    <div class="card-value sentiment-total-value hot">7.2 <span style="font-size:14px; font-weight:400; opacity:0.7">/ 10</span></div>
+    <div class="sentiment-bar-mini">
+      <div class="sentiment-bar-mini-fill hot" style="width:72%"></div>
+    </div>
+    <div class="card-change" style="font-size:12px">
+      <span class="sentiment-badge hot">🌤️ 偏熱</span>
+    </div>
+    <div class="sentiment-advice-mini">💡 偏多,可加碼主流股回檔</div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">VIX 絕對值</div>
+    <div class="card-value" style="font-size:22px">17.09</div>
+    <div class="card-change gray" style="font-size:12px">恐慌指數絕對水準</div>
+    <div class="sentiment-mini">
+      <span class="sentiment-badge neutral">➡️ 6/10</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">VIX 日變化</div>
+    <div class="card-value" style="font-size:22px">-17.28%</div>
+    <div class="card-change down" style="font-size:12px">-3.57</div>
+    <div class="sentiment-mini">
+      <span class="sentiment-badge hot">🔥 8/10</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">S&P 500</div>
+    <div class="card-value" style="font-size:22px">7,437.63</div>
+    <div class="card-change up" style="font-size:12px">+121.48 (+1.66%)</div>
+    <div class="sentiment-mini">
+      <span class="sentiment-badge hot">🔥 8/10</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">TXF 夜盤</div>
+    <div class="card-value" style="font-size:22px">41,859</div>
+    <div class="card-change up" style="font-size:12px">+1573 (+3.90%)</div>
+    <div class="sentiment-mini">
+      <span class="sentiment-badge hot">🔥 10/10</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">亞股整體</div>
+    <div class="card-value" style="font-size:22px">+0.00%</div>
+    <div class="card-change gray" style="font-size:12px">6 指數平均</div>
+    <div class="sentiment-mini">
+      <span class="sentiment-badge neutral">➡️ 5/10</span>
+    </div>
+  </div>
+</div>
+
+<!-- =========================================== -->
+<!-- 1️⃣ 美股隔夜報 -->
+<!-- =========================================== -->
+<h2>1️⃣ 美股隔夜報</h2>
+<div class="data-source">📅 資料時段：<strong>美股 07/30 收盤</strong>（台灣時間 07/31 06:00 GMT+8 抓取）</div>
+
+<h3>📈 三大指數</h3>
+<table>
+<tr><th>指數</th><th>收盤</th><th>漲跌</th><th>漲跌幅</th><th>狀態</th></tr>
+<tr>
+  <td>S&P 500</td>
+  <td>7,437.63</td>
+  <td class="up">+121.48</td>
+  <td class="up">+1.66%</td>
+  <td><span class="badge badge-green">美股大盤</span></td>
+</tr>
+<tr>
+  <td>Nasdaq</td>
+  <td>25,122.18</td>
+  <td class="up">+679.24</td>
+  <td class="up">+2.78%</td>
+  <td><span class="badge badge-green">科技股</span></td>
+</tr>
+<tr>
+  <td>Dow Jones</td>
+  <td>52,208.06</td>
+  <td class="up">+613.92</td>
+  <td class="up">+1.19%</td>
+  <td><span class="badge badge-green">傳產道瓊</span></td>
+</tr>
+
+</table>
+
+<h3>💎 費城半導體 (SOX)</h3>
+<table>
+<tr><th>項目</th><th>數值</th><th>漲跌</th><th>漲跌幅</th><th>評估</th></tr>
+<tr>
+  <td>SOX 半導體</td>
+  <td>11,302.99</td>
+  <td class="up">+855.50</td>
+  <td class="up">+8.19%</td>
+  <td><span class="badge badge-green">費半</span></td>
+</tr>
+
+</table>
+
+<h3>🌡️ VIX 恐慌指數 & 美元指數</h3>
+<table>
+<tr><th>指標</th><th>數值</th><th>漲跌</th><th>漲跌幅</th><th>評估</th></tr>
+<tr>
+  <td>VIX 恐慌指數</td>
+  <td>17.09</td>
+  <td class="down">-3.57</td>
+  <td class="down">-17.28%</td>
+  <td><span class="badge badge-red">避險情緒</span></td>
+</tr>
+<tr>
+  <td>DXY 美元指數</td>
+  <td>100.07</td>
+  <td class="down">-0.73</td>
+  <td class="down">-0.73%</td>
+  <td><span class="badge badge-red">美元強弱</span></td>
+</tr>
+
+</table>
+
+<h3>🥇 原物料期貨</h3>
+<table>
+<tr><th>商品</th><th>價格</th><th>漲跌</th><th>漲跌幅</th><th>評估</th></tr>
+<tr>
+  <td>黃金 (GC=F)</td>
+  <td>$4,165.00</td>
+  <td class="up">+130.30</td>
+  <td class="up">+3.23%</td>
+  <td>避險需求</td>
+</tr>
+<tr>
+  <td>白銀 (SI=F)</td>
+  <td>$59.33</td>
+  <td class="up">+1.47</td>
+  <td class="up">+2.54%</td>
+  <td>商品走勢</td>
+</tr>
+<tr>
+  <td>布蘭特原油</td>
+  <td>$89.38</td>
+  <td class="down">-1.36</td>
+  <td class="down">-1.50%</td>
+  <td>能源</td>
+</tr>
+<tr>
+  <td>銅 (HG=F)</td>
+  <td>$6.50</td>
+  <td class="up">+0.23</td>
+  <td class="up">+3.68%</td>
+  <td>基本金屬</td>
+</tr>
+<tr>
+  <td>黃豆 (ZS=F)</td>
+  <td>$1,188.50</td>
+  <td class="up">+10.50</td>
+  <td class="up">+0.89%</td>
+  <td>農產品</td>
+</tr>
+<tr>
+  <td>玉米 (ZC=F)</td>
+  <td>$468.75</td>
+  <td class="up">+19.75</td>
+  <td class="up">+4.40%</td>
+  <td>農產品</td>
+</tr>
+<tr>
+  <td>小麥 (ZW=F)</td>
+  <td>$663.00</td>
+  <td class="up">+2.25</td>
+  <td class="up">+0.34%</td>
+  <td>農產品</td>
+</tr>
+
+</table>
+
+<h3>📊 美債殖利率（月度對照）</h3>
+<table>
+<tr><th>期別</th><th>殖利率</th><th>月變動</th><th>評估</th></tr>
+<tr><td>3 個月期 (US3M)</td><td>3.67%</td><td class="up">+0.02%</td><td>高位盤整</td></tr>
+<tr><td>2 年期 (US2Y)</td><td>4.38%</td><td class="up">+0.02%</td><td>市場定價延後降息</td></tr>
+<tr><td>10 年期 (US10Y)</td><td class="up"><strong>4.66%</strong></td><td class="up">+0.04%</td><td><strong>注意科技股估值壓力</strong></td></tr>
+<tr><td>30 年期 (US30Y)</td><td>5.21%</td><td class="up">+0.07%</td><td>高位盤整</td></tr>
+</table>
+<p class="note">💡 10Y-2Y 利差：+0.29%（正常區間）→ 10Y 月增對科技估值形成壓力</p>
+
+<div class="highlight-box">
+  <h4>📋 美股隔夜報總結</h4>
+  昨夜美股三大指數全漲，漲幅介於 <strong>1.19% ~ 2.78%</strong>，Nasdaq最強。 但 <strong>費城半導體指數（SOX）逆勢大漲 +8.19%</strong>，收 11,302.99 點，為今日最大亮點。<br><br><strong>關鍵驅動因子：</strong><br>• 📈 <strong>半導體強弱：</strong>SOX +8.19%，與 S&P 500 (+1.66%) 出現明顯分歧<br>• 💵 <strong>10Y 殖利率走高至 4.66%：</strong>月增 +0.04%，對科技成長股估值形成壓力<br>• 🛢️ <strong>原油波動：</strong>布倫特 -1.50% 至 $89.38，OPEC+ 動向 + 中東地緣<br>• 📉 <strong>黃金走強 3.23%：</strong>$4,165.00，避險需求升溫<br>• 🔴 <strong>VIX -17.28% 至 17.09：</strong>恐慌指數急速回落，市場恢復冷靜
+</div>
+
+<!-- =========================================== -->
+<!-- 2️⃣ 亞股晨報 -->
+<!-- =========================================== -->
+<h2>2️⃣ 亞股晨報</h2>
+<div class="data-source">📅 資料時段：<strong>亞股 07/29 收盤</strong>（昨日收盤）</div>
+<table>
+<tr><th>市場</th><th>指數</th><th>收盤</th><th>漲跌</th><th>漲跌幅</th><th>狀態</th></tr>
+<tr><td>🇹🇼 台灣加權</td><td></td><td>40,039.18</td><td class="neutral">—</td><td class="neutral">—%</td><td>亞股</td></tr>
+<tr><td>🇯🇵 日經225</td><td></td><td>61,434.19</td><td class="neutral">—</td><td class="neutral">—%</td><td>亞股</td></tr>
+<tr><td>🇰🇷 韓國KOSPI</td><td></td><td>5,663.24</td><td class="neutral">—</td><td class="neutral">—%</td><td>亞股</td></tr>
+<tr><td>🇭🇰 香港恒生</td><td></td><td>25,807.92</td><td class="neutral">—</td><td class="neutral">—%</td><td>亞股</td></tr>
+<tr><td>🇨🇳 上海綜合</td><td></td><td>3,828.47</td><td class="neutral">—</td><td class="neutral">—%</td><td>亞股</td></tr>
+<tr><td>🇨🇳 深圳綜合</td><td></td><td>13,658.44</td><td class="neutral">—</td><td class="neutral">—%</td><td>亞股</td></tr>
+<tr><td>🇸🇬 新加坡STI</td><td></td><td>5,713.19</td><td class="neutral">—</td><td class="neutral">—%</td><td>亞股</td></tr>
+
+</table>
+
+<div class="highlight-box">
+  <h4>💡 Nova 觀點：亞股漲跌分歧</h4>
+  • 亞股漲跌分歧，<strong>台灣加權漲 0.00%</strong>，<strong>台灣加權跌 0.00%</strong><br>• 台股加權 +0.00% 🟢（+0.00 點）<br>• 日經225 +0.00% 🟢（+0.00 點）<br>• 韓國KOSPI +0.00% 🟢（+0.00 點）<br>• 香港恒生 +0.00% 🟢（+0.00 點）<br>• 上海綜合 +0.00% 🟢（+0.00 點）<br>• 深圳綜合 +0.00% 🟢（+0.00 點）<br>• 新加坡 STI +0.00% 🟢（+0.00 點）
+</div>
+
+<!-- =========================================== -->
+<!-- 3️⃣ 台指期與大盤技術面（v1.3：標準表格 + X 軸=價位） -->
+<!-- =========================================== -->
+<h2>3️⃣ 台指期與大盤技術面</h2>
+<div class="data-source">📊 <strong>台指期：</strong>夜盤 05:00 收盤（cmoney TXF1（2026-07-31 08:10:15））　|　09:00 開盤前 5 分鐘將轉日盤</div>
+
+<h3>📊 大盤加權技術面（06/18 收盤為基準）</h3>
+<div class="scroll-hint">👈 手機橫向滑動查看完整 9 欄資料 👉</div>
+<div class="table-wrap">
+<table>
+<tr>
+  <th>類型</th>
+  <th>加權指數</th>
+  <th>5 日均線</th>
+  <th>10 日均線</th>
+  <th>20 日均線</th>
+  <th>60 日均線</th>
+  <th>KD(9,3,3)</th>
+  <th>RSI(14)</th>
+  <th>量能</th>
+</tr>
+<tr>
+  <td>數值</td>
+  <td><strong>40,039.18</strong></td>
+  <td>~42,756</td>
+  <td>~43,359</td>
+  <td>~44,650</td>
+  <td>~44,070</td>
+  <td>K≈11.0 / D≈10.5</td>
+  <td>~26.9</td>
+  <td>18,277 張</td>
+</tr>
+<tr>
+  <td>評估</td>
+  <td><span class="badge badge-yellow">加權 +0.00%</span></td>
+  <td>❌ 空方</td>
+  <td>❌ 空方</td>
+  <td>❌ 空方</td>
+  <td>❌ 空方</td>
+  <td><span class="badge badge-yellow">超賣,可能反彈</span></td>
+  <td>中性偏多但偏高</td>
+  <td><span class="badge badge-green">充沛</span></td>
+</tr>
+</table>
+</div>
+
+<h3>🛡️ 支撐與壓力（X 軸=價位，現價居中）</h3>
+<div class="scroll-hint">👈 手機橫向滑動查看完整 7 欄資料 👉</div>
+<div class="table-wrap">
+<table>
+<tr>
+  <th>類型</th>
+  <th class="th-s">🟢 支撐 3</th>
+  <th class="th-s">🟢 支撐 2</th>
+  <th class="th-s">🟢 支撐 1</th>
+  <th class="th-now">📍 現價</th>
+  <th class="th-r">🔴 壓力 1</th>
+  <th class="th-r">🔴 壓力 2</th>
+  <th class="th-r">🔴 壓力 3</th>
+</tr>
+<tr>
+  <td>價位</td>
+  <td class="td-s">38,037</td>
+  <td class="td-s">39,385</td>
+  <td class="td-s">39,385</td>
+  <td class="td-now"><strong>40,039.18</strong></td>
+  <td class="td-r">45,090</td>
+  <td class="td-r">45,855</td>
+  <td class="td-r">47,395</td>
+</tr>
+<tr>
+  <td>說明</td>
+  <td class="td-s">近期支撐估算 (38037)</td>
+  <td class="td-s">10 日低點</td>
+  <td class="td-s">5 日低點</td>
+  <td class="td-now"><span class="badge badge-yellow">加權 +0.00%</span></td>
+  <td class="td-r">5 日高點</td>
+  <td class="td-r">10 日高點</td>
+  <td class="td-r">20 日高點</td>
+</tr>
+</table>
+</div>
+
+<div class="highlight-box">
+  💡 <strong>Nova 觀點：</strong>加權現價 40,039,<strong>跌破季線 (MA60 44070), 跌破 5 日線, 5 日線低於月線,短空訊號</strong>。MA5=42,756 / MA10=43,359 / MA20=44,650 / MA60=44,070,KD 11.0/10.5 (超賣,可能反彈), RSI 26.9。<strong>短線關注</strong>39,385-38,037支撐區,45,090-45,855壓力區。
+</div>
+
+<!-- =========================================== -->
+<!-- 4️⃣ 重點個股技術分析 -->
+<!-- =========================================== -->
+<h2>4️⃣ 重點個股技術分析</h2>
+<div class="data-source">📅 個股現價：<strong>Yahoo Finance 即時</strong>　|　成本/停損/TP：<strong>監控股票總覽.md</strong></div>
+
+<h3>📌 持股個股分析</h3>
+<div class="scroll-hint">手機橫向滑動查看完整 8 欄資料</div>
+<table>
+<tr><th>股票</th><th>成本</th><th>現價</th><th>停損</th><th>TP1</th><th>TP2</th><th>TP3</th><th>狀態</th></tr>
+<tr><td><strong>6153</strong> 嘉聯益 <small>(10張)</small></td><td class="n">20.63</td><td class="n down"><strong>13.5</strong></td><td class="n">19.58</td><td class="n">25.8</td><td class="n">26.86</td><td class="n">27.38</td><td><span class="badge badge-red">🔴 已觸及停損</span></td></tr>
+<tr><td><strong>2349</strong> 錸德 <small>(1張)</small></td><td class="n">15.1</td><td class="n down"><strong>10.1</strong></td><td class="n">14.35</td><td class="n">18.51</td><td class="n">18.82</td><td class="n">19.13</td><td><span class="badge badge-red">🔴 已觸及停損</span></td></tr>
+<tr><td><strong>1301</strong> 台塑 <small>(9張)</small></td><td class="n">54.18</td><td class="n down"><strong>54.0</strong></td><td class="n">63.6</td><td class="n">66.4</td><td class="n">67.0</td><td class="n">69.2</td><td><span class="badge badge-red">🔴 已觸及停損</span></td></tr>
+<tr><td><strong>2609</strong> 陽明 <small>(2張)</small></td><td class="n">52.0</td><td class="n down"><strong>50.0</strong></td><td class="n">47.25</td><td class="n">53.6</td><td class="n">55.7</td><td class="n">61.2</td><td><span class="badge badge-yellow">⚠️ 低於成本</span></td></tr>
+<tr><td><strong>00637L</strong> 元大滬深300正2 <small>(11張)</small></td><td class="n">13.9</td><td class="n up"><strong>19.81</strong></td><td class="n">10.5</td><td class="n">17.64</td><td class="n">17.98</td><td class="n">18.32</td><td><span class="badge badge-green">🟢 達停利 (>20%)</span></td></tr>
+<tr><td><strong>00882</strong> 中信中國高股息 <small>(15張)</small></td><td class="n">12.51</td><td class="n up"><strong>15.54</strong></td><td class="n">10.5</td><td class="n">14.72</td><td class="n">14.92</td><td class="n">15.12</td><td><span class="badge badge-green">🟢 達停利 (>20%)</span></td></tr>
+
+</table>
+
+<h3>👀 觀察名單</h3>
+<table>
+<tr><th>股票</th><th>現價</th><th>觀察原因</th><th>進場條件</th><th>狀態</th></tr>
+<tr><td>2887 台新新光金</td><td>33.15</td><td>金融併購題材</td><td>等回測 5日線有撐</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
+<tr><td>3062 建漢</td><td>18.35</td><td>網通/工業電腦</td><td>技術面轉多再進場</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
+<tr><td>3481 群創</td><td>41.4</td><td>面板/光電</td><td>法人轉買再進場</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
+<tr><td>3545 敦泰</td><td>44.5</td><td>觸控 IC</td><td>等技術面翻多</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
+<tr><td>3645 達邁</td><td>60.1</td><td>PI 膜，法人外本由負轉正</td><td>等回測 5日線（82-83）有撐再考慮</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
+<tr><td>6239 力成</td><td>214.5</td><td>封測</td><td>等技術面轉多</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
+<tr><td>6770 力積電</td><td>49.55</td><td>DRAM</td><td>等法人買盤</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
+<tr><td>7866 丹立</td><td>129.5</td><td>散熱</td><td>等技術面轉多</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
+<tr><td>3653 健策</td><td>3135.0</td><td>散熱元件/連接器</td><td>等回測有撐</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
+<tr><td>3017 奇鋐</td><td>2110.0</td><td>散熱風扇/機殼</td><td>等技術面轉多</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
+<tr><td>3324 雙鴻</td><td>820.0</td><td>散熱模組大廠</td><td>等回測有撐</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
+<tr><td>2881 富邦金</td><td>124.0</td><td>金融</td><td>等技術面轉多</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
+<tr><td>00631L 元大台灣50正2</td><td>28.38</td><td>槓桿型 ETF</td><td>等大盤轉多</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
+<tr><td>6147 頎邦</td><td>118.5</td><td>驅動 IC 封測</td><td>等技術面轉多</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
+<tr><td>2009 第一銅</td><td>34.3</td><td>2026-06-08 進場 @ 39.08；2026-06-16 賣出 1 張 @ 40.60（賺 1,520元/3.89%）。賣出原因：大盤弱勢 + 接近 TP1 41.00，先落袋</td><td>等回測月線（39-40）有撐再考慮重新進場</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
+<tr><td>2409 友達</td><td>22.2</td><td>2026-06-18 進場 @ 27.60 2 張；2026-06-22 漲停 @ 30.95 全部出清 2 張（毛賺 6,700元/12.14%）；2026-06-24 重新進場 1 張 @30.42（已轉 holdings，shares: 1, SL: 28.86）</td><td>已進場,SL=28.86 (MA5),TP1=32.00</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
+<tr><td>6442 台勝科</td><td>1050.0</td><td>2026-06-24 Yahoo 新聞「ATM 5 倍 + 出貨旺」,6 月營收 17.26 億（15 月新高,MoM +94.7%）。研究報告見 📊 研究報告/個股/6442_台勝科.md,評級 🟡🟡🟡 黃燈觀察</td><td>等 7-8 月營收趨勢確認（> 15 億）+ 站穩 MA5 (1,956) + 月線翻多</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
+<tr><td>7749 意騰-KY</td><td>305.0</td><td>🆕 2026-07-23 加入觀察。KY 股（開曼註冊）,從 Yahoo 新聞/法人買賣榜追蹤中。題材待研究（KY 股流動性 + 產業地位）</td><td>等研究報告 + 流動性驗證（日均量 > 1,000 張）+ 法人連買 ≥ 3 日</td><td><span class="badge badge-gray">👀 觀望中</span></td></tr>
+
+</table>
+
+<div class="highlight-box">
+  <h4>📋 Nova 持股策略建議</h4>
+  • <strong>6153 嘉聯益：</strong>現價 13.5 已觸及停損 19.58，<strong>應嚴格執行停損</strong>。等待止跌訊號再評估是否重新進場。<br>• <strong>2349 錸德：</strong>現價 10.1 已觸及停損 14.35，<strong>應嚴格執行停損</strong>。等待止跌訊號再評估是否重新進場。<br>• <strong>1301 台塑：</strong>現價 54.0 已觸及停損 63.6，<strong>應嚴格執行停損</strong>。等待止跌訊號再評估是否重新進場。<br>• <strong>2609 陽明：</strong>現價 50.0 低於成本 52.0，<strong>耐心持有</strong>，注意支撐。<br>• <strong>00637L 元大滬深300正2：</strong>現價 19.81 已達停利區（>成本 20%），<strong>可考慮部分獲利了結</strong>。停利目標 TP1=17.64。<br>• <strong>00882 中信中國高股息：</strong>現價 15.54 已達停利區（>成本 20%），<strong>可考慮部分獲利了結</strong>。停利目標 TP1=14.72。
+</div>
+
+<!-- =========================================== -->
+<!-- 5️⃣ 重要新聞與事件 -->
+<!-- =========================================== -->
+<h2>5️⃣ 重要新聞與事件</h2>
+
+<h3>📅 今日重大事件</h3>
+<table>
+<tr><th>時間</th><th>事件</th><th>影響</th></tr>
+<tr><td>#01</td><td>友達人事大地震！總經理柯富仁請辭 財務長張博儀接任</td><td>—</td></tr>
+<tr><td>#02</td><td>友達法說會後拋震撼彈！總經理柯富仁請辭 財務長張博儀接棒</td><td>—</td></tr>
+<tr><td>#03</td><td>友達人事大地震柯富仁請辭、張博儀接任總座- 產業</td><td>—</td></tr>
+<tr><td>#04</td><td>友達高層異動！總經理柯富仁請辭「接任人選」出爐</td><td>—</td></tr>
+<tr><td>#05</td><td>台積電掀玻璃基板熱潮 友達：已有合作夥伴、試產線規劃中</td><td>半導體</td></tr>
+
+</table>
+
+<div class="highlight-box">
+  <h4>🗞️ 07/30 重要新聞</h4>
+  • <strong>Dallas Fed Logan：</strong>表示通膨仍偏高，可能需要進一步升息，市場降息預期放緩<br>• <strong>ISM 服務業：</strong>5 月數據顯示服務業活動回升但成本壓力持續<br>• <strong>川普言論：</strong>重申中美貿易協議進展，市場氣氛偏正向<br>• <strong>中東局勢：</strong>荷莫茲海峽可能重新開放，油價回落
+</div>
+
+<!-- =========================================== -->
+<!-- 6️⃣ 法人與大戶籌碼觀察 -->
+<!-- =========================================== -->
+<h2>6️⃣ 法人與大戶籌碼觀察</h2>
+<div class="data-source">⚠️ 法人買賣超資料來源：<strong>FinMind API（個股加總，方向參考）</strong>，每日 16:30 統一抓取。注：自營商資料未提供，欄位標 —。</div>
+
+<h3>📊 三大法人買賣超（近 5 日）</h3>
+<table>
+<tr><th>日期</th><th>外資</th><th>投信</th><th>自營商</th><th>合計</th><th>方向</th></tr>
+<tr><td>7/30</td><td class="up">+1.9 億</td><td class="up">+0.2 億</td><td>—</td><td>偏多</td><td><span class="badge badge-green">✅</span></td></tr>
+<tr><td>7/29</td><td class="up">+3.8 億</td><td class="up">+0.3 億</td><td>—</td><td>偏多</td><td><span class="badge badge-green">✅</span></td></tr>
+<tr><td>7/28</td><td class="up">+0.5 億</td><td class="up">+0.4 億</td><td>—</td><td>微多</td><td><span class="badge badge-yellow">✅</span></td></tr>
+<tr><td>7/27</td><td class="up">+3.6 億</td><td class="up">+0.1 億</td><td>—</td><td>偏多</td><td><span class="badge badge-green">✅</span></td></tr>
+<tr><td>7/24</td><td class="up">-0.1 億</td><td class="up">+0.2 億</td><td>—</td><td>微空</td><td><span class="badge badge-yellow">✅</span></td></tr>
+
+</table>
+
+<div class="highlight-box">
+  <h4>💡 Nova 籌碼觀點</h4>
+  昨日法人個股加總：外資 +1.9 億、投信 +0.2 億 （溫和偏多）。近 5 日累計：外資 +9.7 億、投信 +1.2 億。注：資料來自 FinMind 個股抽樣加總（涵蓋部分上市櫃），非整體市場公告，數字絕對值較小但<strong>方向指標可信</strong>，建議作為多空訊號觀察。
+</div>
+
+<!-- =========================================== -->
+<!-- 7️⃣ 操盤作戰計劃 -->
+<!-- =========================================== -->
+<h2>7️⃣ 操盤作戰計劃</h2>
+
+<div class="strategy">
+  <h3>🎯 今日核心策略</h3>
+  <p><strong>🟡 區間震盪，量縮整理：</strong>加權 +0.00%，夜盤 TXF +3.90% 至 41,859，盤勢中性。操作上以<strong>區間操作</strong>為主，不追高，等量縮止穩再加碼。</p>
+
+  <h3>📈 進場區</h3>
+  <table>
+  <tr><th>區間</th><th>價位</th><th>策略</th></tr>
+  <tr><td>🔴 風險區</td><td>> 45,090</td><td>短線獲利了結區</td></tr>
+  <tr><td>🟡 觀望區</td><td>39,385 ~ 47,395</td><td>區間整理等待方向</td></tr>
+  <tr><td>🟢 買進區</td><td>38,037 ~ 39,385</td><td>支撐區間分批進場</td></tr>
+  </table>
+
+  <h3>📋 持股操作建議</h3>
+  <table>
+  <tr><th>股票</th><th>動作</th><th>原因</th></tr>
+  <tr><td><strong>6153</strong> 嘉聯益</td><td><span class="badge badge-red">停損</span></td><td>已跌破停損 19.58，嚴格執行</td></tr>
+<tr><td><strong>2349</strong> 錸德</td><td><span class="badge badge-red">停損</span></td><td>已跌破停損 14.35，嚴格執行</td></tr>
+<tr><td><strong>1301</strong> 台塑</td><td><span class="badge badge-red">停損</span></td><td>已跌破停損 63.6，嚴格執行</td></tr>
+<tr><td><strong>2609</strong> 陽明</td><td><span class="badge badge-yellow">警戒</span></td><td>逼近停損 47.25，設好警示</td></tr>
+<tr><td><strong>00637L</strong> 元大滬深300正2</td><td><span class="badge badge-green">持有</span></td><td>遠離停損，安心持有</td></tr>
+<tr><td><strong>00882</strong> 中信中國高股息</td><td><span class="badge badge-green">持有</span></td><td>遠離停損，安心持有</td></tr>
+
+  </table>
+</div>
+
+<div class="alert">
+  <h4>⚠️ 風險預警</h4>
+  <ul>
+    <li><strong>美股隔夜小幅下跌：</strong>道瓊 -1.21%，需留意台股開盤是否跟跌</li>
+<li><strong>10Y 殖利率走高至 4.49%：</strong>月增 +0.04%，對科技成長股估值形成壓力</li>
+<li><strong>VIX 16.06：</strong>雖低但已明顯反彈，若突破 18 可能引發波動</li>
+<li><strong>原油逼近 $100：</strong>布倫特 $97.86，OPEC+ 減產 + 俄烏升級，恐引發通膨恐慌</li>
+
+  </ul>
+</div>
+
+<div class="footer">
+  報告生成：2026/07/31 08:10 (Asia/Taipei) | 統一資料源：2026/07/31 美股收盤
+</div>
+
+</div>
+</body>
+</html>
