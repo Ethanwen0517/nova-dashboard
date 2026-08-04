@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>融資融券 + 加權指數 + 融資使用率 趨勢圖 (2026/05/26 ~ 2026/08/04)</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+<style>
+  :root {
+    --bg: #0F1419;
+    --panel-bg: #1A2028;
+    --border: #2D3748;
+    --text: #E2E8F0;
+    --text-dim: #94A3B8;
+    --accent: #3B82F6;
+    --red: #E74C3C;
+    --green: #27AE60;
+    --blue: #3498DB;
+    --purple: #8E44AD;
+    --orange: #E67E22;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    padding: 16px;
+  }
+  .container { max-width: 1200px; margin: 0 auto; }
+  h1 { font-size: 22px; margin-bottom: 8px; color: var(--text); }
+  .meta { color: var(--text-dim); font-size: 13px; margin-bottom: 20px; display: flex; gap: 16px; flex-wrap: wrap; }
+  .summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 24px; }
+  .summary-card { background: var(--panel-bg); border: 1px solid var(--border); border-radius: 8px; padding: 14px; position: relative; }
+  .summary-card .label { font-size: 12px; color: var(--text-dim); margin-bottom: 6px; }
+  .summary-card .value { font-size: 16px; font-weight: 600; margin-bottom: 6px; }
+  .summary-card .change { font-size: 13px; font-weight: 500; }
+  .summary-card .change.positive { color: var(--green); }
+  .summary-card .change.negative { color: var(--red); }
+  .summary-card .change.warning { color: var(--orange); }
+  .summary-card .badge { position: absolute; top: 10px; right: 10px; font-size: 10px; padding: 2px 6px; border-radius: 4px; background: var(--border); color: var(--text-dim); }
+  .chart-panel { background: var(--panel-bg); border: 1px solid var(--border); border-radius: 8px; padding: 16px; margin-bottom: 16px; }
+  .chart-panel h3 { font-size: 15px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+  .chart-panel h3::before { content: ''; width: 4px; height: 16px; background: var(--accent); border-radius: 2px; }
+  .chart-container { position: relative; height: 280px; }
+  .legend { display: flex; gap: 16px; margin-top: 10px; font-size: 12px; color: var(--text-dim); flex-wrap: wrap; }
+  .legend span { display: inline-flex; align-items: center; gap: 4px; }
+  .legend .dot { width: 10px; height: 10px; border-radius: 2px; }
+  .events { background: var(--panel-bg); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; margin-bottom: 16px; font-size: 13px; }
+  .events h3 { margin-bottom: 8px; font-size: 14px; }
+  .events ul { list-style: none; padding-left: 0; }
+  .events li { padding: 4px 0; color: var(--text-dim); }
+  .events li strong { color: var(--text); margin-right: 8px; }
+  .actions { display: flex; gap: 12px; margin-top: 24px; padding: 16px 0; }
+  .actions a { padding: 8px 16px; background: var(--accent); color: white; text-decoration: none; border-radius: 6px; font-size: 13px; }
+  .actions a.secondary { background: var(--border); }
+  @media (max-width: 640px) {
+    body { padding: 10px; }
+    h1 { font-size: 18px; }
+    .summary-grid { grid-template-columns: 1fr 1fr; }
+    .summary-card .value { font-size: 14px; }
+    .chart-container { height: 220px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>📊 融資融券 + 加權指數 + 融資使用率 趨勢圖</h1>
+  <div class="meta">
+    <span>📅 2026/05/26 ~ 2026/08/04</span>
+    <span>📈 49 交易日</span>
+    <span>🔄 v3.5 Nova (Jinja2)</span>
+  </div>
+
+  <!-- 統計摘要卡片 (v3.0: 簡化版用 summary_cards | safe，之後升級為 for kpi in kpis) -->
+  <div class="summary-grid">
+    
+        <div class="summary-card">
+          <div class="badge">v2.0</div>
+          <div class="label">融資金額（當日億）</div>
+          <div class="value">5346 → 5211 億</div>
+          <div class="change negative">-135 億 (-2.52%)</div>
+        </div>
+
+        <div class="summary-card">
+          <div class="badge">v2.0</div>
+          <div class="label">融資餘額（百萬張）</div>
+          <div class="value">9.17M → 9.03M 張</div>
+          <div class="change negative">-142,557 張 (-1.55%)</div>
+        </div>
+
+        <div class="summary-card">
+          <div class="badge">v2.0</div>
+          <div class="label">融券餘額（千張）</div>
+          <div class="value">228K → 197K 張</div>
+          <div class="change positive">-31,417 張 (-13.76%)</div>
+        </div>
+
+        <div class="summary-card">
+          <div class="badge">v2.0</div>
+          <div class="label">加權指數</div>
+          <div class="value">43,525 → 43,361</div>
+          <div class="change negative">-165 點 (-0.38%)</div>
+        </div>
+  </div>
+
+  <!-- 事件標記 (v3.0: 簡化版用 events_html | safe，之後升級為 for ev in events) -->
+  
+    <div class="events">
+      <h3>📌 關鍵事件</h3>
+      <ul><li><strong>20260615</strong> <span style="color:#E74C3C">●</span> 使用率衝高 51.3%</li><li><strong>20260622</strong> <span style="color:#27AE60">●</span> 加權指數高點 47,742</li><li><strong>20260611</strong> <span style="color:#E67E22">●</span> 加權指數低點 43,149</li></ul>
+    </div>
+
+  <!-- 4 Panel 圖表 -->
+  <div class="chart-panel">
+    <h3>① 融資金額（當日新增, 億元）</h3>
+    <div class="chart-container"><canvas id="chart1"></canvas></div>
+    <div class="legend"><span><span class="dot" style="background:#E74C3C"></span>融資金額（當日新增）</span></div>
+  </div>
+
+  <div class="chart-panel">
+    <h3>② 融資餘額（紅, 百萬張） + 融券餘額（藍, 千張）</h3>
+    <div class="chart-container"><canvas id="chart2"></canvas></div>
+    <div class="legend">
+      <span><span class="dot" style="background:#E74C3C"></span>融資餘額（左軸, 百萬張）</span>
+      <span><span class="dot" style="background:#3498DB"></span>融券餘額（右軸, 千張）</span>
+    </div>
+  </div>
+
+  <div class="chart-panel">
+    <h3>③ 加權指數（TWII）</h3>
+    <div class="chart-container"><canvas id="chart3"></canvas></div>
+    <div class="legend"><span><span class="dot" style="background:#27AE60"></span>加權指數</span></div>
+  </div>
+
+  <div class="chart-panel">
+    <h3>④ 融資使用率 vs 集中市場成交值（使用率↑ 可能來自分子↑ 或 分母↓）</h3>
+    <div class="chart-container"><canvas id="chart4"></canvas></div>
+    <div class="legend">
+      <span><span class="dot" style="background:#8E44AD"></span>融資使用率（左軸, %）</span>
+      <span><span class="dot" style="background:#F39C12"></span>集中市場成交值（右軸, 億元）</span>
+      <span><span class="dot" style="background:#E67E22"></span>偏高警戒（45%）</span>
+      <span><span class="dot" style="background:#95A5A6"></span>偏低（30%）</span>
+    </div>
+  </div>
+
+  <div class="chart-panel">
+    <h3>⑤ 融資金額變化（直條圖, 億元, 今日 - 前一交易日）</h3>
+    <div class="chart-container"><canvas id="chart5"></canvas></div>
+    <div class="legend">
+      <span><span class="dot" style="background:#E74C3C"></span>融資增加（多）</span>
+      <span><span class="dot" style="background:#27AE60"></span>融資減少（空）</span>
+    </div>
+  </div>
+
+  <!-- v3.5 (2026-07-22): Panel ⑥ 簡化版 (移除「昨收上市」+「上次更新」重複 KPI) -->
+  <div class="chart-panel">
+    <h3>⑥ 大盤整體融資維持率（時序 + CMoney 偏差 · 140% 以下濾示）</h3>
+    <!-- 6 KPI 卡: 1 個 CMoney 偏差 + 5 個時序統計 (移除重複的「昨收上市」與「上次更新」元數據) -->
+    <div style="display:grid;grid-template-columns:repeat(6, 1fr);gap:8px;margin-bottom:10px;">
+      <div style="background:var(--border);padding:10px;border-radius:6px;text-align:center;grid-column:span 1;">
+        <div style="font-size:10px;color:var(--text-dim);">🎯 CMoney 偏差</div>
+        <div style="font-size:18px;font-weight:bold;color:#E74C3C;">11.96pp</div>
+        <div style="font-size:9px;color:var(--text-dim);">昨收 vs 159.31%</div>
+      </div>
+      
+      <div style="background:var(--border);padding:10px;border-radius:6px;text-align:center;grid-column:span 1;">
+        <div style="font-size:10px;color:var(--text-dim);">期初 (20260504)</div>
+        <div style="font-size:18px;font-weight:bold;color:#3498DB;">202.48%</div>
+        
+      </div>
+      
+      <div style="background:var(--border);padding:10px;border-radius:6px;text-align:center;grid-column:span 1;">
+        <div style="font-size:10px;color:var(--text-dim);">最新 (20260803)</div>
+        <div style="font-size:18px;font-weight:bold;color:#F59E0B;">171.27%</div>
+        <div style="font-size:9px;color:var(--text-dim);">-31.21pp</div>
+      </div>
+      
+      <div style="background:var(--border);padding:10px;border-radius:6px;text-align:center;grid-column:span 1;">
+        <div style="font-size:10px;color:var(--text-dim);">高點 (20260504)</div>
+        <div style="font-size:18px;font-weight:bold;color:#E74C3C;">202.48%</div>
+        
+      </div>
+      
+      <div style="background:var(--border);padding:10px;border-radius:6px;text-align:center;grid-column:span 1;">
+        <div style="font-size:10px;color:var(--text-dim);">低點 (20260728)</div>
+        <div style="font-size:18px;font-weight:bold;color:#27AE60;">144.87%</div>
+        
+      </div>
+      
+      <div style="background:var(--border);padding:10px;border-radius:6px;text-align:center;grid-column:span 1;">
+        <div style="font-size:10px;color:var(--text-dim);">CMoney (7/16)</div>
+        <div style="font-size:18px;font-weight:bold;color:#E74C3C;">159.31%</div>
+        <div style="font-size:9px;color:var(--text-dim);">偏差 +11.96pp</div>
+      </div>
+      
+    </div>
+    <!-- Chart.js line chart: 維持率時序 + CMoney 對照 -->
+    <div class="chart-container"><canvas id="chart7"></canvas></div>
+    <div class="legend">
+      <span><span class="dot" style="background:#F59E0B"></span>整體維持率（上市）</span>
+      <span><span class="dot" style="background:#94A3B8"></span>CMoney 對照 (159.31%)</span>
+    </div>
+    <div style="font-size:11px;color:var(--text-dim);line-height:1.6;padding:8px 12px;background:rgba(245,158,11,0.08);border-left:3px solid #F59E0B;border-radius:4px;margin-top:8px;">
+      💡 <strong>怎麼看：</strong>維持率 = 銺押品市值 ÷ 融資金額。 
+      
+        <span style="color:#27AE60;">✅ 171.27% 高于 140%，整體安全。</span>
+      
+      公式：維護率 = Σ(融資股數 × 收寧價) ÷ TWSE 公佈融資金額總額。資料源：<code>margin_maintenance_history.json</code>
+      (61 筆, 20260504 ~ 20260803)
+      ⚠️ <strong>7/16→7/21 突拉 10.89pp 與 CMoney 偏離,口徑差異待查證</strong>。
+    </div>
+  </div>
+
+  <!-- v3.4 (2026-07-22): Panel ⑥ 已整合單日 + 時序 為 1 個 panel (原 Panel ⑦ 刪除) -->
+
+  <div class="actions">
+    
+    <a href="margin_full_20260526_20260804.png" download>⬇️ 下載 PNG</a>
+    
+    
+    <a href="margin_full_20260526_20260804.csv" download class="secondary">📄 下載 CSV</a>
+    
+    
+  </div>
+</div>
+
+<script>
+const rawData = {"dates": ["2026-05-26", "2026-05-27", "2026-05-28", "2026-05-29", "2026-06-01", "2026-06-02", "2026-06-03", "2026-06-04", "2026-06-05", "2026-06-08", "2026-06-09", "2026-06-10", "2026-06-11", "2026-06-12", "2026-06-15", "2026-06-16", "2026-06-17", "2026-06-18", "2026-06-22", "2026-06-23", "2026-06-24", "2026-06-25", "2026-06-26", "2026-06-29", "2026-06-30", "2026-07-01", "2026-07-02", "2026-07-03", "2026-07-06", "2026-07-07", "2026-07-08", "2026-07-09", "2026-07-13", "2026-07-14", "2026-07-15", "2026-07-16", "2026-07-17", "2026-07-20", "2026-07-21", "2026-07-22", "2026-07-23", "2026-07-24", "2026-07-27", "2026-07-28", "2026-07-29", "2026-07-30", "2026-07-31", "2026-08-03", "2026-08-04"], "margin_amount": [5345.93, 5362.69, 5350.3, 5563.6, 5657.79, 5669.71, 5683.95, 5726.36, 5666.49, 5510.12, 5638.77, 5468.12, 5491.77, 5570.28, 5719.07, 5713.08, 5839.12, 5930.47, 6050.42, 5939.29, 6074.56, 6110.01, 5909.26, 5942.3, 6116.52, 6095.02, 6208.37, 6308.12, 6313.45, 6109.45, 6138.16, 6196.48, 6182.99, 6040.34, 6153.68, 6155.76, 5879.63, 5690.36, 5764.96, 5828.24, 5826.26, 5770.6, 5686.63, 5455.35, 5070.11, 4938.67, 5074.63, 5147.55, 5211.35], "margin_amount_change": [0.0, 16.77, -12.4, 213.3, 94.19, 11.92, 14.25, 42.41, -59.87, -156.37, 128.65, -170.65, 23.65, 78.51, 148.79, -5.99, 126.04, 91.35, 119.95, -111.12, 135.27, 35.44, -200.75, 33.04, 174.23, -21.5, 113.35, 99.75, 5.32, -204.0, 28.7, 58.33, -13.49, -142.65, 113.34, 2.08, -276.13, -189.27, 74.6, 63.27, -1.97, -55.67, -83.96, -231.29, -385.24, -131.44, 135.95, 72.93, 63.79], "margin_balance": [9.1746, 9.1558, 9.1132, 9.3092, 9.392, 9.3732, 9.399, 9.4061, 9.2899, 9.0669, 9.177, 9.0416, 9.073, 9.0888, 9.1951, 9.1807, 9.3062, 9.3452, 9.4624, 9.3007, 9.469, 9.5124, 9.3284, 9.3861, 9.4355, 9.4149, 9.53, 9.6186, 9.5793, 9.5317, 9.5906, 9.615, 9.6026, 9.4656, 9.5197, 9.5136, 9.3489, 9.2709, 9.3594, 9.3546, 9.3499, 9.3548, 9.272, 9.096, 8.7649, 8.7014, 9.1444, 9.1207, 9.032], "short_balance": [228.39, 241.62, 248.1, 241.8, 234.87, 260.05, 259.8, 269.86, 260.93, 237.43, 216.2, 219.75, 224.34, 224.95, 205.18, 194.52, 191.38, 204.36, 202.27, 204.26, 202.19, 199.16, 203.93, 205.29, 194.89, 196.39, 200.27, 200.37, 209.01, 213.84, 205.83, 203.71, 203.24, 180.71, 173.13, 176.62, 236.3, 210.86, 212.61, 206.55, 208.65, 204.75, 186.23, 219.26, 217.48, 204.21, 188.32, 185.32, 196.97], "twii": [43525.37, 44256.8, 43636.44, 44732.94, 45337.91, 45557.31, 46459.16, 45677.46, 45070.94, 43502.78, 44704.44, 43225.54, 43149.46, 44169.04, 45396.99, 45809.19, 45877.39, 46465.2, 47741.51, 47100.65, 46043.6, 46255.26, 44571.76, 44999.9, 46125.91, 47018.99, 46744.16, 46780.62, 46556.39, 45479.11, 45734.41, 45354.61, 45380.52, 44737.95, 45631.59, 45624.98, 42671.27, 42449.7, 44232.87, 44825.78, 44850.81, 43654.84, 43634.19, 41603.36, 40039.18, 39933.3, 43119.75, 43386.41, 43360.66], "margin_ratio": [34.5, 32.9, 32.02, 29.02, 35.12, 33.42, 37.46, 43.2, 42.93, 45.29, 46.07, 38.4, 41.03, 47.64, 51.26, 45.26, 50.57, 36.92, 39.92, 35.51, 39.47, 44.66, 35.32, 56.84, 48.31, 44.56, 57.29, 58.52, 59.31, 49.75, 61.1, 62.16, 57.91, 48.51, 60.07, 65.97, 44.1, 54.64, 66.55, 56.81, 62.61, 69.77, 76.06, 62.52, 44.12, 43.06, 57.16, 58.13, 47.94], "trade_value": [15497.11, 16300.78, 16707.19, 19169.52, 16111.34, 16963.98, 15175.36, 13255.98, 13198.22, 12165.75, 12240.63, 14240.7, 13385.17, 11691.87, 11157.44, 12621.86, 11545.96, 16061.95, 15158.18, 16723.55, 15390.46, 13680.77, 16728.32, 10454.39, 12660.62, 13678.18, 10835.83, 10780.28, 10644.32, 12281.19, 10045.6, 9967.89, 10676.62, 12452.07, 10243.86, 9331.81, 13331.57, 10414.57, 8662.52, 10259.58, 9306.12, 8271.3, 7476.47, 8725.75, 11491.85, 11469.38, 8877.32, 8855.06, 10870.46]};
+
+// 共用設定
+const baseOptions = {
+  responsive: true,
+  maintainAspectRatio: false,
+  interaction: { mode: 'index', intersect: false },
+  plugins: {
+    legend: { display: false },
+    tooltip: {
+      backgroundColor: 'rgba(15, 20, 25, 0.95)',
+      titleColor: '#E2E8F0',
+      bodyColor: '#E2E8F0',
+      borderColor: '#2D3748',
+      borderWidth: 1,
+      padding: 10,
+      callbacks: {
+        title: (items) => items[0].label,
+        label: (item) => `${item.dataset.label}: ${item.parsed.y.toLocaleString()}`
+      }
+    }
+  },
+  scales: {
+    x: {
+      type: 'category',
+      offset: true,                                  // 加 padding 讓最後一個點可見 (7/22)
+      ticks: { color: '#94A3B8', maxRotation: 45, autoSkip: true, maxTicksLimit: 10 },
+      grid: { color: 'rgba(255,255,255,0.05)' }
+    }
+  }
+};
+
+// ① 融資金額
+new Chart(document.getElementById('chart1'), {
+  type: 'line',
+  data: {
+    labels: rawData.dates,
+    datasets: [{
+      label: '融資金額（當日新增）',
+      data: rawData.margin_amount,
+      borderColor: '#E74C3C',
+      backgroundColor: 'rgba(231, 76, 60, 0.15)',
+      fill: true,
+      tension: 0,
+      pointRadius: 4,
+      pointHoverRadius: 7
+    }]
+  },
+  options: {
+    ...baseOptions,
+    scales: {
+      ...baseOptions.scales,
+      y: { ticks: { color: '#94A3B8' }, grid: { color: 'rgba(255,255,255,0.05)' } }
+    }
+  }
+});
+
+// ② 融資/融券餘額（雙 Y 軸）
+new Chart(document.getElementById('chart2'), {
+  type: 'line',
+  data: {
+    labels: rawData.dates,
+    datasets: [
+      {
+        label: '融資餘額（百萬張）',
+        data: rawData.margin_balance,
+        borderColor: '#E74C3C',
+        backgroundColor: 'rgba(231, 76, 60, 0.10)',
+        fill: true,
+        tension: 0,
+        yAxisID: 'y',
+        pointRadius: 4,
+        pointHoverRadius: 7
+      },
+      {
+        label: '融券餘額（千張）',
+        data: rawData.short_balance,
+        borderColor: '#3498DB',
+        backgroundColor: 'rgba(52, 152, 219, 0.10)',
+        fill: true,
+        tension: 0,
+        yAxisID: 'y1',
+        pointRadius: 4,
+        pointHoverRadius: 7
+      }
+    ]
+  },
+  options: {
+    ...baseOptions,
+    scales: {
+      ...baseOptions.scales,
+      y: {
+        type: 'linear',
+        position: 'left',
+        ticks: { color: '#E74C3C' },
+        grid: { color: 'rgba(255,255,255,0.05)' },
+        title: { display: true, text: '融資餘額（百萬張）', color: '#E74C3C' }
+      },
+      y1: {
+        type: 'linear',
+        position: 'right',
+        ticks: { color: '#3498DB' },
+        grid: { drawOnChartArea: false },
+        title: { display: true, text: '融券餘額（千張）', color: '#3498DB' }
+      }
+    }
+  }
+});
+
+// ③ 加權指數
+new Chart(document.getElementById('chart3'), {
+  type: 'line',
+  data: {
+    labels: rawData.dates,
+    datasets: [{
+      label: '加權指數',
+      data: rawData.twii,
+      borderColor: '#27AE60',
+      backgroundColor: 'rgba(39, 174, 96, 0.15)',
+      fill: true,
+      tension: 0,
+      pointRadius: 4,
+      pointHoverRadius: 7
+    }]
+  },
+  options: {
+    ...baseOptions,
+    scales: {
+      ...baseOptions.scales,
+      y: { ticks: { color: '#94A3B8' }, grid: { color: 'rgba(255,255,255,0.05)' } }
+    }
+  }
+});
+
+// ④ 融資使用率 + 集中市場成交值（v3.1 第二軸對照）
+new Chart(document.getElementById('chart4'), {
+  type: 'line',
+  data: {
+    labels: rawData.dates,
+    datasets: [
+      {
+        label: '融資使用率',
+        data: rawData.margin_ratio,
+        borderColor: '#8E44AD',
+        backgroundColor: 'rgba(142, 68, 173, 0.15)',
+        fill: true,
+        tension: 0,
+        pointRadius: 4,
+        pointHoverRadius: 7,
+        yAxisID: 'y'
+      },
+      {
+        label: '集中市場成交值',
+        data: rawData.trade_value,
+        borderColor: '#F39C12',
+        backgroundColor: 'rgba(243, 156, 18, 0.05)',
+        borderDash: [6, 4],
+        fill: false,
+        tension: 0.2,
+        pointRadius: 3,
+        pointHoverRadius: 6,
+        yAxisID: 'y1'
+      },
+      {
+        label: '偏高警戒',
+        data: rawData.dates.map(() => 45),
+        borderColor: '#E67E22',
+        borderDash: [5, 5],
+        pointRadius: 0,
+        fill: false,
+        yAxisID: 'y'
+      },
+      {
+        label: '偏低',
+        data: rawData.dates.map(() => 30),
+        borderColor: '#95A5A6',
+        borderDash: [5, 5],
+        pointRadius: 0,
+        fill: false,
+        yAxisID: 'y'
+      }
+    ]
+  },
+  options: {
+    ...baseOptions,
+    scales: {
+      ...baseOptions.scales,
+      y: {
+        type: 'linear',
+        position: 'left',
+        min: 28.15,
+        max: 78.34,
+        ticks: { color: '#8E44AD' },
+        grid: { color: 'rgba(255,255,255,0.05)' },
+        title: { display: true, text: '使用率 (%)', color: '#8E44AD' }
+      },
+      y1: {
+        type: 'linear',
+        position: 'right',
+        ticks: {
+          color: '#F39C12',
+          callback: v => (v/1000).toFixed(1) + 'K'
+        },
+        grid: { drawOnChartArea: false },
+        title: { display: true, text: '成交值 (億元)', color: '#F39C12' }
+      }
+    },
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: {
+          label: function(ctx) {
+            const i = ctx.dataIndex;
+            const useRate = rawData.margin_ratio[i];
+            const tradeV = rawData.trade_value[i];
+            const marginA = rawData.margin_amount[i];
+            if (ctx.dataset.label === '集中市場成交值') {
+              return `成交值: ${tradeV.toLocaleString()} 億`;
+            } else if (ctx.dataset.label === '融資使用率') {
+              return [
+                `使用率: ${useRate.toFixed(2)}%`,
+                `融資金額: ${marginA.toLocaleString()} 億`,
+                `成交值:   ${tradeV.toLocaleString()} 億`,
+                `分子: 使用率 = ${marginA.toLocaleString()} ÷ ${tradeV.toLocaleString()} = ${useRate.toFixed(2)}%`
+              ];
+            }
+            return `${ctx.dataset.label}: ${ctx.parsed.y}`;
+          }
+        }
+      }
+    }
+  }
+});
+
+// ⑤ 融資金額變化（直條圖）
+new Chart(document.getElementById('chart5'), {
+  type: 'bar',
+  data: {
+    labels: rawData.dates,
+    datasets: [{
+      label: '融資金額變化',
+      data: rawData.margin_amount_change,
+      backgroundColor: rawData.margin_amount_change.map(v => v >= 0 ? 'rgba(231, 76, 60, 0.7)' : 'rgba(39, 174, 96, 0.7)'),
+      borderColor: rawData.margin_amount_change.map(v => v >= 0 ? '#E74C3C' : '#27AE60'),
+      borderWidth: 1
+    }]
+  },
+  options: {
+    ...baseOptions,
+    scales: {
+      ...baseOptions.scales,
+      y: { ticks: { color: '#94A3B8' }, grid: { color: 'rgba(255,255,255,0.05)' } }
+    }
+  }
+});
+
+// ⑦ 大盤整體融資維持率 趨勢（v3.3 從 history.json 注入）
+const maintenanceData = [{"date": "20260504", "ratio": 202.48, "version": "v0.3"}, {"date": "20260505", "ratio": 200.97, "version": "v0.3"}, {"date": "20260506", "ratio": 199.27, "version": "v0.3"}, {"date": "20260507", "ratio": 198.03, "version": "v0.3"}, {"date": "20260508", "ratio": 197.01, "version": "v0.3"}, {"date": "20260511", "ratio": 196.23, "version": "v0.3"}, {"date": "20260512", "ratio": 195.03, "version": "v0.3"}, {"date": "20260513", "ratio": 194.2, "version": "v0.3"}, {"date": "20260514", "ratio": 193.97, "version": "v0.3"}, {"date": "20260515", "ratio": 193.02, "version": "v0.3"}, {"date": "20260518", "ratio": 189.49, "version": "v0.3"}, {"date": "20260519", "ratio": 188.94, "version": "v0.3"}, {"date": "20260520", "ratio": 188.62, "version": "v0.3"}, {"date": "20260521", "ratio": 187.92, "version": "v0.3"}, {"date": "20260522", "ratio": 186.75, "version": "v0.3"}, {"date": "20260525", "ratio": 185.11, "version": "v0.3"}, {"date": "20260526", "ratio": 182.93, "version": "v0.3"}, {"date": "20260527", "ratio": 181.3, "version": "v0.3"}, {"date": "20260528", "ratio": 180.36, "version": "v0.3"}, {"date": "20260529", "ratio": 178.4, "version": "v0.3"}, {"date": "20260601", "ratio": 177.02, "version": "v0.3"}, {"date": "20260602", "ratio": 175.73, "version": "v0.3"}, {"date": "20260603", "ratio": 174.35, "version": "v0.3"}, {"date": "20260604", "ratio": 173.4, "version": "v0.3"}, {"date": "20260605", "ratio": 173.21, "version": "v0.3"}, {"date": "20260608", "ratio": 174.01, "version": "v0.3"}, {"date": "20260609", "ratio": 173.33, "version": "v0.3"}, {"date": "20260610", "ratio": 173.33, "version": "v0.3"}, {"date": "20260611", "ratio": 173.31, "version": "v0.3"}, {"date": "20260612", "ratio": 172.6, "version": "v0.3"}, {"date": "20260615", "ratio": 171.29, "version": "v0.3"}, {"date": "20260616", "ratio": 170.37, "version": "v0.3"}, {"date": "20260617", "ratio": 169.28, "version": "v0.3"}, {"date": "20260618", "ratio": 168.09, "version": "v0.3"}, {"date": "20260622", "ratio": 166.44, "version": "v0.3"}, {"date": "20260623", "ratio": 165.34, "version": "v0.3"}, {"date": "20260624", "ratio": 164.23, "version": "v0.3"}, {"date": "20260625", "ratio": 163.46, "version": "v0.3"}, {"date": "20260626", "ratio": 163.59, "version": "v0.3"}, {"date": "20260629", "ratio": 163.46, "version": "v0.3"}, {"date": "20260630", "ratio": 162.68, "version": "v0.3"}, {"date": "20260701", "ratio": 162.38, "version": "v0.3"}, {"date": "20260702", "ratio": 161.75, "version": "v0.3"}, {"date": "20260703", "ratio": 161.2, "version": "v0.3"}, {"date": "20260706", "ratio": 160.62, "version": "v0.3"}, {"date": "20260707", "ratio": 160.94, "version": "v0.3"}, {"date": "20260708", "ratio": 160.87, "version": "v0.3"}, {"date": "20260709", "ratio": 160.61, "version": "v0.3"}, {"date": "20260713", "ratio": 160.34, "version": "v0.3"}, {"date": "20260714", "ratio": 160.9, "version": "v0.3"}, {"date": "20260715", "ratio": 161.05, "version": "v0.3"}, {"date": "20260716", "ratio": 161.01, "version": "v0.3"}, {"date": "20260720", "ratio": 165.51, "version": "v0.3"}, {"date": "20260721", "ratio": 171.9, "version": "v0.3"}, {"date": "20260722", "ratio": 170.7, "version": "v0.3"}, {"date": "20260723", "ratio": 163.67, "version": "v0.3"}, {"date": "20260724", "ratio": 163.79, "version": "v0.3"}, {"date": "20260727", "ratio": 152.6, "version": "v0.3"}, {"date": "20260728", "ratio": 144.87, "version": "v0.3"}, {"date": "20260729", "ratio": 169.58, "version": "v0.3"}, {"date": "20260803", "ratio": 171.27, "version": "v0.3"}];
+const cmoneyBaseline = 159.31;
+
+new Chart(document.getElementById('chart7'), {
+  type: 'line',
+  data: {
+    labels: maintenanceData.map(e => e.date),
+    datasets: [
+      {
+        label: '整體融資維持率 (%)',
+        data: maintenanceData.map(e => Number(e.ratio)),
+        borderColor: '#F59E0B',
+        backgroundColor: 'rgba(245, 158, 11, 0.15)',
+        fill: true,
+        tension: 0.3,
+        pointRadius: 3,
+        pointHoverRadius: 6,
+        borderWidth: 2
+      },
+      {
+        label: 'CMoney 對照 (159.31%)',
+        data: Array(maintenanceData.length).fill(cmoneyBaseline),
+        borderColor: '#94A3B8',
+        borderDash: [5, 5],
+        borderWidth: 1.5,
+        pointRadius: 0,
+        fill: false
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { labels: { color: '#94A3B8' } },
+      tooltip: {
+        backgroundColor: 'rgba(15, 23, 42, 0.95)',
+        borderColor: '#334155',
+        borderWidth: 1,
+        callbacks: {
+          label: (ctx) => `${ctx.dataset.label}: ${ctx.parsed.y.toFixed(2)}%`
+        }
+      }
+    },
+    scales: {
+      x: {
+        type: 'category',
+        offset: true,
+        ticks: { color: '#94A3B8', maxRotation: 45, autoSkip: true, maxTicksLimit: 12 },
+        grid: { color: 'rgba(255,255,255,0.05)' }
+      },
+      y: {
+        ticks: { color: '#94A3B8', callback: v => v.toFixed(0) + '%' },
+        grid: { color: 'rgba(255,255,255,0.05)' },
+        title: { display: true, text: '維持率 (%)', color: '#94A3B8' }
+      }
+    }
+  }
+});
+</script>
+</body>
+</html>
