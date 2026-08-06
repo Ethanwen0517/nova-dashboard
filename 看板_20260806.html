@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>台股盤後操盤室 2026/08/06</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=JetBrains+Mono:wght@400;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#eef1f6;--surface:#fff;--surface2:#f5f7fa;
+  --border:#dde2ea;--border2:#c8cfda;
+  --text:#1a1f2e;--text2:#4a5568;--text3:#8896aa;
+  --accent:#1a56db;--accent-lt:#eef3ff;
+  --gold:#b45309;--gold-lt:#fef3c7;
+  --up:#c0392b;--up-bg:#fdf2f2;--up-bd:#f5c6c6;
+  --dn:#1a7a4a;--dn-bg:#f0faf4;--dn-bd:#a8d5bc;
+  --flat:#718096;--warn:#92400e;--warn-bg:#fffbeb;--warn-bd:#fde68a;
+  --sh:0 1px 3px rgba(0,0,0,.07);--shl:0 4px 20px rgba(0,0,0,.11);
+  --r:10px;--rs:6px;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:'Noto Sans TC',sans-serif;font-size:14px;line-height:1.6;width:100%;max-width:100vw;overflow-x:hidden}
+.header{background:#141927;padding:0 32px;display:flex;align-items:stretch;justify-content:space-between;box-shadow:var(--shl);border-bottom:3px solid var(--accent);width:100%;box-sizing:border-box;max-width:100vw}
+.hbrand{display:flex;align-items:center;gap:16px;padding:16px 0}
+.logo{background:var(--accent);color:#fff;font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;padding:6px 14px;border-radius:var(--rs)}
+.htitle{font-size:18px;font-weight:900;color:#fff}
+.hsub{font-size:11px;color:#8896aa;font-family:'JetBrains Mono',monospace;letter-spacing:1px}
+.hmeta{display:flex;align-items:center}
+.hmi{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 22px;border-left:1px solid rgba(255,255,255,.1);height:100%;gap:3px}
+.hml{font-size:10px;color:#8896aa;font-family:'JetBrains Mono',monospace;letter-spacing:1px;text-transform:uppercase}
+.hmv{font-size:14px;font-weight:700;color:#e2e8f0;font-family:'JetBrains Mono',monospace}
+.pdot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#e63946;margin-right:5px;animation:pulse 2s infinite;vertical-align:middle}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.main{max-width:1600px;width:100%;margin:0 auto;padding:24px 28px 48px;display:flex;flex-direction:column;gap:22px;min-width:0;box-sizing:border-box}
+.st{font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--text3);font-family:'JetBrains Mono',monospace;margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.st .num{background:var(--accent);color:#fff;width:22px;height:22px;border-radius:5px;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
+.st::after{content:'';flex:1;height:1px;background:var(--border)}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--sh);min-width:0;overflow:hidden}
+.ph{display:flex;align-items:center;justify-content:space-between;padding:12px 18px;border-bottom:1px solid var(--border);background:var(--surface2);border-radius:var(--r) var(--r) 0 0;flex-wrap:wrap;gap:8px}
+.pt{font-size:13px;font-weight:700;color:var(--text);display:flex;align-items:center;gap:8px}
+.dot{width:8px;height:8px;border-radius:50%;display:inline-block;flex-shrink:0}
+.dot-up{background:var(--up)}.dot-dn{background:var(--dn)}.dot-acc{background:var(--accent)}.dot-gold{background:var(--gold)}.dot-warn{background:var(--warn)}
+.cb{padding:18px}
+.two-col-12{display:grid;grid-template-columns:1fr 1fr;gap:16px;min-width:0}
+.two-col-32{display:grid;grid-template-columns:3fr 2fr;gap:16px;min-width:0}
+.hero-grid{display:grid;grid-template-columns:5fr 4fr;gap:16px;align-items:stretch;min-width:0}
+.taiex-hero{background:#141927;border-radius:var(--r);padding:24px 32px;display:flex;align-items:center;gap:32px;box-shadow:var(--shl);border-left:4px solid #1a9c4e;position:relative;overflow:hidden;height:100%;min-width:0}
+.taiex-hero::before{content:'TAIEX';position:absolute;right:20px;top:50%;transform:translateY(-50%);font-family:'Bebas Neue',sans-serif;font-size:100px;color:rgba(255,255,255,.03);letter-spacing:8px;user-select:none;pointer-events:none}
+.tv{font-family:'JetBrains Mono',monospace;font-size:52px;font-weight:700;color:#fff;line-height:1;letter-spacing:-1px}
+.tc{font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:700;margin-top:8px;color:#1a9c4e}
+.tl{font-size:11px;font-weight:500;color:#8896aa;letter-spacing:.8px;margin-bottom:6px}
+.hd{width:1px;height:60px;background:rgba(255,255,255,.12);flex-shrink:0}
+.hs{display:flex;flex-direction:column;gap:4px}
+.hsl{font-size:11px;color:#8896aa}.hsv{font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:600;color:#e2e8f0}
+.cl{margin-left:auto;display:flex;align-items:center;gap:14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:var(--rs);padding:8px 14px;flex-shrink:0}
+.cll{font-size:10px;color:#8896aa;letter-spacing:1px;margin-right:4px}
+.cli{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:600}
+.cld{width:9px;height:9px;border-radius:2px}
+.kpi-grid-6{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;min-width:0}
+.kpi-grid-8{display:grid;grid-template-columns:repeat(8,1fr);gap:10px;min-width:0}
+.kpi-card{background:var(--surface2);border:1px solid var(--border);border-radius:var(--rs);padding:13px 8px;text-align:center}
+.kpi-label{font-size:10px;color:var(--text3);letter-spacing:.5px;margin-bottom:6px;font-family:'JetBrains Mono',monospace}
+.kpi-val{font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:700;line-height:1.1}
+.kpi-sub{font-size:10px;color:var(--text3);margin-top:4px;font-family:'JetBrains Mono',monospace}
+.bb{display:flex;height:30px;border-radius:var(--rs);overflow:hidden;gap:2px;margin:12px 0}
+.bs{display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;font-family:'JetBrains Mono',monospace;border-radius:3px;min-width:36px}
+.bu{background:#fde8e8;color:var(--up);border:1px solid var(--up-bd)}.bf{background:var(--surface2);color:var(--text3);border:1px solid var(--border)}.bd{background:#e8f5ee;color:var(--dn);border:1px solid var(--dn-bd)}
+.vol-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:10px;min-width:0}
+.vol-card{background:var(--surface2);border:1px solid var(--border);border-radius:var(--rs);padding:13px 12px;display:flex;flex-direction:column;gap:3px}
+.vol-label{font-size:10px;color:var(--text3);font-family:'JetBrains Mono',monospace;letter-spacing:.5px;margin-bottom:2px}
+.vol-val{font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:700}
+.vol-unit{font-size:10px;color:var(--text3);margin-left:2px}
+.vol-sub{font-size:10px;color:var(--text3)}
+.data-table{width:100%;border-collapse:collapse;font-size:13px;table-layout:auto;min-width:0}
+.data-table thead tr{background:var(--surface2);border-bottom:2px solid var(--border2)}
+.data-table th{padding:9px 10px;font-size:11px;font-weight:700;letter-spacing:.5px;color:var(--text3);text-align:right;font-family:'JetBrains Mono',monospace;text-transform:uppercase;white-space:nowrap}
+.data-table th:first-child,.data-table th:nth-child(2){text-align:left}
+.data-table td{padding:7px 10px;text-align:right;border-bottom:1px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--text2)}
+.data-table td:first-child,.data-table td:nth-child(2){text-align:left}
+.data-table tr:last-child td{border-bottom:none}.data-table tr:hover td{background:var(--surface2)}
+.data-table .leverage-row td{opacity:.38}.data-table .leverage-row .name-col::after{content:' ＊';color:var(--text3);font-size:10px}
+.name-col{color:var(--text);font-weight:500;font-family:'Noto Sans TC',sans-serif !important;font-size:13px !important}
+.code-col{color:var(--text3);font-size:12px}
+.no-data{color:var(--text3);padding:12px 0;font-size:13px}.no-data-cell{color:var(--text3);text-align:center !important;padding:18px;font-size:13px}
+.sw{display:flex;flex-direction:column}
+.sector-row{display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:1px solid var(--border)}.sector-row:last-child{border-bottom:none}
+.sector-name{width:82px;font-size:13px;color:var(--text);font-weight:500;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar-track{flex:1;height:7px;background:var(--surface2);border-radius:3px;overflow:hidden;border:1px solid var(--border)}
+.bar-fill{height:100%;border-radius:3px}.up-bar{background:var(--up)}.dn-bar{background:var(--dn)}
+.sp{width:68px;text-align:right;font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;flex-shrink:0}
+.up{color:var(--up)}.dn{color:var(--dn)}.flat{color:var(--flat)}
+.rank-badge{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:5px;font-size:11px;font-weight:700;background:var(--surface2);color:var(--text3);font-family:'JetBrains Mono',monospace;border:1px solid var(--border)}
+.rank-badge.gold{background:var(--gold-lt);color:var(--gold);border-color:#fbbf24}.rank-badge.silver{background:#f1f5f9;color:#64748b;border-color:#cbd5e1}.rank-badge.bronze{background:#fff7ed;color:#c2622a;border-color:#fdba74}
+.yield-badge{display:inline-block;background:var(--gold-lt);color:var(--gold);border:1px solid #fbbf24;border-radius:var(--rs);padding:2px 8px;font-size:12px;font-weight:700;font-family:'JetBrains Mono',monospace}
+.chip-up{display:inline-block;background:var(--up-bg);color:var(--up);border:1px solid var(--up-bd);border-radius:var(--rs);padding:2px 9px;font-size:12px;font-weight:700;font-family:'JetBrains Mono',monospace;white-space:nowrap}
+.chip-dn{display:inline-block;background:var(--dn-bg);color:var(--dn);border:1px solid var(--dn-bd);border-radius:var(--rs);padding:2px 9px;font-size:12px;font-weight:700;font-family:'JetBrains Mono',monospace;white-space:nowrap}
+.nb{background:var(--accent-lt);border:1px solid #bfcffc;border-radius:var(--rs);padding:5px 12px;font-size:11px;color:#1a3a8f;line-height:1.6}
+.footer{background:#141927;color:#8896aa;padding:14px 32px;display:flex;justify-content:space-between;align-items:center;font-size:11px;font-family:'JetBrains Mono',monospace;letter-spacing:.5px;width:100%;box-sizing:border-box;max-width:100vw}
+/* ============ 手機自適應（V1.0 2026-06-12）============ */
+@media (max-width:900px){
+  .header{padding:0 16px;flex-wrap:wrap;gap:8px}
+  .hbrand{padding:12px 0;gap:10px}
+  .htitle{font-size:15px}
+  .hsub{font-size:10px}
+  .hmi{padding:8px 12px}
+  .hml{font-size:9px}.hmv{font-size:12px}
+  .main{padding:14px 12px 32px;gap:14px}
+  .taiex-hero{padding:16px 18px;gap:14px;flex-wrap:wrap}
+  .tv{font-size:34px}
+  .tc{font-size:15px}
+  .tl{font-size:10px}
+  .hd{display:none}
+  .cl{width:100%;justify-content:flex-start;margin-left:0}
+  .hero-grid,.two-col-12,.two-col-32{grid-template-columns:1fr;gap:12px}
+  .kpi-grid-6{grid-template-columns:repeat(2,1fr);gap:8px}
+  .kpi-grid-8{grid-template-columns:repeat(3,1fr);gap:8px}
+  .kpi-val{font-size:18px}
+  .vol-grid{grid-template-columns:repeat(3,1fr);gap:8px}
+  .vol-card{padding:10px 8px}
+  .vol-val{font-size:16px}
+  .data-table{font-size:12px}
+  .data-table th,.data-table td{padding:6px 4px;font-size:11px}
+  .name-col{font-size:12px !important}
+  .code-col{font-size:10px}
+  .bb{height:24px}
+  .bs{font-size:10px;min-width:24px;padding:0 4px}
+  .sector-name{width:64px;font-size:12px}
+  .sp{width:52px;font-size:11px}
+  .footer{padding:12px 16px;flex-direction:column;gap:4px;text-align:center}
+}
+@media (max-width:600px){
+  .tv{font-size:28px}
+  .hbrand .logo{font-size:18px;padding:4px 10px}
+  .hmi{padding:6px 8px}
+  .kpi-grid-6{grid-template-columns:repeat(2,1fr)}
+  .kpi-grid-8{grid-template-columns:repeat(2,1fr)}
+  .vol-grid{grid-template-columns:1fr}
+  .data-table{font-size:11px}
+  .data-table th,.data-table td{padding:4px 3px;font-size:10px}
+  .ph{padding:8px 12px;flex-direction:column;align-items:flex-start;gap:4px}
+  .pt{font-size:12px}
+}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="hbrand">
+    <div class="logo">PRO DESK</div>
+    <div><div class="htitle">台股盤後操盤室</div>
+    <div class="hsub">TWSE AFTER-HOURS DASHBOARD · v3.6</div></div>
+  </div>
+  <div class="hmeta">
+    <div class="hmi"><div class="hml">日期</div><div class="hmv">2026/08/06</div></div>
+    <div class="hmi"><div class="hml">狀態</div><div class="hmv"><span class="pdot"></span>已收盤</div></div>
+    <div class="hmi"><div class="hml">資料來源</div><div class="hmv">TWSE / TPEx</div></div>
+    <div class="hmi"><div class="hml">色系說明</div><div class="hmv" style="font-size:12px"><span style="color:#e07070">■漲</span>&nbsp;<span style="color:#6abf8a">■跌</span></div></div>
+  </div>
+</div>
+<div class="main">
+
+<!-- ① TAIEX + ③ 騰落 -->
+<div>
+  <div class="st"><span class="num">1</span>加權指數 ＋ <span class="num">3</span>騰落廣度</div>
+  <div class="hero-grid">
+    <div class="taiex-hero">
+      <div>
+        <div class="tl">發行量加權股價指數（TAIEX）</div>
+        <div class="tv">44,396.70</div>
+        <div class="tc">▼&nbsp;-214.90（-0.48%）</div>
+      </div>
+      <div class="hd"></div>
+      <div class="hs"><div class="hsl">漲跌點數</div><div class="hsv" style="color:#1a9c4e">-214.90</div></div>
+      <div class="hd"></div>
+      <div class="hs"><div class="hsl">漲跌幅</div><div class="hsv" style="color:#1a9c4e">-0.48%</div></div>
+      <div class="cl">
+        <span class="cll">台灣慣例</span>
+        <div class="cli"><div class="cld" style="background:var(--up)"></div><span style="color:#d97070">紅 = 漲</span></div>
+        <div class="cli"><div class="cld" style="background:var(--dn)"></div><span style="color:#5aaa80">綠 = 跌</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ph">
+        <div class="pt"><span class="dot dot-warn"></span>騰落廣度 Market Breadth</div>
+        <span class="nb">A/D &gt;1.5 多頭 ｜ T/T &gt;2.0 強勢</span>
+      </div>
+      <div class="cb">
+        <div class="kpi-grid-6" style="margin-bottom:12px">
+          <div class="kpi-card" style="border-color:var(--up-bd);background:var(--up-bg)">
+            <div class="kpi-label">▲ 上漲</div><div class="kpi-val up">619</div><div class="kpi-sub up">漲停 205</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">— 平盤</div><div class="kpi-val flat">156</div><div class="kpi-sub">家</div>
+          </div>
+          <div class="kpi-card" style="border-color:var(--dn-bd);background:var(--dn-bg)">
+            <div class="kpi-label">▼ 下跌</div><div class="kpi-val dn">602</div><div class="kpi-sub dn">跌停 57</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">🕯 紅K/黑K</div>
+            <div class="kpi-val" style="font-size:15px;line-height:1.7"><span class="up">741</span><span style="color:var(--text3)"> / </span><span class="dn">510</span></div>
+            <div class="kpi-sub">十字 115</div>
+          </div>
+          <div class="kpi-card" style="border-color:#92400e;background:var(--warn-bg)">
+            <div class="kpi-label">A/D Ratio</div><div class="kpi-val" style="color:#92400e;font-size:24px">1.03</div>
+            <div class="kpi-sub" style="color:#92400e;font-weight:700">拉鋸區間</div>
+          </div>
+          <div class="kpi-card" style="border-color:#c0392b;background:var(--up-bg)">
+            <div class="kpi-label">T/T Ratio</div><div class="kpi-val" style="color:#c0392b;font-size:24px">3.60</div>
+            <div class="kpi-sub" style="color:#c0392b;font-weight:700">多方強勢</div>
+          </div>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:12px;font-weight:600;margin-bottom:4px">
+          <span class="up">▲ 619 (44%)</span><span class="flat">— 156</span><span class="dn">▼ 602 (45%)</span>
+        </div>
+        <div class="bb">
+          <div class="bs bu" style="flex:44">▲44%</div>
+          <div class="bs bf" style="flex:11">—</div>
+          <div class="bs bd" style="flex:45">▼45%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ⑧ 成交量技術指標 -->
+<div>
+  <div class="st"><span class="num">8</span>成交量 ＆ 技術參考指標</div>
+  <div class="card">
+    <div class="ph">
+      <div class="pt"><span class="dot dot-acc"></span>大盤成交概況</div>
+      <span style="font-size:11px;color:var(--text3)">量能為市場活躍度重要指標 ｜ 成交量萎縮需注意方向確認</span>
+    </div>
+    <div class="cb">
+      <div class="vol-grid">
+        <div class="vol-card" style="border-color:#c0392b;border-left:3px solid #c0392b">
+          <div class="vol-label">上市成交金額</div>
+          <div class="vol-val" style="color:#c0392b">9705<span class="vol-unit">億</span></div>
+          <div class="vol-sub">TWSE 上市</div>
+        </div>
+        <div class="vol-card" style="border-color:#c0392b;border-left:3px solid #c0392b">
+          <div class="vol-label">上櫃成交金額</div>
+          <div class="vol-val" style="color:#c0392b">2254<span class="vol-unit">億</span></div>
+          <div class="vol-sub">TPEx 上櫃</div>
+        </div>
+        <div class="vol-card" style="border-color:#c0392b;border-left:3px solid #c0392b">
+          <div class="vol-label">合計成交金額</div>
+          <div class="vol-val" style="color:#c0392b">11959<span class="vol-unit">億</span></div>
+          <div class="vol-sub" style="color:#c0392b;font-weight:700">量能充足</div>
+        </div>
+        <div class="vol-card">
+          <div class="vol-label">上市成交股數</div>
+          <div class="vol-val" style="color:var(--accent)">74.92<span class="vol-unit">億股</span></div>
+          <div class="vol-sub">TWSE</div>
+        </div>
+        <div class="vol-card">
+          <div class="vol-label">上市成交筆數</div>
+          <div class="vol-val" style="color:var(--accent)">452.4<span class="vol-unit">萬筆</span></div>
+          <div class="vol-sub">TWSE</div>
+        </div>
+        <div class="vol-card">
+          <div class="vol-label">加權最高 / 最低</div>
+          <div class="vol-val" style="font-size:15px;line-height:1.5">
+            <span class="up">44601.24</span><span style="color:var(--text3)"> / </span><span class="dn">44024.32</span>
+          </div>
+          <div class="vol-sub">H / L</div>
+        </div>
+        <div class="vol-card">
+          <div class="vol-label">加權開盤</div>
+          <div class="vol-val" style="color:var(--text2);font-size:18px">44487.94</div>
+          <div class="vol-sub">mis.twse 即時</div>
+        </div>
+      </div>
+      <div style="margin-top:12px;padding:8px 14px;background:var(--accent-lt);border:1px solid #bfcffc;border-radius:var(--rs);font-size:11px;color:#1a3a8f;line-height:1.8">
+        📌 <strong>判讀門檻（可在 ini 調整）</strong>：
+        成交量 ≥ 6000億 充足 ｜ ≥ 2000億 普通 ｜
+        A/D ≥ 1.5 多頭 ／ &lt; 0.67 空頭 ｜
+        T/T ≥ 2.0 多方強勢 ／ &lt; 0.5 空方強勢
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ② 各類指數 + 類股 -->
+<div>
+  <div class="st"><span class="num">2</span>各類指數 ＆ 類股漲跌排行</div>
+  <div class="two-col-32">
+    <div class="card">
+      <div class="ph">
+        <div class="pt"><span class="dot dot-acc"></span>各類指數收盤一覽</div>
+        <span style="font-size:11px;color:var(--text3)">＊ 灰色 = 槓桿/反向（僅供參考）</span>
+      </div>
+      <div style="overflow-y:auto;max-height:400px">
+        <table class="data-table">
+          <thead><tr><th>指數名稱</th><th>收盤指數</th><th>漲跌點</th><th>漲跌幅</th></tr></thead>
+          <tbody><tr><td class='name-col'>寶島股價指數</td><td>49,294.46</td><td style='color:#1a9c4e;font-weight:700'>▼ -</td><td style='color:#1a9c4e;font-weight:700'>155.80</td></tr><tr><td class='name-col'>發行量加權股價指數</td><td>44,396.70</td><td style='color:#1a9c4e;font-weight:700'>▼ -</td><td style='color:#1a9c4e;font-weight:700'>214.90</td></tr><tr><td class='name-col'>臺灣公司治理100指數</td><td>27,730.13</td><td style='color:#1a9c4e;font-weight:700'>▼ -</td><td style='color:#1a9c4e;font-weight:700'>267.91</td></tr><tr><td class='name-col'>臺灣50指數</td><td>41,212.45</td><td style='color:#1a9c4e;font-weight:700'>▼ -</td><td style='color:#1a9c4e;font-weight:700'>387.73</td></tr><tr><td class='name-col'>臺灣50權重上限30%指數</td><td>34,356.28</td><td style='color:#1a9c4e;font-weight:700'>▼ -</td><td style='color:#1a9c4e;font-weight:700'>151.25</td></tr><tr><td class='name-col'>臺灣中型100指數</td><td>35,094.30</td><td style='color:#d62b2b;font-weight:700'>▲ +</td><td style='color:#d62b2b;font-weight:700'>301.30</td></tr><tr><td class='name-col'>臺灣資訊科技指數</td><td>86,649.90</td><td style='color:#1a9c4e;font-weight:700'>▼ -</td><td style='color:#1a9c4e;font-weight:700'>786.14</td></tr><tr><td class='name-col'>臺灣發達指數</td><td>17,592.16</td><td style='color:#d62b2b;font-weight:700'>▲ +</td><td style='color:#d62b2b;font-weight:700'>231.43</td></tr><tr><td class='name-col'>臺灣高股息指數</td><td>14,667.29</td><td style='color:#1a9c4e;font-weight:700'>▼ -</td><td style='color:#1a9c4e;font-weight:700'>63.12</td></tr><tr><td class='name-col'>臺灣就業99指數</td><td>27,971.75</td><td style='color:#1a9c4e;font-weight:700'>▼ -</td><td style='color:#1a9c4e;font-weight:700'>93.32</td></tr><tr><td class='name-col'>臺灣高薪100指數</td><td>21,769.97</td><td style='color:#1a9c4e;font-weight:700'>▼ -</td><td style='color:#1a9c4e;font-weight:700'>268.43</td></tr><tr><td class='name-col'>未含金融指數</td><td>39,782.91</td><td style='color:#1a9c4e;font-weight:700'>▼ -</td><td style='color:#1a9c4e;font-weight:700'>133.08</td></tr><tr><td class='name-col'>未含電子指數</td><td>23,677.29</td><td style='color:#1a9c4e;font-weight:700'>▼ -</td><td style='color:#1a9c4e;font-weight:700'>193.72</td></tr><tr><td class='name-col'>未含金融電子指數</td><td>15,607.55</td><td style='color:#d62b2b;font-weight:700'>▲ +</td><td style='color:#d62b2b;font-weight:700'>32.52</td></tr><tr><td class='name-col'>小型股300指數</td><td>13,509.44</td><td style='color:#d62b2b;font-weight:700'>▲ +</td><td style='color:#d62b2b;font-weight:700'>92.81</td></tr><tr><td class='name-col'>水泥窯製類指數</td><td>601.73</td><td style='color:#d62b2b;font-weight:700'>▲ +</td><td style='color:#d62b2b;font-weight:700'>6.04</td></tr><tr><td class='name-col'>塑膠化工類指數</td><td>1,015.51</td><td style='color:#1a9c4e;font-weight:700'>▼ -</td><td style='color:#1a9c4e;font-weight:700'>2.33</td></tr><tr><td class='name-col'>機電類指數</td><td>15,579.50</td><td style='color:#1a9c4e;font-weight:700'>▼ -</td><td style='color:#1a9c4e;font-weight:700'>60.13</td></tr><tr><td class='name-col'>水泥類指數</td><td>119.43</td><td style='color:#d62b2b;font-weight:700'>▲ +</td><td style='color:#d62b2b;font-weight:700'>1.21</td></tr><tr><td class='name-col'>食品類指數</td><td>1,884.59</td><td style='color:#d62b2b;font-weight:700'>▲ +</td><td style='color:#d62b2b;font-weight:700'>3.02</td></tr><tr><td class='name-col'>塑膠類指數</td><td>309.00</td><td style='color:#d62b2b;font-weight:700'>▲ +</td><td style='color:#d62b2b;font-weight:700'>0.59</td></tr><tr><td class='name-col'>紡織纖維類指數</td><td>484.57</td><td style='color:#d62b2b;font-weight:700'>▲ +</td><td style='color:#d62b2b;font-weight:700'>4.32</td></tr><tr><td class='name-col'>電機機械類指數</td><td>541.17</td><td style='color:#d62b2b;font-weight:700'>▲ +</td><td style='color:#d62b2b;font-weight:700'>5.58</td></tr><tr><td class='name-col'>電器電纜類指數</td><td>101.04</td><td style='color:#1a9c4e;font-weight:700'>▼ -</td><td style='color:#1a9c4e;font-weight:700'>0.73</td></tr><tr><td class='name-col'>化學生技醫療類指數</td><td>166.45</td><td style='color:#1a9c4e;font-weight:700'>▼ -</td><td style='color:#1a9c4e;font-weight:700'>1.50</td></tr><tr><td class='name-col'>化學類指數</td><td>185.85</td><td style='color:#d62b2b;font-weight:700'>▲ +</td><td style='color:#d62b2b;font-weight:700'>1.72</td></tr><tr><td class='name-col'>生技醫療類指數</td><td>95.82</td><td style='color:#1a9c4e;font-weight:700'>▼ -</td><td style='color:#1a9c4e;font-weight:700'>1.58</td></tr><tr><td class='name-col'>玻璃陶瓷類指數</td><td>130.24</td><td style='color:#d62b2b;font-weight:700'>▲ +</td><td style='color:#d62b2b;font-weight:700'>1.29</td></tr><tr><td class='name-col'>造紙類指數</td><td>275.66</td><td style='color:#d62b2b;font-weight:700'>▲ +</td><td style='color:#d62b2b;font-weight:700'>5.68</td></tr><tr><td class='name-col'>鋼鐵類指數</td><td>120.15</td><td style='color:#d62b2b;font-weight:700'>▲ +</td><td style='color:#d62b2b;font-weight:700'>2.47</td></tr><tr><td class='name-col'>橡膠類指數</td><td>191.99</td><td style='color:#d62b2b;font-weight:700'>▲ +</td><td style='color:#d62b2b;font-weight:700'>1.93</td></tr><tr><td class='name-col'>汽車類指數</td><td>291.86</td><td style='color:#d62b2b;font-weight:700'>▲ +</td><td style='color:#d62b2b;font-weight:700'>3.31</td></tr><tr><td class='name-col'>電子工業類指數</td><td>2,830.41</td><td style='color:#1a9c4e;font-weight:700'>▼ -</td><td style='color:#1a9c4e;font-weight:700'>11.51</td></tr><tr><td class='name-col'>半導體類指數</td><td>1,505.44</td><td style='color:#1a9c4e;font-weight:700'>▼ -</td><td style='color:#1a9c4e;font-weight:700'>19.16</td></tr><tr><td class='name-col'>電腦及週邊設備類指數</td><td>435.05</td><td style='color:#d62b2b;font-weight:700'>▲ +</td><td style='color:#d62b2b;font-weight:700'>4.72</td></tr><tr><td class='name-col'>光電類指數</td><td>62.88</td><td style='color:#d62b2b;font-weight:700'>▲ +</td><td style='color:#d62b2b;font-weight:700'>0.83</td></tr><tr><td class='name-col'>通信網路類指數</td><td>243.48</td><td style='color:#d62b2b;font-weight:700'>▲ +</td><td style='color:#d62b2b;font-weight:700'>0.52</td></tr><tr><td class='name-col'>電子零組件類指數</td><td>854.78</td><td style='color:#d62b2b;font-weight:700'>▲ +</td><td style='color:#d62b2b;font-weight:700'>15.06</td></tr><tr><td class='name-col'>電子通路類指數</td><td>388.57</td><td style='color:#d62b2b;font-weight:700'>▲ +</td><td style='color:#d62b2b;font-weight:700'>0.73</td></tr><tr><td class='name-col'>資訊服務類指數</td><td>212.04</td><td style='color:#1a9c4e;font-weight:700'>▼ -</td><td style='color:#1a9c4e;font-weight:700'>2.68</td></tr><tr><td class='name-col'>其他電子類指數</td><td>284.18</td><td style='color:#d62b2b;font-weight:700'>▲ +</td><td style='color:#d62b2b;font-weight:700'>7.48</td></tr><tr><td class='name-col'>建材營造類指數</td><td>456.76</td><td style='color:#1a9c4e;font-weight:700'>▼ -</td><td style='color:#1a9c4e;font-weight:700'>2.74</td></tr><tr><td class='name-col'>航運類指數</td><td>190.27</td><td style='color:#1a9c4e;font-weight:700'>▼ -</td><td style='color:#1a9c4e;font-weight:700'>1.59</td></tr><tr><td class='name-col'>觀光餐旅類指數</td><td>99.26</td><td style='color:#d62b2b;font-weight:700'>▲ +</td><td style='color:#d62b2b;font-weight:700'>0.32</td></tr><tr><td class='name-col'>金融保險類指數</td><td>3,160.38</td><td style='color:#1a9c4e;font-weight:700'>▼ -</td><td style='color:#1a9c4e;font-weight:700'>69.33</td></tr><tr><td class='name-col'>貿易百貨類指數</td><td>232.78</td><td style='color:#1a9c4e;font-weight:700'>▼ -</td><td style='color:#1a9c4e;font-weight:700'>1.85</td></tr><tr><td class='name-col'>油電燃氣類指數</td><td>92.91</td><td style='color:#1a9c4e;font-weight:700'>▼ -</td><td style='color:#1a9c4e;font-weight:700'>0.56</td></tr><tr><td class='name-col'>綠能環保類指數</td><td>135.30</td><td style='color:#d62b2b;font-weight:700'>▲ +</td><td style='color:#d62b2b;font-weight:700'>3.12</td></tr><tr><td class='name-col'>數位雲端類指數</td><td>40.73</td><td style='color:#1a9c4e;font-weight:700'>▼ -</td><td style='color:#1a9c4e;font-weight:700'>0.17</td></tr><tr><td class='name-col'>運動休閒類指數</td><td>58.21</td><td style='color:#d62b2b;font-weight:700'>▲ +</td><td style='color:#d62b2b;font-weight:700'>1.19</td></tr><tr><td class='name-col'>居家生活類指數</td><td>102.69</td><td style='color:#d62b2b;font-weight:700'>▲ +</td><td style='color:#d62b2b;font-weight:700'>1.45</td></tr><tr><td class='name-col'>其他類指數</td><td>272.58</td><td style='color:#1a9c4e;font-weight:700'>▼ -</td><td style='color:#1a9c4e;font-weight:700'>1.62</td></tr><tr class="leverage-row"><td class='name-col'>臺指日報酬兩倍指數</td><td>206,789.99</td><td style='color:#1a9c4e;font-weight:700'>▼ -</td><td style='color:#1a9c4e;font-weight:700'>2,011.65</td></tr><tr class="leverage-row"><td class='name-col'>臺指反向一倍指數</td><td>1,292.12</td><td style='color:#d62b2b;font-weight:700'>▲ +</td><td style='color:#d62b2b;font-weight:700'>6.19</td></tr><tr class="leverage-row"><td class='name-col'>電子類兩倍槓桿指數</td><td>343,250.07</td><td style='color:#1a9c4e;font-weight:700'>▼ -</td><td style='color:#1a9c4e;font-weight:700'>2,803.09</td></tr><tr class="leverage-row"><td class='name-col'>電子類反向指數</td><td>790.58</td><td style='color:#d62b2b;font-weight:700'>▲ +</td><td style='color:#d62b2b;font-weight:700'>3.19</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div class="card" style="flex:1">
+        <div class="ph"><div class="pt"><span class="dot dot-up"></span>強勢類股（漲幅前 8）</div></div>
+        <div class="cb"><div class="sw"><div class="sector-row"><span class="sector-name" title="其他電子類指數">其他電子</span><div class="bar-track"><div class="bar-fill up-bar" style="width:100%"></div></div><span class="sp up">+2.70%</span></div><div class="sector-row"><span class="sector-name" title="綠能環保類指數">綠能環保</span><div class="bar-track"><div class="bar-fill up-bar" style="width:87%"></div></div><span class="sp up">+2.36%</span></div><div class="sector-row"><span class="sector-name" title="造紙類指數">造紙</span><div class="bar-track"><div class="bar-fill up-bar" style="width:77%"></div></div><span class="sp up">+2.10%</span></div><div class="sector-row"><span class="sector-name" title="鋼鐵類指數">鋼鐵</span><div class="bar-track"><div class="bar-fill up-bar" style="width:77%"></div></div><span class="sp up">+2.10%</span></div><div class="sector-row"><span class="sector-name" title="運動休閒類指數">運動休閒</span><div class="bar-track"><div class="bar-fill up-bar" style="width:77%"></div></div><span class="sp up">+2.09%</span></div><div class="sector-row"><span class="sector-name" title="電子零組件類指數">電子零組件</span><div class="bar-track"><div class="bar-fill up-bar" style="width:66%"></div></div><span class="sp up">+1.79%</span></div><div class="sector-row"><span class="sector-name" title="居家生活類指數">居家生活</span><div class="bar-track"><div class="bar-fill up-bar" style="width:52%"></div></div><span class="sp up">+1.43%</span></div><div class="sector-row"><span class="sector-name" title="光電類指數">光電</span><div class="bar-track"><div class="bar-fill up-bar" style="width:49%"></div></div><span class="sp up">+1.34%</span></div></div></div>
+      </div>
+      <div class="card" style="flex:1">
+        <div class="ph"><div class="pt"><span class="dot dot-dn"></span>弱勢類股（跌幅前 8）</div></div>
+        <div class="cb"><div class="sw"><div class="sector-row"><span class="sector-name" title="金融保險類指數">金融保險</span><div class="bar-track"><div class="bar-fill dn-bar" style="width:79%"></div></div><span class="sp dn">-2.15%</span></div><div class="sector-row"><span class="sector-name" title="生技醫療類指數">生技醫療</span><div class="bar-track"><div class="bar-fill dn-bar" style="width:60%"></div></div><span class="sp dn">-1.62%</span></div><div class="sector-row"><span class="sector-name" title="半導體類指數">半導體</span><div class="bar-track"><div class="bar-fill dn-bar" style="width:46%"></div></div><span class="sp dn">-1.26%</span></div><div class="sector-row"><span class="sector-name" title="資訊服務類指數">資訊服務</span><div class="bar-track"><div class="bar-fill dn-bar" style="width:46%"></div></div><span class="sp dn">-1.25%</span></div><div class="sector-row"><span class="sector-name" title="臺灣高薪100指數">臺灣高薪100</span><div class="bar-track"><div class="bar-fill dn-bar" style="width:45%"></div></div><span class="sp dn">-1.22%</span></div><div class="sector-row"><span class="sector-name" title="臺灣公司治理100指數">臺灣公司治理100</span><div class="bar-track"><div class="bar-fill dn-bar" style="width:35%"></div></div><span class="sp dn">-0.96%</span></div><div class="sector-row"><span class="sector-name" title="臺灣50指數">臺灣50</span><div class="bar-track"><div class="bar-fill dn-bar" style="width:34%"></div></div><span class="sp dn">-0.93%</span></div><div class="sector-row"><span class="sector-name" title="臺灣資訊科技指數">臺灣資訊科技</span><div class="bar-track"><div class="bar-fill dn-bar" style="width:33%"></div></div><span class="sp dn">-0.90%</span></div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ④ 三大法人 -->
+<div>
+  <div class="st"><span class="num">4</span>三大法人籌碼</div>
+  <div class="two-col-12">
+    <div class="card">
+      <div class="ph"><div class="pt"><span class="dot dot-up"></span>法人買超前 10 名</div><span class="chip-up">買超 ＝ 紅色</span></div>
+      <div style="overflow-x:auto"><table class="data-table"><thead><tr><th style='text-align:left;width:32px'></th><th style='text-align:left'>代號</th><th style='text-align:left'>名稱</th><th style='text-align:right'>投信買賣超</th><th style='text-align:right'>自營買賣超</th><th style='text-align:right'>三大合計</th></tr></thead><tbody><tr><td><span class='rank-badge gold'>1</span></td><td class='code-col'>6770</td><td class='name-col'>力積電</td><td style='color:#d62b2b;text-align:right'>5萬</td><td style='color:#d62b2b;text-align:right'>318萬</td><td style='color:#d62b2b;text-align:right'>4186萬</td></tr><tr><td><span class='rank-badge silver'>2</span></td><td class='code-col'>3481</td><td class='name-col'>群創</td><td style='color:#1a9c4e;text-align:right'>-4萬</td><td style='color:#d62b2b;text-align:right'>294萬</td><td style='color:#d62b2b;text-align:right'>4065萬</td></tr><tr><td><span class='rank-badge bronze'>3</span></td><td class='code-col'>2317</td><td class='name-col'>鴻海</td><td style='color:#d62b2b;text-align:right'>14萬</td><td style='color:#d62b2b;text-align:right'>15萬</td><td style='color:#d62b2b;text-align:right'>2203萬</td></tr><tr><td><span class='rank-badge '>4</span></td><td class='code-col'>2337</td><td class='name-col'>旺宏</td><td style='color:#d62b2b;text-align:right'>508萬</td><td style='color:#d62b2b;text-align:right'>111萬</td><td style='color:#d62b2b;text-align:right'>1978萬</td></tr><tr><td><span class='rank-badge '>5</span></td><td class='code-col'>2002</td><td class='name-col'>中鋼</td><td style='color:#8892a0;text-align:right'>0</td><td style='color:#1a9c4e;text-align:right'>-66萬</td><td style='color:#d62b2b;text-align:right'>1556萬</td></tr><tr><td><span class='rank-badge '>6</span></td><td class='code-col'>1402</td><td class='name-col'>遠東新</td><td style='color:#d62b2b;text-align:right'>12萬</td><td style='color:#1a9c4e;text-align:right'>-4萬</td><td style='color:#d62b2b;text-align:right'>1456萬</td></tr><tr><td><span class='rank-badge '>7</span></td><td class='code-col'>1101</td><td class='name-col'>台泥</td><td style='color:#8892a0;text-align:right'>0</td><td style='color:#1a9c4e;text-align:right'>-13萬</td><td style='color:#d62b2b;text-align:right'>1422萬</td></tr><tr><td><span class='rank-badge '>8</span></td><td class='code-col'>2027</td><td class='name-col'>大成鋼</td><td style='color:#1a9c4e;text-align:right'>-12萬</td><td style='color:#1a9c4e;text-align:right'>-96萬</td><td style='color:#d62b2b;text-align:right'>1384萬</td></tr><tr><td><span class='rank-badge '>9</span></td><td class='code-col'>2303</td><td class='name-col'>聯電</td><td style='color:#1a9c4e;text-align:right'>-646萬</td><td style='color:#d62b2b;text-align:right'>138萬</td><td style='color:#d62b2b;text-align:right'>938萬</td></tr><tr><td><span class='rank-badge '>10</span></td><td class='code-col'>2408</td><td class='name-col'>南亞科</td><td style='color:#1a9c4e;text-align:right'>-25萬</td><td style='color:#d62b2b;text-align:right'>42萬</td><td style='color:#d62b2b;text-align:right'>935萬</td></tr></tbody></table></div>
+    </div>
+    <div class="card">
+      <div class="ph"><div class="pt"><span class="dot dot-dn"></span>法人賣超前 10 名</div><span class="chip-dn">賣超 ＝ 綠色</span></div>
+      <div style="overflow-x:auto"><table class="data-table"><thead><tr><th style='text-align:left;width:32px'></th><th style='text-align:left'>代號</th><th style='text-align:left'>名稱</th><th style='text-align:right'>投信買賣超</th><th style='text-align:right'>自營買賣超</th><th style='text-align:right'>三大合計</th></tr></thead><tbody><tr><td><span class='rank-badge gold'>1</span></td><td class='code-col'>2834</td><td class='name-col'>臺企銀</td><td style='color:#1a9c4e;text-align:right'>-5,000</td><td style='color:#1a9c4e;text-align:right'>-32萬</td><td style='color:#1a9c4e;text-align:right'>-2364萬</td></tr><tr><td><span class='rank-badge silver'>2</span></td><td class='code-col'>2812</td><td class='name-col'>台中銀</td><td style='color:#8892a0;text-align:right'>0</td><td style='color:#1a9c4e;text-align:right'>-4萬</td><td style='color:#1a9c4e;text-align:right'>-2098萬</td></tr><tr><td><span class='rank-badge bronze'>3</span></td><td class='code-col'>1718</td><td class='name-col'>中纖</td><td style='color:#1a9c4e;text-align:right'>-7萬</td><td style='color:#1a9c4e;text-align:right'>-11萬</td><td style='color:#1a9c4e;text-align:right'>-1839萬</td></tr><tr><td><span class='rank-badge '>4</span></td><td class='code-col'>2883</td><td class='name-col'>凱基金</td><td style='color:#d62b2b;text-align:right'>411萬</td><td style='color:#1a9c4e;text-align:right'>-174萬</td><td style='color:#1a9c4e;text-align:right'>-1738萬</td></tr><tr><td><span class='rank-badge '>5</span></td><td class='code-col'>2344</td><td class='name-col'>華邦電</td><td style='color:#d62b2b;text-align:right'>40萬</td><td style='color:#d62b2b;text-align:right'>111萬</td><td style='color:#1a9c4e;text-align:right'>-1725萬</td></tr><tr><td><span class='rank-badge '>6</span></td><td class='code-col'>2887</td><td class='name-col'>台新新光金</td><td style='color:#1a9c4e;text-align:right'>-131萬</td><td style='color:#d62b2b;text-align:right'>25萬</td><td style='color:#1a9c4e;text-align:right'>-1700萬</td></tr><tr><td><span class='rank-badge '>7</span></td><td class='code-col'>2892</td><td class='name-col'>第一金</td><td style='color:#d62b2b;text-align:right'>736萬</td><td style='color:#1a9c4e;text-align:right'>-17萬</td><td style='color:#1a9c4e;text-align:right'>-1447萬</td></tr><tr><td><span class='rank-badge '>8</span></td><td class='code-col'>3231</td><td class='name-col'>緯創</td><td style='color:#1a9c4e;text-align:right'>-4萬</td><td style='color:#1a9c4e;text-align:right'>-90萬</td><td style='color:#1a9c4e;text-align:right'>-1108萬</td></tr><tr><td><span class='rank-badge '>9</span></td><td class='code-col'>6116</td><td class='name-col'>彩晶</td><td style='color:#8892a0;text-align:right'>0</td><td style='color:#1a9c4e;text-align:right'>-30萬</td><td style='color:#1a9c4e;text-align:right'>-1012萬</td></tr><tr><td><span class='rank-badge '>10</span></td><td class='code-col'>2882</td><td class='name-col'>國泰金</td><td style='color:#d62b2b;text-align:right'>4萬</td><td style='color:#1a9c4e;text-align:right'>-30萬</td><td style='color:#1a9c4e;text-align:right'>-843萬</td></tr></tbody></table></div>
+    </div>
+  </div>
+</div>
+
+<!-- ⑤ 融資融券 + ⑥ 外資持股 -->
+<div>
+  <div class="st"><span class="num">5</span>融資融券 ＋ <span class="num">6</span>外資持股</div>
+  <div class="two-col-12">
+    <div class="card">
+      <div class="ph"><div class="pt"><span class="dot dot-warn"></span>融資融券餘額</div><span style="font-size:11px;color:var(--text3)">融資↑ = 散戶看多 ｜ 融券↑ = 空頭力道</span></div>
+      <div style="overflow-x:auto;max-height:380px;overflow-y:auto">
+        <table class="data-table"><thead><tr><th style='text-align:left;white-space:nowrap'>項目</th><th style='text-align:left;white-space:nowrap'>買進</th><th style='text-align:right;white-space:nowrap'>賣出</th><th style='text-align:right;white-space:nowrap'>現金(券)償還</th><th style='text-align:right;white-space:nowrap'>前日餘額</th><th style='text-align:right;white-space:nowrap'>今日餘額</th></tr></thead><tbody><tr><td style='text-align:left'>融資(交易單位)</td><td style='text-align:left'>361,806</td><td style='text-align:right'>300,476</td><td style='text-align:right'>4,257</td><td style='text-align:right'>8,901,189</td><td style='text-align:right'>8,958,262</td></tr><tr><td style='text-align:left'>融券(交易單位)</td><td style='text-align:left'>28,775</td><td style='text-align:right'>25,282</td><td style='text-align:right'>1,813</td><td style='text-align:right'>197,203</td><td style='text-align:right'>191,897</td></tr><tr><td style='text-align:left'>融資金額(仟元)</td><td style='text-align:left'>34,199,377</td><td style='text-align:right'>24,486,414</td><td style='text-align:right'>400,303</td><td style='text-align:right'>523,492,321</td><td style='text-align:right'>532,804,981</td></tr></tbody></table>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ph"><div class="pt"><span class="dot dot-acc"></span>外資持股比例（前 20）</div><span style="font-size:11px;color:var(--text3)">比例高 → 空間受限，接近上限留意反轉</span></div>
+      <div style="overflow-x:auto;max-height:380px;overflow-y:auto">
+        <table class="data-table"><thead><tr><th style='text-align:left;white-space:nowrap'>證券代號</th><th style='text-align:left;white-space:nowrap'>證券名稱</th><th style='text-align:right;white-space:nowrap'>國際證券編碼</th><th style='text-align:right;white-space:nowrap'>發行股數</th><th style='text-align:right;white-space:nowrap'>外資及陸資尚可投資股數</th><th style='text-align:right;white-space:nowrap'>全體外資及陸資持有股數</th></tr></thead><tbody><tr><td style='text-align:left'>6415</td><td style='text-align:left'>矽力*-KY</td><td style='text-align:right'>KYG8190F1028</td><td style='text-align:right'>388,948,107</td><td style='text-align:right'>74,107,447</td><td style='text-align:right'>314,840,660</td></tr><tr><td style='text-align:left'>3711</td><td style='text-align:left'>日月光投控</td><td style='text-align:right'>TW0003711008</td><td style='text-align:right'>4,470,572,282</td><td style='text-align:right'>1,054,391,073</td><td style='text-align:right'>3,416,181,209</td></tr><tr><td style='text-align:left'>2330</td><td style='text-align:left'>台積電</td><td style='text-align:right'>TW0002330008</td><td style='text-align:right'>25,932,370,067</td><td style='text-align:right'>8,002,128,185</td><td style='text-align:right'>17,930,241,882</td></tr><tr><td style='text-align:left'>6781</td><td style='text-align:left'>AES-KY</td><td style='text-align:right'>KYG0097V1086</td><td style='text-align:right'>85,418,780</td><td style='text-align:right'>26,725,117</td><td style='text-align:right'>58,693,663</td></tr><tr><td style='text-align:left'>6451</td><td style='text-align:left'>訊芯-KY</td><td style='text-align:right'>KYG811801045</td><td style='text-align:right'>112,077,729</td><td style='text-align:right'>39,103,813</td><td style='text-align:right'>72,973,916</td></tr><tr><td style='text-align:left'>2308</td><td style='text-align:left'>台達電</td><td style='text-align:right'>TW0002308004</td><td style='text-align:right'>2,597,543,329</td><td style='text-align:right'>978,402,566</td><td style='text-align:right'>1,619,140,763</td></tr><tr><td style='text-align:left'>2360</td><td style='text-align:left'>致茂</td><td style='text-align:right'>TW0002360005</td><td style='text-align:right'>425,245,742</td><td style='text-align:right'>176,664,747</td><td style='text-align:right'>248,580,995</td></tr><tr><td style='text-align:left'>2345</td><td style='text-align:left'>智邦</td><td style='text-align:right'>TW0002345006</td><td style='text-align:right'>561,117,897</td><td style='text-align:right'>237,227,650</td><td style='text-align:right'>323,890,247</td></tr><tr><td style='text-align:left'>4958</td><td style='text-align:left'>臻鼎-KY</td><td style='text-align:right'>KYG989221000</td><td style='text-align:right'>1,070,598,156</td><td style='text-align:right'>465,405,708</td><td style='text-align:right'>605,192,448</td></tr><tr><td style='text-align:left'>2454</td><td style='text-align:left'>聯發科</td><td style='text-align:right'>TW0002454006</td><td style='text-align:right'>1,603,895,407</td><td style='text-align:right'>718,657,439</td><td style='text-align:right'>885,237,968</td></tr><tr><td style='text-align:left'>5243</td><td style='text-align:left'>乙盛-KY</td><td style='text-align:right'>KYG312361051</td><td style='text-align:right'>168,528,915</td><td style='text-align:right'>76,597,339</td><td style='text-align:right'>91,931,576</td></tr><tr><td style='text-align:left'>5876</td><td style='text-align:left'>上海商銀</td><td style='text-align:right'>TW0005876007</td><td style='text-align:right'>4,861,603,140</td><td style='text-align:right'>2,218,658,677</td><td style='text-align:right'>2,642,944,463</td></tr><tr><td style='text-align:left'>3017</td><td style='text-align:left'>奇鋐</td><td style='text-align:right'>TW0003017000</td><td style='text-align:right'>392,543,007</td><td style='text-align:right'>183,223,709</td><td style='text-align:right'>209,319,298</td></tr><tr><td style='text-align:left'>3665</td><td style='text-align:left'>貿聯-KY</td><td style='text-align:right'>KYG114741062</td><td style='text-align:right'>195,078,405</td><td style='text-align:right'>92,448,061</td><td style='text-align:right'>102,630,344</td></tr><tr><td style='text-align:left'>3661</td><td style='text-align:left'>世芯-KY</td><td style='text-align:right'>KYG022421088</td><td style='text-align:right'>86,204,722</td><td style='text-align:right'>43,126,888</td><td style='text-align:right'>43,077,834</td></tr><tr><td style='text-align:left'>2605</td><td style='text-align:left'>新興</td><td style='text-align:right'>TW0002605003</td><td style='text-align:right'>585,353,297</td><td style='text-align:right'>2,164,483</td><td style='text-align:right'>290,453,630</td></tr><tr><td style='text-align:left'>3044</td><td style='text-align:left'>健鼎</td><td style='text-align:right'>TW0003044004</td><td style='text-align:right'>525,605,898</td><td style='text-align:right'>265,636,545</td><td style='text-align:right'>259,969,353</td></tr><tr><td style='text-align:left'>2327</td><td style='text-align:left'>國巨*</td><td style='text-align:right'>TW0002327004</td><td style='text-align:right'>2,058,730,688</td><td style='text-align:right'>1,071,074,900</td><td style='text-align:right'>987,655,788</td></tr><tr><td style='text-align:left'>6414</td><td style='text-align:left'>樺漢</td><td style='text-align:right'>TW0006414006</td><td style='text-align:right'>145,886,397</td><td style='text-align:right'>76,085,849</td><td style='text-align:right'>69,800,548</td></tr><tr><td style='text-align:left'>4763</td><td style='text-align:left'>材料*-KY</td><td style='text-align:right'>KYG5138S1057</td><td style='text-align:right'>989,146,670</td><td style='text-align:right'>526,486,429</td><td style='text-align:right'>462,660,241</td></tr></tbody></table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ⑦ 高殖利率 + ⑨ 低本益比 -->
+<div>
+  <div class="st"><span class="num">7</span>高殖利率（≥ 8%）＋ <span class="num">9</span>個股估值（P/E 5~30）</div>
+  <div class="two-col-12">
+    <div class="card">
+      <div class="ph">
+        <div class="pt"><span class="dot dot-gold"></span>高殖利率排行</div>
+        <span style="font-size:11px;color:var(--text3)">本益比 ／ 殖利率 ／ P/B</span>
+      </div>
+      <table class="data-table">
+        <thead><tr><th>代號</th><th>名稱</th><th>本益比</th><th>殖利率</th><th>P/B</th></tr></thead>
+        <tbody><tr><td class='code-col'>2528</td><td class='name-col'>皇普</td><td>8.33</td><td><span class='yield-badge'>14.63%</span></td><td>1.19</td></tr><tr><td class='code-col'>1436</td><td class='name-col'>華友聯</td><td>12.55</td><td><span class='yield-badge'>14.27%</span></td><td>1.24</td></tr><tr><td class='code-col'>2442</td><td class='name-col'>新美齊</td><td>3.62</td><td><span class='yield-badge'>14.21%</span></td><td>0.82</td></tr><tr><td class='code-col'>5519</td><td class='name-col'>隆大</td><td>5.56</td><td><span class='yield-badge'>13.69%</span></td><td>1.08</td></tr><tr><td class='code-col'>1432</td><td class='name-col'>大魯閣</td><td>2.78</td><td><span class='yield-badge'>13.20%</span></td><td>1.02</td></tr><tr><td class='code-col'>6743</td><td class='name-col'>安普新</td><td>30.67</td><td><span class='yield-badge'>11.93%</span></td><td>1.38</td></tr><tr><td class='code-col'>2536</td><td class='name-col'>宏普</td><td>4.33</td><td><span class='yield-badge'>11.14%</span></td><td>0.47</td></tr><tr><td class='code-col'>2540</td><td class='name-col'>愛山林</td><td>91.17</td><td><span class='yield-badge'>10.97%</span></td><td>3.15</td></tr><tr><td class='code-col'>1446</td><td class='name-col'>宏和</td><td>8.09</td><td><span class='yield-badge'>10.91%</span></td><td>0.67</td></tr><tr><td class='code-col'>2387</td><td class='name-col'>精元</td><td>13.32</td><td><span class='yield-badge'>10.54%</span></td><td>0.71</td></tr><tr><td class='code-col'>4137</td><td class='name-col'>麗豐-KY</td><td>12.07</td><td><span class='yield-badge'>10.54%</span></td><td>1.40</td></tr><tr><td class='code-col'>1423</td><td class='name-col'>利華</td><td>9.42</td><td><span class='yield-badge'>10.14%</span></td><td>0.96</td></tr><tr><td class='code-col'>5706</td><td class='name-col'>鳳凰</td><td>11.52</td><td><span class='yield-badge'>10.13%</span></td><td>2.19</td></tr><tr><td class='code-col'>6165</td><td class='name-col'>浪凡</td><td>11.87</td><td><span class='yield-badge'>10.10%</span></td><td>2.96</td></tr><tr><td class='code-col'>5225</td><td class='name-col'>東科-KY</td><td>8.10</td><td><span class='yield-badge'>9.63%</span></td><td>1.88</td></tr></tbody>
+      </table>
+    </div>
+    <div class="card">
+      <div class="ph">
+        <div class="pt"><span class="dot dot-dn"></span>個股估值（低 P/E 由低排序）</div>
+        <span style="font-size:11px;color:var(--text3)">
+          <span style="color:var(--dn);font-weight:700">■</span> ≤12 便宜&nbsp;
+          <span style="color:var(--warn);font-weight:700">■</span> ≤20 合理&nbsp;
+          <span style="color:var(--up);font-weight:700">■</span> &gt;20 偏高
+        </span>
+      </div>
+      <table class="data-table">
+        <thead><tr><th>代號</th><th>名稱</th><th>本益比</th><th>殖利率</th><th>P/B</th></tr></thead>
+        <tbody><tr><td class='code-col'>2451</td><td class='name-col'>創見</td><td style='background:var(--dn-bg);color:#1a7a4a;font-weight:700;text-align:right'>5.10</td><td style='text-align:right'>4.02</td><td style='text-align:right'>3.29</td></tr><tr><td class='code-col'>2816</td><td class='name-col'>旺旺保</td><td style='background:var(--dn-bg);color:#1a7a4a;font-weight:700;text-align:right'>5.36</td><td style='text-align:right'>4.44</td><td style='text-align:right'>0.89</td></tr><tr><td class='code-col'>3356</td><td class='name-col'>奇偶</td><td style='background:var(--dn-bg);color:#1a7a4a;font-weight:700;text-align:right'>5.53</td><td style='text-align:right'>6.24</td><td style='text-align:right'>1.68</td></tr><tr><td class='code-col'>5519</td><td class='name-col'>隆大</td><td style='background:var(--dn-bg);color:#1a7a4a;font-weight:700;text-align:right'>5.56</td><td style='text-align:right'>13.69</td><td style='text-align:right'>1.08</td></tr><tr><td class='code-col'>2501</td><td class='name-col'>國建</td><td style='background:var(--dn-bg);color:#1a7a4a;font-weight:700;text-align:right'>5.68</td><td style='text-align:right'>5.45</td><td style='text-align:right'>0.81</td></tr><tr><td class='code-col'>6994</td><td class='name-col'>富威電力</td><td style='background:var(--dn-bg);color:#1a7a4a;font-weight:700;text-align:right'>5.73</td><td style='text-align:right'>8.34</td><td style='text-align:right'>1.10</td></tr><tr><td class='code-col'>1108</td><td class='name-col'>幸福</td><td style='background:var(--dn-bg);color:#1a7a4a;font-weight:700;text-align:right'>5.97</td><td style='text-align:right'>8.30</td><td style='text-align:right'>0.90</td></tr><tr><td class='code-col'>2915</td><td class='name-col'>潤泰全</td><td style='background:var(--dn-bg);color:#1a7a4a;font-weight:700;text-align:right'>6.00</td><td style='text-align:right'>3.71</td><td style='text-align:right'>0.48</td></tr><tr><td class='code-col'>8271</td><td class='name-col'>宇瞻</td><td style='background:var(--dn-bg);color:#1a7a4a;font-weight:700;text-align:right'>6.14</td><td style='text-align:right'>1.80</td><td style='text-align:right'>3.37</td></tr><tr><td class='code-col'>6177</td><td class='name-col'>達麗</td><td style='background:var(--dn-bg);color:#1a7a4a;font-weight:700;text-align:right'>6.40</td><td style='text-align:right'>6.28</td><td style='text-align:right'>1.78</td></tr><tr><td class='code-col'>1810</td><td class='name-col'>和成</td><td style='background:var(--dn-bg);color:#1a7a4a;font-weight:700;text-align:right'>6.48</td><td style='text-align:right'>0.82</td><td style='text-align:right'>0.92</td></tr><tr><td class='code-col'>9904</td><td class='name-col'>寶成</td><td style='background:var(--dn-bg);color:#1a7a4a;font-weight:700;text-align:right'>6.54</td><td style='text-align:right'>5.47</td><td style='text-align:right'>0.46</td></tr><tr><td class='code-col'>5522</td><td class='name-col'>遠雄</td><td style='background:var(--dn-bg);color:#1a7a4a;font-weight:700;text-align:right'>6.74</td><td style='text-align:right'>8.62</td><td style='text-align:right'>1.05</td></tr><tr><td class='code-col'>2851</td><td class='name-col'>中再保</td><td style='background:var(--dn-bg);color:#1a7a4a;font-weight:700;text-align:right'>6.76</td><td style='text-align:right'>6.29</td><td style='text-align:right'>1.19</td></tr><tr><td class='code-col'>2514</td><td class='name-col'>龍邦</td><td style='background:var(--dn-bg);color:#1a7a4a;font-weight:700;text-align:right'>6.90</td><td style='text-align:right'>0.00</td><td style='text-align:right'>0.34</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+</div>
+<div class="footer">
+  <span>資料來源：TWSE 台灣證券交易所 ／ TPEx 證券櫃檯買賣中心 ｜ 本看板僅供資訊參考，不構成任何投資建議</span>
+  <span>PRO DESK v3.6 自動產生 ｜ 2026/08/06</span>
+</div>
+</body></html>
