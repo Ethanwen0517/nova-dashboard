@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2009 第一銅 技術評分趨勢 (近月)</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+<style>
+  :root {
+    --bg: #0f1419;
+    --surface: #1a2030;
+    --surface2: #232a3d;
+    --border: #2d3548;
+    --text: #e8eaed;
+    --text-dim: #9aa0a6;
+    --accent: #4fc3f7;
+    --price: #ff9800;
+    --up: #ef5350;       /* 台股紅漲 */
+    --dn: #26a69a;       /* 台股綠跌 */
+    --warn: #ffa726;
+    --bull: #66bb6a;
+    --bad: #ef5350;
+    --neutral: #9aa0a6;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 16px;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  h1 {
+    margin: 0 0 6px 0;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--accent);
+  }
+  .subtitle {
+    color: var(--text-dim);
+    font-size: 13px;
+    margin-bottom: 18px;
+  }
+  .summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+  .kpi {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+  }
+  .kpi-label {
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .kpi-value {
+    font-size: 20px;
+    font-weight: 700;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .kpi-delta {
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-top: 2px;
+  }
+  .chart-wrap {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+  .chart-title {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: var(--text);
+  }
+  .chart-box { position: relative; height: 360px; }
+  .score-bar {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  th, td {
+    padding: 8px 10px;
+    text-align: right;
+    border-bottom: 1px solid var(--border);
+  }
+  th { color: var(--text-dim); font-weight: 600; font-size: 12px; }
+  th:first-child, td:first-child { text-align: left; }
+  th:nth-child(2), td:nth-child(2) { text-align: left; }
+  td.score { font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 700;
+  }
+  .badge-bad { background: rgba(239, 83, 80, 0.15); color: var(--bad); }
+  .badge-warn { background: rgba(255, 167, 38, 0.15); color: var(--warn); }
+  .badge-good { background: rgba(102, 187, 106, 0.15); color: var(--bull); }
+  .badge-gray { background: rgba(154, 160, 166, 0.15); color: var(--neutral); }
+  .legend {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-top: 8px;
+  }
+  .legend-item { display: flex; align-items: center; gap: 6px; }
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
+  footer {
+    text-align: center;
+    color: var(--text-dim);
+    font-size: 11px;
+    margin-top: 20px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+  }
+</style>
+</head>
+<body>
+  <h1>📈 2009 第一銅 技術評分趨勢 (近月)</h1>
+  <div class="subtitle">期間:2026/07/21 ~ 2026/08/13 (19 個交易日) | 資料來源:技術分析總表 (calc_score v0.4 維度權重)</div>
+
+  <!-- KPI Summary -->
+  <div class="summary">
+    <div class="kpi">
+      <div class="kpi-label">期初收盤</div>
+      <div class="kpi-value" id="kpi-start">-</div>
+      <div class="kpi-delta">2026/07/21</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">期末收盤</div>
+      <div class="kpi-value" id="kpi-end">-</div>
+      <div class="kpi-delta">2026/08/13</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">區間漲跌</div>
+      <div class="kpi-value" id="kpi-chg">-</div>
+      <div class="kpi-delta">+14.54% (近月)</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">期末評分</div>
+      <div class="kpi-value" id="kpi-score">-</div>
+      <div class="kpi-delta" id="kpi-icon">-</div>
+    </div>
+  </div>
+
+  <!-- Score Trend Chart -->
+  <div class="chart-wrap">
+    <div class="chart-title">🎯 技術評分 (5分制) — 轉折訊號視覺化</div>
+    <div class="chart-box"><canvas id="scoreChart"></canvas></div>
+    <div class="legend">
+      <div class="legend-item"><span class="dot" style="background:#ef5350"></span>離場區 (≤2.5)</div>
+      <div class="legend-item"><span class="dot" style="background:#ffa726"></span>觀望區 (2.5~3.5)</div>
+      <div class="legend-item"><span class="dot" style="background:#66bb6a"></span>偏多區 (≥3.5)</div>
+    </div>
+  </div>
+
+  <!-- Price Chart -->
+  <div class="chart-wrap">
+    <div class="chart-title">💰 收盤價 + 每日漲跌 (台股紅漲綠跌)</div>
+    <div class="chart-box"><canvas id="priceChart"></canvas></div>
+  </div>
+
+  <!-- Detailed Table -->
+  <div class="score-bar">
+    <div class="chart-title">📋 每日明細 (依日期排序)</div>
+    <table>
+      <thead>
+        <tr>
+          <th>日期</th>
+          <th>訊號</th>
+          <th>評分</th>
+          <th>收盤</th>
+          <th>漲跌%</th>
+        </tr>
+      </thead>
+      <tbody id="detail-tbody"></tbody>
+    </table>
+  </div>
+
+  <footer>
+    生成時間: 2026-08-13 09:05 | Nova 技術分析總表 · score v0.4
+  </footer>
+
+<script>
+// 2009 第一銅 近月資料
+const DATA = [
+  {date:"20260721", score:2.0, price:36.10, chg_pct:-2.43, icon:"🔴離場"},
+  {date:"20260722", score:2.5, price:36.90, chg_pct: 2.22, icon:"🔴離場"},
+  {date:"20260723", score:2.5, price:37.85, chg_pct: 2.57, icon:"🔴離場"},
+  {date:"20260724", score:2.5, price:38.30, chg_pct: 1.19, icon:"🔴離場"},
+  {date:"20260725", score:2.5, price:37.40, chg_pct:-2.35, icon:"🔴離場"},
+  {date:"20260727", score:2.5, price:37.40, chg_pct:-2.35, icon:"🔴離場"},
+  {date:"20260728", score:2.5, price:37.30, chg_pct:-0.27, icon:"🔴離場"},
+  {date:"20260729", score:2.5, price:36.75, chg_pct:-1.47, icon:"🔴離場"},
+  {date:"20260730", score:2.5, price:35.05, chg_pct:-1.47, icon:"🔴離場"},
+  {date:"20260731", score:2.0, price:34.30, chg_pct:-2.14, icon:"🔴離場"},
+  {date:"20260803", score:2.0, price:35.10, chg_pct: 2.33, icon:"🔴離場"},
+  {date:"20260804", score:2.0, price:36.55, chg_pct: 2.33, icon:"🔴離場"},
+  {date:"20260805", score:2.5, price:37.55, chg_pct: 2.74, icon:"🔴離場"},
+  {date:"20260806", score:2.5, price:38.45, chg_pct: 2.40, icon:"🔴離場"},
+  {date:"20260807", score:3.5, price:39.15, chg_pct: 1.82, icon:"🟡觀望"},
+  {date:"20260810", score:4.0, price:39.90, chg_pct: 1.92, icon:"🟡佳"},
+  {date:"20260811", score:3.5, price:39.65, chg_pct:-0.63, icon:"🟡觀望"},
+  {date:"20260812", score:4.0, price:40.05, chg_pct: 1.01, icon:"🟡佳"},
+  {date:"20260813", score:4.0, price:41.35, chg_pct: 3.25, icon:"🟡佳"}
+];
+
+// 通用設定
+Chart.defaults.color = '#9aa0a6';
+Chart.defaults.borderColor = '#2d3548';
+Chart.defaults.font.family = '-apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif';
+
+// KPI
+document.getElementById('kpi-start').textContent = DATA[0].price.toFixed(2);
+document.getElementById('kpi-end').textContent = DATA[DATA.length-1].price.toFixed(2);
+const chgPct = (DATA[DATA.length-1].price / DATA[0].price - 1) * 100;
+const kpiChg = document.getElementById('kpi-chg');
+kpiChg.textContent = (chgPct >= 0 ? '+' : '') + chgPct.toFixed(2) + '%';
+kpiChg.style.color = chgPct >= 0 ? '#ef5350' : '#26a69a'; // 台股紅漲綠跌
+document.getElementById('kpi-score').textContent = DATA[DATA.length-1].score.toFixed(1);
+document.getElementById('kpi-icon').textContent = DATA[DATA.length-1].icon;
+
+// 評分圖
+const labels = DATA.map(d => {
+  const y = d.date.slice(0,4);
+  const m = d.date.slice(4,6);
+  const day = d.date.slice(6,8);
+  return `${m}/${day}`;
+});
+
+const scoreCtx = document.getElementById('scoreChart').getContext('2d');
+new Chart(scoreCtx, {
+  type: 'line',
+  data: {
+    labels: labels,
+    datasets: [{
+      label: '技術評分',
+      data: DATA.map(d => d.score),
+      borderColor: '#4fc3f7',
+      backgroundColor: 'rgba(79, 195, 247, 0.15)',
+      borderWidth: 2.5,
+      pointRadius: 6,
+      pointHoverRadius: 9,
+      pointBackgroundColor: DATA.map(d => {
+        if (d.score <= 2.5) return '#ef5350';
+        if (d.score < 3.5) return '#ffa726';
+        return '#66bb6a';
+      }),
+      pointBorderColor: '#fff',
+      pointBorderWidth: 2,
+      fill: true,
+      tension: 0.25
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        backgroundColor: '#1a2030',
+        borderColor: '#4fc3f7',
+        borderWidth: 1,
+        titleColor: '#4fc3f7',
+        bodyColor: '#e8eaed',
+        padding: 10,
+        displayColors: false,
+        callbacks: {
+          title: (items) => items[0].label,
+          label: (item) => {
+            const d = DATA[item.dataIndex];
+            return [
+              '評分: ' + d.score.toFixed(1) + ' / 5',
+              '訊號: ' + d.icon,
+              '收盤: ' + d.price.toFixed(2) + ' 元',
+              '漲跌: ' + (d.chg_pct >= 0 ? '+' : '') + d.chg_pct.toFixed(2) + '%'
+            ];
+          }
+        }
+      }
+    },
+    scales: {
+      y: {
+        min: 0, max: 5,
+        ticks: { stepSize: 0.5 },
+        title: { display: true, text: '評分 (5分制)', color: '#9aa0a6' }
+      },
+      x: {
+        grid: { display: false },
+        ticks: { maxRotation: 45, minRotation: 45 }
+      }
+    }
+  }
+});
+
+// 收盤價圖
+const priceCtx = document.getElementById('priceChart').getContext('2d');
+new Chart(priceCtx, {
+  type: 'bar',
+  data: {
+    labels: labels,
+    datasets: [
+      {
+        type: 'line',
+        label: '收盤價',
+        data: DATA.map(d => d.price),
+        borderColor: '#ff9800',
+        backgroundColor: 'rgba(255, 152, 0, 0.1)',
+        borderWidth: 2.5,
+        pointRadius: 5,
+        pointHoverRadius: 8,
+        pointBackgroundColor: '#ff9800',
+        pointBorderColor: '#fff',
+        pointBorderWidth: 2,
+        fill: false,
+        tension: 0.25,
+        yAxisID: 'y'
+      },
+      {
+        type: 'bar',
+        label: '漲跌%',
+        data: DATA.map(d => d.chg_pct),
+        backgroundColor: DATA.map(d => d.chg_pct >= 0 ? 'rgba(239, 83, 80, 0.7)' : 'rgba(38, 166, 154, 0.7)'),
+        borderColor: DATA.map(d => d.chg_pct >= 0 ? '#ef5350' : '#26a69a'),
+        borderWidth: 1,
+        yAxisID: 'y1'
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: true,
+        position: 'top',
+        labels: { boxWidth: 14, padding: 12 }
+      },
+      tooltip: {
+        backgroundColor: '#1a2030',
+        borderColor: '#ff9800',
+        borderWidth: 1,
+        titleColor: '#ff9800',
+        bodyColor: '#e8eaed',
+        padding: 10
+      }
+    },
+    scales: {
+      y: {
+        type: 'linear',
+        position: 'left',
+        title: { display: true, text: '收盤價 (元)', color: '#ff9800' },
+        grid: { color: 'rgba(255, 152, 0, 0.1)' }
+      },
+      y1: {
+        type: 'linear',
+        position: 'right',
+        title: { display: true, text: '漲跌%', color: '#9aa0a6' },
+        grid: { display: false },
+        ticks: { callback: v => v + '%' }
+      },
+      x: {
+        grid: { display: false },
+        ticks: { maxRotation: 45, minRotation: 45 }
+      }
+    }
+  }
+});
+
+// 詳細表格
+const tbody = document.getElementById('detail-tbody');
+const badgeCls = (icon) => {
+  if (icon.includes('佳')) return 'badge-good';
+  if (icon.includes('觀望')) return 'badge-warn';
+  if (icon.includes('離場')) return 'badge-bad';
+  return 'badge-gray';
+};
+DATA.slice().reverse().forEach(d => {
+  const dateStr = d.date.replace(/(\d{4})(\d{2})(\d{2})/, '$1/$2/$3');
+  const tr = document.createElement('tr');
+  tr.innerHTML = `
+    <td>${dateStr}</td>
+    <td><span class="badge ${badgeCls(d.icon)}">${d.icon}</span></td>
+    <td class="score">${d.score.toFixed(1)}</td>
+    <td>${d.price.toFixed(2)}</td>
+    <td style="color:${d.chg_pct >= 0 ? '#ef5350' : '#26a69a'}">${d.chg_pct >= 0 ? '+' : ''}${d.chg_pct.toFixed(2)}%</td>
+  `;
+  tbody.appendChild(tr);
+});
+</script>
+</body>
+</html>
