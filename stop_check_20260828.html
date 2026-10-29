@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>庫存股停利停損檢查 — 2026/08/28</title>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; max-width: 600px; margin: 0 auto; padding: 16px; background: #1a1a2e; color: #e0e0e0; }
+  h1 { font-size: 18px; color: #fff; margin-bottom: 16px; border-bottom: 1px solid #333; padding-bottom: 8px; }
+  .alert-box { padding: 12px; border-radius: 8px; margin-bottom: 12px; }
+  .alert-danger { background: rgba(220, 53, 69, 0.15); border: 1px solid #dc3545; }
+  .alert-warning { background: rgba(255, 193, 7, 0.15); border: 1px solid #ffc107; }
+  .alert-success { background: rgba(40, 167, 69, 0.15); border: 1px solid #28a745; }
+  .alert-info { background: rgba(0, 123, 255, 0.15); border: 1px solid #007bff; }
+  .symbol { font-weight: bold; color: #fff; }
+  .price { font-size: 20px; font-weight: bold; }
+  .up { color: #ff4444; }
+  .down { color: #44ff44; }
+  table { width: 100%; border-collapse: collapse; margin-top: 16px; font-size: 14px; }
+  th { background: #2d2d44; padding: 8px; text-align: left; border-bottom: 2px solid #444; }
+  td { padding: 8px; border-bottom: 1px solid #333; }
+  .center { text-align: center; }
+  .right { text-align: right; }
+  .red { color: #ff6b6b; }
+  .green { color: #69db7c; }
+  .tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; margin-left: 4px; }
+  .tag-danger { background: #dc3545; color: #fff; }
+  .tag-warning { background: #ffc107; color: #000; }
+  .tag-success { background: #28a745; color: #fff; }
+  .tag-info { background: #2d2d44; color: #888; }
+  .footer { margin-top: 16px; font-size: 12px; color: #888; text-align: center; }
+  .summary-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 16px; }
+  .summary-card { background: #2d2d44; padding: 12px; border-radius: 8px; text-align: center; }
+  .summary-card .num { font-size: 24px; font-weight: bold; }
+  .summary-card .label { font-size: 12px; color: #aaa; }
+  .txf-box { background: #2d2d44; padding: 10px; border-radius: 8px; margin-top: 12px; font-size: 13px; }
+</style>
+</head>
+<body>
+<h1>📊 庫存股停利停損檢查 — 2026/08/28</h1>
+<p style="color:#888;font-size:13px;">2026/08/28 (五)｜資料來源：Yahoo Finance｜13:00 cron 救援版</p>
+
+<div class="summary-grid">
+  <div class="summary-card">
+    <div class="num red">4</div>
+    <div class="label">🚨 停損警報</div>
+  </div>
+  <div class="summary-card">
+    <div class="num green">2</div>
+    <div class="label">🎯 停利達標</div>
+  </div>
+  <div class="summary-card">
+    <div class="num" style="color:#aaa">1</div>
+    <div class="label">✅ 正常持有</div>
+  </div>
+</div>
+
+<!-- 🚨 停損觸發 -->
+<div class="alert-box alert-danger">
+  <strong>🚨 6153 嘉聯益 — 停損已觸發！</strong><br>
+  現價 17.50｜成本 20.63｜<span class="red">-15.17%</span><br>
+  停損價 19.58｜<span class="red">跌破 -10.52%</span><br>
+  <span style="color:#ffc107">建議：是否認錯出清？</span>
+</div>
+<div class="alert-box alert-danger">
+  <strong>🚨 2349 錸德 — 停損已觸發！</strong><br>
+  現價 11.10｜成本 15.10｜<span class="red">-26.49%</span><br>
+  停損價 14.35｜<span class="red">跌破 -21.52%</span><br>
+  <span style="color:#ffc107">建議：是否認錯出清？</span>
+</div>
+<div class="alert-box alert-danger">
+  <strong>🚨 1301 台塑 — SL 跌破（保盈機制）！</strong><br>
+  現價 62.60｜成本 54.18｜<span class="green">+15.54%</span><br>
+  停損價 63.60（R1 樞紐支撐）｜<span class="red">跌破 -1.60%</span><br>
+  <span style="color:#ffc107">建議：7/23 已實現 +67,320，勝率墊底月份可考慮分批減碼</span>
+</div>
+<div class="alert-box alert-danger">
+  <strong>🚨 5904 寶雅 — 停損已觸發！</strong><br>
+  現價 73.80｜成本 89.38｜<span class="red">-17.43%</span><br>
+  停損價 82.00｜<span class="red">跌破 -9.60%</span><br>
+  <span style="color:#ffc107">建議：是否認錯出清？</span>
+</div>
+
+<!-- 🎯 停利達標 -->
+<div class="alert-box alert-success">
+  <strong>🎯 00637L 元大滬深300正2 — TP3 達標！</strong><br>
+  現價 20.14｜成本 13.90｜<span class="green">+44.89%</span><br>
+  TP1=17.64 已達｜TP2=17.98 已達｜TP3=18.32 已達<br>
+  <span style="color:#69db7c">建議：分批了結（先賣 1/2 或全數出清）</span>
+</div>
+<div class="alert-box alert-success">
+  <strong>🎯 00882 中信中國高股息 — TP2 達標！</strong><br>
+  現價 14.99｜成本 12.51｜<span class="green">+19.82%</span><br>
+  TP1=14.72 已達｜TP2=14.92 已達｜TP3=15.12（還差 +0.87%）<br>
+  <span style="color:#69db7c">建議：續抱等 TP3 或分批了結</span>
+</div>
+
+<!-- 正常 -->
+<div class="alert-box alert-info">
+  <strong>ℹ️ 2609 陽明 — 正常持有</strong><br>
+  現價 56.00｜成本 52.00｜<span class="green">+7.69%</span><br>
+  TP1=62.73 / TP2=64.23 / TP3=66.00（均未達）<br>
+  <span style="color:#aaa">SL：MA20 (52.30) + 5MA 雙濾網，尚未觸發｜正常持有</span>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>代號/名稱</th>
+      <th class="right">現價</th>
+      <th class="right">成本</th>
+      <th class="right">損溢</th>
+      <th class="center">狀態</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>6153 嘉聯益</td>
+      <td class="right">17.50</td>
+      <td class="right">20.63</td>
+      <td class="right red">-15.17%</td>
+      <td class="center"><span class="tag tag-danger">🚨 停損</span></td>
+    </tr>
+    <tr>
+      <td>2349 錸德</td>
+      <td class="right">11.10</td>
+      <td class="right">15.10</td>
+      <td class="right red">-26.49%</td>
+      <td class="center"><span class="tag tag-danger">🚨 停損</span></td>
+    </tr>
+    <tr>
+      <td>1301 台塑</td>
+      <td class="right">62.60</td>
+      <td class="right">54.18</td>
+      <td class="right green">+15.54%</td>
+      <td class="center"><span class="tag tag-danger">🚨 SL跌破</span></td>
+    </tr>
+    <tr>
+      <td>2609 陽明</td>
+      <td class="right">56.00</td>
+      <td class="right">52.00</td>
+      <td class="right green">+7.69%</td>
+      <td class="center"><span class="tag tag-info">✅ 正常</span></td>
+    </tr>
+    <tr>
+      <td>00637L 元大滬深300正2</td>
+      <td class="right">20.14</td>
+      <td class="right">13.90</td>
+      <td class="right green">+44.89%</td>
+      <td class="center"><span class="tag tag-success">🎯 TP3</span></td>
+    </tr>
+    <tr>
+      <td>00882 中信中國高股息</td>
+      <td class="right">14.99</td>
+      <td class="right">12.51</td>
+      <td class="right green">+19.82%</td>
+      <td class="center"><span class="tag tag-success">🎯 TP2</span></td>
+    </tr>
+    <tr>
+      <td>5904 寶雅</td>
+      <td class="right">73.80</td>
+      <td class="right">89.38</td>
+      <td class="right red">-17.43%</td>
+      <td class="center"><span class="tag tag-danger">🚨 停損</span></td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="txf-box">
+  <strong>📌 台指期 TXF 8/28 狀態</strong><br>
+  （請以台灣期交所結算價為準，本報告不構成投資建議）
+</div>
+
+<div class="footer">
+  Nova 自動檢查｜13:00 cron 救援生成｜不構成投資建議<br>
+  ⚠️ OpenClaw cron e1f69b66 false alarm — 備援補生成
+</div>
+</body>
+</html>

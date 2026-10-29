@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026年9月持股月報｜Nova Portfolio Report</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --card: #1a1d27;
+    --card2: #21253a;
+    --border: #2a2f45;
+    --text: #e8eaf0;
+    --text-dim: #8890a4;
+    --green: #3ecf8e;
+    --red: #f25c6d;
+    --yellow: #f5c842;
+    --blue: #4a9fff;
+    --accent: #8b7cf6;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; padding: 24px; }
+  h1 { font-size: 1.6rem; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+  .subtitle { color: var(--text-dim); font-size: 0.85rem; margin-bottom: 24px; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px; }
+  .card-title { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 14px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+  .stock-row { display: flex; align-items: center; padding: 7px 0; border-bottom: 1px solid var(--border); gap: 8px; }
+  .stock-row:last-child { border-bottom: none; }
+  .code { font-size: 0.78rem; font-weight: 700; color: var(--text-dim); width: 52px; flex-shrink: 0; }
+  .name { font-size: 0.82rem; color: var(--text); flex: 1; }
+  .pct { font-size: 0.88rem; font-weight: 700; width: 68px; text-align: right; flex-shrink: 0; }
+  .pct.up { color: var(--green); }
+  .pct.flat { color: var(--yellow); }
+  .pct.down { color: var(--red); }
+  .pct.null { color: var(--text-dim); font-weight: 400; }
+  .range { font-size: 0.72rem; color: var(--text-dim); width: 110px; text-align: right; flex-shrink: 0; }
+  .summary-box { display: flex; gap: 12px; margin-bottom: 20px; }
+  .s-item { flex: 1; background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 14px; text-align: center; }
+  .s-num { font-size: 1.4rem; font-weight: 700; }
+  .s-label { font-size: 0.72rem; color: var(--text-dim); margin-top: 3px; }
+  .up { color: var(--green); } .down { color: var(--red); } .flat { color: var(--yellow); }
+  .holdings-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+  .holdings-table th { color: var(--text-dim); font-size: 0.72rem; font-weight: 600; text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--border); }
+  .holdings-table th.r { text-align: right; }
+  .holdings-table td { padding: 6px 8px; border-bottom: 1px solid var(--border); }
+  .holdings-table td.r { text-align: right; }
+  .holdings-table tr:last-child td { border-bottom: none; }
+  .watch-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 8px; }
+  .w-tag { background: var(--card2); border: 1px solid var(--border); border-radius: 8px; padding: 8px 10px; display: flex; justify-content: space-between; align-items: center; }
+  .w-tag-left { display: flex; flex-direction: column; gap: 2px; }
+  .w-tag-name { font-size: 0.8rem; font-weight: 600; }
+  .w-tag-code { font-size: 0.68rem; color: var(--text-dim); }
+  .w-pct { font-size: 0.85rem; font-weight: 700; }
+  .section { margin-bottom: 24px; }
+  .badge { display: inline-block; padding: 2px 7px; border-radius: 5px; font-size: 0.68rem; font-weight: 600; }
+  .badge-green { background: rgba(62,207,142,0.15); color: var(--green); }
+  .badge-red { background: rgba(242,92,109,0.15); color: var(--red); }
+  .badge-yellow { background: rgba(245,200,66,0.15); color: var(--yellow); }
+  .badge-gray { background: rgba(136,144,164,0.15); color: var(--text-dim); }
+  .timeline { border-left: 2px solid var(--border); margin-left: 10px; padding-left: 18px; }
+  .event { margin-bottom: 14px; position: relative; }
+  .event::before { content: ''; position: absolute; left: -23px; top: 6px; width: 8px; height: 8px; border-radius: 50%; background: var(--blue); }
+  .event-date { font-size: 0.72rem; color: var(--text-dim); margin-bottom: 2px; }
+  .event-text { font-size: 0.82rem; line-height: 1.4; }
+  .tag-row { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px; }
+  .fail-note { font-size: 0.72rem; color: var(--text-dim); background: var(--card2); padding: 10px 14px; border-radius: 8px; margin-top: 10px; line-height: 1.6; }
+  hr { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+  .footer { text-align: center; color: var(--text-dim); font-size: 0.72rem; margin-top: 30px; }
+</style>
+</head>
+<body>
+
+<h1>📊 2026年9月 月報</h1>
+<div class="subtitle">2026/9/1 ～ 2026/9/30 &nbsp;|&nbsp; 資料來源：Yahoo Finance (yfinance) &nbsp;|&nbsp; Nova 自動生成</div>
+
+<!-- 摘要數據 -->
+<div class="summary-box">
+  <div class="s-item">
+    <div class="s-num up">+2.56%</div>
+    <div class="s-label">最大贏家 (1301 台塑)</div>
+  </div>
+  <div class="s-item">
+    <div class="s-num down">-2.73%</div>
+    <div class="s-label">最大輸家 (2349 錸德)</div>
+  </div>
+  <div class="s-item">
+    <div class="s-num flat">0.0%</div>
+    <div class="s-label">陽明持平</div>
+  </div>
+  <div class="s-item">
+    <div class="s-num" style="color:var(--text-dim)">3/7</div>
+    <div class="s-label">有報價（3檔待查）</div>
+  </div>
+</div>
+
+<div class="grid">
+  <!-- 左欄：庫存股 -->
+  <div class="card">
+    <div class="card-title">🏠 庫存股 · 9月表現</div>
+    <div class="stock-row">
+      <span class="code">1301</span>
+      <span class="name">台塑</span>
+      <span class="pct up">+2.56%</span>
+      <span class="range">66.4→68.1</span>
+    </div>
+    <div class="stock-row">
+      <span class="code">6153</span>
+      <span class="name">嘉聯益</span>
+      <span class="pct down">-0.27%</span>
+      <span class="range">18.25→18.2</span>
+    </div>
+    <div class="stock-row">
+      <span class="code">2349</span>
+      <span class="name">錸德</span>
+      <span class="pct down">-2.73%</span>
+      <span class="range">11.0→10.7</span>
+    </div>
+    <div class="stock-row">
+      <span class="code">2609</span>
+      <span class="name">陽明</span>
+      <span class="pct flat">0.00%</span>
+      <span class="range">59.4→59.4</span>
+    </div>
+    <div class="stock-row">
+      <span class="code">5904</span>
+      <span class="name">寶雅</span>
+      <span class="pct null">—</span>
+      <span class="range">yfinance 無報價</span>
+    </div>
+    <div class="stock-row">
+      <span class="code">00637L</span>
+      <span class="name">元大滬深300正2</span>
+      <span class="pct null">—</span>
+      <span class="range">可能下市/無報價</span>
+    </div>
+    <div class="stock-row">
+      <span class="code">00882</span>
+      <span class="name">中信中國高股息</span>
+      <span class="pct null">—</span>
+      <span class="range">可能下市/無報價</span>
+    </div>
+    <div class="fail-note">
+      ⚠️ <b>3檔無報價</b>：5904、00637L、00882 在 yfinance 查無 2026年9月資料，可能是下市、改名、或 yfinance 尚未收錄。建議至 Yahoo Finance 手動查證。
+    </div>
+  </div>
+
+  <!-- 右欄：觀察股亮點 -->
+  <div class="card">
+    <div class="card-title">👀 觀察股 · 9月亮點</div>
+    <div class="watch-grid">
+      <div class="w-tag">
+        <div class="w-tag-left">
+          <span class="w-tag-name">友達</span>
+          <span class="w-tag-code">2409</span>
+        </div>
+        <span class="w-pct up">+43.84%</span>
+      </div>
+      <div class="w-tag">
+        <div class="w-tag-left">
+          <span class="w-tag-name">全新光電</span>
+          <span class="w-tag-code">2455</span>
+        </div>
+        <span class="w-pct up">+12.65%</span>
+      </div>
+      <div class="w-tag">
+        <div class="w-tag-left">
+          <span class="w-tag-name">健策</span>
+          <span class="w-tag-code">3653</span>
+        </div>
+        <span class="w-pct up">+11.93%</span>
+      </div>
+      <div class="w-tag">
+        <div class="w-tag-left">
+          <span class="w-tag-name">建漢</span>
+          <span class="w-tag-code">3062</span>
+        </div>
+        <span class="w-pct up">+11.17%</span>
+      </div>
+      <div class="w-tag">
+        <div class="w-tag-left">
+          <span class="w-tag-name">群創</span>
+          <span class="w-tag-code">3481</span>
+        </div>
+        <span class="w-pct up">+9.62%</span>
+      </div>
+      <div class="w-tag">
+        <div class="w-tag-left">
+          <span class="w-tag-name">台新新光金</span>
+          <span class="w-tag-code">2887</span>
+        </div>
+        <span class="w-pct up">+7.84%</span>
+      </div>
+      <div class="w-tag">
+        <div class="w-tag-left">
+          <span class="w-tag-name">敦泰</span>
+          <span class="w-tag-code">3545</span>
+        </div>
+        <span class="w-pct up">+5.71%</span>
+      </div>
+      <div class="w-tag">
+        <div class="w-tag-left">
+          <span class="w-tag-name">力成</span>
+          <span class="w-tag-code">6239</span>
+        </div>
+        <span class="w-pct up">+5.66%</span>
+      </div>
+      <div class="w-tag">
+        <div class="w-tag-left">
+          <span class="w-tag-name">富邦金</span>
+          <span class="w-tag-code">2881</span>
+        </div>
+        <span class="w-pct up">+5.23%</span>
+      </div>
+      <div class="w-tag">
+        <div class="w-tag-left">
+          <span class="w-tag-name">達邁</span>
+          <span class="w-tag-code">3645</span>
+        </div>
+        <span class="w-pct flat">+0.40%</span>
+      </div>
+      <div class="w-tag">
+        <div class="w-tag-left">
+          <span class="w-tag-name">奇鋐</span>
+          <span class="w-tag-code">3017</span>
+        </div>
+        <span class="w-pct flat">0.00%</span>
+      </div>
+      <div class="w-tag">
+        <div class="w-tag-left">
+          <span class="w-tag-name">第一銅</span>
+          <span class="w-tag-code">2009</span>
+        </div>
+        <span class="w-pct down">-2.44%</span>
+      </div>
+      <div class="w-tag">
+        <div class="w-tag-left">
+          <span class="w-tag-name">台勝科</span>
+          <span class="w-tag-code">6442</span>
+        </div>
+        <span class="w-pct down">-8.59%</span>
+      </div>
+      <div class="w-tag" style="opacity:0.5">
+        <div class="w-tag-left">
+          <span class="w-tag-name">雙鴻</span>
+          <span class="w-tag-code">3324</span>
+        </div>
+        <span class="w-pct" style="color:var(--text-dim)">—</span>
+      </div>
+      <div class="w-tag" style="opacity:0.5">
+        <div class="w-tag-left">
+          <span class="w-tag-name">穩懋</span>
+          <span class="w-tag-code">3105</span>
+        </div>
+        <span class="w-pct" style="color:var(--text-dim)">—</span>
+      </div>
+    </div>
+    <div class="fail-note" style="margin-top:12px">
+      ⚠️ <b>3檔無報價</b>：丹立(7866)、雙鴻(3324)、穩懋(3105)。可能是下市、興櫃、或 yfinance 尚未收錄。
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<!-- 觀察股完整列表 -->
+<div class="card section">
+  <div class="card-title">📋 觀察股完整列表 · 9月表現一覽（20檔）</div>
+  <table class="holdings-table">
+    <thead>
+      <tr>
+        <th>代號</th>
+        <th>名稱</th>
+        <th class="r">9月開盤</th>
+        <th class="r">9月收盤</th>
+        <th class="r">月漲跌</th>
+        <th>備註</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>2409</td><td>友達</td><td class="r">26.80</td><td class="r">38.55</td>
+        <td class="r" style="color:var(--green)"><b>+43.84%</b></td>
+        <td><span class="badge badge-green">9月大贏家</span> 面板族群起飛</td>
+      </tr>
+      <tr>
+        <td>2455</td><td>全新光電</td><td class="r">490</td><td class="r">552</td>
+        <td class="r" style="color:var(--green)"><b>+12.65%</b></td>
+        <td>光通訊/AI題材延燒</td>
+      </tr>
+      <tr>
+        <td>3653</td><td>健策</td><td class="r">6075</td><td class="r">6800</td>
+        <td class="r" style="color:var(--green)"><b>+11.93%</b></td>
+        <td>散熱/AI伺服器受惠</td>
+      </tr>
+      <tr>
+        <td>3062</td><td>建漢</td><td class="r">20.60</td><td class="r">22.90</td>
+        <td class="r" style="color:var(--green)"><b>+11.17%</b></td>
+        <td>網通/工業電腦</td>
+      </tr>
+      <tr>
+        <td>3481</td><td>群創</td><td class="r">49.90</td><td class="r">54.70</td>
+        <td class="r" style="color:var(--green)"><b>+9.62%</b></td>
+        <td>面板族群跟漲友達</td>
+      </tr>
+      <tr>
+        <td>2887</td><td>台新新光金</td><td class="r">38.90</td><td class="r">41.95</td>
+        <td class="r" style="color:var(--green)"><b>+7.84%</b></td>
+        <td>金融併購題材</td>
+      </tr>
+      <tr>
+        <td>3545</td><td>敦泰</td><td class="r">49.00</td><td class="r">51.80</td>
+        <td class="r" style="color:var(--green)"><b>+5.71%</b></td>
+        <td>觸控IC</td>
+      </tr>
+      <tr>
+        <td>6239</td><td>力成</td><td class="r">274.0</td><td class="r">289.5</td>
+        <td class="r" style="color:var(--green)"><b>+5.66%</b></td>
+        <td>封測/AI受惠</td>
+      </tr>
+      <tr>
+        <td>2881</td><td>富邦金</td><td class="r">143.5</td><td class="r">151.0</td>
+        <td class="r" style="color:var(--green)"><b>+5.23%</b></td>
+        <td>金融</td>
+      </tr>
+      <tr>
+        <td>7749</td><td>意騰-KY</td><td class="r">380.0</td><td class="r">391.0</td>
+        <td class="r" style="color:var(--green)"><b>+2.89%</b></td>
+        <td>待研究 KY 股</td>
+      </tr>
+      <tr>
+        <td>6770</td><td>力積電</td><td class="r">73.60</td><td class="r">75.30</td>
+        <td class="r" style="color:var(--green)"><b>+2.31%</b></td>
+        <td>DRAM</td>
+      </tr>
+      <tr>
+        <td>3645</td><td>達邁</td><td class="r">75.00</td><td class="r">75.30</td>
+        <td class="r" style="color:var(--yellow)">+0.40%</td>
+        <td>PI膜，法人觀望</td>
+      </tr>
+      <tr>
+        <td>3017</td><td>奇鋐</td><td class="r">3435</td><td class="r">3435</td>
+        <td class="r" style="color:var(--yellow)">0.00%</td>
+        <td>散熱，月初冲高後回調</td>
+      </tr>
+      <tr>
+        <td>2009</td><td>第一銅</td><td class="r">41.00</td><td class="r">40.00</td>
+        <td class="r" style="color:var(--red)">-2.44%</td>
+        <td>景氣銅價回落</td>
+      </tr>
+      <tr>
+        <td>6442</td><td>台勝科</td><td class="r">1630</td><td class="r">1490</td>
+        <td class="r" style="color:var(--red)">-8.59%</td>
+        <td>營收數據待追蹤</td>
+      </tr>
+      <tr>
+        <td>7866</td><td>丹立</td><td class="r">—</td><td class="r">—</td>
+        <td class="r" style="color:var(--text-dim)">—</td>
+        <td><span class="badge badge-gray">yfinance 無報價</span> 散熱</td>
+      </tr>
+      <tr>
+        <td>3324</td><td>雙鴻</td><td class="r">—</td><td class="r">—</td>
+        <td class="r" style="color:var(--text-dim)">—</td>
+        <td><span class="badge badge-gray">yfinance 無報價</span> 水冷散熱</td>
+      </tr>
+      <tr>
+        <td>3105</td><td>穩懋</td><td class="r">—</td><td class="r">—</td>
+        <td class="r" style="color:var(--text-dim)">—</td>
+        <td><span class="badge badge-gray">yfinance 無報價</span> GaAs PA</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<hr>
+
+<!-- 9月大事記 -->
+<div class="card section">
+  <div class="card-title">📌 9月大事記</div>
+  <div class="timeline">
+    <div class="event">
+      <div class="event-date">2026/09/03</div>
+      <div class="event-text"><b>1301 台塑</b> 賣出 1 張 @70.5，盤中高點減碼。累計實現獲利達 <b>+83,640 元</b>（全期 +11.86%）。TP3 區間已達，策略性分批退出。</div>
+      <div class="tag-row">
+        <span class="badge badge-green">已實現獲利</span>
+        <span class="badge badge-yellow">分批減碼</span>
+      </div>
+    </div>
+    <div class="event">
+      <div class="event-date">2026/09/18</div>
+      <div class="event-text"><b>5904 寶雅</b> 加碼 1 張 @71.8（新均價 76.99）。距離 SL 70.00 仅 2.5%。實體通路 + 民生消費，Q2 EPS 8.15 元，花旗目標價 74.5 元。</div>
+      <div class="tag-row">
+        <span class="badge badge-yellow">加碼進場</span>
+        <span class="badge badge-red">SL 警覺</span>
+      </div>
+    </div>
+    <div class="event">
+      <div class="event-date">2026/09 中下旬</div>
+      <div class="event-text"><b>3105 穩懋</b> 研究報告 v2.3 完成（2026-09-15）。Q3 營收 38.29 億（+30% YoY）歷史最強，9月營收 19.37 億（+30.5% YoY）創歷史最高。評級：🟡🟡🟡 中性，目標價 395 元，外資終結連 5 日賣超。</div>
+      <div class="tag-row">
+        <span class="badge badge-yellow">研究更新</span>
+        <span class="badge badge-gray">評級中性</span>
+      </div>
+    </div>
+    <div class="event">
+      <div class="event-date">2026/09 全月</div>
+      <div class="event-text"><b>1301 台塑 9月</b> 收盤 +2.56%（66.4→68.1），月內高點 71.2。9月走穩偏多，累計已實現 +83,640，SL 63.60 仍守。</div>
+      <div class="tag-row">
+        <span class="badge badge-green">月漲 +2.56%</span>
+        <span class="badge badge-gray">SL 守在 63.60</span>
+      </div>
+    </div>
+    <div class="event">
+      <div class="event-date">2026/09 全月</div>
+      <div class="event-text"><b>2409 友達</b> 飆漲 <b>+43.84%</b>（26.8→38.55），為9月觀察股最大贏家。面板族群受惠景氣復甦題材，大幅落後補漲。</div>
+      <div class="tag-row">
+        <span class="badge badge-green">觀察股大贏家</span>
+        <span class="badge badge-green">+43.84%</span>
+      </div>
+    </div>
+    <div class="event">
+      <div class="event-date">2026/09 全月</div>
+      <div class="event-text"><b>2609 陽明</b> 9月 0.0%（59.4→59.4），月內高低 56.5～63.1，箱型整理。Q3 運費淡季支撐，觀望 TP1 62.73 是否突破。</div>
+      <div class="tag-row">
+        <span class="badge badge-yellow">月線持平</span>
+        <span class="badge badge-gray">TP1=62.73 待突破</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<!-- 風險提示 -->
+<div class="card section">
+  <div class="card-title">⚠️ 10月重点观察</div>
+  <div style="font-size:0.83rem; line-height:1.7; color:var(--text-dim);">
+    <b style="color:var(--red)">5904 寶雅</b>：SL 70.00，現價 71.8，距離 2.5%，需高度警戒。<br>
+    <b style="color:var(--yellow)">6442 台勝科</b>：月跌 -8.59%，月線破壞，需等站穩 MA5 再評估。<br>
+    <b style="color:var(--yellow)">2609 陽明</b>：箱型整理，TP1 62.73 為短線關鍵。<br>
+    <b style="color:var(--text-dim)">00637L / 00882 / 3105 / 3324 / 7866</b>：建議手動至 Yahoo Finance 查證最新報價。<br>
+    <b style="color:var(--text-dim)">1301 台塑</b>：累計實現 +83,640，SL 63.60 續守，TP3 已達（69.2→已超越），續抱心態。
+  </div>
+</div>
+
+<div class="footer">
+  Nova Portfolio Report · 2026年9月月報 · 自動生成 ｜ 資料來源：Yahoo Finance (yfinance)
+</div>
+
+</body>
+</html>

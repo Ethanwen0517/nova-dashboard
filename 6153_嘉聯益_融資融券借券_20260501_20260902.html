@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>6153 嘉聯益 融資融券 / 借券 / 價量 趨勢圖 (2026-05-01 ~ 2026-09-02)</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  body { font-family: -apple-system, "Segoe UI", "Noto Sans TC", sans-serif; background: #0f1419; color: #e6edf3; margin: 0; padding: 24px; }
+  h1 { color: #58a6ff; margin: 0 0 8px 0; font-size: 24px; }
+  h2 { color: #79c0ff; font-size: 16px; margin: 24px 0 8px 0; border-bottom: 1px solid #30363d; padding-bottom: 6px; }
+  .sub { color: #8b949e; font-size: 13px; margin-bottom: 16px; }
+  .kpi-row { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; margin-bottom: 24px; }
+  .kpi { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 14px; }
+  .kpi-label { color: #8b949e; font-size: 12px; margin-bottom: 6px; }
+  .kpi-value { font-size: 22px; font-weight: 700; }
+  .kpi-delta { font-size: 13px; margin-top: 4px; }
+  .chart-box { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 16px; margin-bottom: 16px; }
+  .meta { color: #8b949e; font-size: 12px; margin-top: 24px; padding-top: 12px; border-top: 1px solid #30363d; }
+  table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 13px; }
+  th, td { padding: 6px 10px; text-align: right; border-bottom: 1px solid #21262d; }
+  th { background: #21262d; color: #79c0ff; text-align: center; }
+  td:first-child, th:first-child { text-align: left; }
+  .pos { color: #ff6b6b; }
+  .neg { color: #69db7c; }
+  .zero { color: #8b949e; }
+</style>
+</head>
+<body>
+
+<h1>📊 6153 嘉聯益 融資融券 / 借券 / 價量趨勢圖</h1>
+<div class="sub">2026-05-01 ~ 2026-09-02 | 86 個交易日 | 資料源: FinMind TWSE/TPEx 整合</div>
+
+<div class="kpi-row">
+  <div class="kpi">
+    <div class="kpi-label">融資餘額 (末日)</div>
+    <div class="kpi-value" style="color:#ff6b6b">12,838 張</div>
+    <div class="kpi-delta" style="color:#dc3545">+2,133 張 (+19.93%)</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">融券餘額 (末日)</div>
+    <div class="kpi-value" style="color:#69db7c">193 張</div>
+    <div class="kpi-delta" style="color:#28a745">-12 張 (-5.85%)</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">借券總量 (區間)</div>
+    <div class="kpi-value" style="color:#58a6ff">21,545 張</div>
+    <div class="kpi-delta">議借 21,453 / 競價 92</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">借券活躍天數</div>
+    <div class="kpi-value" style="color:#d29922">26 / 86 天</div>
+    <div class="kpi-delta">日均 828 張</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">收盤價 (末日)</div>
+    <div class="kpi-value" style="color:#d29922">18.00 元</div>
+    <div class="kpi-delta" style="color:#8b949e">+0.00 (+0.00%)</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">成交量 (日均)</div>
+    <div class="kpi-value" style="color:#58a6ff">8,176,490 股</div>
+    <div class="kpi-delta">總 703,178,152 / 最高 52,166,141</div>
+  </div>
+</div>
+
+<h2>① 融資融券餘額時序</h2>
+<div class="chart-box">
+  <canvas id="chart-balance" height="120"></canvas>
+</div>
+
+<h2>② 融資買進 / 融券賣出 (單日流量)</h2>
+<div class="chart-box">
+  <canvas id="chart-flow" height="120"></canvas>
+</div>
+
+<h2>③ 借券量 (每日總量, 議借 vs 競價)</h2>
+<div class="chart-box">
+  <canvas id="chart-sbl" height="120"></canvas>
+</div>
+
+<h2>④ 價量 (收盤價 + 成交量)</h2>
+<div class="chart-box">
+  <canvas id="chart-price-volume" height="120"></canvas>
+</div>
+
+<h2>⑤ 價量 vs 融資融券 (雙軸對照)</h2>
+<div class="chart-box">
+  <canvas id="chart-price-margin" height="120"></canvas>
+</div>
+
+<h2>⑥ 最後 10 個交易日明細</h2>
+<div class="chart-box">
+  <table>
+    <thead>
+      <tr>
+        <th>日期</th><th>收盤</th><th>成交量</th><th>融資餘額</th><th>融券餘額</th><th>融資買進</th><th>融券賣出</th><th>借券量</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>2026-08-20</td>
+        <td>16.65</td>
+        <td>2,175,123</td>
+        <td class="pos">13,233</td>
+        <td class="pos">145</td>
+        <td>42</td>
+        <td>50</td>
+        <td>0</td>
+      </tr>
+      <tr>
+        <td>2026-08-21</td>
+        <td>16.70</td>
+        <td>1,568,519</td>
+        <td class="pos">13,160</td>
+        <td class="pos">146</td>
+        <td>39</td>
+        <td>1</td>
+        <td>0</td>
+      </tr>
+      <tr>
+        <td>2026-08-24</td>
+        <td>16.50</td>
+        <td>1,413,033</td>
+        <td class="pos">13,218</td>
+        <td class="pos">144</td>
+        <td>96</td>
+        <td>0</td>
+        <td>0</td>
+      </tr>
+      <tr>
+        <td>2026-08-25</td>
+        <td>16.50</td>
+        <td>1,585,497</td>
+        <td class="pos">13,175</td>
+        <td class="pos">133</td>
+        <td>85</td>
+        <td>0</td>
+        <td>0</td>
+      </tr>
+      <tr>
+        <td>2026-08-26</td>
+        <td>17.00</td>
+        <td>2,713,623</td>
+        <td class="pos">12,950</td>
+        <td class="pos">215</td>
+        <td>78</td>
+        <td>82</td>
+        <td>0</td>
+      </tr>
+      <tr>
+        <td>2026-08-27</td>
+        <td>17.25</td>
+        <td>3,973,842</td>
+        <td class="pos">12,987</td>
+        <td class="pos">187</td>
+        <td>318</td>
+        <td>2</td>
+        <td>0</td>
+      </tr>
+      <tr>
+        <td>2026-08-28</td>
+        <td>17.75</td>
+        <td>3,925,936</td>
+        <td class="pos">12,897</td>
+        <td class="pos">190</td>
+        <td>272</td>
+        <td>3</td>
+        <td>0</td>
+      </tr>
+      <tr>
+        <td>2026-08-31</td>
+        <td>17.75</td>
+        <td>5,781,907</td>
+        <td class="pos">13,002</td>
+        <td class="pos">191</td>
+        <td>575</td>
+        <td>1</td>
+        <td>0</td>
+      </tr>
+      <tr>
+        <td>2026-09-01</td>
+        <td>17.95</td>
+        <td>5,289,757</td>
+        <td class="pos">13,056</td>
+        <td class="pos">194</td>
+        <td>388</td>
+        <td>3</td>
+        <td>678</td>
+      </tr>
+      <tr>
+        <td>2026-09-02</td>
+        <td>18.00</td>
+        <td>2,532,140</td>
+        <td class="pos">12,838</td>
+        <td class="pos">193</td>
+        <td>141</td>
+        <td>0</td>
+        <td>0</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="meta">
+  📅 報告產出時間: 2026-09-03 09:07:28 | 來源: FinMind TaiwanStockMarginPurchaseShortSale + TaiwanStockSecuritiesLending (免費層)<br>
+  ⚠️ 融資融券為時序餘額;借券為當日逐筆交易彙總(逐筆 → 每日 sum volume)。借券「餘額」需券商 API(無公開時序)。<br>
+📈 價量來自 FinMind TaiwanStockPrice (免費層);.TWO 個股同樣有完整 OHLCV。
+</div>
+
+<script>
+const DATA = {"dates": ["2026-05-04", "2026-05-05", "2026-05-06", "2026-05-07", "2026-05-08", "2026-05-11", "2026-05-12", "2026-05-13", "2026-05-14", "2026-05-15", "2026-05-18", "2026-05-19", "2026-05-20", "2026-05-21", "2026-05-22", "2026-05-25", "2026-05-26", "2026-05-27", "2026-05-28", "2026-05-29", "2026-06-01", "2026-06-02", "2026-06-03", "2026-06-04", "2026-06-05", "2026-06-08", "2026-06-09", "2026-06-10", "2026-06-11", "2026-06-12", "2026-06-15", "2026-06-16", "2026-06-17", "2026-06-18", "2026-06-22", "2026-06-23", "2026-06-24", "2026-06-25", "2026-06-26", "2026-06-29", "2026-06-30", "2026-07-01", "2026-07-02", "2026-07-03", "2026-07-06", "2026-07-07", "2026-07-08", "2026-07-09", "2026-07-13", "2026-07-14", "2026-07-15", "2026-07-16", "2026-07-17", "2026-07-20", "2026-07-21", "2026-07-22", "2026-07-23", "2026-07-24", "2026-07-27", "2026-07-28", "2026-07-29", "2026-07-30", "2026-07-31", "2026-08-03", "2026-08-04", "2026-08-05", "2026-08-06", "2026-08-07", "2026-08-10", "2026-08-11", "2026-08-12", "2026-08-13", "2026-08-14", "2026-08-17", "2026-08-18", "2026-08-19", "2026-08-20", "2026-08-21", "2026-08-24", "2026-08-25", "2026-08-26", "2026-08-27", "2026-08-28", "2026-08-31", "2026-09-01", "2026-09-02"], "margin_bal": [10705, 10671, 10775, 10180, 10051, 9788, 9851, 9860, 9490, 8999, 8954, 8825, 8906, 8568, 8650, 8778, 8781, 8232, 8500, 8556, 8304, 8272, 8138, 8230, 8261, 9561, 8789, 9823, 10184, 11260, 12529, 11711, 12686, 12315, 13823, 14238, 13886, 13306, 13204, 12848, 13189, 13260, 13250, 13458, 13583, 14019, 14226, 14273, 14203, 14093, 14060, 14217, 13973, 14186, 14302, 14279, 14271, 14456, 14432, 14376, 13512, 13502, 13817, 13623, 13539, 13547, 13491, 13647, 13501, 13426, 13532, 13379, 13294, 13316, 13341, 13296, 13233, 13160, 13218, 13175, 12950, 12987, 12897, 13002, 13056, 12838], "short_bal": [205, 221, 219, 223, 218, 212, 216, 195, 196, 165, 123, 159, 144, 218, 286, 262, 176, 167, 160, 159, 161, 177, 199, 169, 186, 330, 366, 344, 264, 498, 712, 554, 596, 606, 569, 617, 702, 718, 572, 474, 262, 192, 196, 183, 188, 170, 164, 164, 193, 121, 120, 117, 28, 29, 29, 29, 46, 39, 40, 37, 54, 58, 57, 61, 95, 74, 87, 111, 117, 131, 151, 154, 129, 131, 117, 123, 145, 146, 144, 133, 215, 187, 190, 191, 194, 193], "margin_buy": [368, 131, 530, 126, 375, 332, 452, 386, 103, 244, 49, 87, 126, 123, 540, 616, 283, 268, 402, 205, 223, 380, 433, 415, 212, 2314, 1794, 2688, 1068, 2324, 2841, 2902, 2064, 1169, 2810, 1574, 1300, 523, 996, 1022, 581, 757, 257, 466, 411, 837, 431, 176, 431, 500, 176, 231, 378, 514, 240, 258, 121, 235, 222, 270, 414, 283, 530, 125, 161, 178, 73, 353, 141, 84, 355, 160, 85, 95, 117, 57, 42, 39, 96, 85, 78, 318, 272, 575, 388, 141], "short_sell": [4, 16, 2, 4, 1, 3, 9, 0, 1, 1, 6, 38, 3, 78, 71, 2, 3, 1, 1, 0, 2, 17, 24, 4, 20, 171, 76, 99, 21, 272, 232, 32, 57, 32, 13, 81, 241, 70, 54, 32, 28, 5, 11, 0, 7, 4, 2, 0, 32, 6, 0, 0, 1, 7, 3, 1, 18, 0, 2, 3, 17, 21, 4, 6, 36, 5, 27, 26, 13, 14, 24, 6, 1, 4, 0, 6, 50, 1, 0, 0, 82, 2, 3, 1, 3, 0], "sbl_total": [0.0, 0.0, 187.0, 1256.0, 0.0, 0.0, 0.0, 500.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 266.0, 0.0, 0.0, 0.0, 0.0, 0.0, 996.0, 0.0, 190.0, 8169.0, 0.0, 19.0, 280.0, 244.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 4809.0, 0.0, 0.0, 0.0, 196.0, 0.0, 0.0, 547.0, 726.0, 151.0, 759.0, 261.0, 266.0, 0.0, 0.0, 144.0, 0.0, 16.0, 0.0, 0.0, 24.0, 479.0, 38.0, 17.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 327.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 678.0, 0.0], "sbl_lend": [0.0, 0.0, 187.0, 1256.0, 0.0, 0.0, 0.0, 500.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 266.0, 0.0, 0.0, 0.0, 0.0, 0.0, 996.0, 0.0, 190.0, 8169.0, 0.0, 0.0, 280.0, 244.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 4809.0, 0.0, 0.0, 0.0, 196.0, 0.0, 0.0, 547.0, 726.0, 151.0, 759.0, 261.0, 266.0, 0.0, 0.0, 126.0, 0.0, 16.0, 0.0, 0.0, 24.0, 479.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 327.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 678.0, 0.0], "sbl_auct": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 19.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 18.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 38.0, 17.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "close_p": [18.0, 18.65, 18.55, 18.95, 18.35, 18.05, 18.45, 17.7, 17.8, 16.8, 17.3, 17.7, 17.55, 18.35, 19.35, 19.1, 18.55, 18.25, 17.6, 17.9, 18.5, 19.0, 19.6, 18.45, 18.5, 20.35, 20.5, 20.75, 20.3, 22.25, 24.45, 23.1, 24.4, 24.45, 23.95, 24.3, 23.25, 22.65, 21.75, 20.8, 21.45, 20.3, 20.75, 20.4, 20.55, 19.85, 20.05, 19.7, 19.05, 18.45, 18.7, 18.2, 16.95, 16.4, 17.0, 17.0, 16.85, 16.6, 16.1, 15.05, 14.2, 13.5, 14.05, 14.8, 15.5, 16.0, 16.3, 16.4, 16.6, 16.8, 17.2, 17.25, 17.0, 16.8, 16.4, 16.7, 16.65, 16.7, 16.5, 16.5, 17.0, 17.25, 17.75, 17.75, 17.95, 18.0], "open_p": [18.2, 18.15, 19.5, 19.05, 19.0, 18.7, 18.1, 18.5, 17.8, 17.95, 16.7, 17.3, 18.0, 17.9, 18.75, 20.0, 19.2, 18.85, 18.6, 17.85, 18.1, 18.75, 19.15, 19.25, 18.5, 16.9, 21.0, 20.8, 21.1, 20.7, 23.35, 25.0, 22.85, 24.7, 24.75, 24.05, 23.8, 23.35, 22.5, 21.6, 21.2, 22.0, 20.3, 20.8, 20.65, 20.5, 20.05, 20.05, 19.85, 18.95, 18.5, 18.75, 17.8, 17.05, 16.55, 17.3, 17.1, 17.0, 16.6, 15.75, 15.15, 14.15, 14.3, 14.1, 14.7, 15.7, 16.0, 16.45, 16.8, 16.55, 16.9, 17.3, 17.35, 17.0, 16.4, 16.15, 16.8, 16.65, 16.7, 16.45, 16.55, 17.15, 17.4, 17.5, 18.25, 17.8], "max_p": [18.85, 18.7, 19.5, 19.6, 19.2, 19.05, 18.85, 18.5, 18.1, 18.1, 17.35, 18.0, 18.1, 18.65, 19.6, 20.0, 19.35, 19.0, 19.0, 18.05, 18.9, 19.3, 19.65, 19.45, 18.7, 20.35, 21.2, 22.55, 21.1, 22.3, 24.45, 25.0, 25.0, 24.95, 25.8, 25.4, 24.65, 23.6, 23.45, 21.95, 21.7, 22.0, 21.0, 20.9, 21.4, 20.95, 20.3, 20.3, 20.45, 19.1, 19.0, 18.75, 17.8, 17.2, 17.2, 17.45, 17.3, 17.0, 16.6, 15.75, 15.3, 14.3, 14.45, 15.25, 15.5, 16.25, 16.35, 17.1, 16.9, 16.85, 17.45, 17.65, 17.4, 17.3, 16.95, 16.9, 17.15, 16.85, 16.8, 16.6, 17.25, 17.65, 17.9, 18.4, 18.4, 18.2], "min_p": [18.0, 18.0, 18.25, 18.6, 18.1, 18.0, 18.0, 17.6, 17.6, 16.7, 16.3, 17.15, 17.3, 17.75, 18.4, 19.1, 18.35, 18.0, 17.4, 17.7, 17.95, 18.35, 18.85, 18.4, 17.75, 16.85, 19.85, 20.6, 19.9, 20.7, 23.05, 22.95, 22.5, 23.75, 23.9, 23.5, 23.1, 22.4, 21.7, 20.2, 21.0, 20.25, 19.9, 20.15, 20.05, 19.8, 19.25, 19.7, 18.95, 17.7, 18.5, 18.1, 16.85, 15.6, 16.5, 17.0, 16.65, 16.4, 15.8, 15.0, 13.7, 13.5, 13.75, 13.9, 14.65, 15.7, 15.5, 16.25, 16.45, 16.35, 16.85, 16.95, 16.85, 16.7, 16.4, 16.1, 16.45, 16.5, 16.45, 16.1, 16.55, 17.0, 17.35, 17.35, 17.95, 17.8], "vol": [5040703, 3621393, 7384714, 7241271, 4736052, 5056239, 5473112, 5323517, 3158580, 5517489, 3228017, 3863298, 3120512, 6867231, 8414666, 6587789, 3957561, 3969089, 6356292, 3191622, 5484332, 7623080, 8931549, 6681139, 4582688, 23126322, 32136661, 52166141, 15778571, 28664631, 21570176, 48271193, 23021759, 20476777, 30661452, 25138043, 17206720, 12236097, 14867783, 15079342, 5892629, 8845345, 4700839, 4869640, 5423663, 6721556, 6940710, 3178411, 6236616, 7418220, 3059786, 2762949, 6011354, 5956945, 3197440, 3036176, 2375847, 2601666, 3842154, 4212428, 8763755, 5675959, 4112083, 4217340, 3465473, 3642921, 3220245, 5065839, 2602680, 2177157, 3863896, 3673474, 1958068, 2169205, 2300136, 2212567, 2175123, 1568519, 1413033, 1585497, 2713623, 3973842, 3925936, 5781907, 5289757, 2532140]};
+
+// 顏色:台股紅漲綠跌
+const C_RED = '#ff6b6b';
+const C_GREEN = '#69db7c';
+const C_BLUE = '#58a6ff';
+const C_YELLOW = '#d29922';
+const C_PURPLE = '#a371f7';
+
+const commonOpts = {
+  responsive: true,
+  maintainAspectRatio: false,
+  interaction: { mode: 'index', intersect: false },
+  plugins: {
+    legend: { labels: { color: '#e6edf3', font: { size: 12 } } },
+    tooltip: { backgroundColor: '#0d1117', borderColor: '#30363d', borderWidth: 1, titleColor: '#79c0ff', bodyColor: '#e6edf3' }
+  },
+  scales: {
+    x: { ticks: { color: '#8b949e', maxRotation: 0, autoSkip: true, maxTicksLimit: 15 }, grid: { color: '#21262d' } },
+    y: { ticks: { color: '#8b949e' }, grid: { color: '#21262d' } }
+  }
+};
+
+// ① 融資融券餘額 (雙軸: 融資左, 融券右)
+new Chart(document.getElementById('chart-balance'), {
+  type: 'line',
+  data: {
+    labels: DATA.dates,
+    datasets: [
+      { label: '融資餘額 (張)', data: DATA.margin_bal, borderColor: C_RED, backgroundColor: 'rgba(255,107,107,0.1)', tension: 0.3, fill: true, pointRadius: 1.5, yAxisID: 'y' },
+      { label: '融券餘額 (張)', data: DATA.short_bal, borderColor: C_GREEN, backgroundColor: 'rgba(105,219,124,0.1)', tension: 0.3, fill: false, pointRadius: 2, borderWidth: 2, yAxisID: 'y2' }
+    ]
+  },
+  options: {
+    ...commonOpts,
+    scales: {
+      ...commonOpts.scales,
+      y: { ...commonOpts.scales.y, position: 'left', beginAtZero: true, title: { display: true, text: '融資餘額 (張)', color: C_RED } },
+      y2: { ...commonOpts.scales.y, position: 'right', beginAtZero: true, grid: { drawOnChartArea: false }, title: { display: true, text: '融券餘額 (張)', color: C_GREEN } }
+    }
+  }
+});
+
+// ② 融資買進 / 融券賣出 (雙軸 bar)
+new Chart(document.getElementById('chart-flow'), {
+  type: 'bar',
+  data: {
+    labels: DATA.dates,
+    datasets: [
+      { label: '融資買進 (張)', data: DATA.margin_buy, backgroundColor: 'rgba(255,107,107,0.6)', borderColor: C_RED, borderWidth: 1, yAxisID: 'y' },
+      { label: '融券賣出 (張)', data: DATA.short_sell, backgroundColor: 'rgba(105,219,124,0.6)', borderColor: C_GREEN, borderWidth: 1, yAxisID: 'y2' }
+    ]
+  },
+  options: {
+    ...commonOpts,
+    scales: {
+      ...commonOpts.scales,
+      y: { ...commonOpts.scales.y, position: 'left', beginAtZero: true, title: { display: true, text: '融資買進 (張)', color: C_RED } },
+      y2: { ...commonOpts.scales.y, position: 'right', beginAtZero: true, grid: { drawOnChartArea: false }, title: { display: true, text: '融券賣出 (張)', color: C_GREEN } }
+    }
+  }
+});
+
+// ③ 借券 (stacked bar)
+new Chart(document.getElementById('chart-sbl'), {
+  type: 'bar',
+  data: {
+    labels: DATA.dates,
+    datasets: [
+      { label: '議借', data: DATA.sbl_lend, backgroundColor: 'rgba(163,113,247,0.7)', borderColor: C_PURPLE, borderWidth: 1, stack: 'sbl' },
+      { label: '競價', data: DATA.sbl_auct, backgroundColor: 'rgba(210,153,34,0.7)', borderColor: C_YELLOW, borderWidth: 1, stack: 'sbl' }
+    ]
+  },
+  options: { ...commonOpts, scales: { ...commonOpts.scales, x: { ...commonOpts.scales.x, stacked: true }, y: { ...commonOpts.scales.y, stacked: true, beginAtZero: true } } }
+});
+
+// ④ 價量 (收盤價折線 + 成交量柱, 雙軸)
+new Chart(document.getElementById('chart-price-volume'), {
+  type: 'bar',
+  data: {
+    labels: DATA.dates,
+    datasets: [
+      { label: '收盤價', type: 'line', data: DATA.close_p, borderColor: C_YELLOW, backgroundColor: 'rgba(210,153,34,0.1)', tension: 0.3, fill: false, pointRadius: 1.5, borderWidth: 2, yAxisID: 'y' },
+      { label: '成交量 (股)', type: 'bar', data: DATA.vol, backgroundColor: 'rgba(88,166,255,0.4)', borderColor: C_BLUE, borderWidth: 1, yAxisID: 'y2' }
+    ]
+  },
+  options: {
+    ...commonOpts,
+    scales: {
+      ...commonOpts.scales,
+      y: { ...commonOpts.scales.y, position: 'left', title: { display: true, text: '收盤價 (元)', color: C_YELLOW } },
+      y2: { ...commonOpts.scales.y, position: 'right', beginAtZero: true, grid: { drawOnChartArea: false }, title: { display: true, text: '成交量 (股)', color: C_BLUE } }
+    }
+  }
+});
+
+// ⑤ 價量 vs 融資融券 (收盤價 + 融資/融券餘額, 三軸對照)
+new Chart(document.getElementById('chart-price-margin'), {
+  type: 'line',
+  data: {
+    labels: DATA.dates,
+    datasets: [
+      { label: '收盤價', data: DATA.close_p, borderColor: C_YELLOW, backgroundColor: 'rgba(210,153,34,0.1)', tension: 0.3, fill: false, pointRadius: 1.5, borderWidth: 2, yAxisID: 'y' },
+      { label: '融資餘額', data: DATA.margin_bal, borderColor: C_RED, backgroundColor: 'rgba(255,107,107,0.1)', tension: 0.3, fill: false, pointRadius: 1, borderWidth: 1.5, yAxisID: 'y2' },
+      { label: '融券餘額', data: DATA.short_bal, borderColor: C_GREEN, backgroundColor: 'rgba(105,219,124,0.1)', tension: 0.3, fill: false, pointRadius: 1, borderWidth: 1.5, yAxisID: 'y2' }
+    ]
+  },
+  options: {
+    ...commonOpts,
+    scales: {
+      ...commonOpts.scales,
+      y: { ...commonOpts.scales.y, position: 'left', title: { display: true, text: '收盤價 (元)', color: C_YELLOW } },
+      y2: { ...commonOpts.scales.y, position: 'right', beginAtZero: true, grid: { drawOnChartArea: false }, title: { display: true, text: '融資/融券 (張)', color: '#a0a0a0' } }
+    }
+  }
+});
+</script>
+
+</body>
+</html>

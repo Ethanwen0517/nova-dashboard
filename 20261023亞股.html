@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="theme-color" content="#1a73e8">
+  <title>2026/10/23 亞股晨報</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --blue:   #1a73e8;
+      --bg:     #f0f4f8;
+      --card:   #ffffff;
+      --text:   #2d3748;
+      --border: #e2e8f0;
+      --radius: 12px;
+      --shadow: 0 2px 8px rgba(0,0,0,.08);
+      --up:     #16a34a;
+      --dn:     #dc2626;
+      --flat:   #6b7280;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+                   "Noto Sans TC", "PingFang TC", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      padding: 16px;
+      font-size: 16px;
+      -webkit-text-size-adjust: 100%;
+    }
+    body > * { max-width: 900px; margin-left: auto; margin-right: auto; }
+    h1, h2 {
+      font-size: clamp(1.1rem, 4vw, 1.6rem);
+      color: var(--blue);
+      border-bottom: 2px solid var(--blue);
+      padding-bottom: 6px;
+      margin: 24px 0 12px;
+    }
+    h3 { font-size: clamp(.95rem, 3.5vw, 1.15rem); color: #444; margin: 20px 0 8px; }
+    p  { margin: 6px 0; }
+    /* 分析區塊內一般段落：縮排 2 個中文字 */
+    p.analysis-line {
+      margin: 4px 0;
+      padding-left: 2em;
+      text-indent: 0;
+    }
+    /* 分析區塊內的粗體標題段落（如【綜合研判】）：跟一般內文格式相同,不額外加粗/放大間距(2026-07-31 Ethan 優化) */
+    p.analysis-line:has(> strong:first-child) {
+      padding-left: 0;
+      font-weight: normal;
+      margin-top: 4px;
+    }
+    /* 分析 div：覆蓋 body > * 的 auto margin，框架從最左邊開始 */
+    .analysis-section {
+      width: 100% !important;
+      max-width: 100% !important;
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      box-sizing: border-box !important;
+      padding: 0 !important;
+    }
+    /* 分析區塊內的 h 標題：限制最大寬度，靠左 */
+    .analysis-section h1,
+    .analysis-section h2,
+    .analysis-section h3,
+    .analysis-section h4 {
+      max-width: 900px;
+    }
+    /* 分析區塊內的段落：限制最大寬度 */
+    .analysis-section p {
+      max-width: 900px;
+    }
+    .analysis-section ul {
+      list-style: none !important;
+      padding-left: 2em !important;
+      margin: 0 0 16px 0 !important;
+      max-width: 900px !important;
+      box-sizing: border-box !important;
+      text-align: left !important;
+    }
+    .analysis-section li {
+      display: flex !important;
+      align-items: flex-start !important;
+      gap: 8px !important;
+      margin: 6px 0 !important;
+      padding: 0 !important;
+      text-indent: 0 !important;
+      line-height: 1.6 !important;
+      text-align: left !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    .analysis-section li::before {
+      content: "•" !important;
+      color: #1a73e8 !important;
+      flex-shrink: 0 !important;
+    }
+    ul { padding-left: 20px; }
+    li { margin: 4px 0; }
+    hr { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+    code { background: #f0f0f0; padding: 2px 5px; border-radius: 4px; font-size: .88em; }
+    blockquote {
+      /* 2026-07-31 Ethan 優化: 備註型 blockquote (資料日期/來源/時間/API 狀態) 改為一般內文,不佔版面 */
+      border: none;
+      background: transparent;
+      padding: 2px 0;
+      margin: 2px 0;
+      font-size: 13px;
+      color: #555;
+      font-style: normal;
+    }
+    .table-wrap {
+      display: block;
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      margin: 12px 0 20px;
+      background: var(--card);
+    }
+    table {
+      border-collapse: collapse;
+      table-layout: auto;
+      width: 1px;
+      min-width: 100%;
+      font-size: 14px;
+    }
+    thead tr { background: var(--blue); }
+    th {
+      color: #fff;
+      padding: 10px 14px;
+      text-align: left;
+      font-weight: 600;
+      white-space: nowrap;
+      vertical-align: middle;
+      font-size: 14px;
+    }
+    td {
+      padding: 6px 14px;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+      vertical-align: middle;
+    }
+    td .chg-pt, td .chg-pct {
+      display: block;
+      line-height: 1.4;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    td .chg-pt  { font-size: 13px; }
+    .up   { color: var(--up);   }
+    .dn   { color: var(--dn);   }
+    .flat { color: var(--flat); }
+    .chg-positive { color: #16a34a; font-weight: 600; }
+    .chg-negative { color: #dc2626; font-weight: 600; }
+    th.pad, td.pad {
+      width: 10px !important;
+      min-width: 10px !important;
+      max-width: 10px !important;
+      padding: 0 !important;
+      background: transparent !important;
+      border: none !important;
+    }
+    tr:last-child td { border-bottom: none; }
+    tbody tr:nth-child(even) { background: #f7faff; }
+    tbody tr:hover td { background: #eef3ff; }
+    tbody tr:hover td.pad { background: transparent !important; }
+    @media (max-width: 480px) {
+      body   { padding: 10px; }
+      h2     { font-size: 1rem; }
+      h3     { font-size: .92rem; }
+      th, td { padding: 6px 10px; font-size: .75rem; }
+      td .chg-pt  { font-size: .75rem; }
+      td .chg-pct { font-size: .72rem; }
+      th.pad, td.pad { padding: 0 !important; }
+    }
+    .nova-timestamp {
+      position: fixed;
+      top: 12px; right: 16px;
+      background: #1a73e8; color: white;
+      padding: 6px 14px; border-radius: 20px;
+      font-size: 12px; font-weight: 600;
+      z-index: 9999;
+      box-shadow: 0 2px 8px rgba(0,0,0,.2);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    }
+  </style>
+</head>
+<body>
+<div class="nova-timestamp">📅 2026-10-23 14:10</div>
+<h2>📊 2026/10/23 亞股晨報</h2>
+<p></p>
+<h3>🌏 亞洲主要股市</h3>
+<p></p>
+<div class="table-wrap"><table><thead><tr>
+<th>市場</th>
+<th>指數</th>
+<th>最高</th>
+<th>最低</th>
+<th>漲跌</th>
+<th>漲跌幅</th>
+</tr>
+</tr></thead><tbody>
+<tr>
+<td>🇹🇼 台灣加權 (TAIEX)</td>
+<td>46,041.43</td>
+<td>47,332.18</td>
+<td>46,041.43</td>
+<td>-846.34</td>
+<td>🟢 -1.81%</td>
+</tr>
+<tr>
+<td>🇯🇵 日經225 (N225)</td>
+<td>62,907.84</td>
+<td>64,866.44</td>
+<td>62,907.84</td>
+<td>-1,713.40</td>
+<td>🟢 -2.65%</td>
+</tr>
+<tr>
+<td>🇰🇷 韓國KOSPI (KS11)</td>
+<td>5,533.77</td>
+<td>5,740.28</td>
+<td>5,485.98</td>
+<td>-201.89</td>
+<td>🟢 -3.52%</td>
+</tr>
+<tr>
+<td>🇭🇰 香港恒生 (HSI)</td>
+<td>22,934.68</td>
+<td>23,513.79</td>
+<td>22,879.11</td>
+<td>-717.19</td>
+<td>🟢 -3.03%</td>
+</tr>
+<tr>
+<td>🇨🇳 上海綜合 (SSEC)</td>
+<td>3,658.03</td>
+<td>3,714.48</td>
+<td>3,649.86</td>
+<td>-55.00</td>
+<td>🟢 -1.48%</td>
+</tr>
+<tr>
+<td>🇨🇳 深圳綜合 (SZSEC)</td>
+<td>11,357.32</td>
+<td>11,690.92</td>
+<td>11,350.96</td>
+<td>-347.03</td>
+<td>🟢 -2.96%</td>
+</tr>
+<tr>
+<td>🇸🇬 新加坡STI (STI)</td>
+<td>5,415.14</td>
+<td>5,451.22</td>
+<td>5,406.07</td>
+<td>-22.85</td>
+<td>🟢 -0.42%</td>
+</tr>
+</tbody></table></div>
+<p></p>
+<h3>💱 匯率（台灣銀行即期）</h3>
+<p></p>
+<div class="table-wrap"><table><thead><tr>
+<th>幣別</th>
+<th>即期買入</th>
+<th>即期賣出</th>
+</tr>
+</tr></thead><tbody>
+<tr>
+<td>USD</td>
+<td>32.59</td>
+<td>32.62</td>
+</tr>
+<tr>
+<td>JPY</td>
+<td>0.2056</td>
+<td>0.2058</td>
+</tr>
+<tr>
+<td>HKD</td>
+<td>4.16</td>
+<td>4.17</td>
+</tr>
+<tr>
+<td>CNY</td>
+<td>4.89</td>
+<td>4.89</td>
+</tr>
+<tr>
+<td>AUD</td>
+<td>22.84</td>
+<td>22.86</td>
+</tr>
+</tbody></table></div>
+<p></p>
+<h3>📋 數據驗證</h3>
+<p></p>
+<p>- <strong>缺失欄位：</strong> 無</p>
+<p>- <strong>數據來源：</strong> 東方財富 push2his 日K（主）、Yahoo Finance API（備援）、台灣銀行 CSV API</p>
+<p>- <strong>生成時間：</strong> 2026-10-23 14:06:51 (Asia/Taipei)</p>
+<p>- <strong>資料日期：</strong> 2026-10-22</p>
+<ul>
+<li><strong>🆕 2026-07-21 freshness 校驗：</strong> 所有 7 個市場 data_date 已過校驗（max_data_age_days=2）</li>
+</ul>
+<p></p>
+<div class="analysis-section">
+<h3>📈 整體盤勢分析</h3>
+<p></p>
+<p class="analysis-line"><strong>🟢 利多因素:</strong></p>
+<p class="analysis-line">1. 新加坡 STI 僅跌 22.85 點（-0.42%），為七個亞洲市場中最抗跌者，顯示資金仍留在亞洲，僅風險偏好降溫而非全面撤出。</p>
+<p class="analysis-line">2. 台股收 46,041.43 雖自前日 46,887.77 回落 846.34 點，仍高於 10/20 收盤的 46,292.93，屬反彈後回吐而非漲勢全數蒸發。</p>
+<p class="analysis-line">3. 上證綜合僅 -1.48%（-55.00 點），明顯小於深證綜合的 -2.96%（-347.03 點），呈滬強深弱，資金偏向權值與低估值標的。</p>
+<p></p>
+<p class="analysis-line"><strong>🔴 利空因素:</strong></p>
+<p class="analysis-line">1. 七個亞洲指數全面收黑、無一倖免：韓股 KOSPI -3.52%（-201.89 點）、恒生 -3.03%（-717.19 點）、深證 -2.96%、日經 -2.65%、台股 -1.81%，屬區域性系統性賣壓，而非個股層級修正。</p>
+<p class="analysis-line">2. 收盤位置極弱：台股收 46,041.43 恰好就是當日最低（盤中高 47,332.18，高低差 1,290.75 點約 2.73%）；日經收 62,907.84 同樣等於當日最低（自高點 64,866.44 回落 1,958.60 點約 3.02%），多頭在尾盤失守盤中所有支撐。</p>
+<p class="analysis-line">3. 跌勢自日韓向中國雙盤擴散：恒生自高點 23,513.79 回落 579.11 點（-2.46%）收 22,934.68，深證 -2.96% 跌幅為中國股市主要指數中較重者，區域情緒一致性向下。</p>
+<p class="analysis-line">4. 美元/台幣即期買入 32.59，較今日早盤的 32.58 微幅走高，美元走強搭配股價走弱，外資匯出壓力尚未緩解。</p>
+<p></p>
+<p class="analysis-line"><strong>📊 綜合研判:</strong></p>
+<p class="analysis-line">亞洲 10/22 全面走弱，主軸是 10/21 全面反彈後遭遇急遽修正。領跌為韓股 -3.52% 與恒生 -3.03%，日經 -2.65%、深證 -2.96% 居次；台股 -1.81%（-846.34 點）跌幅居中，但收盤 46,041.43 正好落在當日最低點，代表盤中承接力道在尾盤完全失效，收盤價位比跌幅更值得警惕。</p>
+<p class="analysis-line">跌幅結構顯示資金並未離開亞洲，而是明顯換倉：STI 僅 -0.42%、上證 -1.48%，遠小於韓日港深的 -2.6%~-3.5%，資金正從高波動的成長與金融權值股，退向低波動與防禦性標的。台股目前仍站在 10/20 收盤 46,292.93 之上，46,000 點關卡是短線關鍵心理支撐；一旦失守 46,292.93，10/21 的反彈將全數回吐。</p>
+<p></p>
+<p class="analysis-line"><strong>⚠️ 觀察重點:</strong></p>
+<p class="analysis-line">1. 今日（10/23）台股開盤能否守住 46,000 點，以及 10/20 收盤 46,292.93 這條回吐支撐是否失守。</p>
+<p class="analysis-line">2. 美元/台幣即期 32.59 是否續升，外資在連兩日走弱後是否啟動淨賣超。</p>
+<p class="analysis-line">3. 下週一（10/26）亞洲開盤方向，關鍵在週末美股與費半表現，以及跌幅最重的韓股 5,533.77、恒生 22,934.68 兩點是否止跌。</p>
+<p></p>
+</div>
+</body>
+</html>

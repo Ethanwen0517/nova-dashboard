@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>9/7 開盤前 Review｜Nova</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif;
+    margin: 0;
+    padding: 16px;
+    background: #1a1d23;
+    color: #e8e8e8;
+    line-height: 1.55;
+  }
+  .container { max-width: 1100px; margin: 0 auto; }
+  h1 {
+    font-size: 24px;
+    margin: 0 0 4px 0;
+    color: #f8f9fa;
+    border-bottom: 2px solid #495057;
+    padding-bottom: 12px;
+  }
+  .meta {
+    color: #868e96;
+    font-size: 13px;
+    margin-bottom: 24px;
+  }
+  h2 {
+    font-size: 18px;
+    margin: 32px 0 12px 0;
+    padding: 8px 12px;
+    background: #2d3239;
+    border-left: 4px solid #ff6b6b;
+    border-radius: 4px;
+  }
+  h3 {
+    font-size: 15px;
+    margin: 16px 0 8px 0;
+    color: #f1f3f5;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 16px;
+    background: #212529;
+    border-radius: 6px;
+    overflow: hidden;
+    font-size: 14px;
+  }
+  th {
+    background: #343a40;
+    color: #f1f3f5;
+    padding: 10px 8px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 13px;
+    border-bottom: 2px solid #495057;
+  }
+  td {
+    padding: 9px 8px;
+    border-bottom: 1px solid #343a40;
+    color: #dee2e6;
+  }
+  tr:last-child td { border-bottom: none; }
+  /* 台股紅漲綠跌 */
+  .red { color: #ff6b6b; font-weight: 600; }       /* 漲 / 停損 / 危險 */
+  .green { color: #69db7c; font-weight: 600; }     /* 跌 / 達標 / 成功 */
+  .yellow { color: #ffc107; font-weight: 600; }    /* 警告 / 觀察 */
+  .gray { color: #adb5bd; }
+  .up { color: #ff6b6b; }
+  .down { color: #69db7c; }
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .badge-danger { background: #ff6b6b; color: #1a1d23; }
+  .badge-success { background: #69db7c; color: #1a1d23; }
+  .badge-warning { background: #ffc107; color: #1a1d23; }
+  .badge-info { background: #4dabf7; color: #1a1d23; }
+  .card {
+    background: #212529;
+    border-left: 4px solid;
+    border-radius: 6px;
+    padding: 14px 16px;
+    margin-bottom: 12px;
+  }
+  .card-danger { border-color: #ff6b6b; }
+  .card-success { border-color: #69db7c; }
+  .card-warning { border-color: #ffc107; }
+  .card-info { border-color: #4dabf4; }
+  .card h3 { margin: 0 0 8px 0; }
+  .card p { margin: 4px 0; font-size: 14px; }
+  .card .label { color: #868e96; font-size: 12px; }
+  .card .value { font-size: 16px; font-weight: 600; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  ul.checklist { list-style: none; padding: 0; margin: 0; }
+  ul.checklist li {
+    padding: 6px 0 6px 28px;
+    position: relative;
+    border-bottom: 1px solid #2d3239;
+    font-size: 14px;
+  }
+  ul.checklist li:last-child { border-bottom: none; }
+  ul.checklist li::before {
+    content: "☐";
+    position: absolute;
+    left: 4px;
+    color: #868e96;
+    font-size: 16px;
+  }
+  ul.checklist li.priority-high::before { content: "🔴"; }
+  ul.checklist li.priority-mid::before { content: "🟡"; }
+  ul.checklist li.priority-low::before { content: "🟢"; }
+  .schedule-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 8px;
+    margin-top: 8px;
+  }
+  .schedule-item {
+    background: #2d3239;
+    padding: 8px 10px;
+    border-radius: 4px;
+    font-size: 13px;
+  }
+  .schedule-item .time { color: #4dabf7; font-weight: 600; }
+  .footer-note {
+    margin-top: 32px;
+    padding-top: 16px;
+    border-top: 1px solid #343a40;
+    color: #868e96;
+    font-size: 12px;
+    text-align: center;
+  }
+  .highlight-box {
+    background: #2d3239;
+    border-radius: 6px;
+    padding: 12px 16px;
+    margin: 12px 0;
+    font-size: 14px;
+  }
+  .highlight-box strong { color: #f8f9fa; }
+  @media (max-width: 600px) {
+    body { padding: 10px; }
+    h1 { font-size: 20px; }
+    h2 { font-size: 16px; }
+    table { font-size: 13px; }
+    th, td { padding: 7px 5px; }
+    .schedule-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>🌅 9/7 (週一) 開盤前 Review</h1>
+<p class="meta">產生時間：2026-09-06 21:19｜資料截止：2026-09-04 收盤 + 9/5-9/6 週末消息｜作者：Nova</p>
+
+<!-- 1. 週末市場情緒 -->
+<h2>📊 週末市場情緒（影響 9/7 開盤）</h2>
+<p style="color:#adb5bd; font-size:13px; margin:0 0 8px 0;">9/4 週五收盤數據（週末無交易）</p>
+
+<h3>美股</h3>
+<table>
+  <thead>
+    <tr><th>指數</th><th>收盤</th><th>漲跌</th><th>觀察</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>道瓊</td><td>53,414.25</td><td class="down">▼ -0.51%</td><td class="gray">週五小回</td></tr>
+    <tr><td>S&P 500</td><td>7,718.60</td><td class="down">▼ -0.38%</td><td class="gray">持平</td></tr>
+    <tr><td>Nasdaq</td><td>26,506.99</td><td class="down">▼ -0.29%</td><td class="gray">持平</td></tr>
+    <tr><td><strong>費半 (SOX)</strong></td><td><strong>11,735.26</strong></td><td class="up"><strong>▲ +3.37%</strong></td><td><span class="badge badge-success">🔥 強勢</span> 對 2455 / 3105 利多</td></tr>
+    <tr><td>VIX</td><td>14.53</td><td class="up">▲ +1.47%</td><td class="gray">極低，市場平靜</td></tr>
+  </tbody>
+</table>
+
+<h3>亞股</h3>
+<table>
+  <thead>
+    <tr><th>市場</th><th>收盤</th><th>漲跌</th><th>觀察</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>🇹🇼 台灣加權</td><td>46,551.13</td><td class="up">▲ +1.51%</td><td class="gray">週五大漲</td></tr>
+    <tr><td>🇯🇵 日經 225</td><td>65,020.94</td><td class="up">▲ +1.26%</td><td class="gray">強勢</td></tr>
+    <tr><td>🇰🇷 韓國 KOSPI</td><td>6,687.21</td><td class="up">▲ +1.64%</td><td class="gray">強勢</td></tr>
+    <tr><td>🇭🇰 香港恒生</td><td>25,650.87</td><td class="up">▲ +1.74%</td><td class="gray">強勢</td></tr>
+    <tr><td>🇨🇳 上海綜合</td><td>3,930.12</td><td class="down">▼ -0.30%</td><td class="gray">陸股微跌</td></tr>
+    <tr><td>🇨🇳 深圳綜合</td><td>13,516.97</td><td class="down">▼ -0.79%</td><td class="gray">陸股微跌</td></tr>
+  </tbody>
+</table>
+
+<div class="highlight-box">
+<strong>整體氛圍</strong>：費半 +3.37% + 亞股週五齊揚 → 9/7 開盤 <span class="up">中性偏多</span>。<br>
+<span style="color:#868e96; font-size:13px;">注意：陸股微跌可能壓抑 00637L / 00882（陸股 ETF）。</span>
+</div>
+
+<!-- 2. 持股 — 停損觸發 -->
+<h2>🚨 持股 — 停損觸發（9/7 必須決定）</h2>
+
+<div class="card card-danger">
+  <h3>5904 寶雅 — 套 19.78% <span class="badge badge-danger">停損已觸發</span></h3>
+  <p><span class="label">9/4 收盤</span> <span class="value">71.70</span>　<span class="label">成本</span> 89.38　<span class="label">原 SL</span> 82.00（已跌破 12.7%）</p>
+  <p><span class="label">法人 20 日累積</span> <span class="green">+2,493 張</span>（越跌越買，正向背離）｜<span class="label">大盤融資 50 日</span> <span class="down">-6.41%</span>（散戶退場）</p>
+  <p><strong>技術面</strong>：MA5/10/20 = 73.78 / 74.85 / 77.44 → 空頭排列｜RSI ≈ 33.3 接近超賣</p>
+  <p><strong>🟡 Nova 建議</strong>（9/5 決策檔）：</p>
+  <ul style="margin:6px 0; padding-left:20px;">
+    <li><span class="yellow">9/7 觀察</span>：72-73 能否止穩、量能是否回升、外資是否再 +1000 張</li>
+    <li><span class="red">跌破 70</span> → A 嚴格停損（-21.7%）</li>
+    <li><span class="green">站穩 72-73 + 量增</span> → B 反彈再出（成功機率 65%）</li>
+    <li><span class="green">法人加碼訊號</span> → 改 C 加碼攤平 72-74 +1 張</li>
+  </ul>
+  <p style="font-size:12px; color:#868e96;">📄 決策檔：memory/decisions/2026-09-05_5904-寶雅-技術分析與操作決策.md</p>
+</div>
+
+<div class="card card-danger">
+  <h3>2349 錸德 — 套 27.81% <span class="badge badge-danger">停損已觸發</span></h3>
+  <p><span class="label">9/4 收盤</span> <span class="value">10.90</span>　<span class="label">成本</span> 15.10　<span class="label">SL</span> 14.35（已遠跌破）</p>
+  <p><strong>⚠️ 警示</strong>：此檔從未做過深度分析（光電），9/7 建議先決定：</p>
+  <ul style="margin:6px 0; padding-left:20px;">
+    <li>認錯出清（保護本金）</li>
+    <li>研究後再加碼（基本面派）</li>
+  </ul>
+</div>
+
+<div class="card card-danger">
+  <h3>6153 嘉聯益 — 套 14.44% <span class="badge badge-danger">停損已觸發</span></h3>
+  <p><span class="label">9/4 收盤</span> <span class="value">17.65</span>　<span class="label">成本</span> 20.63　<span class="label">SL</span> 19.58（已跌破）</p>
+  <p><strong>軟板族群</strong>。6/25 撐壓分析：60 日高 25.80 為強壓區，跌破 22.00 為中期警訊（已跌破）。</p>
+  <p><span class="yellow">9/7 觀察</span>：是否止穩 17-18 區間、軟板族群是否回溫。</p>
+</div>
+
+<!-- 3. 持股 — 正常 -->
+<h2>✅ 持股 — 正常（9/7 持續觀察）</h2>
+
+<div class="card card-info">
+  <h3>1301 台塑 <span class="badge badge-success">+20.89% 正常</span></h3>
+  <p><span class="label">9/4 收盤</span> <span class="value">65.50</span>　<span class="label">成本</span> 54.18　<span class="label">SL</span> 63.60　<span class="label">TP</span> 66.40 / 67.00 / 69.20</p>
+  <p>9/3 已減倉至 8 張（累計實現 +83,640）。<span class="up">9/7 觀察：SL 63.60 仍是關鍵支撐</span>，跌破 → 結構破壞警訊。</p>
+</div>
+
+<div class="card card-info">
+  <h3>2609 陽明 <span class="badge badge-success">+11.73% 正常</span></h3>
+  <p><span class="label">9/4 收盤</span> <span class="value">58.10</span>　<span class="label">成本</span> 52.00（剩 1 張）　<span class="label">新 TP</span> 62.73 / 64.23 / 66.00</p>
+  <p>8/20 賣 1 張 @60.10（TP2 觸發）。結構破壞改 MA20 (52.30)。<span class="up">9/7 觀察：若再漲 → TP1 62.73 接近</span>。</p>
+</div>
+
+<!-- 4. 持股 — TP 達標 -->
+<h2>🎯 持股 — TP 達標（⚠️ TP 需重算）</h2>
+
+<div class="card card-warning">
+  <h3>00637L 元大滬深300正2 <span class="badge badge-warning">+44.17% 超 TP3</span></h3>
+  <p><span class="label">9/4 收盤</span> <span class="value">20.04</span>　<span class="label">成本</span> 13.90　<span class="label">原 TP1/2/3</span> 17.64 / 17.98 / 18.32</p>
+  <p><strong style="color:#ffc107;">⚠️ TP 過時</strong>：現價 20.04 vs TP3 18.32 = <span class="up">+9.4%</span>，TP 全部已過。</p>
+  <p>部位槓桿型，陸股波動放大。9/7 注意陸股微跌壓力。</p>
+  <p><strong>🟡 9/7 必做</strong>：portfolio.yaml TP 重算上移（建議 TP1=22.00 / TP2=23.50 / TP3=25.00，依技術分析）。</p>
+</div>
+
+<div class="card card-warning">
+  <h3>00882 中信中國高股息 <span class="badge badge-warning">+20.62% 接近 TP3</span></h3>
+  <p><span class="label">9/4 收盤</span> <span class="value">15.09</span>　<span class="label">成本</span> 12.51　<span class="label">TP1/2/3</span> 14.72 / 14.92 / 15.12</p>
+  <p>現價 15.09 vs TP3 15.12 = <span class="up">差 0.03</span>（差 0.2%）。</p>
+  <p><strong>9/7 若收 15.12</strong> → 啟動 L1 鎖利機制（SL 上移至成本或 TP1）。</p>
+  <p>部位相對穩健，陸股 ETF 受陸股微跌壓力。</p>
+</div>
+
+<!-- 5. 觀察股 -->
+<h2>👀 觀察股 — 進場條件監控</h2>
+
+<table>
+  <thead>
+    <tr><th>代號</th><th>名稱</th><th>研究日期</th><th>目標價</th><th>進場條件</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>2455</strong></td>
+      <td>全新光電</td>
+      <td>2026-09-05 (v1.8)</td>
+      <td class="green">330 元</td>
+      <td>等回測月線有撐 + 法人轉買 + 800G 訂單能見度</td>
+    </tr>
+    <tr>
+      <td><strong>3105</strong></td>
+      <td>穩懋</td>
+      <td>2026-09-06 (v1.3)</td>
+      <td class="green">420 元</td>
+      <td>等 8 月營收 ≥18.5 億（9/10 前揭曉）+ 站穩 450 + 法人方向明確</td>
+    </tr>
+    <tr>
+      <td>6442</td>
+      <td>台勝科</td>
+      <td>2026-06-24</td>
+      <td class="green">2,200 元</td>
+      <td>等 7-8 月營收 > 15 億 + 站穩 MA5 (1,956) + 月線翻多</td>
+    </tr>
+    <tr>
+      <td>7749</td>
+      <td>意騰-KY</td>
+      <td>2026-07-23</td>
+      <td class="gray">待研究</td>
+      <td>等研究 + 流動性（日均量 > 1,000 張）+ 法人連買 ≥ 3 日</td>
+    </tr>
+    <tr style="opacity:0.6;">
+      <td>2887 / 3481 / 3545 / 6239 / 6770 / 7866 / 3653 / 3017 / 3324 / 2881 / 6147 / 3645 / 3062</td>
+      <td colspan="4" style="color:#868e96;">13 檔觀察股尚無 research_date（9/7 持續觀察技術面）</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- 6. 待辦 -->
+<h2>📋 待辦事項（9/7 開盤前完成）</h2>
+
+<h3>🔴 高優先（9/7 開盤前）</h3>
+<ul class="checklist">
+  <li class="priority-high">trade_journal 補登：1301 -1 張（連 4 天差異）+ 2609 -1 張（連 10 天差異）— 影響 portfolio_diff 驗證</li>
+  <li class="priority-high">00637L TP 重算：17.64-18.32 改上（已超 TP3 9.4%）</li>
+  <li class="priority-high">5904 寶雅 A/B/C 決定：9/8 開盤前，9/7 持續追蹤止穩 / 法人加碼訊號</li>
+  <li class="priority-high">2349 錸德決定：套 27.81% 是否停損 / 加碼（此檔無深度分析）</li>
+</ul>
+
+<h3>🟡 中優先（9/7 開盤後）</h3>
+<ul class="checklist">
+  <li class="priority-mid">觀察 2455 全新光電是否止穩（PE 87x 極高，現價 ~390 vs TP 330）</li>
+  <li class="priority-mid">觀察 3105 穩懋（等 8 月營收 9/10 揭曉）</li>
+  <li class="priority-mid">00882 是否觸 TP3 15.12 → 啟動 L1 鎖利</li>
+  <li class="priority-mid">6153 嘉聯益是否止穩 17-18 區間</li>
+</ul>
+
+<h3>🟢 系統驗證（9/7 自動跑）</h3>
+<ul class="checklist">
+  <li class="priority-low">03:30 融資融券（9/4 連敗修法驗證）</li>
+  <li class="priority-low">06:15 美股 Stage2（false-success pattern 觀察）</li>
+  <li class="priority-low">13:00 stop_check（9/7 即時持倉狀態）</li>
+  <li class="priority-low">23:00 portfolio_diff_daily（驗證 trade_journal 補登成功）</li>
+</ul>
+
+<!-- 7. 排程預告 -->
+<h2>⏰ 9/7 週一排程預告</h2>
+<div class="schedule-grid">
+  <div class="schedule-item"><span class="time">03:00</span> 信用交易</div>
+  <div class="schedule-item"><span class="time">03:30</span> 融資融券</div>
+  <div class="schedule-item"><span class="time">05:30</span> 技術分析總表</div>
+  <div class="schedule-item"><span class="time">06:00</span> 美股 Stage1</div>
+  <div class="schedule-item"><span class="time">06:15</span> 美股 Stage2</div>
+  <div class="schedule-item"><span class="time">07:00</span> 新聞 + 川普追蹤</div>
+  <div class="schedule-item"><span class="time">08:10</span> 盤前報告</div>
+  <div class="schedule-item"><span class="time">08:25</span> 亞股 Stage1</div>
+  <div class="schedule-item"><span class="time">08:30</span> 亞股 Stage2</div>
+  <div class="schedule-item"><span class="time">10:00</span> 新聞</div>
+  <div class="schedule-item"><span class="time">13:00</span> stop_check</div>
+  <div class="schedule-item"><span class="time">14:00</span> 新聞</div>
+  <div class="schedule-item"><span class="time">15:00</span> 台股盤後 #1</div>
+  <div class="schedule-item"><span class="time">16:30</span> 外本投本</div>
+  <div class="schedule-item"><span class="time">17:00</span> 台股盤後 #2</div>
+  <div class="schedule-item"><span class="time">19:00</span> 新聞 + 盤後 #3</div>
+  <div class="schedule-item"><span class="time">20:30</span> 台股盤後 #4</div>
+  <div class="schedule-item"><span class="time">23:00</span> portfolio_diff_daily</div>
+</div>
+
+<!-- 8. 提醒 -->
+<h2>🔔 提醒事項</h2>
+<ul style="font-size:14px; padding-left:20px;">
+  <li><strong>9/10 前</strong>：3105 穩懋 8 月營收揭曉（≥18.5 億才考慮進場）</li>
+  <li><strong>9/12</strong>：5904 寶雅一週觀察期檢核（依 9/5 決策檔）</li>
+  <li><strong>/var/crash 3 個 dump 待清</strong>（8/27 歷史 dump，非緊急）</li>
+  <li><strong>融資維持率 cron 連 12 敗治本</strong>仍待決（XQ/三竹付費方案）</li>
+</ul>
+
+<div class="footer-note">
+  📂 檔案位置：/home/mingsung/.openclaw/workspace/daily/盤前review_20260907.html<br>
+  顏色規則：台股紅漲綠跌（紅=漲/停損/危險 / 綠=跌/達標/成功）<br>
+  本檔案僅供 Nova 與 Ethan 內部使用，不對外發布
+</div>
+
+</div>
+</body>
+</html>
