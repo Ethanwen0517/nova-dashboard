@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="theme-color" content="#1a73e8">
+  <title>2026/11/18 美股盤後晨報</title>
+   <style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --blue:   #1a73e8;
+    --bg:     #f0f4f8;
+    --card:   #ffffff;
+    --text:   #2d3748;
+    --border: #e2e8f0;
+    --radius: 12px;
+    --shadow: 0 2px 8px rgba(0,0,0,.08);
+    --up:     #dc2626;  /* 2026-07-07 Ethan 修法 (rollback 7/3):台灣標準 紅漲綠跌 (.up=紅 / .dn=綠);Ethan 2026-07-07 確認台灣閱讀習慣優先於美股國際標準 */
+    --dn:     #16a34a;
+    --flat:   #6b7280;
+  }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+                 "Noto Sans TC", "PingFang TC", Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    padding: 16px;
+    font-size: 16px;
+    -webkit-text-size-adjust: 100%;
+  }
+  body > * { max-width: 900px; margin-left: auto; margin-right: auto; }
+  h1, h2 {
+    font-size: clamp(1.1rem, 4vw, 1.6rem);
+    color: var(--blue);
+    border-bottom: 2px solid var(--blue);
+    padding-bottom: 6px;
+    margin: 24px 0 12px;
+  }
+  h3 { font-size: clamp(.95rem, 3.5vw, 1.15rem); color: #444; margin: 20px 0 8px; text-align: left; }
+  p { margin: 6px 0; text-align: left; }
+  hr { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+  code { background: #f0f0f0; padding: 2px 5px; border-radius: 4px; font-size: .88em; }
+  blockquote {
+    /* 2026-07-31 Ethan 優化: 備註型 blockquote (資料日期/來源/時間/API 狀態) 改為一般內文,不佔版面 (與亞股 CSS 統一) */
+    border: none;
+    background: transparent;
+    padding: 2px 0;
+    margin: 2px 0;
+    font-size: 13px;
+    color: #555;
+    font-style: normal;
+  }
+  .table-wrap {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    margin: 12px 0 20px;
+    background: var(--card);
+  }
+  table {
+    border-collapse: collapse;
+    table-layout: auto;
+    width: 1px;
+    min-width: 100%;
+    font-size: 14px;
+  }
+  thead tr { background: var(--blue); }
+  th {
+    color: #fff;
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 600;
+    white-space: nowrap;
+    vertical-align: middle;
+    font-size: 14px;
+  }
+  td {
+    padding: 6px 14px;
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+    vertical-align: middle;
+  }
+  td .chg-pt, td .chg-pct {
+    display: block;
+    line-height: 1.4;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  td .chg-pt { font-size: 13px; }
+  .up { color: var(--up); }
+  .dn { color: var(--dn); }
+  .flat { color: var(--flat); }
+  .chg-positive { color: #dc2626; font-weight: 600; }  /* 2026-07-07 台灣標準 紅漲 */
+  .chg-negative { color: #16a34a; font-weight: 600; }  /* 2026-07-07 台灣標準 綠跌 */
+
+  /* 🎯 全域清單:flexbox 懸掛縮排,手機 PC 一致靠左 */
+  ul {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 0 16px 0 !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    text-align: left !important;
+  }
+  li {
+    display: flex !important;
+    align-items: flex-start !important;
+    gap: 8px !important;
+    margin: 6px 0 !important;
+    padding: 0 !important;
+    text-indent: 0 !important;
+    line-height: 1.6 !important;
+    text-align: left !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  li::before {
+    content: "•" !important;
+    color: #1a73e8 !important;
+    font-weight: bold !important;
+    flex-shrink: 0 !important;
+    margin-top: 2px !important;
+    min-width: 1em !important;
+  }
+
+  /* 盤勢分析區塊
+     body > * 會把所有直接子元素 margin:auto 置中
+     這裡強制覆蓋:框架從最左邊開始,寬度填滿 */
+  .analysis-section {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    box-sizing: border-box !important;
+    text-align: left !important;
+  }
+  /* 內文條列縮排 2 個中文字元,寬度跟其他區塊一致 */
+  .analysis-section ul {
+    max-width: 900px;
+    margin-left: 0 !important;
+    padding-left: 2em !important;
+    box-sizing: border-box !important;
+  }
+  /* 小標題【綜合研判】等:靠左,不跟著縮排 */
+  .analysis-section > p {
+    max-width: 900px;
+    margin: 16px 0 6px 0 !important;
+    padding-left: 0 !important;
+    line-height: 1.8 !important;
+    font-weight: bold !important;
+    text-align: left !important;
+  }
+  .analysis-section li {
+    text-align: left !important;
+  }
+  .analysis-section strong { color: #1a73e8; margin-right: 4px; }
+
+  th.pad, td.pad {
+    width: 10px !important;
+    min-width: 10px !important;
+    max-width: 10px !important;
+    padding: 0 !important;
+    background: transparent !important;
+    border: none !important;
+  }
+  tr:last-child td { border-bottom: none; }
+  tbody tr:nth-child(even) { background: #f7faff; }
+  tbody tr:hover td { background: #eef3ff; }
+  tbody tr:hover td.pad { background: transparent !important; }
+  @media (max-width: 480px) {
+    body   { padding: 10px; }
+    h2     { font-size: 1rem; }
+    h3     { font-size: .92rem; }
+    th, td { padding: 6px 10px; font-size: .75rem; }
+    td .chg-pt  { font-size: .75rem; }
+    td .chg-pct { font-size: .72rem; }
+    th.pad, td.pad { padding: 0 !important; }
+  }
+  .nova-timestamp {
+    position: fixed;
+    top: 12px; right: 16px;
+    background: #1a73e8; color: white;
+    padding: 6px 14px; border-radius: 20px;
+    font-size: 12px; font-weight: 600;
+    z-index: 9999;
+    box-shadow: 0 2px 8px rgba(0,0,0,.2);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  }
+ </style>
+</head>
+<body>
+<div class="nova-timestamp">📅 2026-11-19 06:30</div>
+<h2>📈 2026/11/18 美股盤後晨報</h2>
+<p></p>
+<h3>1️⃣ 美股三大指數</h3>
+<p></p>
+<div class="table-wrap"><table><thead><tr>
+<th>指數</th>
+<th>收盤價</th>
+<th>最高</th>
+<th>最低</th>
+<th>漲跌</th>
+<th>漲跌幅</th>
+</tr>
+</tr></thead><tbody>
+<tr>
+<td>S&P 500 (SPX)</td>
+<td>7,303.98</td>
+<td>7367.68</td>
+<td>7301.52</td>
+<td>-36.55</td>
+<td>🟢 -0.50%</td>
+</tr>
+<tr>
+<td>納斯達克 (IXIC)</td>
+<td>24,322.71</td>
+<td>24538.78</td>
+<td>24268.03</td>
+<td>-5.67</td>
+<td>🟢 -0.02%</td>
+</tr>
+<tr>
+<td>道瓊工業 (DJI)</td>
+<td>50,089.71</td>
+<td>50637.70</td>
+<td>50089.71</td>
+<td>-669.71</td>
+<td>🟢 -1.32%</td>
+</tr>
+</tbody></table></div>
+<p></p>
+<h3>2️⃣ 費城半導體指數 (SOX)</h3>
+<p></p>
+<div class="table-wrap"><table><thead><tr>
+<th>收盤價</th>
+<th>最高</th>
+<th>最低</th>
+<th>漲跌</th>
+<th>漲跌幅</th>
+</tr>
+</tr></thead><tbody>
+<tr>
+<td>9,607.27</td>
+<td>9828.19</td>
+<td>9498.39</td>
+<td>-35.61</td>
+<td>🟢 -0.37%</td>
+</tr>
+</tbody></table></div>
+<p></p>
+<h3>3️⃣ VIX 恐慌指數 & 美元指數 DXY</h3>
+<p></p>
+<div class="table-wrap"><table><thead><tr>
+<th>指標</th>
+<th>數值</th>
+<th>最高</th>
+<th>最低</th>
+<th>漲跌</th>
+<th>漲跌幅</th>
+</tr>
+</tr></thead><tbody>
+<tr>
+<td>VIX 恐慌指數</td>
+<td>24.69</td>
+<td>26.26</td>
+<td>23.47</td>
+<td>-0.77</td>
+<td>🟢 -3.02%</td>
+</tr>
+<tr>
+<td>DXY 美元指數</td>
+<td>103.83</td>
+<td>103.91</td>
+<td>103.59</td>
+<td>+0.34</td>
+<td>🔴 +0.33%</td>
+</tr>
+</tbody></table></div>
+<p></p>
+<h3>4️⃣ 原物料期貨</h3>
+<p></p>
+<div class="table-wrap"><table><thead><tr>
+<th>商品</th>
+<th>價格</th>
+<th>漲跌</th>
+<th>漲跌幅</th>
+</tr>
+</tr></thead><tbody>
+<tr>
+<td>原油 Brent (BZ=F)</td>
+<td>$89.21/桶</td>
+<td>-3.93</td>
+<td>🟢 -4.22%</td>
+</tr>
+<tr>
+<td>銅 (HG=F)</td>
+<td>$5.66/磅</td>
+<td>-0.32</td>
+<td>🟢 -5.30%</td>
+</tr>
+<tr>
+<td>黃金 (GC=F)</td>
+<td>$3,758.10/盎司</td>
+<td>-106.10</td>
+<td>🟢 -2.75%</td>
+</tr>
+<tr>
+<td>白銀 (SI=F)</td>
+<td>$44.96/盎司</td>
+<td>-2.33</td>
+<td>🟢 -4.93%</td>
+</tr>
+<tr>
+<td>黃豆 (ZS=F)</td>
+<td>$1,218.00/噸</td>
+<td>-7.50</td>
+<td>🟢 -0.61%</td>
+</tr>
+<tr>
+<td>玉米 (ZC=F)</td>
+<td>$441.25/噸</td>
+<td>-5.50</td>
+<td>🟢 -1.23%</td>
+</tr>
+<tr>
+<td>小麥 (ZW=F)</td>
+<td>$593.75/噸</td>
+<td>-1.50</td>
+<td>🟢 -0.25%</td>
+</tr>
+</tbody></table></div>
+<p></p>
+<h3>5️⃣ 💱 匯率（台灣銀行）</h3>
+<p></p>
+<div class="table-wrap"><table><thead><tr>
+<th>幣別</th>
+<th>即期買入</th>
+<th>即期賣出</th>
+</tr>
+</tr></thead><tbody>
+<tr>
+<td>USD</td>
+<td>32.8700</td>
+<td>33.0200</td>
+</tr>
+<tr>
+<td>JPY</td>
+<td>0.2044</td>
+<td>0.2094</td>
+</tr>
+<tr>
+<td>EUR</td>
+<td>35.8650</td>
+<td>36.4650</td>
+</tr>
+<tr>
+<td>CNY</td>
+<td>4.9110</td>
+<td>4.9710</td>
+</tr>
+<tr>
+<td>HKD</td>
+<td>4.1650</td>
+<td>4.2350</td>
+</tr>
+<tr>
+<td>AUD</td>
+<td>21.9450</td>
+<td>22.2900</td>
+</tr>
+</tbody></table></div>
+<p></p>
+<h3>6️⃣ 美債殖利率（月度對照）</h3>
+<p></p>
+<div class="table-wrap"><table><thead><tr>
+<th>債券類型</th>
+<th>上月殖利率</th>
+<th>最新殖利率</th>
+<th>月變動</th>
+<th>月變動率</th>
+<th>狀態</th>
+</tr>
+</tr></thead><tbody>
+<tr>
+<td>3 個月期 (US3M)</td>
+<td>4.07%</td>
+<td>4.15%</td>
+<td>+0.07%</td>
+<td>+1.77%</td>
+<td>🔺 高位盤整</td>
+</tr>
+<tr>
+<td>2 年期 (US2Y)</td>
+<td>4.75%</td>
+<td>4.75%</td>
+<td>+0.00%</td>
+<td>+0.00%</td>
+<td>➡️ 高位盤整</td>
+</tr>
+<tr>
+<td>10 年期 (US10Y)</td>
+<td>5.14%</td>
+<td>5.07%</td>
+<td>-0.06%</td>
+<td>-1.25%</td>
+<td>🔻 注意科技股估值壓力</td>
+</tr>
+<tr>
+<td>30 年期 (US30Y)</td>
+<td>5.47%</td>
+<td>5.42%</td>
+<td>-0.05%</td>
+<td>-0.91%</td>
+<td>🔻 高位盤整</td>
+</tr>
+</tbody></table></div>
+<p></p>
+<blockquote><strong>10Y-2Y 利差：+0.32%</strong> — 利差正常 (+0.32%)</blockquote>
+<p></p>
+<h3 class="analysis-section">7️⃣ 盤勢分析</h3>
+<div class="analysis-section">
+<p></p>
+<p><strong>🟢 利多因素：</strong></p>
+<p>1. <strong>三大指數同步守住了前一日低點（賣壓衰竭的第一個訊號）</strong>：S&P 低 7,301.52 高於 11/17 低點 7,288.34（+13.18 點）、納指低 24,268.03 高於 23,989.09（+278.94 點）、SOX 低 9,498.39 高於 9,295.01（+203.38 點）——連三個交易日以來第一次出現「不破前低」，空方延伸段在指數層級中斷（唯一例外是道瓊）。</p>
+<p>2. <strong>SOX 第二次挑戰 9,500 失敗並收復</strong>：盤中低 9,498.39 只差 1.61 點跌破 9,500，收 9,607.27（-35.61、-0.37%），自低點反彈 1.15%，收在當日區間 33% 位置；11/17 同樣是跌破 9,500 後收回（當時低 9,295.01、收 9,642.88），9,500 已被連兩日證偽為有效支撐。</p>
+<p>3. <strong>納指幾乎收平、與道瓊拉開 1.30 個百分點</strong>：納指收 24,322.71（-5.67、-0.02%），對比道瓊 -1.32%、S&P -0.50%、SOX -0.37%——賣壓集中在價值／循環端，AI／科技主線沒有被一起拖下水。</p>
+<p>4. <strong>VIX 收斂 3.02% 且遠離盤中高點</strong>：VIX 收 24.69（-0.77），盤中最高 26.26、最低 23.47，收在當日區間 43.7% 位置，較高點回落 1.57 點；即使道瓊收在當日最低點，波動率沒有同步走高，沒有出現無序拋售。</p>
+<p>5. <strong>長端利率續降、沒有二次殺估值的條件</strong>：最新 10Y 5.07%（前一檔 5.10%）、30Y 5.42%（前一檔 5.46%）、2Y 4.75% 完全不動，利差由 +0.35% 收斂至 +0.32%——股跌而長債被買，是資金往債券搬，不是利率反轉壓估值。</p>
+<p>6. <strong>商品端是通膨降壓而非全面崩壞</strong>：Brent $89.21（-4.22%）跌破 90、銅 $5.66（-5.30%）再度失守 6 美元；油銅齊跌對長端利率是實質降壓（10Y 回落即是印證），與 VIX 回落、長端回落同一組訊號，屬需求疑慮型而非通膨反撲型賣壓。</p>
+<p></p>
+<p><strong>🔴 利空因素：</strong></p>
+<p>1. <strong>道瓊是唯一破底者，而且直接收在當日最低點</strong>：收 50,089.71（-669.71、-1.32%），低點就是收盤價（區間 0% 位置）；盤中最高 50,637.70 仍低於前收 50,759.42，全天沒有回到前收之上，且低點 50,089.71 較 11/17 的 50,566.98 再破新低 477.27 點——價值／循環端仍在單邊被賣。</p>
+<p>2. <strong>S&P 與納指收盤都貼著當日低點</strong>：S&P 收 7,303.98 距低點 7,301.52 僅 2.46 點（全日振幅 66.16 點的 3.7%），納指收 24,322.71 位於區間 20.2%——尾盤沒有拉回，賣壓一路吃到收盤。</p>
+<p>3. <strong>黃金白銀跟著一起跌，是去槓桿不是避險</strong>：黃金 $3,758.10（-2.75%）、白銀 $44.96（-4.93%）、銅 $5.66（-5.30%）、Brent $89.21（-4.22%）四者同跌——真正的風險厭惡應該是油跌但金銀漲，實際數據是貴金屬也被賣，屬保證金追繳／部位清算型賣壓。</p>
+<p>4. <strong>美元走強、亞洲貨幣全面走弱</strong>：DXY 收 103.83（+0.34、+0.33%），為本波最高，收在當日區間 75% 位置；台銀 USD 即期買入由 32.7750 升到 32.8700（+0.29%，新台幣轉弱）、CNY 由 4.8990 升到 4.9110（+0.24%）、JPY 由 0.2037 升到 0.2044、EUR 35.8450→35.8650、AUD 21.9650→21.9450——資金往美元與日圓搬。</p>
+<p>5. <strong>VIX 仍在 20 之上、避險溢價尚未釋放</strong>：收 24.69，較 11/13 的 19.30 仍高 27.9%；三天的反彈都沒把恐慌壓回常態區。</p>
+<p>6. <strong>曲線變平，且是短端上移帶動</strong>：3 個月 4.14%→4.15%（四段中唯一上移）、10Y 5.10%→5.07%、30Y 5.46%→5.42%，10Y-2Y 利差 +0.35%→+0.32%——股票下跌伴隨長端被買、息差收斂，指向成長疑慮而非通膨反撲。</p>
+<p>7. <strong>三日累計仍在深水區</strong>：以 11/16 檔自身的日漲跌欄回推 11/13 收盤（S&P 7,561.67、納指 25,136.27、道瓊 52,347.55、SOX 10,146.32）計算，S&P -3.41%、納指 -3.24%、道瓊 -4.31%、SOX -5.31%；若改用 11/12 收盤 SOX 10,506.67 為基準則 SOX -8.56%——跌幅集中在半導體與道瓊，指數層級的修復才剛開始。</p>
+<p>8. <strong>⚠️ 數據提醒（勿自行相減）</strong>：本檔商品「漲跌／漲跌幅」欄與前一檔收盤不完全接軌（Brent 前檔 92.94 −3.93 得 89.01 ≠ 89.21；黃金 3,853.00 −106.10 得 3,746.90 ≠ 3,758.10；小麥 610.25 −1.50 得 608.75 ≠ 593.75；銅 6.00 −0.32 得 5.68 ≠ 5.66），推測是期貨近月換月或取價基準變動，商品漲跌一律以本檔自身欄位為準，不與前檔收盤相減。DXY 前檔 103.54、今日 103.83（欄位寫 +0.34／+0.33%），實際落差約 +0.29，別誤讀成更強的美元攻勢。指數與 VIX 的漲跌欄則與前檔完全接軌（S&P −36.55、納指 −5.67、道瓊 −669.71、SOX −35.61、VIX −0.77 都對得上前檔收盤），可安心相減。第 6 節美債表為「上月 vs 最新」月度對照，上述 10Y 5.10%→5.07% 是拿兩檔「最新」欄互減所得，不是本表的月變動欄。</p>
+<p></p>
+<p><strong>📊 綜合研判：</strong></p>
+<p>本檔涵蓋 11/18（週三）美股收盤，是「去槓桿進入尾聲、但還沒轉多」的一天。判斷依據是結構而非跌幅：跌勢幾乎全部集中在道瓊（-1.32%，收在當日最低點、低點再破 11/17 的 50,566.98 達 477.27 點）與商品（Brent -4.22%、銅 -5.30%、黃金 -2.75%、白銀 -4.93%），而 S&P 收 7,303.98（-0.50%）、納指 24,322.71（-0.02%）、SOX 9,607.27（-0.37%）幾乎沒跌，S&P／納指／SOX 更同時守住前一日低點不再破低（+13.18／+278.94／+203.38 點）。搭配 VIX 收 24.69（-3.02%）與 10Y 回落至 5.07%，說明這不是新的宏觀風險事件——若是的話長債與美元應該同漲、油金齊漲，實際是長債被買、美元與油金一起跌，屬估值與保證金的清算尾段，賣方力氣在衰退而非加速。</p>
+<p></p>
+<p>但「止跌」不等於「反轉」，這段距離不能跳過：道瓊仍在破新低且收在最低點、S&P 只守住 7,300 整數關不到 4 點（收 7,303.98、低 7,301.52）、VIX 24.69 仍在 20 之上且較 11/13 高 27.9%、金銀同跌顯示保證金賣壓還沒完全出清、三日累計道瓊 -4.31%、SOX -5.31%（以 11/12 收盤為基準則 -8.56%）仍在深水區。短線定義性關卡很清楚：S&P 的 7,300 與前低 7,288.34、納指的 24,000（今低 24,268.03 未破）、SOX 的 9,500（今低 9,498.39 只差 1.61 點）三條線同時守住，且道瓊不再跌破 50,000 之下並收盤離開當日最低點，空方延伸段才算正式斷掉；在那之前，任何反彈先當作空頭回補看待。</p>
+<p></p>
+<p><strong>⚠️ 觀察重點：</strong></p>
+<p>1. <strong>三條關卡 + 道瓊 50,000 的收盤位置</strong>：S&P 收 7,303.98（低 7,301.52）要守住 7,300 與前低 7,288.34、納指 24,000（今低 24,268.03）、SOX 9,500（今低 9,498.39，差 1.61 點）——任一失守就是第四段殺跌的起點；反向確認則是道瓊收 50,089.71 不再收在當日最低點並守回 50,000 之上（今日距整數關僅 89.71 點）。</p>
+<p>2. <strong>VIX 24.69 + DXY 103.83 + 10Y 5.07% 三件套</strong>：VIX 跌回 20 之下、DXY 回落 103.59（今低）之下、10Y 續往 5.05% 以下走，三者同時出現＝壓力鬆動的可交易訊號；反之 VIX 破 26.26（今高）、DXY 破 103.91（今高）、黃金續跌破 $3,758.10，則代表去槓桿尚未收尾。</p>
+<p>3. <strong>本週事件（沿用 11/16 檔已確認清單）</strong>：輝達財報、FOMC 會議紀錄、Anthropic 掛牌上市，另有 NVIDIA 晶片出口中國的國會聽證與川普擬公布 AI 國家隊名單；在半導體三日 -5.31%（以 11/12 計 -8.56%）、SOX 連兩日在 9,500 止跌的背景下，這些訊號決定 AI 主線是回補（SOX 有機會挑戰 9,828.19 今高）還是續跌（9,498.39 今低就是下一個目標）。</p>
+<p></p>
+</div>
+<h3>📋 數據驗證</h3>
+<p></p>
+<ul>
+<li><strong>缺失欄位：</strong> 無（全部欄位正常）</li>
+<li><strong>數據來源：</strong> Yahoo Finance API、台灣銀行 CSV API</li>
+<li><strong>生成時間：</strong> 2026-11-19 06:00:10 (Asia/Taipei)</li>
+</ul>
+<p></p>
+</body>
+</html>
