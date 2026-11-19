@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: "Noto Sans TC", "PingFang TC", sans-serif; font-size: 18px; line-height: 1.5; color: #1a1a2e; background: #f8faff; }
+.wrap { max-width: 900px; margin: 0 auto; padding: 10px 8px; }
+h1 { font-size: 18px; color: #0f2c6e; border-bottom: 2px solid #2d6be8; padding-bottom: 6px; margin-bottom: 14px; }
+section { margin-bottom: 18px; }
+h2 { font-size: 14px; color: #1a4db8; margin-bottom: 8px; }
+.row { display: flex; gap: 10px; }
+.col { flex: 1; min-width: 0; }
+table { width: 100%; table-layout: fixed; border-collapse: collapse; margin-top: 4px; font-size: 14px; }
+th, td { padding: 4px 5px; border: 1px solid #c8d8f0; word-wrap: break-word; }
+th { background: #1a4db8; color: white; font-weight: 600; text-align: center; }
+td { text-align: center; }
+tr:nth-child(even) td { background: #f0f4ff; }
+.badge { display: inline-block; padding: 1px 6px; border-radius: 10px; font-size: 13px; font-weight: 600; }
+.green { background: #4caf50; color: white; }
+.blue { background: #2196f3; color: white; }
+.gray { background: #9e9e9e; color: white; }
+.red { background: #e53935; color: white; }
+.orange { background: #fb8c00; color: white; }
+.sub { font-size: 11px; color: #888; margin-bottom: 6px; font-weight: 600; }
+.sub.top { color: #2e7d32; }
+.sub.down { color: #c62828; }
+.up-note { color: #e53935; font-weight: 700; margin-left: 2px; }  /* 🆕 台股規則: 紅色 = 好事 */
+.down-note { color: #2e7d32; font-weight: 700; margin-left: 2px; }  /* 🆕 台股規則: 綠色 = 壞事 */
+.legend { font-size: 11px; color: #888; margin-top: 6px; }
+.portfolio-section table { font-size: 12px; }
+.portfolio-section th, .portfolio-section td { padding: 3px 4px; }
+.table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.portfolio-section .portfolio-table { min-width: 680px; }
+.portfolio-section .portfolio-table th:first-child,
+.portfolio-section .portfolio-table td:first-child { position: sticky; left: 0; z-index: 3; background: #fff; box-shadow: 2px 0 3px rgba(0,0,0,0.08); }
+.portfolio-section .portfolio-table th:nth-child(2),
+.portfolio-section .portfolio-table td:nth-child(2) { position: sticky; left: 60px; z-index: 3; background: #fff; box-shadow: 2px 0 3px rgba(0,0,0,0.08); }
+.portfolio-section .portfolio-table tbody tr:nth-child(even) td:first-child,
+.portfolio-section .portfolio-table tbody tr:nth-child(even) td:nth-child(2) { background: #f0f4ff; }
+.portfolio-section .portfolio-table th:first-child { background: #1a4db8; color: white; }
+.portfolio-section .portfolio-table th:nth-child(2) { background: #1a4db8; color: white; }
+footer { font-size: 11px; color: #888; text-align: right; margin-top: 16px; border-top: 1px solid #c8d8f0; padding-top: 6px; }
+@media (max-width: 600px) {
+  .row { flex-direction: column; }
+  body { font-size: 16px; }
+  table { font-size: 13px; }
+  th, td { padding: 3px 4px; }
+}
+</style></head><body><div class="wrap">
+<h1>📊 2026/11/19 外本比 / 投本比</h1>
+
+<section>
+<h2>🏆 外資買賣超</h2>
+<div class="row">
+<div class="col">
+<div class="sub top">▲ 買超 Top 15（外本比 高→低）</div>
+<table><thead><tr><th>#</th><th>代號</th><th>名稱</th><th>買賣超</th><th>外本比</th></tr></thead><tbody>
+<tr><td>1</td><td>2471</td><td>資通</td><td>2.0千</td><td><span class="badge red">4.32%</span></td></tr>
+<tr><td>2</td><td>6148</td><td>驊宏資</td><td>1.5千</td><td><span class="badge red">3.30%</span></td></tr>
+<tr><td>3</td><td>8227</td><td>巨有科技</td><td>602</td><td><span class="badge orange">1.52%</span></td></tr>
+<tr><td>4</td><td>6782</td><td>視陽</td><td>788</td><td><span class="badge gray">1.25%</span></td></tr>
+<tr><td>5</td><td>2492</td><td>華新科</td><td>5.9千</td><td><span class="badge gray">1.22%</span></td></tr>
+<tr><td>6</td><td>6538</td><td>倉和</td><td>376</td><td><span class="badge gray">0.95%</span></td></tr>
+<tr><td>7</td><td>5386</td><td>青雲</td><td>418</td><td><span class="badge gray">0.77%</span></td></tr>
+<tr><td>8</td><td>8096</td><td>擎亞</td><td>1.1千</td><td><span class="badge gray">0.74%</span></td></tr>
+<tr><td>9</td><td>6207</td><td>雷科</td><td>664</td><td><span class="badge gray">0.71%</span></td></tr>
+<tr><td>10</td><td>2481</td><td>強茂</td><td>2.7千</td><td><span class="badge gray">0.70%</span></td></tr>
+<tr><td>11</td><td>8043</td><td>蜜望實</td><td>558</td><td><span class="badge gray">0.70%</span></td></tr>
+<tr><td>12</td><td>3167</td><td>大量</td><td>606</td><td><span class="badge gray">0.68%</span></td></tr>
+<tr><td>13</td><td>6925</td><td>意藍</td><td>135</td><td><span class="badge gray">0.68%</span></td></tr>
+<tr><td>14</td><td>2355</td><td>敬鵬</td><td>2.6千</td><td><span class="badge gray">0.66%</span></td></tr>
+<tr><td>15</td><td>6127</td><td>九豪</td><td>716</td><td><span class="badge gray">0.66%</span></td></tr>
+</tbody></table></div>
+<div class="col">
+<div class="sub down">▼ 賣超 Tail 15（外本比 低→高）</div>
+<table><thead><tr><th>#</th><th>代號</th><th>名稱</th><th>買賣超</th><th>外本比</th></tr></thead><tbody>
+<tr><td>1</td><td>4977</td><td>眾達-KY</td><td>-1.8千</td><td><span class="badge blue">-2.03%</span></td></tr>
+<tr><td>2</td><td>4916</td><td>事欣科</td><td>-2.0千</td><td><span class="badge blue">-1.61%</span></td></tr>
+<tr><td>3</td><td>2468</td><td>華經</td><td>-1.1千</td><td><span class="badge blue">-1.55%</span></td></tr>
+<tr><td>4</td><td>7788</td><td>松川精密</td><td>-1.1千</td><td><span class="badge gray">-1.38%</span></td></tr>
+<tr><td>5</td><td>3028</td><td>增你強</td><td>-3.2千</td><td><span class="badge gray">-1.34%</span></td></tr>
+<tr><td>6</td><td>6456</td><td>GIS-KY</td><td>-4.5千</td><td><span class="badge gray">-1.32%</span></td></tr>
+<tr><td>7</td><td>1802</td><td>台玻</td><td>-3.8萬</td><td><span class="badge gray">-1.31%</span></td></tr>
+<tr><td>8</td><td>1528</td><td>恩德</td><td>-2.5千</td><td><span class="badge gray">-1.29%</span></td></tr>
+<tr><td>9</td><td>4927</td><td>泰鼎-KY</td><td>-2.5千</td><td><span class="badge gray">-0.93%</span></td></tr>
+<tr><td>10</td><td>5243</td><td>乙盛-KY</td><td>-1.4千</td><td><span class="badge gray">-0.84%</span></td></tr>
+<tr><td>11</td><td>3305</td><td>昇貿</td><td>-1.2千</td><td><span class="badge gray">-0.84%</span></td></tr>
+<tr><td>12</td><td>6269</td><td>台郡</td><td>-2.6千</td><td><span class="badge gray">-0.80%</span></td></tr>
+<tr><td>13</td><td>6112</td><td>邁達特</td><td>-964</td><td><span class="badge gray">-0.79%</span></td></tr>
+<tr><td>14</td><td>4956</td><td>光鋐</td><td>-690</td><td><span class="badge gray">-0.69%</span></td></tr>
+<tr><td>15</td><td>6209</td><td>今國光</td><td>-1.2千</td><td><span class="badge gray">-0.68%</span></td></tr>
+</tbody></table></div>
+</div>
+</section>
+
+<section>
+<h2>🏆 投信買賣超</h2>
+<div class="row">
+<div class="col">
+<div class="sub top">▲ 買超 Top 15（投本比 高→低）</div>
+<table><thead><tr><th>#</th><th>代號</th><th>名稱</th><th>買賣超</th><th>投本比</th></tr></thead><tbody>
+<tr><td>1</td><td>3028</td><td>增你強</td><td>3.1千</td><td><span class="badge red">1.29%</span></td></tr>
+<tr><td>2</td><td>7788</td><td>松川精密</td><td>930</td><td><span class="badge red">1.17%</span></td></tr>
+<tr><td>3</td><td>3665</td><td>貿聯-KY</td><td>1.5千</td><td><span class="badge red">0.77%</span></td></tr>
+<tr><td>4</td><td>8016</td><td>矽創</td><td>699</td><td><span class="badge red">0.58%</span></td></tr>
+<tr><td>5</td><td>6285</td><td>啟碁</td><td>2.7千</td><td><span class="badge red">0.55%</span></td></tr>
+<tr><td>6</td><td>1476</td><td>儒鴻</td><td>1.4千</td><td><span class="badge red">0.51%</span></td></tr>
+<tr><td>7</td><td>6187</td><td>萬潤</td><td>453</td><td><span class="badge orange">0.46%</span></td></tr>
+<tr><td>8</td><td>6691</td><td>洋基工程</td><td>484</td><td><span class="badge orange">0.36%</span></td></tr>
+<tr><td>9</td><td>3030</td><td>德律</td><td>853</td><td><span class="badge orange">0.36%</span></td></tr>
+<tr><td>10</td><td>2451</td><td>創見</td><td>1.5千</td><td><span class="badge orange">0.34%</span></td></tr>
+<tr><td>11</td><td>2441</td><td>超豐</td><td>1.7千</td><td><span class="badge orange">0.31%</span></td></tr>
+<tr><td>12</td><td>3702</td><td>大聯大</td><td>5.3千</td><td><span class="badge orange">0.30%</span></td></tr>
+<tr><td>13</td><td>3596</td><td>智易</td><td>646</td><td><span class="badge orange">0.29%</span></td></tr>
+<tr><td>14</td><td>2027</td><td>大成鋼</td><td>7.3千</td><td><span class="badge orange">0.28%</span></td></tr>
+<tr><td>15</td><td>3152</td><td>璟德</td><td>105</td><td><span class="badge orange">0.27%</span></td></tr>
+</tbody></table></div>
+<div class="col">
+<div class="sub down">▼ 賣超 Tail 15（投本比 低→高）</div>
+<table><thead><tr><th>#</th><th>代號</th><th>名稱</th><th>買賣超</th><th>投本比</th></tr></thead><tbody>
+<tr><td>1</td><td>2492</td><td>華新科</td><td>-3.9千</td><td><span class="badge green">-0.80%</span></td></tr>
+<tr><td>2</td><td>2481</td><td>強茂</td><td>-2.4千</td><td><span class="badge green">-0.64%</span></td></tr>
+<tr><td>3</td><td>2428</td><td>興勤</td><td>-748</td><td><span class="badge green">-0.58%</span></td></tr>
+<tr><td>4</td><td>2476</td><td>鉅祥</td><td>-903</td><td><span class="badge blue">-0.41%</span></td></tr>
+<tr><td>5</td><td>3090</td><td>日電貿</td><td>-945</td><td><span class="badge blue">-0.33%</span></td></tr>
+<tr><td>6</td><td>8070</td><td>長華*</td><td>-2.3千</td><td><span class="badge blue">-0.32%</span></td></tr>
+<tr><td>7</td><td>3167</td><td>大量</td><td>-281</td><td><span class="badge blue">-0.31%</span></td></tr>
+<tr><td>8</td><td>3617</td><td>碩天</td><td>-286</td><td><span class="badge blue">-0.30%</span></td></tr>
+<tr><td>9</td><td>4915</td><td>致伸</td><td>-1.4千</td><td><span class="badge blue">-0.30%</span></td></tr>
+<tr><td>10</td><td>8021</td><td>尖點</td><td>-432</td><td><span class="badge blue">-0.28%</span></td></tr>
+<tr><td>11</td><td>3026</td><td>禾伸堂</td><td>-451</td><td><span class="badge blue">-0.27%</span></td></tr>
+<tr><td>12</td><td>2408</td><td>南亞科</td><td>-6.5千</td><td><span class="badge blue">-0.21%</span></td></tr>
+<tr><td>13</td><td>9904</td><td>寶成</td><td>-5.1千</td><td><span class="badge gray">-0.17%</span></td></tr>
+<tr><td>14</td><td>2327</td><td>國巨*</td><td>-2.8千</td><td><span class="badge gray">-0.13%</span></td></tr>
+<tr><td>15</td><td>8215</td><td>明基材</td><td>-420</td><td><span class="badge gray">-0.13%</span></td></tr>
+</tbody></table></div>
+</div>
+</section>
+
+<section class="portfolio-section">
+<h2>🏠 庫存股 / 觀察股 法人動態</h2>
+<div class="sub">🏠 庫存股（持倉）</div>
+<div class="table-scroll">
+<table class="portfolio-table"><thead><tr><th>代號</th><th>名稱</th><th>外(張)</th><th>外本比</th><th>投(張)</th><th>投本比</th><th>外20日</th><th>投20日</th></tr></thead><tbody>
+<tr><td>6153</td><td>嘉聯益</td><td>-2.3千<span class='down-note'>▼</span></td><td><span class="badge gray">-0.37%</span></td><td>0</td><td><span class="badge gray">0.00%</span></td><td><span class="down-note">-6,895▼</span></td><td>+0</td></tr>
+<tr><td>2349</td><td>錸德</td><td>-294</td><td><span class="badge gray">-0.04%</span></td><td>0</td><td><span class="badge gray">0.00%</span></td><td><span class="down-note">-4,555▼</span></td><td>+0</td></tr>
+<tr><td>1301</td><td>台塑</td><td>-3.6千<span class='down-note'>▼</span></td><td><span class="badge gray">-0.06%</span></td><td>206</td><td><span class="badge gray">0.00%</span></td><td><span class="down-note">-40,369▼</span></td><td><span class="up-note">+18,368▲</span></td></tr>
+<tr><td>2609</td><td>陽明</td><td>2.2千<span class='up-note'>▲</span></td><td><span class="badge gray">0.06%</span></td><td>-1.6千<span class='down-note'>▼</span></td><td><span class="badge gray">-0.05%</span></td><td><span class="up-note">+55,609▲</span></td><td><span class="down-note">-5,983▼</span></td></tr>
+<tr><td>5904</td><td>寶雅</td><td>1.2千<span class='up-note'>▲</span></td><td><span class="badge gray">0.11%</span></td><td>0</td><td><span class="badge gray">0.00%</span></td><td><span class="up-note">+29,431▲</span></td><td><span class="up-note">+950▲</span></td></tr></tbody></table></div>
+<div class="sub">🏠 觀察股</div>
+<div class="table-scroll">
+<table class="portfolio-table"><thead><tr><th>代號</th><th>名稱</th><th>外(張)</th><th>外本比</th><th>投(張)</th><th>投本比</th><th>外20日</th><th>投20日</th></tr></thead><tbody>
+<tr><td>3062</td><td>建漢</td><td>-658</td><td><span class="badge gray">-0.20%</span></td><td>5</td><td><span class="badge gray">0.00%</span></td><td><span class="down-note">-1,919▼</span></td><td><span class="up-note">+10▲</span></td></tr>
+<tr><td>3481</td><td>群創</td><td>-1.2萬<span class='down-note'>▼</span></td><td><span class="badge gray">-0.15%</span></td><td>-54</td><td><span class="badge gray">-0.00%</span></td><td><span class="down-note">-25,093▼</span></td><td><span class="down-note">-7,232▼</span></td></tr>
+<tr><td>3545</td><td>敦泰</td><td>-215</td><td><span class="badge gray">-0.10%</span></td><td>3</td><td><span class="badge gray">0.00%</span></td><td><span class="down-note">-16▼</span></td><td><span class="up-note">+12▲</span></td></tr>
+<tr><td>3645</td><td>達邁</td><td>102</td><td><span class="badge gray">0.07%</span></td><td>0</td><td><span class="badge gray">0.00%</span></td><td><span class="up-note">+369▲</span></td><td>+0</td></tr>
+<tr><td>6239</td><td>力成</td><td>446</td><td><span class="badge gray">0.06%</span></td><td>767<span class='up-note'>▲</span></td><td><span class="badge gray">0.10%</span></td><td><span class="up-note">+1,024▲</span></td><td><span class="up-note">+4,425▲</span></td></tr>
+<tr><td>6770</td><td>力積電</td><td>4.5千<span class='up-note'>▲</span></td><td><span class="badge gray">0.10%</span></td><td>64</td><td><span class="badge gray">0.00%</span></td><td><span class="down-note">-89,046▼</span></td><td><span class="up-note">+6,359▲</span></td></tr>
+<tr><td>3653</td><td>健策</td><td>854</td><td><span class="badge gray">0.58%</span></td><td>-142</td><td><span class="badge gray">-0.10%</span></td><td><span class="down-note">-1,550▼</span></td><td><span class="up-note">+1,255▲</span></td></tr>
+<tr><td>3017</td><td>奇鋐</td><td>342</td><td><span class="badge gray">0.09%</span></td><td>392</td><td><span class="badge gray">0.10%</span></td><td><span class="down-note">-6,936▼</span></td><td><span class="up-note">+6,158▲</span></td></tr>
+<tr><td>3324</td><td>雙鴻</td><td>0</td><td><span class="badge gray">0.00%</span></td><td>10</td><td><span class="badge gray">0.01%</span></td><td><span class="up-note">+5,581▲</span></td><td><span class="up-note">+1,141▲</span></td></tr>
+<tr><td>6147</td><td>頎邦</td><td>0</td><td><span class="badge gray">0.00%</span></td><td>159</td><td><span class="badge gray">0.02%</span></td><td><span class="up-note">+29,393▲</span></td><td><span class="up-note">+13,030▲</span></td></tr>
+<tr><td>2009</td><td>第一銅</td><td>-206</td><td><span class="badge gray">-0.06%</span></td><td>0</td><td><span class="badge gray">0.00%</span></td><td><span class="down-note">-3,694▼</span></td><td>+0</td></tr>
+<tr><td>2409</td><td>友達</td><td>1.9萬<span class='up-note'>▲</span></td><td><span class="badge gray">0.25%</span></td><td>202</td><td><span class="badge gray">0.00%</span></td><td><span class="down-note">-115,531▼</span></td><td><span class="up-note">+18,495▲</span></td></tr>
+<tr><td>6442</td><td>光聖</td><td>-104</td><td><span class="badge gray">-0.13%</span></td><td>50</td><td><span class="badge gray">0.06%</span></td><td><span class="up-note">+560▲</span></td><td><span class="down-note">-133▼</span></td></tr>
+<tr><td>7749</td><td>意騰-KY</td><td>47</td><td><span class="badge gray">0.10%</span></td><td>0</td><td><span class="badge gray">0.00%</span></td><td><span class="up-note">+39▲</span></td><td><span class="down-note">-53▼</span></td></tr>
+<tr><td>2455</td><td>全新光電</td><td>133</td><td><span class="badge gray">0.07%</span></td><td>-14</td><td><span class="badge gray">-0.01%</span></td><td><span class="down-note">-2,217▼</span></td><td><span class="up-note">+1,823▲</span></td></tr>
+<tr><td>3105</td><td>穩懋</td><td>0</td><td><span class="badge gray">0.00%</span></td><td>353</td><td><span class="badge gray">0.08%</span></td><td><span class="up-note">+36,573▲</span></td><td><span class="up-note">+7,710▲</span></td></tr></tbody></table></div>
+<div class="legend">
+<span class="badge red">▲</span> 大額買超（台股紅色） / <span class="badge green">▼</span> 大額賣超（台股綠色）（外資 &gt;1,000張 / 投信 &gt;500張）
+</div>
+</section>
+
+<footer>資料來源：證交所 │ 生成時間 2026/11/19 16:30 (Asia/Taipei)</footer>
+</div></body></html>
